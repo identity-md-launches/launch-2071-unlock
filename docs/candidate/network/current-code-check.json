@@ -1,0 +1,28 @@
+{
+  "source": "https://ethereum-sepolia-rpc.publicnode.com",
+  "observedDate": "2026-10-15",
+  "observedHeadBlock": 11920088,
+  "note": "Batch latest-code verification; head may advance during batch. Historical fork uses exact block 11918468.",
+  "contracts": {
+    "router": {
+      "matchesBlock11918468": true,
+      "runtimeKeccak256": "0x14f7c9253a5406bafa90cb512f4a2db2a10513886603e7a9b4a2e72329e944f4",
+      "runtimeBytes": 19540
+    },
+    "quoter": {
+      "matchesBlock11918468": true,
+      "runtimeKeccak256": "0xf481a751ac453d40c46d12360b85b05472028c1b113ab63749d69a5f8b0e47d1",
+      "runtimeBytes": 5820
+    },
+    "manager": {
+      "matchesBlock11918468": true,
+      "runtimeKeccak256": "0x09930125a49f5b95caf8052991cc14d1240dca8b43f42b899115b86867e4bce1",
+      "runtimeBytes": 24009
+    },
+    "permit2": {
+      "matchesBlock11918468": true,
+      "runtimeKeccak256": "0x96d9f5c3f0fb0423426b7f970186235b7347027f4e5c19c40c412b7d97fc3751",
+      "runtimeBytes": 9152
+    }
+  }
+}

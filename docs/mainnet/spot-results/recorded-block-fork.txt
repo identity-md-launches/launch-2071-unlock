@@ -1,0 +1,413 @@
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 23.37s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> src/mainnet/UnlkImdHook.sol:214:5:
+    |
+214 |     function afterInitialize(address, PoolKey calldata key, uint160, int24)
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> src/mainnet/UnlkImdHook.sol:544:5:
+    |
+544 |     function afterAddLiquidity(
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> src/mainnet/UnlkImdHook.sol:556:5:
+    |
+556 |     function beforeRemoveLiquidity(
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> src/mainnet/UnlkImdHook.sol:569:5:
+    |
+569 |     function afterRemoveLiquidity(
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+  --> test/mainnet/ImdPermitAndBatch.t.sol:57:5:
+   |
+57 |     function _signPermit(IPermit2Signing.Permit memory permit, uint256 signingKey)
+   |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 43 tests for test/scratch/unlock-gates/MainnetHandoff.t.sol:MainnetHandoffRehearsal
+[PASS] testActivatedImmediatelyFromRecordedCurrentState() (gas: 75052)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testActualFactoryNameSupplyAndExactDistributionProvenance() (gas: 99147)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testAllFourModesAndFeeInclusiveQuoter() (gas: 2473939)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testBatchCreditsAndExplicitRecipientStillUseInitiator() (gas: 544060)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testBriefBuySpikeThenFullSaleSameTransactionPreservesHighestSwapBoundary() (gas: 929356)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testDirectRightsIsolatedFromTwoAlternateExecutorsAndRecipients() (gas: 1926829)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testEveryExactThresholdAndOneWeiBelowUsesSqrtNotRoundedTick() (gas: 6369746)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testExact1000Then200ThenOnly100At30Percent() (gas: 1952505)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testExplorerBuySellClaimsRevenueAndDonationSeparation() (gas: 1383282)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testFeeInclusiveInputOutputLimitsAndExpiryRollback() (gas: 652270)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testFuzzCumulativeEntitlementSurvivesGateJumpAndAdditionalBuy(uint96,uint8) (runs: 256, μ: 1480270, ~: 1479705)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testFuzzExecutedImdConservation(uint96,uint16) (runs: 256, μ: 986813, ~: 984839)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testFuzzFreshBuysCannotEnlargeMatureCapacity(uint96) (runs: 256, μ: 945710, ~: 943459)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testInvalidReferenceOnlyBlocksNewGatesNotTradingTransfersOrNativeClaims() (gas: 1885267)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testLateBatchRevertRestoresFinalBypassSalesCreditsFeesAndPool() (gas: 949674)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testLegitimateSmartAccountCanUseDirectRouterAndWalletExecutor() (gas: 1283813)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testLiquidityFeeReceiptsAndDonationsNeverCreditEligibility() (gas: 1465176)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testLocallySignedPermit2PermitAndBuyAtomicReplayRejected() (gas: 606904)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testMainnetSegregatedFundsHighPersistsAfterMaturity() (gas: 1649229)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+  Alice gross IMD capital: 100000000000000000000
+  Alice UNLK buy credit: 37520205924135432073673623
+  Alice buy treasury fee IMD: 744416873449131513
+  before mitigation and after maturity exposed UNLK capacity: 7504041184827086414734724
+  Bob net IMD proceeds: 19901531076301633668
+  total treasury fee IMD: 894806277048388190
+
+[PASS] testMissingTokenReceiptRollsBackWithdrawalAccounting() (gas: 847424)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testMultiTierJumpBriefSpikeAndPriceDeclineNeverReduceRights() (gas: 424062)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testNativeCreditsNeverWaitForBuyMaturity() (gas: 499695)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testOfficialLpEntitlementActualAssetsAndPrincipalUnchanged() (gas: 1315337)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testOperatingGasCheckpointOnly() (gas: 101333)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+  checkpoint execution gas (base transaction gas excluded): 98700
+
+[PASS] testOracleCannotBindUnauthorizedDifferentPoolOrSecondTime() (gas: 334495)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testPartialSalesRoundingAndNewAcquisitionsNeverResetSold() (gas: 2436778)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testPermanentFinalBypassForTransferOnlyHolderWithZeroEAfterDeclineAndOutage() (gas: 1177654)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testPreparedBundlePredictionsAndPermanentSeal() (gas: 7618772)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testQuotaTransfersAndNativeClaimIndependence() (gas: 1249023)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testQuoteRollbackNoAccrualOrCredits() (gas: 1167997)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testRangeExitRollsBackFeesLedgerAndPool() (gas: 1186601)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testRevertingReferenceStillSettlesQualifyingBuyAndWithinOldQuotaSale() (gas: 1019250)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testSaleCannotUseItsOwnPostSwapGateRetroactively() (gas: 1699229)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testSameBlockPartialCycleAndSeparateExecutionsCannotRecycleCredit() (gas: 1666905)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testSameExecutionCycleFullSaleRejectedAtomically() (gas: 705068)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testSameTransactionEarlierBuyOpensGateForMatureQuotaButNewCreditWaits() (gas: 1306810)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testSameTransactionNewGateDoesNotMatureFreshCreditsAndRevertedBatchRestoresGate() (gas: 1272700)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testStandardRouterPrefundingDoesNotAuthenticateUnderlyingQuotaOwner() (gas: 961108)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testStandardRouterRecipientDoesNotAuthenticateUnderlyingQuotaOwner() (gas: 900052)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testUnauthorizedStagingAndUnbackedAccrualRejected() (gas: 74727)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testUnobservedPriceTouchIsNotBackfilled() (gas: 247959)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testWalletExecutorAuthenticatesCallerSettlementAndBudgets() (gas: 1260017)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testWrongPoolCheckpointAndInvalidCurrentStateCannotGrantRights() (gas: 542063)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+Suite result: ok. 43 passed; 0 failed; 0 skipped; finished in 14.71s (7.79s CPU time)
+
+Ran 43 tests for test/scratch/unlock-gates/MainnetHandoff.t.sol:MainnetHandoffReverseRehearsal
+[PASS] testActivatedImmediatelyFromRecordedCurrentState() (gas: 74647)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testActualFactoryNameSupplyAndExactDistributionProvenance() (gas: 99147)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testAllFourModesAndFeeInclusiveQuoter() (gas: 2623050)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testBatchCreditsAndExplicitRecipientStillUseInitiator() (gas: 570180)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testBriefBuySpikeThenFullSaleSameTransactionPreservesHighestSwapBoundary() (gas: 1008911)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testDirectRightsIsolatedFromTwoAlternateExecutorsAndRecipients() (gas: 1958680)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testEveryExactThresholdAndOneWeiBelowUsesSqrtNotRoundedTick() (gas: 6344178)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testExact1000Then200ThenOnly100At30Percent() (gas: 2030345)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testExplorerBuySellClaimsRevenueAndDonationSeparation() (gas: 1415197)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testFeeInclusiveInputOutputLimitsAndExpiryRollback() (gas: 735275)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testFuzzCumulativeEntitlementSurvivesGateJumpAndAdditionalBuy(uint96,uint8) (runs: 256, μ: 1559147, ~: 1558730)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testFuzzExecutedImdConservation(uint96,uint16) (runs: 256, μ: 1019037, ~: 1016904)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testFuzzFreshBuysCannotEnlargeMatureCapacity(uint96) (runs: 256, μ: 978658, ~: 976345)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testInvalidReferenceOnlyBlocksNewGatesNotTradingTransfersOrNativeClaims() (gas: 1964305)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testLateBatchRevertRestoresFinalBypassSalesCreditsFeesAndPool() (gas: 1029634)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testLegitimateSmartAccountCanUseDirectRouterAndWalletExecutor() (gas: 1316444)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testLiquidityFeeReceiptsAndDonationsNeverCreditEligibility() (gas: 1497083)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testLocallySignedPermit2PermitAndBuyAtomicReplayRejected() (gas: 639677)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testMainnetSegregatedFundsHighPersistsAfterMaturity() (gas: 1678290)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+  Alice gross IMD capital: 100000000000000000000
+  Alice UNLK buy credit: 37520205924135432073673624
+  Alice buy treasury fee IMD: 744416873449131513
+  before mitigation and after maturity exposed UNLK capacity: 7504041184827086414734724
+  Bob net IMD proceeds: 19901531076301633668
+  total treasury fee IMD: 894806277048388190
+
+[PASS] testMissingTokenReceiptRollsBackWithdrawalAccounting() (gas: 880185)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testMultiTierJumpBriefSpikeAndPriceDeclineNeverReduceRights() (gas: 423252)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testNativeCreditsNeverWaitForBuyMaturity() (gas: 532456)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testOfficialLpEntitlementActualAssetsAndPrincipalUnchanged() (gas: 1347264)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testOperatingGasCheckpointOnly() (gas: 100928)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+  checkpoint execution gas (base transaction gas excluded): 98295
+
+[PASS] testOracleCannotBindUnauthorizedDifferentPoolOrSecondTime() (gas: 334089)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testPartialSalesRoundingAndNewAcquisitionsNeverResetSold() (gas: 2529395)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testPermanentFinalBypassForTransferOnlyHolderWithZeroEAfterDeclineAndOutage() (gas: 1210398)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testPreparedBundlePredictionsAndPermanentSeal() (gas: 7618772)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testQuotaTransfersAndNativeClaimIndependence() (gas: 1281078)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testQuoteRollbackNoAccrualOrCredits() (gas: 1269081)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testRangeExitRollsBackFeesLedgerAndPool() (gas: 1233009)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testRevertingReferenceStillSettlesQualifyingBuyAndWithinOldQuotaSale() (gas: 1050891)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testSaleCannotUseItsOwnPostSwapGateRetroactively() (gas: 1777879)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testSameBlockPartialCycleAndSeparateExecutionsCannotRecycleCredit() (gas: 1778903)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testSameExecutionCycleFullSaleRejectedAtomically() (gas: 785606)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testSameTransactionEarlierBuyOpensGateForMatureQuotaButNewCreditWaits() (gas: 1385502)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testSameTransactionNewGateDoesNotMatureFreshCreditsAndRevertedBatchRestoresGate() (gas: 1351783)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testStandardRouterPrefundingDoesNotAuthenticateUnderlyingQuotaOwner() (gas: 1026630)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testStandardRouterRecipientDoesNotAuthenticateUnderlyingQuotaOwner() (gas: 965574)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testUnauthorizedStagingAndUnbackedAccrualRejected() (gas: 74727)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testUnobservedPriceTouchIsNotBackfilled() (gas: 247171)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testWalletExecutorAuthenticatesCallerSettlementAndBudgets() (gas: 1309494)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+[PASS] testWrongPoolCheckpointAndInvalidCurrentStateCannotGrantRights() (gas: 541022)
+Logs:
+  recorded IMD/USD (spot x Chainlink): 6.818840237269049093
+
+Suite result: ok. 43 passed; 0 failed; 0 skipped; finished in 9.48s (5.90s CPU time)
+
+Ran 4 tests for test/scratch/unlock-gates/MainnetHandoff.t.sol:MainnetLaunchPlanRehearsal
+[PASS] testAllPolicyCapEndpointsAndIntermediateSeedsLaunch() (gas: 62439969)
+[PASS] testMissingProvenanceIdentityOrWrongPolicyFailsWithoutDeploying() (gas: 7945786)
+[PASS] testPredictedNativeDistributorCannotReceivePayerAllocation() (gas: 8125280)
+[PASS] testPreparedFactoryCalldataLaunchesExactSeedAndBindings() (gas: 15559455)
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 5.41s (4.96s CPU time)
+
+Ran 4 tests for test/scratch/unlock-gates/MainnetHandoff.t.sol:MainnetLaunchPlanReverseRehearsal
+[PASS] testAllPolicyCapEndpointsAndIntermediateSeedsLaunch() (gas: 62127935)
+[PASS] testMissingProvenanceIdentityOrWrongPolicyFailsWithoutDeploying() (gas: 7945786)
+[PASS] testPredictedNativeDistributorCannotReceivePayerAllocation() (gas: 8124695)
+[PASS] testPreparedFactoryCalldataLaunchesExactSeedAndBindings() (gas: 15514819)
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 5.22s (4.74s CPU time)
+
+Ran 4 test suites in 34.82s (34.82s CPU time): 94 tests passed, 0 failed, 0 skipped (94 total tests)

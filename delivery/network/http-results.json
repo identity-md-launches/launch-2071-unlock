@@ -1,0 +1,117 @@
+[
+  {
+    "name": "capabilities",
+    "url": "https://api.imd.fun/requests/capabilities",
+    "httpStatus": 200,
+    "bytes": 6096,
+    "keys": [
+      "actions",
+      "limits",
+      "launches",
+      "pricedPer",
+      "authentication",
+      "payment",
+      "onchain"
+    ],
+    "retrievedAt": "2026-10-13T11:18:57.808100+00:00"
+  },
+  {
+    "name": "policies",
+    "url": "https://api.imd.fun/launch/policies",
+    "httpStatus": 200,
+    "bytes": 39925,
+    "keys": [
+      "count",
+      "policies"
+    ],
+    "retrievedAt": "2026-10-13T11:18:57.837822+00:00"
+  },
+  {
+    "name": "services",
+    "url": "https://api.imd.fun/services",
+    "httpStatus": 200,
+    "bytes": 438,
+    "keys": [
+      "count",
+      "services"
+    ],
+    "retrievedAt": "2026-10-13T11:18:57.893216+00:00"
+  },
+  {
+    "name": "openapi",
+    "url": "https://api.imd.fun/openapi.json",
+    "httpStatus": 200,
+    "bytes": 23132,
+    "keys": [
+      "openapi",
+      "info",
+      "servers",
+      "externalDocs",
+      "security",
+      "x-imd-actions",
+      "paths",
+      "components"
+    ],
+    "retrievedAt": "2026-10-13T11:18:57.910596+00:00"
+  },
+  {
+    "name": "current-job",
+    "url": "https://api.imd.fun/jobs/407c3cbb-d967-4666-99e6-0ab7139c141f",
+    "httpStatus": 200,
+    "bytes": 13420,
+    "keys": [
+      "workflow",
+      "planning",
+      "id",
+      "state",
+      "template",
+      "objective",
+      "blockedReason",
+      "createdAt",
+      "updatedAt",
+      "paidBy",
+      "parentJobId",
+      "project",
+      "deliver",
+      "host",
+      "site",
+      "launch",
+      "oracleRequestId",
+      "delivery",
+      "media",
+      "nodes",
+      "reviews"
+    ],
+    "retrievedAt": "2026-10-13T11:18:57.902065+00:00"
+  },
+  {
+    "name": "fix-job",
+    "url": "https://api.imd.fun/jobs/0edcb64f-c0cf-4ac9-afed-176758f17cde",
+    "httpStatus": 200,
+    "bytes": 12874,
+    "keys": [
+      "workflow",
+      "planning",
+      "id",
+      "state",
+      "template",
+      "objective",
+      "blockedReason",
+      "createdAt",
+      "updatedAt",
+      "paidBy",
+      "parentJobId",
+      "project",
+      "deliver",
+      "host",
+      "site",
+      "launch",
+      "oracleRequestId",
+      "delivery",
+      "media",
+      "nodes",
+      "reviews"
+    ],
+    "retrievedAt": "2026-10-13T11:18:57.897236+00:00"
+  }
+]

@@ -1,0 +1,302 @@
+{
+  "router": {
+    "address": "0x66a9893cc07d91d95644aedd05d03f95e1dba8af",
+    "sourceUrl": "https://sourcify.dev/server/v2/contract/1/0x66a9893cc07d91d95644aedd05d03f95e1dba8af?fields=all",
+    "runtimeMatch": "match",
+    "creationMatch": "match",
+    "compilation": {
+      "language": "Solidity",
+      "compiler": "solc",
+      "compilerVersion": "0.8.26+commit.8a97fa7a",
+      "compilerSettings": {
+        "viaIR": true,
+        "metadata": {
+          "bytecodeHash": "none"
+        },
+        "libraries": {},
+        "optimizer": {
+          "runs": 44444444,
+          "enabled": true
+        },
+        "evmVersion": "cancun",
+        "remappings": [
+          ":@uniswap/lib/=lib/solidity-lib/",
+          ":@uniswap/v2-core/=src/pkgs/v2-core/",
+          ":@uniswap/v3-core/=src/pkgs/v3-core/",
+          ":@uniswap/v4-core/=src/pkgs/v4-core/",
+          ":forge-std/=lib/forge-std/src/",
+          ":permit2/=src/pkgs/permit2/",
+          "lib/v4-core:solmate/src/=lib/v4-core/lib/solmate/src/",
+          "src/pkgs/permit2:solmate/=src/pkgs/permit2/lib/solmate/",
+          "src/pkgs/swap-router-contracts:@openzeppelin/contracts/=lib/oz-v3.4-solc-0.7/contracts/",
+          "src/pkgs/swap-router-contracts:@uniswap/v3-periphery/=src/pkgs/v3-periphery/",
+          "src/pkgs/uniswapx:openzeppelin-contracts/=src/pkgs/uniswapx/lib/openzeppelin-contracts/contracts/",
+          "src/pkgs/uniswapx:solmate/=src/pkgs/uniswapx/lib/solmate/",
+          "src/pkgs/universal-router/lib/v3-periphery:@openzeppelin/=lib/oz-v4.7.0/",
+          "src/pkgs/universal-router/lib/v4-periphery:@openzeppelin/=src/pkgs/universal-router/lib/v4-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "src/pkgs/universal-router:@uniswap/v3-periphery/=src/pkgs/universal-router/lib/v3-periphery/",
+          "src/pkgs/universal-router:@uniswap/v4-periphery/=src/pkgs/universal-router/lib/v4-periphery/",
+          "src/pkgs/universal-router:solmate/=src/pkgs/universal-router/lib/solmate/",
+          "src/pkgs/util-contracts:solmate/=src/pkgs/util-contracts/lib/solmate/src/",
+          "src/pkgs/util-contracts:v2-core/=src/pkgs/v2-core/contracts/",
+          "src/pkgs/v3-periphery:@openzeppelin/contracts/=lib/oz-v3.4-solc-0.7/contracts/",
+          "src/pkgs/v3-periphery:base64-sol/=lib/base64/",
+          "src/pkgs/v4-core:solmate/src/=src/pkgs/v4-core/lib/solmate/src/",
+          "src/pkgs/v4-periphery/src:@openzeppelin/=src/pkgs/v4-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "src/pkgs/v4-periphery/src:openzeppelin-contracts/=src/pkgs/v4-periphery/lib/v4-core/lib/openzeppelin-contracts/",
+          "src/pkgs/v4-periphery:@uniswap/v4-core/=src/pkgs/v4-periphery/lib/v4-core/",
+          "src/pkgs/v4-periphery:solmate/src/=src/pkgs/v4-periphery/lib/v4-core/lib/solmate/src/",
+          "src/pkgs/view-quoter-v3:v3-core/=src/pkgs/v3-core/",
+          "src/pkgs/view-quoter-v3:v3-periphery/=src/pkgs/v3-periphery/"
+        ]
+      },
+      "name": "UniversalRouter",
+      "fullyQualifiedName": "src/pkgs/universal-router/contracts/UniversalRouter.sol:UniversalRouter"
+    },
+    "relevantSourceHashes": [
+      {
+        "path": "src/pkgs/universal-router/contracts/UniversalRouter.sol",
+        "sha256": "c757958180c91f80f22948e74444f20efef2d34899a3c46c960c65ba0cacff06"
+      },
+      {
+        "path": "src/pkgs/universal-router/contracts/interfaces/IUniversalRouter.sol",
+        "sha256": "b846941980a23b3d35cde5228daf004124fb7bb6ccfa7ab9cc3a3473480a5163"
+      },
+      {
+        "path": "src/pkgs/permit2/src/interfaces/IAllowanceTransfer.sol",
+        "sha256": "a31c712c5cc8d171818a4225c09011f9ba86b2d5edf6045ac812bab93b6bbb87"
+      },
+      {
+        "path": "src/pkgs/v4-core/src/interfaces/IPoolManager.sol",
+        "sha256": "173a3f93aeb39373271ebe2bfb961d824922378a39b7a5e983acbb1c122d296e"
+      },
+      {
+        "path": "src/pkgs/permit2/src/interfaces/IPermit2.sol",
+        "sha256": "51a2a4da1246abda880b17c72f7c45ab3a8dc4bcaac5ff7ba78221b6603cd7ce"
+      },
+      {
+        "path": "src/pkgs/universal-router/contracts/libraries/Locker.sol",
+        "sha256": "2a62a9d75122e7d87c1537e86a0b70b8efa33fe8454c79e4cbd3ff23057320bc"
+      }
+    ],
+    "recordedRuntimeKeccak": "0x6a5f46971b50c6e1b7eef97902311444e479d734e4f80ad88367783cf373fe7f",
+    "sourceRuntimeMatchesRpc": true,
+    "logicalSenderSource": {
+      "path": "src/pkgs/universal-router/contracts/base/Dispatcher.sol",
+      "sha256": "eca33b761407792902e2b71a6ad339bc69c7fc71c30e995b13bae646638b2e9e",
+      "excerpt": "function msgSender() public view override returns (address) {\n        return _getLocker();\n    }\n\n    /// @not"
+    }
+  },
+  "quoter": {
+    "address": "0x52f0e24d1c21c8a0cb1e5a5dd6198556bd9e1203",
+    "sourceUrl": "https://sourcify.dev/server/v2/contract/1/0x52f0e24d1c21c8a0cb1e5a5dd6198556bd9e1203?fields=all",
+    "runtimeMatch": "match",
+    "creationMatch": "match",
+    "compilation": {
+      "language": "Solidity",
+      "compiler": "solc",
+      "compilerVersion": "0.8.26+commit.8a97fa7a",
+      "compilerSettings": {
+        "viaIR": true,
+        "metadata": {
+          "bytecodeHash": "none"
+        },
+        "libraries": {},
+        "optimizer": {
+          "runs": 44444444,
+          "enabled": true
+        },
+        "evmVersion": "cancun",
+        "remappings": [
+          ":@ensdomains/=lib/v4-core/node_modules/@ensdomains/",
+          ":@openzeppelin/=lib/v4-core/lib/openzeppelin-contracts/",
+          ":@openzeppelin/contracts/=lib/v4-core/lib/openzeppelin-contracts/contracts/",
+          ":@uniswap/v4-core/=lib/v4-core/",
+          ":ds-test/=lib/v4-core/lib/forge-std/lib/ds-test/src/",
+          ":erc4626-tests/=lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          ":forge-gas-snapshot/=lib/forge-gas-snapshot/src/",
+          ":forge-std/=lib/v4-core/lib/forge-std/src/",
+          ":hardhat/=lib/v4-core/node_modules/hardhat/",
+          ":openzeppelin-contracts/=lib/v4-core/lib/openzeppelin-contracts/",
+          ":permit2/=lib/permit2/",
+          ":solmate/=lib/v4-core/lib/solmate/",
+          ":v4-core/=lib/v4-core/src/"
+        ]
+      },
+      "name": "Quoter",
+      "fullyQualifiedName": "src/lens/Quoter.sol:Quoter"
+    },
+    "relevantSourceHashes": [
+      {
+        "path": "lib/v4-core/src/interfaces/IPoolManager.sol",
+        "sha256": "461df20b19f5f4748f5265b11e393c9d7ddb74c2b0f64ff5b3ede0606f9c4ee5"
+      },
+      {
+        "path": "src/base/BaseV4Quoter.sol",
+        "sha256": "c36ad05299b193815324e7ba2bc00234aea39e3250c5a0faabb1118b9d502056"
+      },
+      {
+        "path": "src/lens/V4Quoter.sol",
+        "sha256": "3326c5a807b9cc484070639cac345c9f018c1c2100cdff35dfa8608f3a7f6968"
+      },
+      {
+        "path": "src/interfaces/IV4Quoter.sol",
+        "sha256": "eebd069ab3fed4c9cf966a3229f245eb143e800f7fbcf132e440c6243f88fb3e"
+      },
+      {
+        "path": "src/pkgs/v4-periphery/src/lens/V4Quoter.sol",
+        "sha256": "f3a869f46ce9ba48d68c0c2e0384539a939a20759145f9b5dcfb2f4eb9bd1fd5"
+      },
+      {
+        "path": "src/pkgs/v4-periphery/lib/v4-core/src/interfaces/IPoolManager.sol",
+        "sha256": "461df20b19f5f4748f5265b11e393c9d7ddb74c2b0f64ff5b3ede0606f9c4ee5"
+      },
+      {
+        "path": "src/pkgs/v4-periphery/src/interfaces/IV4Quoter.sol",
+        "sha256": "eebd069ab3fed4c9cf966a3229f245eb143e800f7fbcf132e440c6243f88fb3e"
+      },
+      {
+        "path": "src/pkgs/v4-periphery/src/base/BaseV4Quoter.sol",
+        "sha256": "ada3b1ab6196a5e0134f7dfecaaf18e47416820b0c5f4d1ed2eb0099afe022bc"
+      }
+    ],
+    "recordedRuntimeKeccak": "0x06de58fa119c5deaa7a667fb92d3894e25d9160e62fb82c8d86d43b47eefe441",
+    "sourceRuntimeMatchesRpc": true
+  },
+  "permit2": {
+    "address": "0x000000000022D473030F116dDEE9F6B43aC78BA3",
+    "sourceUrl": "https://sourcify.dev/server/v2/contract/1/0x000000000022D473030F116dDEE9F6B43aC78BA3?fields=all",
+    "runtimeMatch": "match",
+    "creationMatch": "match",
+    "compilation": {
+      "language": "Solidity",
+      "compiler": "solc",
+      "compilerVersion": "0.8.17+commit.8df45f5f",
+      "compilerSettings": {
+        "viaIR": true,
+        "metadata": {
+          "bytecodeHash": "none"
+        },
+        "libraries": {},
+        "optimizer": {
+          "runs": 1000000,
+          "enabled": true
+        },
+        "evmVersion": "london",
+        "remappings": [
+          ":ds-test/=lib/forge-std/lib/ds-test/src/",
+          ":forge-gas-snapshot/=lib/forge-gas-snapshot/src/",
+          ":forge-std/=lib/forge-std/src/",
+          ":openzeppelin-contracts/=lib/openzeppelin-contracts/",
+          ":solmate/=lib/solmate/"
+        ]
+      },
+      "name": "Permit2",
+      "fullyQualifiedName": "src/Permit2.sol:Permit2"
+    },
+    "relevantSourceHashes": [
+      {
+        "path": "src/Permit2.sol",
+        "sha256": "a19dd81d4edafe3bba0178abfc9063886c2981b4711a4cbbf3fac19370defc9a"
+      },
+      {
+        "path": "src/AllowanceTransfer.sol",
+        "sha256": "662e206052b8afec12f6270f1ec4e1d68723c8dc9e2dadfc1f2feed1dcb8c831"
+      },
+      {
+        "path": "src/interfaces/IAllowanceTransfer.sol",
+        "sha256": "b885eb65627522a263a1f644af8d7dfbbcacf54a7d85249777ae544bbd6aaf61"
+      },
+      {
+        "path": "src/pkgs/permit2/src/AllowanceTransfer.sol",
+        "sha256": "7be95b655a59352a3007147a1b79f211fc819b9a615a92017acf7257ecb88276"
+      },
+      {
+        "path": "src/pkgs/permit2/src/Permit2.sol",
+        "sha256": "a19dd81d4edafe3bba0178abfc9063886c2981b4711a4cbbf3fac19370defc9a"
+      },
+      {
+        "path": "src/pkgs/permit2/src/interfaces/IAllowanceTransfer.sol",
+        "sha256": "a31c712c5cc8d171818a4225c09011f9ba86b2d5edf6045ac812bab93b6bbb87"
+      }
+    ],
+    "recordedRuntimeKeccak": "0xc67d1657868aa5146eaf24fb879fb1fdec3d2d493b3683a61c9c2f4fb2851131",
+    "sourceRuntimeMatchesRpc": true
+  },
+  "manager": {
+    "address": "0x000000000004444c5dc75cB358380D2e3dE08A90",
+    "sourceUrl": "https://sourcify.dev/server/v2/contract/1/0x000000000004444c5dc75cB358380D2e3dE08A90?fields=all",
+    "runtimeMatch": "match",
+    "creationMatch": "match",
+    "compilation": {
+      "language": "Solidity",
+      "compiler": "solc",
+      "compilerVersion": "0.8.26+commit.8a97fa7a",
+      "compilerSettings": {
+        "viaIR": true,
+        "metadata": {
+          "bytecodeHash": "none"
+        },
+        "libraries": {},
+        "optimizer": {
+          "runs": 44444444,
+          "enabled": true
+        },
+        "evmVersion": "cancun",
+        "remappings": [
+          ":@ensdomains/=lib/v4-core/node_modules/@ensdomains/",
+          ":@openzeppelin/=lib/v4-core/lib/openzeppelin-contracts/",
+          ":@openzeppelin/contracts/=lib/v4-core/lib/openzeppelin-contracts/contracts/",
+          ":@uniswap/v4-core/=lib/v4-core/",
+          ":ds-test/=lib/v4-core/lib/forge-std/lib/ds-test/src/",
+          ":erc4626-tests/=lib/v4-core/lib/openzeppelin-contracts/lib/erc4626-tests/",
+          ":forge-gas-snapshot/=lib/forge-gas-snapshot/src/",
+          ":forge-std/=lib/v4-core/lib/forge-std/src/",
+          ":hardhat/=lib/v4-core/node_modules/hardhat/",
+          ":openzeppelin-contracts/=lib/v4-core/lib/openzeppelin-contracts/",
+          ":permit2/=lib/permit2/",
+          ":solmate/=lib/v4-core/lib/solmate/",
+          ":v4-core/=lib/v4-core/src/"
+        ]
+      },
+      "name": "PoolManager",
+      "fullyQualifiedName": "lib/v4-core/src/PoolManager.sol:PoolManager"
+    },
+    "relevantSourceHashes": [
+      {
+        "path": "lib/v4-core/src/PoolManager.sol",
+        "sha256": "aee34a095506dd312ea1fdff3e60f188c4e99906527f49d07d3bdd25ceb3377a"
+      },
+      {
+        "path": "lib/v4-core/src/interfaces/IPoolManager.sol",
+        "sha256": "461df20b19f5f4748f5265b11e393c9d7ddb74c2b0f64ff5b3ede0606f9c4ee5"
+      },
+      {
+        "path": "src/PoolManager.sol",
+        "sha256": "6b0327ec5427acf894865003425eed18fc09a70389f785d4c1c05541133f1012"
+      },
+      {
+        "path": "src/interfaces/IPoolManager.sol",
+        "sha256": "173a3f93aeb39373271ebe2bfb961d824922378a39b7a5e983acbb1c122d296e"
+      },
+      {
+        "path": "src/v4-core/PoolManager.sol",
+        "sha256": "aee34a095506dd312ea1fdff3e60f188c4e99906527f49d07d3bdd25ceb3377a"
+      },
+      {
+        "path": "src/v4-core/interfaces/IPoolManager.sol",
+        "sha256": "461df20b19f5f4748f5265b11e393c9d7ddb74c2b0f64ff5b3ede0606f9c4ee5"
+      },
+      {
+        "path": "src/pkgs/v4-core/src/PoolManager.sol",
+        "sha256": "3b6ab111dadf613e3cfd617e4b1c6ab75b5445cd15cbe52d7c6207fc02449717"
+      },
+      {
+        "path": "src/pkgs/v4-core/src/interfaces/IPoolManager.sol",
+        "sha256": "a98405333567e4ab344489728014795721cf0071c151536377d2fcc986e0600c"
+      }
+    ],
+    "recordedRuntimeKeccak": "0x785f1014552b7ce7d5fb7d0c970ca60edee94fd00425d7ca21609acac7ce1293",
+    "sourceRuntimeMatchesRpc": true
+  }
+}

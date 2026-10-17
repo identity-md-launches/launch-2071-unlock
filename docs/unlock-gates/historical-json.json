@@ -1,0 +1,16 @@
+[
+  {
+    "original": "docs/network/factory-reference.json",
+    "archive": "docs/network/factory-reference.json.xz",
+    "sha256": "830384393422246d886214f3f8d8163be8967a4a6613d4a7dd9ed8c571089ec6",
+    "archiveSha256": "e4a73de9ff03278bea12b86e5326ec0733aea02d4076a8120fc20499ffddbe7a",
+    "originalBytes": 280995
+  },
+  {
+    "original": "docs/network/factory-artifacts.json",
+    "archive": "docs/network/factory-artifacts.json.xz",
+    "sha256": "fd2fe6b09d3a906ff5788552be076722f269499bdd46cf4443cf88d8d54127a2",
+    "archiveSha256": "f8275c65120c8aeedf3832e7cf5e25e7180bb3d74b8aa4c83cb479b84c1df694",
+    "originalBytes": 167372
+  }
+]

@@ -1,0 +1,53 @@
+{
+  "checkedAt": "2026-10-14T11:39:25.029Z",
+  "note": "Disposable local Anvil fork of existing Sepolia contracts. Every transaction listed here is local-only and was explicitly confirmed by this UI test. No public broadcast or signing key.",
+  "block": "11913004",
+  "checks": [
+    "Connecting requests accounts and chain only, no signature",
+    "All four Buy percentage fills estimate real fork router gas, reserve 20% buffer, retain editable input and request no signatures",
+    "Buy: exact quote, fee, minimum receipt, explicit review and confirmation; authenticated acquisition credit increases",
+    "Sell shortcuts use executable quota and balance; direct ERC-20 approval is bounded to the exact 1 UNLK input and bound router",
+    "Sell executes through authenticated router; S increases and ETH settles as nativeCredit",
+    "withdrawNative recovers the full settled ETH credit to the same wallet",
+    "Authentic unclaimed round-0 beneficiary: native claim, evidence attestation, hook sync and duplicate prevention all complete on the local fork",
+    "Explicit wallet rejection returns a recoverable status without broadcasting"
+  ],
+  "transactions": [
+    {
+      "hash": "0xc82423259d0129ec63c2083434367713ae329a8f23a11608b27c41aa312ffdc1",
+      "to": "0x28f04118fe5d940fe9a81740e74d611313b3004b",
+      "localOnly": true
+    },
+    {
+      "hash": "0xaa1bdc07350fb7adf59eba9db03b07d869c74e5c69c09d26e2b15e8086abd26f",
+      "to": "0x20978223b637fec0c6276ab0184cf7011dd1d483",
+      "localOnly": true
+    },
+    {
+      "hash": "0x6774593fddb857bd226a67499a0c74f7798b413317da416eebb6f6068db3743b",
+      "to": "0x28f04118fe5d940fe9a81740e74d611313b3004b",
+      "localOnly": true
+    },
+    {
+      "hash": "0x4ef817421f4417051f0c2d00462ab4fde35b4ba6b0fd2d546ec7712a59ab059c",
+      "to": "0x28f04118fe5d940fe9a81740e74d611313b3004b",
+      "localOnly": true
+    },
+    {
+      "hash": "0x8e43525427a75b01a89734338101fa5b2fa95f7c5e884eb9981bfbc28690f11d",
+      "to": "0xf55d5bacbf3ce5464921a94708c08a99bea99cdd",
+      "localOnly": true
+    },
+    {
+      "hash": "0x5e5195e6db042919a1eae1f3c386274302023000535f01cff782dbe059906379",
+      "to": "0x5C8D9510d8493dD1aea27a53851956B203aF9BA6",
+      "localOnly": true
+    },
+    {
+      "hash": "0xc87f64f56a0e353294b9f0a6fc233c72035ea7553a4ee317fed9e371b348b59b",
+      "to": "0xbbb78a4898e903b082ccd09efc7823ca7339bfc0",
+      "localOnly": true
+    }
+  ],
+  "errors": []
+}

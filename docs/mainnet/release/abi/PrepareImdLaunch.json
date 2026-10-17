@@ -1,0 +1,361 @@
+[
+  {
+    "type": "function",
+    "name": "IS_SCRIPT",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "prepare",
+    "inputs": [
+      {
+        "name": "config",
+        "type": "tuple",
+        "internalType": "struct PrepareImdLaunch.Config",
+        "components": [
+          {
+            "name": "number",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "setupAuthority",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "payer",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "merkleRoot",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "contributorLockSeconds",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "sweepDelaySeconds",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "hookSalt",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "openingFdvImd",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "record",
+            "type": "tuple",
+            "internalType": "struct LaunchRegistry.Launch",
+            "components": [
+              {
+                "name": "kind",
+                "type": "bytes32",
+                "internalType": "bytes32"
+              },
+              {
+                "name": "launchNumber",
+                "type": "uint64",
+                "internalType": "uint64"
+              },
+              {
+                "name": "recordedAt",
+                "type": "uint64",
+                "internalType": "uint64"
+              },
+              {
+                "name": "sourceCommit",
+                "type": "bytes32",
+                "internalType": "bytes32"
+              },
+              {
+                "name": "manifestHash",
+                "type": "bytes32",
+                "internalType": "bytes32"
+              },
+              {
+                "name": "attestationHash",
+                "type": "bytes32",
+                "internalType": "bytes32"
+              },
+              {
+                "name": "verifierKey",
+                "type": "bytes32",
+                "internalType": "bytes32"
+              },
+              {
+                "name": "sourceRepoUrl",
+                "type": "string",
+                "internalType": "string"
+              }
+            ]
+          },
+          {
+            "name": "agentIds",
+            "type": "uint256[]",
+            "internalType": "uint256[]"
+          }
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "name": "plan",
+        "type": "tuple",
+        "internalType": "struct PrepareImdLaunch.Plan",
+        "components": [
+          {
+            "name": "to",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "requiredSigner",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "token",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "hook",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "distributor",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "key",
+            "type": "tuple",
+            "internalType": "struct PoolKey",
+            "components": [
+              {
+                "name": "currency0",
+                "type": "address",
+                "internalType": "Currency"
+              },
+              {
+                "name": "currency1",
+                "type": "address",
+                "internalType": "Currency"
+              },
+              {
+                "name": "fee",
+                "type": "uint24",
+                "internalType": "uint24"
+              },
+              {
+                "name": "tickSpacing",
+                "type": "int24",
+                "internalType": "int24"
+              },
+              {
+                "name": "hooks",
+                "type": "address",
+                "internalType": "contract IHooks"
+              }
+            ]
+          },
+          {
+            "name": "seededTokens",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "openingFdvImd",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "params",
+            "type": "tuple",
+            "internalType": "struct LaunchFactory.LaunchParams",
+            "components": [
+              {
+                "name": "launchNumber",
+                "type": "uint64",
+                "internalType": "uint64"
+              },
+              {
+                "name": "kind",
+                "type": "bytes32",
+                "internalType": "bytes32"
+              },
+              {
+                "name": "tokenCreationCode",
+                "type": "bytes",
+                "internalType": "bytes"
+              },
+              {
+                "name": "hookCreationCode",
+                "type": "bytes",
+                "internalType": "bytes"
+              },
+              {
+                "name": "hookSalt",
+                "type": "bytes32",
+                "internalType": "bytes32"
+              },
+              {
+                "name": "hookFlags",
+                "type": "uint160",
+                "internalType": "uint160"
+              },
+              {
+                "name": "totalSupply",
+                "type": "uint256",
+                "internalType": "uint256"
+              },
+              {
+                "name": "poolBps",
+                "type": "uint16",
+                "internalType": "uint16"
+              },
+              {
+                "name": "remainderTo",
+                "type": "address",
+                "internalType": "address"
+              },
+              {
+                "name": "merkleRoot",
+                "type": "bytes32",
+                "internalType": "bytes32"
+              },
+              {
+                "name": "contributorLockSeconds",
+                "type": "uint64",
+                "internalType": "uint64"
+              },
+              {
+                "name": "sweepDelaySeconds",
+                "type": "uint64",
+                "internalType": "uint64"
+              },
+              {
+                "name": "pairedCurrency",
+                "type": "address",
+                "internalType": "Currency"
+              },
+              {
+                "name": "fee",
+                "type": "uint24",
+                "internalType": "uint24"
+              },
+              {
+                "name": "tickSpacing",
+                "type": "int24",
+                "internalType": "int24"
+              },
+              {
+                "name": "sqrtPriceX96",
+                "type": "uint160",
+                "internalType": "uint160"
+              },
+              {
+                "name": "tickLower",
+                "type": "int24",
+                "internalType": "int24"
+              },
+              {
+                "name": "tickUpper",
+                "type": "int24",
+                "internalType": "int24"
+              },
+              {
+                "name": "liquidity",
+                "type": "uint128",
+                "internalType": "uint128"
+              },
+              {
+                "name": "record",
+                "type": "tuple",
+                "internalType": "struct LaunchRegistry.Launch",
+                "components": [
+                  {
+                    "name": "kind",
+                    "type": "bytes32",
+                    "internalType": "bytes32"
+                  },
+                  {
+                    "name": "launchNumber",
+                    "type": "uint64",
+                    "internalType": "uint64"
+                  },
+                  {
+                    "name": "recordedAt",
+                    "type": "uint64",
+                    "internalType": "uint64"
+                  },
+                  {
+                    "name": "sourceCommit",
+                    "type": "bytes32",
+                    "internalType": "bytes32"
+                  },
+                  {
+                    "name": "manifestHash",
+                    "type": "bytes32",
+                    "internalType": "bytes32"
+                  },
+                  {
+                    "name": "attestationHash",
+                    "type": "bytes32",
+                    "internalType": "bytes32"
+                  },
+                  {
+                    "name": "verifierKey",
+                    "type": "bytes32",
+                    "internalType": "bytes32"
+                  },
+                  {
+                    "name": "sourceRepoUrl",
+                    "type": "string",
+                    "internalType": "string"
+                  }
+                ]
+              },
+              {
+                "name": "agentIds",
+                "type": "uint256[]",
+                "internalType": "uint256[]"
+              },
+              {
+                "name": "requester",
+                "type": "address",
+                "internalType": "address"
+              }
+            ]
+          },
+          {
+            "name": "data",
+            "type": "bytes",
+            "internalType": "bytes"
+          }
+        ]
+      }
+    ],
+    "stateMutability": "view"
+  }
+]

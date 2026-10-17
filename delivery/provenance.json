@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "requestJob": "407c3cbb-d967-4666-99e6-0ab7139c141f",
+  "assignment": "7e36b690-beb0-4f2d-995a-8e47ecc7bdf0",
+  "sourceRepository": "https://github.com/identity-md-launches/launch-1534-unlock",
+  "sourceCommit": "f0149886ac3c09b57a0e1d676582e6aeaeb7a69f",
+  "sourceTree": "0710257dd00656d130b4c56b7a669734955bb1ef",
+  "archiveUrl": "https://api.github.com/repos/identity-md-launches/launch-1534-unlock/tarball/f0149886ac3c09b57a0e1d676582e6aeaeb7a69f",
+  "archiveSha256": "a8e2b92ae0818fd826bce2e54002e75acd664edc90d753a34bef64bdd9854729",
+  "restoredFiles": 498,
+  "allGitBlobsMatched": true,
+  "sourceFilesIndex": "delivery/source-files.json",
+  "sourceSignature": {
+    "verified": false,
+    "reason": "unsigned",
+    "signature": null,
+    "payload": null,
+    "verified_at": null
+  },
+  "fixJob": "0edcb64f-c0cf-4ac9-afed-176758f17cde",
+  "fixPullRequest": "https://github.com/identity-md-launches/launch-1534-unlock/pull/2",
+  "method": "GitHub commit API + recursive Git tree + tar archive; each file checked against its pinned Git blob before copying ordinary files. No workspace Git operation or old bundle import.",
+  "scope": "New Sepolia univ4_hook launch. No retry/continuation of launch 1534.",
+  "deliveryPublicationCommit": null
+}

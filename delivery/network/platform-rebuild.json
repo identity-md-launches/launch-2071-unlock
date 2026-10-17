@@ -1,0 +1,30 @@
+{
+  "compiler": "0.8.26+commit.8a97fa7a",
+  "input": "docs/network/factory-reference.json:stdJsonInput",
+  "contracts": {
+    "LaunchFactory": {
+      "creationBodyBytes": 21438,
+      "runtimeTemplateBytes": 17319,
+      "creationBodyKeccak256": "0xe84baa8b73c8a5a76d871a608403a7caac686f4a0dc416607674c1ddd72de499",
+      "matchesPublishedVerifiedBuild": true
+    },
+    "LaunchFees": {
+      "creationBodyBytes": 2097,
+      "runtimeTemplateBytes": 1376,
+      "creationBodyKeccak256": "0xed6b977bc9aed4b3f3010722049b5659f0482a5ef2cb994450b64605d69e6a05",
+      "matchesPublishedVerifiedBuild": true
+    },
+    "LaunchRegistry": {
+      "creationBodyBytes": 3683,
+      "runtimeTemplateBytes": 3550,
+      "creationBodyKeccak256": "0x036a0a8ac164611c4dea185414e2605eead7e1d70860c1182acecd253350059d",
+      "matchesPublishedVerifiedBuild": true
+    },
+    "MerkleDistributor": {
+      "creationBodyBytes": 4504,
+      "runtimeTemplateBytes": 4145,
+      "creationBodyKeccak256": "0xf1c21108732a73286b1030e87fbba14c806905275dde6fce012f2c0ca19e30b9",
+      "matchesPublishedVerifiedBuild": true
+    }
+  }
+}

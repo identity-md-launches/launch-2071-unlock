@@ -1,0 +1,16 @@
+{
+  "contract": "factory-native MerkleDistributor",
+  "factory": "0x12c63b581d07093f6126bc02263c58f7eadaa96f",
+  "factoryRuntimeKeccak": "0xb6a524d4b697c41f80c369f4990ac070c9dda6f3ef5efe36f21e6150a530b413",
+  "factoryCreationBodyOffset": 12803,
+  "creationBytes": 4504,
+  "creationKeccak": "0xf1c21108732a73286b1030e87fbba14c806905275dde6fce012f2c0ca19e30b9",
+  "constructorWords": 4,
+  "initcodeBytesWithConstructor": 4632,
+  "runtimeBytes": 4145,
+  "runtimeTemplateKeccak": "0xe74f53f28ce98f313e18c4dcb9d7c3adff5e56c7554a5ad902ae85f007feb8b2",
+  "derivation": "Pinned factory embedded initcode copies 0x1031 bytes from offset0x167, patches immutables and returns 0x1031 bytes. Factory getter hash and actual CREATE2 prediction checked by recorded-block rehearsal.",
+  "runtimeLimit": 24576,
+  "initcodeLimit": 49152,
+  "limitsPass": true
+}

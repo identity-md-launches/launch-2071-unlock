@@ -1,0 +1,320 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "writer_",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "launchNumber",
+        "type": "uint64"
+      }
+    ],
+    "name": "AlreadyRecorded",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NoArtifacts",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotWriter",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint64",
+        "name": "launchNumber",
+        "type": "uint64"
+      },
+      {
+        "indexed": true,
+        "internalType": "bytes32",
+        "name": "kind",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "sourceCommit",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "attestationHash",
+        "type": "bytes32"
+      },
+      {
+        "indexed": false,
+        "internalType": "address[]",
+        "name": "artifacts",
+        "type": "address[]"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256[]",
+        "name": "agentIds",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "LaunchRecorded",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "launchNumber",
+        "type": "uint64"
+      }
+    ],
+    "name": "agentsOf",
+    "outputs": [
+      {
+        "internalType": "uint256[]",
+        "name": "",
+        "type": "uint256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "launchNumber",
+        "type": "uint64"
+      }
+    ],
+    "name": "artifactsOf",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "bytes32",
+            "name": "role",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "name",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "address",
+            "name": "addr",
+            "type": "address"
+          }
+        ],
+        "internalType": "struct LaunchRegistry.Artifact[]",
+        "name": "",
+        "type": "tuple[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "count",
+    "outputs": [
+      {
+        "internalType": "uint64",
+        "name": "",
+        "type": "uint64"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "launchNumber",
+        "type": "uint64"
+      }
+    ],
+    "name": "isRecorded",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "launchNumber",
+        "type": "uint64"
+      }
+    ],
+    "name": "launchOf",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "bytes32",
+            "name": "kind",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "uint64",
+            "name": "launchNumber",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint64",
+            "name": "recordedAt",
+            "type": "uint64"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "sourceCommit",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "manifestHash",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "attestationHash",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "verifierKey",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "string",
+            "name": "sourceRepoUrl",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct LaunchRegistry.Launch",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "bytes32",
+            "name": "kind",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "uint64",
+            "name": "launchNumber",
+            "type": "uint64"
+          },
+          {
+            "internalType": "uint64",
+            "name": "recordedAt",
+            "type": "uint64"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "sourceCommit",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "manifestHash",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "attestationHash",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "verifierKey",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "string",
+            "name": "sourceRepoUrl",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct LaunchRegistry.Launch",
+        "name": "launch",
+        "type": "tuple"
+      },
+      {
+        "components": [
+          {
+            "internalType": "bytes32",
+            "name": "role",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "bytes32",
+            "name": "name",
+            "type": "bytes32"
+          },
+          {
+            "internalType": "address",
+            "name": "addr",
+            "type": "address"
+          }
+        ],
+        "internalType": "struct LaunchRegistry.Artifact[]",
+        "name": "artifacts",
+        "type": "tuple[]"
+      },
+      {
+        "internalType": "uint256[]",
+        "name": "agentIds",
+        "type": "uint256[]"
+      }
+    ],
+    "name": "record",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "writer",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

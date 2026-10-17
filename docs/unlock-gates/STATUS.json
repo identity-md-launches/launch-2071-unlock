@@ -1,0 +1,97 @@
+{
+  "sourceComplete": true,
+  "mainnetDecision": "NO_GO",
+  "baseCommit": "3939f319d67dcd92eb50b057c0c13754ccb6b35c",
+  "publishedCommit": null,
+  "publicationResponsibility": "contributor uploader; local .git writes prohibited",
+  "consolidatedReport": "HANDOFF.md",
+  "compiler": "0.8.26",
+  "fuzzSeed": "0xda8bb4c7a1dfecbe1d2824491108f08053450070bcb18434381100e02a366653",
+  "build": "passed",
+  "format": "passed",
+  "contracts": {
+    "passed": 391,
+    "failed": 0,
+    "skipped": 0,
+    "suites": 77
+  },
+  "frontend": {
+    "typecheck": "passed",
+    "build": "passed",
+    "passed": 30,
+    "failed": 0,
+    "skipped": 0,
+    "candidateWritesEnabled": false
+  },
+  "mainnetFork": {
+    "block": 26204722,
+    "blockHash": "0xba011c000188618d5321ba3c0e13ba2241e2c607db9e49c3a243aa50dca25d96",
+    "passed": 94,
+    "failed": 0,
+    "skipped": 0,
+    "suites": 4,
+    "actualFactoryManagerRouterPermit2": true,
+    "actualSampledSourceCode": true,
+    "priceUsdMockAtActivation": false,
+    "simulatedFutureSamplingHours": 48,
+    "syntheticFutureChainlinkRounds": true,
+    "productionOracleHistoryEstablished": false,
+    "independentRpcReplay": {
+      "rpc": "https://eth.drpc.org",
+      "storageCaching": false,
+      "passed": 94,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "checks/mainnet-fork-archive-replay.txt"
+    }
+  },
+  "separateContributorReview": "completed; final production hashes in INDEPENDENT_REVIEW.md",
+  "externalIndependentAudit": "pending",
+  "finalCommitReleaseApproval": "pending",
+  "remainingHighFindings": [
+    "H-01 mature shared-executor quota pooling",
+    "external IMD/USD-reference ratchet/sustained manipulation"
+  ],
+  "fixedDuringReview": [
+    "exact inverted high-sqrt threshold rounding",
+    "stage1 distributor recipient prevents activation"
+  ],
+  "otherRequiredReleaseOperations": [
+    "uploader publication and platform exact-commit admission with actual protected harness",
+    "actual launch identities/provenance/complete100M contributor tree and controlled setup execution path",
+    "actual clean48h source history, operational keeper/gas sponsorship and monitoring",
+    "browser/mobile/wallet checks with working tooling",
+    "separately authorized factory/setup transactions, source verification and postflight"
+  ],
+  "unavailableAttempts": {
+    "browserAndWallet": "ERR_MODULE_NOT_FOUND: playwright",
+    "protectedAdmission": "Hook.protected.t.sol and companion harness not supplied",
+    "historical48hStateProbe": "HTTP403: Archive requests require a personal token",
+    "historicalPublicnodeReRead": "HTTP403 also on later recorded-block read; resolved for rehearsal via dRPC,94/94 no-storage-cache replay",
+    "alternateLlamaArchive": "HTTP525 SSL handshake failure"
+  },
+  "notRun": [
+    "Slither",
+    "Mythril",
+    "formal verification",
+    "external audit",
+    "paid requests",
+    "public deployment/postflight",
+    "site publication"
+  ],
+  "historicalEvidencePackaging": {
+    "textRecordsByteExact": 141,
+    "jsonRecordsByteExact": 2,
+    "instructions": "ARCHIVES.md"
+  },
+  "buildConfigDependenciesLiveExportOrConfigChanged": false,
+  "publicTransactions": [],
+  "newDeployment": null,
+  "liveSitePublication": null,
+  "currentPlatformPreflight": {
+    "block": 26204927,
+    "blockHash": "0xad25419c926cb3ce2d696c4bc0aba7d584093e5fb7beb11245f0a7d1d329154e",
+    "allNineRuntimePinsMatch": true,
+    "mainnetImdHookPolicy": 34
+  }
+}

@@ -1,0 +1,6 @@
+Error: HTTP error 403 with body: {"jsonrpc":"2.0","error":{"code":-32602,"message":"Archive requests require a personal token. Get one at: https://www.allnodes.com/publicnode"},"id":0}
+
+
+HTTP diagnostics:
+cf-ray: a4b6dd724b59911f-FRA
+server: cloudflare

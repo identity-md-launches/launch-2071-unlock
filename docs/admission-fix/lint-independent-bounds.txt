@@ -1,0 +1,75 @@
+Compiling 138 files with Solc 0.8.26
+Solc 0.8.26 finished in 18.97s
+Compiler run successful with warnings:
+Warning (2519): This declaration shadows an existing declaration.
+  --> src/mainnet/StateProof.sol:62:14:
+   |
+62 |         for (uint256 at = parent.payload; at < parent.end;) {
+   |              ^^^^^^^^^^
+Note: The shadowed declaration is here:
+  --> src/mainnet/StateProof.sol:69:9:
+   |
+69 |         uint256 at = parent.payload;
+   |         ^^^^^^^^^^
+
+Warning (8760): This declaration has the same name as another declaration.
+  --> src/mainnet/ImdSampledUsdSource.sol:69:29:
+   |
+69 |         (uint160 sqrtPrice, int24 spot, uint128 liquidity, uint24 lpFee) = _pool();
+   |                             ^^^^^^^^^^
+Note: The other declaration is here:
+   --> src/mainnet/ImdSampledUsdSource.sol:133:5:
+    |
+133 |     function spot()
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> src/UnlkHook.sol:209:5:
+    |
+209 |     function afterInitialize(address, PoolKey calldata key, uint160, int24)
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> src/candidate/UnlkHookV2.sol:224:5:
+    |
+224 |     function afterInitialize(address, PoolKey calldata key, uint160, int24)
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> src/mainnet/UnlkImdHook.sol:214:5:
+    |
+214 |     function afterInitialize(address, PoolKey calldata key, uint160, int24)
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> src/mainnet/UnlkImdHook.sol:546:5:
+    |
+546 |     function afterAddLiquidity(
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> src/mainnet/UnlkImdHook.sol:558:5:
+    |
+558 |     function beforeRemoveLiquidity(
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> src/mainnet/UnlkImdHook.sol:571:5:
+    |
+571 |     function afterRemoveLiquidity(
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> src/successor/UnlkHookV3.sol:230:5:
+    |
+230 |     function afterInitialize(address, PoolKey calldata key, uint160, int24)
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 3 tests for test/scratch/review/LintBounds.t.sol:IndependentLintBoundsTest
+[PASS] testFuzzUntruncatedFillBoundRejectsAnyOverflowingFee(uint256) (runs: 256, μ: 2504, ~: 2371)
+[PASS] testInt128FillBoundaryAndMaxInt256Gross() (gas: 9509)
+[PASS] testOneWeiAndFeeRoundingDiscontinuities() (gas: 19711563)
+Suite result: ok. 3 passed; 0 failed; 0 skipped; finished in 205.88ms (243.61ms CPU time)
+
+Ran 1 test suite in 208.32ms (205.88ms CPU time): 3 tests passed, 0 failed, 0 skipped (3 total tests)

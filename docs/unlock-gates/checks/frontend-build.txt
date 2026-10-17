@@ -1,0 +1,14 @@
+(node:19) [UNDICI-EHPA] Warning: EnvHttpProxyAgent is experimental, expect them to change at any time.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:28) [UNDICI-EHPA] Warning: EnvHttpProxyAgent is experimental, expect them to change at any time.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+  dist-candidate/assets/app.js                                  809.9kb
+  dist-candidate/assets/jetbrains-mono-semibold-MVL5K7GZ.woff2   92.3kb
+  dist-candidate/assets/jetbrains-mono-regular-DYCCJ225.woff2    90.2kb
+  dist-candidate/assets/app.css                                  34.5kb
+
+⚡ Done in 3588ms
+Built dist-candidate/ offline; publication is not authorized.
+(node:19) [UNDICI-EHPA] Warning: EnvHttpProxyAgent is experimental, expect them to change at any time.
+(Use `node --trace-warnings ...` to show where the warning was created)

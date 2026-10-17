@@ -1,0 +1,16 @@
+{
+  "targetUrl": "https://unlk.sites.imd.fun/",
+  "siteName": "unlk.site.identitymd.eth",
+  "repository": "https://github.com/identity-md-launches/launch-1560-unlock",
+  "acceptedBaseCommit": "b01b41bfdf20a20519c5902eda3d0677b7f2b6df",
+  "submissionCommit": null,
+  "ipfsCID": null,
+  "status": "Prepared for contributor-network publication; no new hosted version claimed by this worker",
+  "reason": "The task prohibits writing .git/. The contributor publisher commits the source/export and assigns the new IPFS CID under the existing site name.",
+  "export": "dist/",
+  "screenshots": [
+    "artifacts/screenshots/unlk-1440.png",
+    "artifacts/screenshots/unlk-390.png"
+  ],
+  "onChainWrites": false
+}

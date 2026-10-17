@@ -1,0 +1,33 @@
+{
+  "sourceCommit": "3b29fd1d044fb16bbe1595ddacf7ec4efbfdd8fa",
+  "checkedOrdinaryImportedFiles": 2720,
+  "modifiedImportedPaths": [
+    "README.md",
+    "docs/mainnet/ARTIFACTS.json",
+    "docs/mainnet/DEPLOYMENT.md",
+    "docs/mainnet/SPOT_PRICE.md",
+    "docs/mainnet/release-plan.json",
+    "launch.json",
+    "rehearsal/unlock-gates/MainnetHandoff.t.sol",
+    "script/mainnet/PrepareImdLaunch.s.sol",
+    "scripts/check_protected.py",
+    "scripts/unlock-gates/fork.sh",
+    "src/mainnet/ImdReviewedCode.sol",
+    "src/mainnet/UnlkImdHook.sol",
+    "src/mainnet/UnlkImdOracle.sol",
+    "test/mainnet/ImdLaunchPlan.t.sol",
+    "test/mainnet/OneWayGates.t.sol"
+  ],
+  "missingImportedFiles": [],
+  "protectedConfigurationDependencyChanges": [],
+  "historicalNonMainnetSourceAndWebsiteChanges": [],
+  "importedSepoliaManifestPreservedExactly": true,
+  "importedSepoliaManifestSha256": "22ec68e2c06748986d1ce6c7c34019a347abe8d32256cff61ecf9008cd89254f",
+  "excludedFromComparison": [
+    ".git/",
+    ".github/",
+    "node_modules/",
+    ".env files"
+  ],
+  "note": "Excluded paths were not written. No git metadata or build configuration/dependency edits; no installs or new submodules. New release files, scripts and tests are described by ADAPTATION.md."
+}

@@ -1,0 +1,13 @@
+{
+  "command": "forge lint src/candidate --severity high med",
+  "status": "completed with warnings; author triage, independent review pending",
+  "warningCounts": {
+    "uninitialized-local": 3,
+    "reentrancy-no-eth": 3,
+    "unused-return": 1,
+    "reentrancy-balance": 2,
+    "incorrect-strict-equality": 3,
+    "reentrancy-eth": 1,
+    "unsafe-typecast": 31
+  }
+}

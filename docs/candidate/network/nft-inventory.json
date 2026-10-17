@@ -1,0 +1,10 @@
+{
+  "source": "https://eth.blockscout.com/api/v2/addresses/0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9/nft?type=ERC-721",
+  "rawSha256": "175843596061051ba3a1c2e72726729434014b23cf29e4051169d13353ef21ef",
+  "discoveredCollectionIds": [
+    "1181",
+    "1116"
+  ],
+  "next_page_params": null,
+  "note": "Discovery only; ownerOf/tokenURI verification is in nft-ownership.json."
+}

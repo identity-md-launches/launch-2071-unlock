@@ -1,0 +1,54 @@
+{
+  "status": "BLOCKED_UNDEPLOYED",
+  "baseCommit": "18062fc08c2fc3ab47b79316c1d1dea701e36e7f",
+  "publishedCommit": null,
+  "publicationResponsibility": "contributor uploader; local .git writes prohibited",
+  "compiler": "0.8.26",
+  "fuzzSeed": "0x1d49232a44ff2493b73de50672c825b51c99d7c5f9f966576d2050bd2684d532",
+  "build": "passed",
+  "tests": {
+    "passed": 329,
+    "failed": 0,
+    "skipped": 0,
+    "suites": 71
+  },
+  "mainnetFork": {
+    "passed": 27,
+    "failed": 0,
+    "blocks": [
+      26203203,
+      26203792,
+      26203856
+    ],
+    "candidateActivationPricing": "synthetic, explicitly redirected only in test fixtures",
+    "oracleProof": "actual recorded account/storage/header proof, actual blockhash verified on fork"
+  },
+  "format": "passed",
+  "frontend": {
+    "typecheck": "passed",
+    "build": "passed",
+    "testsPassed": 24,
+    "writesEnabled": false,
+    "gallery": "read-only"
+  },
+  "preservation": {
+    "baselineFilesVerified": 2071,
+    "protectedConfigurationOrDependencyChanges": 0,
+    "liveLaunch1560Changed": false,
+    "historicalEvidence": "3 JSON records preserved byte-exact in XZ with original/compressed SHA-256"
+  },
+  "skips": {
+    "browser": "Playwright unavailable",
+    "protectedAdmission": "harness files not supplied",
+    "slitherMythril": "not installed; no run claimed"
+  },
+  "staticAnalysis": "forge lint high/medium ran with warnings; not independent audit authority",
+  "independentReview": "pending on final changes; previous independent H-01 High preserved",
+  "findings": {
+    "H-01": "High, unresolved: mature shared executor quotas remain pooled",
+    "oracleSafety": "blocked: full real history/depth and net sustained manipulation economics not established; authentic price is not a safety proof"
+  },
+  "publicTransactions": [],
+  "deployment": null,
+  "sitePublication": null
+}

@@ -1,0 +1,72 @@
+Error: HTTP error 403 with body: {"jsonrpc":"2.0","error":{"code":-32602,"message":"Archive requests require a personal token. Get one at: https://www.allnodes.com/publicnode"},"id":0}
+
+
+HTTP diagnostics:
+cf-ray: a4b6ddfeaac70f02-FRA
+server: cloudflare
+Error: HTTP error 403 with body: {"jsonrpc":"2.0","error":{"code":-32602,"message":"Archive requests require a personal token. Get one at: https://www.allnodes.com/publicnode"},"id":0}
+
+
+HTTP diagnostics:
+cf-ray: a4b6ddfea9bbd29d-FRA
+server: cloudflare
+Error: HTTP error 403 with body: {"jsonrpc":"2.0","error":{"code":-32602,"message":"Archive requests require a personal token. Get one at: https://www.allnodes.com/publicnode"},"id":0}
+
+
+HTTP diagnostics:
+cf-ray: a4b6ddfeb98a35ea-FRA
+server: cloudflare
+Error: HTTP error 403 with body: {"jsonrpc":"2.0","error":{"code":-32602,"message":"Archive requests require a personal token. Get one at: https://www.allnodes.com/publicnode"},"id":0}
+
+
+HTTP diagnostics:
+cf-ray: a4b6ddfebb1bd2e7-FRA
+server: cloudflare
+Error: HTTP error 403 with body: {"jsonrpc":"2.0","error":{"code":-32602,"message":"Archive requests require a personal token. Get one at: https://www.allnodes.com/publicnode"},"id":0}
+
+
+HTTP diagnostics:
+cf-ray: a4b6ddfede99dc68-FRA
+server: cloudflare
+Error: HTTP error 403 with body: {"jsonrpc":"2.0","error":{"code":-32602,"message":"Archive requests require a personal token. Get one at: https://www.allnodes.com/publicnode"},"id":0}
+
+
+HTTP diagnostics:
+cf-ray: a4b6ddff2e75021e-CDG
+server: cloudflare
+Error: HTTP error 403 with body: {"jsonrpc":"2.0","error":{"code":-32602,"message":"Archive requests require a personal token. Get one at: https://www.allnodes.com/publicnode"},"id":0}
+
+
+HTTP diagnostics:
+cf-ray: a4b6ddff885737e9-FRA
+server: cloudflare
+Traceback (most recent call last):
+  File "<repo>/scripts/unlock-gates/record-network.py", line 42, in <module>
+    record['contracts'] = dict(executor.map(runtime, [(n, d) for n, d in base.items() if n != 'deployer']))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 619, in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 317, in _result_or_cancel
+    return fut.result(timeout)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 456, in result
+    return self.__get_result()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/_base.py", line 401, in __get_result
+    raise self._exception
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<repo>/scripts/unlock-gates/record-network.py", line 37, in runtime
+    code = rpc('eth_getCode', [expected['address'], block])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<repo>/scripts/unlock-gates/record-network.py", line 13, in rpc
+    raw = subprocess.check_output(['cast', 'rpc', '--rpc-url', RPC, method, *[json.dumps(x, separators=(',', ':')) for x in params]], text=True)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 466, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['cast', 'rpc', '--rpc-url', 'https://ethereum-rpc.publicnode.com', 'eth_getCode', '"0x12c63b581d07093f6126bc02263c58f7eadaa96f"', '"0x18fda32"']' returned non-zero exit status 1.

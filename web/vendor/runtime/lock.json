@@ -1,0 +1,47 @@
+{
+  "entries": {
+    "react": "ab03d5bbf1867256af7c.mjs",
+    "react/jsx-runtime": "79686c7ff29c42b4482b.mjs",
+    "viem": "c5e656ecf7fbe34e412c.mjs",
+    "react-dom/client": "5c6113df38c00955dc88.mjs",
+    "@coinbase/wallet-sdk": "bfd99eb87afaf129b7b9.mjs"
+  },
+  "modules": [
+    {
+      "url": "https://esm.sh/react@19.1.1/es2022/react.mjs",
+      "rawSha256": "d11dd57236b09a688d47914871678fd77fb189486ef498ed05813dc17c61e6e9",
+      "local": "ab03d5bbf1867256af7c.mjs",
+      "sha256": "d11dd57236b09a688d47914871678fd77fb189486ef498ed05813dc17c61e6e9"
+    },
+    {
+      "url": "https://esm.sh/react@19.1.1/es2022/jsx-runtime.mjs",
+      "rawSha256": "725c2f07b0ae1b880a8e091b569a7baff43d5560cddb7fe51a64c94463eec496",
+      "local": "79686c7ff29c42b4482b.mjs",
+      "sha256": "725c2f07b0ae1b880a8e091b569a7baff43d5560cddb7fe51a64c94463eec496"
+    },
+    {
+      "url": "https://esm.sh/viem@2.37.13/es2022/viem.bundle.mjs",
+      "rawSha256": "4adb5825747bbe30683bb89f5eaa8956402b43f853ffb1292b82c6c84c39c783",
+      "local": "c5e656ecf7fbe34e412c.mjs",
+      "sha256": "4adb5825747bbe30683bb89f5eaa8956402b43f853ffb1292b82c6c84c39c783"
+    },
+    {
+      "url": "https://esm.sh/react-dom@19.1.1/X-ZHJlYWN0QDE5LjEuMQ/es2022/client.bundle.mjs",
+      "rawSha256": "bf10dfe9d0c071c1779d5e067ce2c72a79b83f65366bf64ba94fb5b39dc645e9",
+      "local": "5c6113df38c00955dc88.mjs",
+      "sha256": "0dce9afb85d5147ab382fcc71538394eed6253bfb19c412dc4828ea5fcb3acb1"
+    },
+    {
+      "url": "https://esm.sh/@coinbase/wallet-sdk@4.3.7/es2022/wallet-sdk.bundle.mjs",
+      "rawSha256": "228a31c29ec9867eb3aa0c1fbb2e34ba373d947a04d0404f54e5133ad97e3dfc",
+      "local": "bfd99eb87afaf129b7b9.mjs",
+      "sha256": "08a2a5a970be9436f57166fb913394e3e9c183c3d36b90f8a2ca10fc3e3f1b93"
+    },
+    {
+      "url": "https://esm.sh/node/buffer.mjs",
+      "rawSha256": "64fb61aa5f48644d685f9ceabedba60ea6b5d6ce03dac1943e863d00d9e574f3",
+      "local": "16296a5ca250926751e3.mjs",
+      "sha256": "64fb61aa5f48644d685f9ceabedba60ea6b5d6ce03dac1943e863d00d9e574f3"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "at": "2026-10-13T11:19:44.294343+00:00",
+  "attempts": [
+    {
+      "url": "https://ethereum-sepolia-rpc.publicnode.com",
+      "httpStatus": 403,
+      "error": "error code: 1010\n"
+    },
+    {
+      "url": "https://rpc.sepolia.org",
+      "httpStatus": 403,
+      "error": "error code: 1010\n"
+    },
+    {
+      "url": "https://sepolia.drpc.org",
+      "httpStatus": 403,
+      "error": "error code: 1010\n"
+    }
+  ]
+}

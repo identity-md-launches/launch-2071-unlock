@@ -1,0 +1,40 @@
+{
+  "url": "https://explorer.imd.fun/_next/static/chunks/03vi_jvgsxpe2.js",
+  "sha256": "8ff78057d442b1cc4c77eca1b10c6a16950639326c0dce881e63ad87b4124c13",
+  "observedDate": "2026-10-15",
+  "hits": [
+    {
+      "term": "3a9d48ab9751398",
+      "excerpt": "inhood-rpc.publicnode.com\",explorer:\"https://robin.etherscan.io\",extendedSwapParams:!0,pairToken:{address:\"0x5f7bb59365ce557c26dbcaa4ee9d39a4b95b7127\",symbol:\"IMD\",decimals:18}},0xaa36a7:{quoter:\"0x61b3f2011a92d183c7dbadbda940a7555ccf9227\",router:\"0x3a9d48ab9751398bbfa63ad67599bb04e4bdf98b\",permit2:\"0x000000000022D473030F116dDEE9F6B43aC78BA3\",rpc:\"https://ethereum-sepolia-rpc.publicnode.com\",explorer:\"https://sepolia.etherscan.io\"}}])},741780,e=>{var t=e.i(147526),a=e.i(704434);let n=[{name:\"currency0\",type:\"address\"},{name:\"currency1\",type:\"address\"},{name:\"fee\",type:\"uint24\"},{name:\"tickSpacing\",type:\"int2"
+    },
+    {
+      "term": "quoteExactInputSingle",
+      "excerpt": "ired:s,erc20:o,permit:l[0],expires:Number(l[1])})}catch{}},[N,k,e.address,j.address,z,V,K,S.permit2,S.router]);(0,a.useEffect)(()=>{X()},[X]),(0,a.useEffect)(()=>{if(0n===Q)return;let e=!0,t=()=>k.readContract({address:S.quoter,abi:c.U,functionName:\"quoteExactInputSingle\",args:[{poolKey:g,zeroForOne:Y,exactAmount:Q,hookData:\"0x\"}]}).then(([t])=>{e&&R({key:J,out:t})}).catch(()=>{e&&R({key:J,failed:!0})}),a=setTimeout(t,300),n=setInterval(t,15e3);return()=>{e=!1,clearTimeout(a),clearInterval(n)}},[J,Q,Y,g,k,S.quoter]);let Z=I?.key===J?I:null,ee=Z&&\"out\"in Z?Z.out:0n,et=ee-100n*ee/10000n,ea=q?$?z?q.native:q.paired:q."
+    },
+    {
+      "term": "quoteExactInputSingle",
+      "excerpt": "://sepolia.etherscan.io\"}}])},741780,e=>{var t=e.i(147526),a=e.i(704434);let n=[{name:\"currency0\",type:\"address\"},{name:\"currency1\",type:\"address\"},{name:\"fee\",type:\"uint24\"},{name:\"tickSpacing\",type:\"int24\"},{name:\"hooks\",type:\"address\"}],r=[{name:\"quoteExactInputSingle\",type:\"function\",stateMutability:\"view\",inputs:[{name:\"params\",type:\"tuple\",components:[{name:\"poolKey\",type:\"tuple\",components:n},{name:\"zeroForOne\",type:\"bool\"},{name:\"exactAmount\",type:\"uint128\"},{name:\"hookData\",type:\"bytes\"}]}],outputs:[{name:\"amountOut\",type:\"uint256\"},{name:\"gasEstimate\",type:\"uint256\"}]}],i=[{name:\"quoteExactOutputSingle\","
+    },
+    {
+      "term": "hookData",
+      "excerpt": "ddress,j.address,z,V,K,S.permit2,S.router]);(0,a.useEffect)(()=>{X()},[X]),(0,a.useEffect)(()=>{if(0n===Q)return;let e=!0,t=()=>k.readContract({address:S.quoter,abi:c.U,functionName:\"quoteExactInputSingle\",args:[{poolKey:g,zeroForOne:Y,exactAmount:Q,hookData:\"0x\"}]}).then(([t])=>{e&&R({key:J,out:t})}).catch(()=>{e&&R({key:J,failed:!0})}),a=setTimeout(t,300),n=setInterval(t,15e3);return()=>{e=!1,clearTimeout(a),clearInterval(n)}},[J,Q,Y,g,k,S.quoter]);let Z=I?.key===J?I:null,ee=Z&&\"out\"in Z?Z.out:0n,et=ee-100n*ee/10000n,ea=q?$?z?q.native:q.paired:q.token:null,en=!V&&null!==q&&q.erc20<Q,er=!V&&null!==q&"
+    },
+    {
+      "term": "hookData",
+      "excerpt": "\"address\"}],r=[{name:\"quoteExactInputSingle\",type:\"function\",stateMutability:\"view\",inputs:[{name:\"params\",type:\"tuple\",components:[{name:\"poolKey\",type:\"tuple\",components:n},{name:\"zeroForOne\",type:\"bool\"},{name:\"exactAmount\",type:\"uint128\"},{name:\"hookData\",type:\"bytes\"}]}],outputs:[{name:\"amountOut\",type:\"uint256\"},{name:\"gasEstimate\",type:\"uint256\"}]}],i=[{name:\"quoteExactOutputSingle\",type:\"function\",stateMutability:\"view\",inputs:[{name:\"params\",type:\"tuple\",components:[{name:\"poolKey\",type:\"tuple\",components:n},{name:\"zeroForOne\",type:\"bool\"},{name:\"exactAmount\",type:\"uint128\"},{name:\"hookData\","
+    },
+    {
+      "term": "hookData",
+      "excerpt": "nt256\"}]}],i=[{name:\"quoteExactOutputSingle\",type:\"function\",stateMutability:\"view\",inputs:[{name:\"params\",type:\"tuple\",components:[{name:\"poolKey\",type:\"tuple\",components:n},{name:\"zeroForOne\",type:\"bool\"},{name:\"exactAmount\",type:\"uint128\"},{name:\"hookData\",type:\"bytes\"}]}],outputs:[{name:\"amountIn\",type:\"uint256\"},{name:\"gasEstimate\",type:\"uint256\"}]}],s=[{name:\"poolKey\",type:\"tuple\",components:n},{name:\"zeroForOne\",type:\"bool\"},{name:\"amountIn\",type:\"uint128\"},{name:\"amountOutMinimum\",type:\"uint128\"}];e.s([\"U\",0,r,\"p\",0,i,\"g\",0,[{name:\"execute\",type:\"function\",stateMutability:\"payable\",inputs:[{na"
+    },
+    {
+      "term": "hookData",
+      "excerpt": "ute\",type:\"function\",stateMutability:\"payable\",inputs:[{name:\"commands\",type:\"bytes\"},{name:\"inputs\",type:\"bytes[]\"},{name:\"deadline\",type:\"uint256\"}],outputs:[]}],\"D\",0,function(e,n,r,i,o){let l={poolKey:e,zeroForOne:n,amountIn:r,amountOutMinimum:i,hookData:\"0x\"},c=o?(0,a.N)([{type:\"tuple\",components:[...s,{name:\"extra\",type:\"uint256\"},{name:\"hookData\",type:\"bytes\"}]}],[{...l,extra:0n}]):(0,a.N)([{type:\"tuple\",components:[...s,{name:\"hookData\",type:\"bytes\"}]}],[l]),[u,d]=n?[e.currency0,e.currency1]:[e.currency1,e.currency0],f=(0,a.N)([{type:\"address\"},{type:\"uint256\"}],[u,r]),p=(0,a.N)([{type:\"addres"
+    },
+    {
+      "term": "current Sepolia commands/actions",
+      "excerpt": ".currency1,e.currency0],f=(0,a.N)([{type:\"address\"},{type:\"uint256\"}],[u,r]),p=(0,a.N)([{type:\"address\"},{type:\"uint256\"}],[d,i]),m=(0,t.s)([\"0x06\",\"0x0c\",\"0x0f\"]);return{commands:\"0x10\",inputs:[(0,a.N)([{type:\"bytes\"},{type:\"bytes[]\"}],[m,[c,f,p]])]}}])},559451,e=>{e.s([\"f\",0,e=>(e.shortMessage??e.message??\"Something went wrong\").split(\"\\n\")[0]])},605500,(e,t,a)=>{e.i(247167),"
+    }
+  ],
+  "page": "https://explorer.imd.fun/token/0x20978223b637fec0c6276ab0184cf7011dd1d483?chain=11155111"
+}

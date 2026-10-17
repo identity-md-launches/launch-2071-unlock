@@ -1,0 +1,33 @@
+{
+  "baseCommit": "3939f319d67dcd92eb50b057c0c13754ccb6b35c",
+  "remoteHead": "3939f319d67dcd92eb50b057c0c13754ccb6b35c",
+  "newerAcceptedWork": "none at both observations",
+  "history": "continued in place; no .git write or history rewrite requested",
+  "protectedConfigDependencyOrLiveChanges": [],
+  "livePathsUnchanged": [
+    "web/src/config.ts",
+    "web/src/live.ts",
+    "web/src/verified.json",
+    "web/src/Trade.tsx",
+    "web/src/Unlock.tsx",
+    "web/src/Rewards.tsx",
+    "src/UnlkToken.sol",
+    "src/mainnet/ImdSampledUsdSource.sol",
+    "src/mainnet/ImdFeeVault.sol",
+    "src/mainnet/WalletExecutor.sol"
+  ],
+  "historicalTextRecordsVerifiedAgainstAcceptedGitBlobs": 141,
+  "historicalJsonRecordsVerifiedAgainstAcceptedSha256": 2,
+  "publishedCommit": null,
+  "publicationResponsibility": "contributor uploader; local .git changes prohibited",
+  "publicTransactions": [],
+  "newDeployment": null,
+  "liveSitePublication": null,
+  "currentPlatformPreflightBlock": 26204927,
+  "forkBlock": 26204722,
+  "forkProvidersSuccessfullyExercised": [
+    "https://ethereum-rpc.publicnode.com",
+    "https://eth.drpc.org (storage caching disabled)"
+  ],
+  "diagnosticPaths": "Current text logs normalize the workspace prefix to <repo>; historical archived bytes are unchanged."
+}

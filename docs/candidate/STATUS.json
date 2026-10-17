@@ -1,0 +1,15 @@
+{
+  "status": "blocked-for-release",
+  "codeOnly": true,
+  "deployed": false,
+  "websitePublished": false,
+  "independentReview": "pending",
+  "blockingFindings": [
+    "B-01: actual standard-router sourcing/delivery is not observable to the hook",
+    "B-02: native-specified executed fee requires supplemental settlement not provided by the observed standard route"
+  ],
+  "historicalContractsUnchanged": true,
+  "historicalFrontendRulesPreserved": true,
+  "githubCommit": "not created; .git writes prohibited by assignment",
+  "nextStep": "requester approves attribution/settlement architecture, then independent review before separate Sepolia release"
+}

@@ -1,0 +1,9 @@
+{
+  "status": "additional historical probe refused after successful fork rehearsals",
+  "chainId": 1,
+  "block": 26203203,
+  "rpc": "https://ethereum-rpc.publicnode.com",
+  "httpStatus": 403,
+  "response": "Archive requests require a personal token.",
+  "effect": "No further historical probes attempted; prior captured code/state evidence and successful fork logs are retained. Future fork reruns need working authorized archive access. No credentials requested or collected."
+}

@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "<repo>/scripts/candidate/check-protected.py", line 17, in <module>
+    shutil.copyfile(inputs / name, target / name)
+  File "/usr/lib/python3.12/shutil.py", line 260, in copyfile
+    with open(src, 'rb') as fsrc:
+         ^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '<repo>/.imd/reads/protected/univ4_hook/Hook.protected.t.sol'

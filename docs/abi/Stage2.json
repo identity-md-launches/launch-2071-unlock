@@ -1,0 +1,225 @@
+[
+  {
+    "type": "function",
+    "name": "IS_SCRIPT",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "activate",
+    "inputs": [
+      {
+        "name": "config",
+        "type": "tuple",
+        "internalType": "struct Stage2.Config",
+        "components": [
+          {
+            "name": "hook",
+            "type": "address",
+            "internalType": "contract UnlkHook"
+          },
+          {
+            "name": "launchNumber",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "feed",
+            "type": "address",
+            "internalType": "contract IChainlinkEthUsd"
+          }
+        ]
+      },
+      {
+        "name": "companions",
+        "type": "tuple",
+        "internalType": "struct Stage2.Companions",
+        "components": [
+          {
+            "name": "router",
+            "type": "address",
+            "internalType": "contract UnlkSwapRouter"
+          },
+          {
+            "name": "rewards",
+            "type": "address",
+            "internalType": "contract MerkleClaimEvidence"
+          },
+          {
+            "name": "oracle",
+            "type": "address",
+            "internalType": "contract UnlkOracle"
+          }
+        ]
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "deploymentCall",
+    "inputs": [
+      {
+        "name": "config",
+        "type": "tuple",
+        "internalType": "struct Stage2.Config",
+        "components": [
+          {
+            "name": "hook",
+            "type": "address",
+            "internalType": "contract UnlkHook"
+          },
+          {
+            "name": "launchNumber",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "feed",
+            "type": "address",
+            "internalType": "contract IChainlinkEthUsd"
+          }
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes",
+        "internalType": "bytes"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "distributorOf",
+    "inputs": [
+      {
+        "name": "config",
+        "type": "tuple",
+        "internalType": "struct Stage2.Config",
+        "components": [
+          {
+            "name": "hook",
+            "type": "address",
+            "internalType": "contract UnlkHook"
+          },
+          {
+            "name": "launchNumber",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "feed",
+            "type": "address",
+            "internalType": "contract IChainlinkEthUsd"
+          }
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "name": "distributor",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "readCompanions",
+    "inputs": [
+      {
+        "name": "config",
+        "type": "tuple",
+        "internalType": "struct Stage2.Config",
+        "components": [
+          {
+            "name": "hook",
+            "type": "address",
+            "internalType": "contract UnlkHook"
+          },
+          {
+            "name": "launchNumber",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "feed",
+            "type": "address",
+            "internalType": "contract IChainlinkEthUsd"
+          }
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "name": "companions",
+        "type": "tuple",
+        "internalType": "struct Stage2.Companions",
+        "components": [
+          {
+            "name": "router",
+            "type": "address",
+            "internalType": "contract UnlkSwapRouter"
+          },
+          {
+            "name": "rewards",
+            "type": "address",
+            "internalType": "contract MerkleClaimEvidence"
+          },
+          {
+            "name": "oracle",
+            "type": "address",
+            "internalType": "contract UnlkOracle"
+          }
+        ]
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "run",
+    "inputs": [
+      {
+        "name": "hook",
+        "type": "address",
+        "internalType": "contract UnlkHook"
+      },
+      {
+        "name": "number",
+        "type": "uint64",
+        "internalType": "uint64"
+      },
+      {
+        "name": "accounts",
+        "type": "address[]",
+        "internalType": "address[]"
+      },
+      {
+        "name": "amounts",
+        "type": "uint256[]",
+        "internalType": "uint256[]"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "error",
+    "name": "Stage1NotReady",
+    "inputs": []
+  }
+]

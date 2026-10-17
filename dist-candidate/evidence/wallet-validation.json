@@ -1,0 +1,14 @@
+{
+  "checks": [
+    "EIP-6963 discovery; connection sends only account and chain reads, no approval/sign/trade",
+    "Wrong-network switch; live actual-trader buy simulation, minimum receipt, exact fee and gas estimate",
+    "45-second expiry and slippage changes invalidate quotes before review",
+    "Review uses official router; re-simulated send rejection shown once; no automatic resend",
+    "Existing live allowance permits exact sell simulation and router-credit review; bounded approval independently verified on the local fork",
+    "Account change closes transaction review, invalidates quote and reads transfer-only E=0 allowance",
+    "Known native claim deduplicated; attestation is a distinct recoverable step",
+    "Network change disables reward writes"
+  ],
+  "errors": [],
+  "note": "EIP-6963 test provider exposes the existing public payer address for read-only simulation. Every send/sign request rejects locally; no private key and no broadcast."
+}

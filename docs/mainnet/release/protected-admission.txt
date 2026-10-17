@@ -1,0 +1,5 @@
+Command: python3 scripts/check_protected.py
+Result: NOT RUN — required unmodified platform harness absent.
+FileNotFoundError: .imd/reads/protected/univ4_hook/Hook.protected.t.sol
+Token.protected.t.sol is also absent. No replacement checks were passed off as protected admission.
+The runner now derives flags from the active manifest (0x3fcc) instead of the historical constant 0x3fc0.

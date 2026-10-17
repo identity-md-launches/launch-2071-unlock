@@ -1,0 +1,109 @@
+{
+  "documentType": "successor-specification-not-launch-manifest",
+  "status": "undeployed; independent review pending; release blocked",
+  "chainId": 11155111,
+  "sourceCommit": "3e450837a23b12c4f00f5c5eaf9569691669fb93 (job 02a5288c base); successor changes are uncommitted source in this delivery",
+  "compiler": {
+    "version": "0.8.26",
+    "evmVersion": "cancun",
+    "optimizerRuns": 200,
+    "bytecodeHash": "none"
+  },
+  "hook": {
+    "contract": "UnlkHookV3",
+    "source": "src/successor/UnlkHookV3.sol",
+    "constructorInputs": [
+      "actual PoolManager",
+      "actual new token",
+      "actual factory",
+      "actual launch owner / setup authority"
+    ],
+    "flags": "0x3fcc",
+    "permissions": [
+      "beforeInitialize",
+      "afterInitialize",
+      "beforeAddLiquidity",
+      "afterAddLiquidity",
+      "beforeRemoveLiquidity",
+      "afterRemoveLiquidity",
+      "beforeSwap",
+      "afterSwap",
+      "beforeSwapReturnDelta",
+      "afterSwapReturnDelta"
+    ],
+    "creationCodeKeccakWithoutArgs": "0x85286714a4e38f140f8d2598ffaf109118835748b7d5c3a65964132be2378570",
+    "runtimeBytes": 20542
+  },
+  "pool": {
+    "currency0": "native ETH (canonical zero-currency sentinel)",
+    "currency1": "actual new UNLK token",
+    "fee": 12500,
+    "tickSpacing": 60,
+    "initialPrice": "derive from verified launch policy; no placeholder seed",
+    "allocationBps": 8700
+  },
+  "token": {
+    "contract": "UnlkToken",
+    "name": "UNLOCK",
+    "symbol": "UNLK",
+    "decimals": 18,
+    "supply": "1000000000000000000000000000",
+    "swarmBps": 1000,
+    "payerBps": 300
+  },
+  "treasury": {
+    "contract": "NftFeeVault (unchanged, pinned)",
+    "beneficiary": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9",
+    "feeBps": 75,
+    "feeAsset": "native ETH (ERC-6909 claims, redeemable to the vault)",
+    "feeBase": "executed pool ETH leg |delta.amount0|",
+    "modes": {
+      "buyExactInput": "beforeSwap specified delta; fee = G - buyPoolInput(G)",
+      "buyExactOutput": "afterSwap unspecified delta; fee = floor(leg*75/10000)",
+      "sellExactInput": "afterSwap unspecified delta; fee = floor(leg*75/10000)",
+      "sellExactOutput": "beforeSwap specified delta; fee = sellGrossOutput(N) - N"
+    },
+    "partialFills": "rejected; no fee"
+  },
+  "companionsCreationOrder": [
+    "MerkleClaimEvidence",
+    "UnlkOracle",
+    "NftFeeVault",
+    "SetupVerifierV2"
+  ],
+  "artifactRecord": "docs/successor/ARTIFACTS.json",
+  "setupPreparation": "script/successor/PrepareSuccessor.s.sol",
+  "deployment": null,
+  "frontendDeployment": null,
+  "nftGallery": {
+    "chainId": 1,
+    "collection": "0x0000ec93127baa929e58e97dd0095a2bfb38ec1d",
+    "wallet": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9",
+    "readOnly": true
+  },
+  "releaseBlockers": [
+    "independent adversarial review of the successor (UnlkHookV3, initiator semantics, specified-delta fee settlement) is pending; critical/high findings block release",
+    "residual risk I-1 (quota pooling through shared executors) is accepted by design but needs requester acknowledgement after review",
+    "the V3 hook against the actual Sepolia LaunchFactory (service pins) has not been fork-run; only the local factory instance on real Sepolia state was",
+    "actual launch inputs (launch number, owner/setup authority, round-0 tree, seed) come from the later launch operation"
+  ],
+  "supersedesCandidate": "UnlkHookV2 + UnlkRouterV2 (custom-router-only)",
+  "route": {
+    "universalRouter": "0x3a9d48ab9751398bbfa63ad67599bb04e4bdf98b",
+    "universalRouterRuntimeKeccak": "0x14f7c9253a5406bafa90cb512f4a2db2a10513886603e7a9b4a2e72329e944f4",
+    "quoter": "0x61b3f2011a92d183c7dbadbda940a7555ccf9227",
+    "quoterRuntimeKeccak": "0xf481a751ac453d40c46d12360b85b05472028c1b113ab63749d69a5f8b0e47d1",
+    "poolManager": "0xe03a1074c86cfedd5c142c4f04f1a1536e203543",
+    "permit2": "0x000000000022d473030f116ddee9f6b43ac78ba3",
+    "hookData": "ignored; IMD Explorer sends empty",
+    "accounting": "initiator = UniversalRouter.msgSender()",
+    "verifiedAtBlocks": [
+      11918468,
+      11920551
+    ]
+  },
+  "resolvedFromCandidate": {
+    "B-01": "resolved by authorized semantics change to an initiator ledger via the pinned Universal Router msgSender()",
+    "B-02": "resolved: native-ETH fee in all four modes through beforeSwapReturnDelta / afterSwapReturnDelta; partial fills rejected"
+  }
+}

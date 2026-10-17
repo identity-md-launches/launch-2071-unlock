@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+<rect width="1200" height="630" fill="#09090B"/>
+<g fill="none" stroke="#27272A"><path d="M0 86h1200M48 534h1104"/><rect x="48" y="120" width="1104" height="384" rx="6"/></g>
+<g fill="none" stroke="#34D399" stroke-width="2"><path d="M68 24 85 38 68 62 51 38Z M51 38h34M60 31l8 31 8-31"/></g>
+<g font-family="monospace"><text x="102" y="52" fill="#F4F4F5" font-size="28" font-weight="600">UNLOCK_</text><text x="1148" y="49" text-anchor="end" fill="#FBBF24" font-size="18">Sepolia testnet</text>
+<text x="76" y="164" fill="#F4F4F5" font-size="24">Unlock ladder</text><text x="1124" y="162" text-anchor="end" fill="#A1A1AA" font-size="16">UNLK / ETH · Protocol rules</text>
+<text x="76" y="199" fill="#A1A1AA" font-size="16">Cumulative acquisitions. Permanent sell rights.</text>
+<g fill="none" stroke="#27272A"><path d="M100 250h980M100 310h980M100 370h980M100 430h980"/></g>
+<path d="M100 418H260V396H420V374H580V352H740V319H900V286H1080V253" fill="none" stroke="#FBBF24" stroke-width="3"/>
+<g fill="#111114" stroke="#FBBF24" stroke-width="3"><circle cx="100" cy="418" r="5"/><circle cx="260" cy="396" r="5"/><circle cx="420" cy="374" r="5"/><circle cx="580" cy="352" r="5"/><circle cx="740" cy="319" r="5"/><circle cx="900" cy="286" r="5"/><circle cx="1080" cy="253" r="5"/></g>
+<g text-anchor="middle" fill="#FBBF24" font-size="20"><text x="100" y="400">25%</text><text x="260" y="378">35%</text><text x="420" y="356">45%</text><text x="580" y="334">55%</text><text x="740" y="301">70%</text><text x="900" y="268">85%</text><text x="1080" y="235">Full bypass</text></g>
+<g text-anchor="middle" fill="#A1A1AA" font-size="16"><text x="100" y="465">Initial</text><text x="260" y="465">$100K</text><text x="420" y="465">$250K</text><text x="580" y="465">$500K</text><text x="740" y="465">$1M</text><text x="900" y="465">$2.5M</text><text x="1080" y="465">$5M</text></g>
+<text x="48" y="569" fill="#F4F4F5" font-size="18">Inspect the rules. Trade the official pool.</text><text x="48" y="601" fill="#A1A1AA" font-size="16">Categorical FDV milestones require on-chain confirmation. Test assets, no real monetary value.</text></g>
+</svg>

@@ -1,0 +1,58 @@
+{
+  "compiler": "0.8.26",
+  "evmVersion": "cancun",
+  "optimizerRuns": 200,
+  "bytecodeHash": "none",
+  "status": "undeployed; independent review pending; standard-router attribution blocks release",
+  "warning": "Runtime template hashes have unresolved immutables. They are not deployed code hashes.",
+  "contracts": {
+    "UnlkHookV2": {
+      "initCodeWithArgsBytes": 22354,
+      "runtimeTemplateBytes": 21055,
+      "creationBodyKeccak256": "0x04f2cd5f4370cb10e050afa02a37b642fd8869d66d4c4afc30dc04027b074a2d",
+      "runtimeTemplateKeccak256": "0x6d30251557f53b864b3cfd26678e58d2be62b87028d63f6efc13c679919621b9"
+    },
+    "UnlkRouterV2": {
+      "initCodeWithArgsBytes": 10287,
+      "runtimeTemplateBytes": 9847,
+      "creationBodyKeccak256": "0x59c5c69321e9bed98eddced5e8a7c79d133958c12c8f4e09c42e8f1107ed77cb",
+      "runtimeTemplateKeccak256": "0x86d65a6e17ed8da907faf958062360b8031814a37b5a4d5a83b80273c174bee5"
+    },
+    "NftFeeVault": {
+      "initCodeWithArgsBytes": 3484,
+      "runtimeTemplateBytes": 3127,
+      "creationBodyKeccak256": "0x4300025b84c35bffcf7f76bb070f83c9c3577c369fe049c75e9ed6670a4cdc2f",
+      "runtimeTemplateKeccak256": "0xd9f497f31297c7276e87314abb75b33a4a9d3e822159cd05fda27a114a6fc0a6"
+    },
+    "SetupVerifierV2": {
+      "initCodeWithArgsBytes": 6820,
+      "runtimeTemplateBytes": 6792,
+      "creationBodyKeccak256": "0x1d2b707426fc748978d84e3ce45337210411e51192c5218f39875586d9999e4c",
+      "runtimeTemplateKeccak256": "0x527dd4bc74844d2ffe1cab183787f6ee0c96f01265d337696d9b9b46fb4ddbc1"
+    },
+    "HookDeployerV2": {
+      "initCodeWithArgsBytes": 756,
+      "runtimeTemplateBytes": 728,
+      "creationBodyKeccak256": "0x71e1feb17c1a2a0c06dcfc4f2f6c6e5c22da6284ae464e18f7bac2aa0c8b8094",
+      "runtimeTemplateKeccak256": "0xc606090ae4ad0fb2d50a69285faad5d8b0f05127c5129caa24b771f18dee2db1"
+    },
+    "UnlkToken": {
+      "initCodeWithArgsBytes": 3444,
+      "runtimeTemplateBytes": 2320,
+      "creationBodyKeccak256": "0x0ab695920f28775428475ff223b1c3e500d89a61f300ef39d4e7d091bb1d94d8",
+      "runtimeTemplateKeccak256": "0xc617bd6158c9cd2c0b13fa548c6c6d2138363631df71bfefadf7c8160c8a03d6"
+    },
+    "UnlkOracle": {
+      "initCodeWithArgsBytes": 7953,
+      "runtimeTemplateBytes": 7517,
+      "creationBodyKeccak256": "0x824e95f2cea0b9ee1b6a222df8472c75808c64f44969768332d114c078eae897",
+      "runtimeTemplateKeccak256": "0x643fa9e4d0c4cc8c71990a70e0c3063005b61c8443a811138ab8835225dc79b3"
+    },
+    "MerkleClaimEvidence": {
+      "initCodeWithArgsBytes": 6007,
+      "runtimeTemplateBytes": 5675,
+      "creationBodyKeccak256": "0x0e19b93cf4e406e2e314e1d0096790a4c37d580834c72bca0484cb1982c87113",
+      "runtimeTemplateKeccak256": "0x84b198a923eca53df6fff6715027c89046b1a14c471a0e5c1d78d7b04d5ce1fe"
+    }
+  }
+}

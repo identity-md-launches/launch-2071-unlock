@@ -1,0 +1,23 @@
+[
+  {
+    "original": "docs/mainnet/network/factory.verified.json",
+    "archive": "docs/mainnet/network/factory.verified.json.xz",
+    "sha256": "0367dc1079a46e8bde25759c5ddcb8f1e2578ef9f10239993e5f687ef6619022",
+    "originalBytes": 272524,
+    "archiveSha256": "be4099e9c85c55a0ec9a51313b61b819b3a49ca44210869fa5502600b9a26063"
+  },
+  {
+    "original": "docs/mainnet/network/imd.verified.json",
+    "archive": "docs/mainnet/network/imd.verified.json.xz",
+    "sha256": "32862334e1ec0398381deb2d269940d1f9780b78c7a3bc44a2643be258303996",
+    "originalBytes": 279691,
+    "archiveSha256": "9b8bb055edd99dbd3c0fffddb6a1a133ee3075b8fe34f38eb0696aee786c4f2b"
+  },
+  {
+    "original": "docs/candidate/network/router.verified.json",
+    "archive": "docs/candidate/network/router.verified.json.xz",
+    "sha256": "c683d265f598ffe4d8636afa6348573af0f8f9c803dd63a19c6519526f737a6a",
+    "originalBytes": 387516,
+    "archiveSha256": "b8e5a409dad0f494ad58ba10db26173d04f0302edd43f81c10c20e6822e77bbd"
+  }
+]

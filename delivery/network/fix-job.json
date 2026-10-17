@@ -1,0 +1,104 @@
+{
+  "workflow": null,
+  "planning": null,
+  "id": "0edcb64f-c0cf-4ac9-afed-176758f17cde",
+  "state": "completed",
+  "template": "skill:build-contract-project",
+  "objective": "Fix the concrete Sepolia admission failure of UNLOCK job 672489ef-8304-403f-855c-b9dce583bc31 and parked launch 55d5370e-7256-465c-808f-09ba4cc8ccee (launch 1534). Continue the published source https://github.com/identity-md-launches/launch-1534-unlock at f77cf377f6eb58f05ef9b9c61f36407933d5053a, reconciling any newer accepted work. No old bundle recovery or rewrite from scratch is needed.\n\nExact failure: HookDeployer runtime is 26264 bytes, exceeding 24576. UnlkHook itself is 24328 bytes. src/HookDeployer.sol embeds type(UnlkHook).creationCode. scripts/release_artifacts.py incorrectly exempts HookDeployer from its size assertion, although the actual service rejects it.\n\nMake HookDeployer a small pure encoder: remove its UnlkHook import; initCode must accept bytes memory hookCreationCode plus Config calldata and concatenate the provided code with the same four ABI-encoded constructor arguments. initCodeHash must accept the same arguments and hash initCode's result. This helper must not gain deployment authority or become a production factory. Update callers in test/fixtures/SystemFixture.sol and test/FailurePaths.t.sol to supply type(UnlkHook).creationCode. Preserve the official factory launch, manifest placeholders, hook flags and all token/trading/oracle/claim/setup behavior.\n\nRemove the HookDeployer exception from release_artifacts.py; every release artifact must pass actual EIP-170 runtime and initcode limits. Do not increase limits, weaken protected checks or merely hide an oversized artifact. Add a regression test that deploys the helper, asserts runtime <=24576, compares its output/hash to the reviewed hook creation code plus four encoded addresses, and detects a changed setup authority. Run the complete existing suite and confirm creation/runtime bytes for token, hook, router, oracle and claim evidence are unchanged. Refresh the helper ABI, artifact/source digests and outdated size documentation.\n\nDeliver the actual published fix commit, reproducible commands/results and all artifact sizes. Rerun the real IMD admission check if a supported operation is available. Do not claim a local test is service admission, or that job.continue redeploys. Identify the supported way to retry the parked launch against the reviewed fixed commit; do not invent a retry endpoint or silently deploy another token.\n\nSepolia activation remains a separate release prerequisite: confirm the concrete authorized actor and transactions for deployCompanions, actual round-0 certification and configureAndActivate before any broadcast. Keep unresolved protocol-fee halt, treasury reward-round powers and manipulation risks disclosed; this size fix does not authorize acceptance of new risks. No mainnet transactions. If continuation can only publish code, report that explicitly along with the remaining release operation.",
+  "blockedReason": null,
+  "createdAt": "2026-10-13T10:30:49.654Z",
+  "updatedAt": "2026-10-13T10:46:57.559Z",
+  "paidBy": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9",
+  "parentJobId": "672489ef-8304-403f-855c-b9dce583bc31",
+  "project": {
+    "id": "672489ef-8304-403f-855c-b9dce583bc31",
+    "head": "0edcb64f-c0cf-4ac9-afed-176758f17cde",
+    "running": null,
+    "versions": [
+      {
+        "jobId": "672489ef-8304-403f-855c-b9dce583bc31",
+        "workflowId": null,
+        "objective": "Token name: UNLOCK. Token symbol: UNLK. Recover, fix, test, review and DEPLOY on Sepolia: onchain=univ4_hook, chainId=11155111, ETH pair, poolBps=8700. NEW launch, not job.continue. Sepolia deployment/test transactions are authorized, superseding code-only scopes. No mainnet or website. Deliver active quota-enforced trading.\n\nSOURCE: Parent 98dbc132-2f46-4991-ba25-abdd397da90f produced accepted files; continuation 747894ff-efa7-4454-9a66-fa68b991a3e6 failed on an empty repo. Restore the bundles below; an empty initial workspace is expected. Do not restart from launch-1309.\n\nComplete implementation plus tests:\nhttps://api.imd.fun/bundles/0dcbb533b92aca62ac0ac07e8dd827a7fdb68988b0fa974bbd6394383de697ee\nCommit 8bc47cb68deda948f5c2fb1e9a5182bb187d6759.\nAccepted manifest:\nhttps://api.imd.fun/bundles/b89b110f9d9d6236d2570c90bf61be79d183e8827ffa15b7500438e6721176c1\nCommit 7a5e1dc79d05ba7fbeb9166be036cb25b302079e.\n\nVerify each bundle SHA256 against its URL suffix. Temporarily clone https://github.com/identity-md-launches/launch-1401-build-deploy-unlock-unlk, ensure prerequisite 0243d7da4a4337ae8b16bcdf15bb4ead736fd68f exists; run git bundle verify, fetch bundle heads. Export the complete tests commit and overlay ONLY launch.json from the manifest commit: 429 tracked files. Preserve workspace .git/protected checks; record provenance and reconcile newer accepted work. Report exact retrieval errors.\n\nFIX: Keep hook constructor ($poolManager,$token,$factory,$owner); companions bind later. Use verified new launch identities, not legacy payer constants. Verify Sepolia factory/registry/distributor/manager/feed and policy; reproduce dependencies/build/protected tests and update docs/ABIs/manifest.\n\nAuthorized redesign for findings 08f7e7e8/3589008c: depth, TWAP/warm-up, feed freshness, confirmation cadence/gaps, sequential tiers and final delay. Choose justified parameters without asking again. Fix the 10 ETH floor/first-tier conflict without hidden higher thresholds. Measure sustained manipulation/unlock-and-exit gross capital, net exit cost, duration and counter-selling. Test outages/depth dips. Invalid data cannot advance tiers or revoke rights. Delays alone do not prove safety. Independently review and resolve release-blocking findings; disclose residual risks.\n\nDEPLOYMENT: Verify the actual authorized services/actors for both stages and rehearse on a recorded-block Sepolia fork. Never broadcast stage 1 without an executable stage-2 path. Future addresses are outputs, not user prerequisites. If unsupported, publish source/package and specify the missing operation and any required wallet signatures; never request private keys.\n\nSTAGE 1: Factory creates token/hook/distributor and seeds the official pool with this hook in its PoolKey from initialization. Authenticate manager/factory and bind once. Permit seed liquidity. While UNCONFIGURED reject swaps/credits/milestones but allow ordinary transfers and eligible native claims. No later hook attachment or substitute pool.\n\nSTAGE 2: Deploy UnlkSwapRouter, MerkleClaimEvidence and UnlkOracle against actual stage-1 records. Immutable setup authority calls configureAndActivate atomically. Validate reviewed code/settings, manager/token/pool/quote, registry/distributor/payer evidence and reciprocal bindings; balance/ABI alone is insufficient. Failure changes nothing; success seals configuration permanently. No upgrades, pausing, replacements, resets, exemptions or admin withdrawals.\n\nECONOMICS: UNLOCK/UNLK, 1 billion tokens, 18 decimals, minted once to the factory for 10% swarm / 87% official pool / 3% payer. Ordinary ERC-20 transfers have no tax/quota/blacklist/pause. Preserve official 1.25% trading fees: 1% payer, 0.25% IMD. Hook adds zero fee. Verify initial liquidity principal protection and fee withdrawal rights.\n\nCALLBACKS: Before swaps require activation/authenticated trader/router; after swaps enforce quotas and executed deltas atomically. Reject spoofing/replay/bypass; never trust tx.origin. Per-wallet E credits only authenticated official-pool buys, proven initial allocation and proven actual native claims; S counts executed sales. Q=max(0,floor(E*p/10000)-S); sales cannot exceed Q. Transfers/donations/liquidity create no rights. Prove/deduplicate actual rewards including pre-activation claims; verify recipient uniqueness if required by the adapter. Native claims retain eligibility/timing independently of credit sync.\n\nKeep p=2500 initially; verified USD FDV $100K:3500, $250K:4500, $500K:5500, $1M:7000, $2.5M:8500. At $5M permanently bypass quotas for all holders including transfer-only recipients; retain fees/authentication. Price declines never relock. Use implemented token/ETH time-weighted pricing plus validated Chainlink ETH/USD; no assumed built-in v4 TWAP. Disclose other-pool bypass and remaining manipulation risk.\n\nDELIVER: GitHub source/commit, reproducible tests/review, both stages, actual Sepolia addresses/explorer links, transactions, PoolKey/PoolId, ABIs, ve\n\nToken name: UNLOCK\nToken symbol: UNLK",
+        "baseCommit": "0243d7da4a4337ae8b16bcdf15bb4ead736fd68f",
+        "state": "completed",
+        "createdAt": "2026-10-13T07:11:14.829Z"
+      },
+      {
+        "jobId": "0edcb64f-c0cf-4ac9-afed-176758f17cde",
+        "workflowId": null,
+        "objective": "Fix the concrete Sepolia admission failure of UNLOCK job 672489ef-8304-403f-855c-b9dce583bc31 and parked launch 55d5370e-7256-465c-808f-09ba4cc8ccee (launch 1534). Continue the published source https://github.com/identity-md-launches/launch-1534-unlock at f77cf377f6eb58f05ef9b9c61f36407933d5053a, reconciling any newer accepted work. No old bundle recovery or rewrite from scratch is needed.\n\nExact failure: HookDeployer runtime is 26264 bytes, exceeding 24576. UnlkHook itself is 24328 bytes. src/HookDeployer.sol embeds type(UnlkHook).creationCode. scripts/release_artifacts.py incorrectly exempts HookDeployer from its size assertion, although the actual service rejects it.\n\nMake HookDeployer a small pure encoder: remove its UnlkHook import; initCode must accept bytes memory hookCreationCode plus Config calldata and concatenate the provided code with the same four ABI-encoded constructor arguments. initCodeHash must accept the same arguments and hash initCode's result. This helper must not gain deployment authority or become a production factory. Update callers in test/fixtures/SystemFixture.sol and test/FailurePaths.t.sol to supply type(UnlkHook).creationCode. Preserve the official factory launch, manifest placeholders, hook flags and all token/trading/oracle/claim/setup behavior.\n\nRemove the HookDeployer exception from release_artifacts.py; every release artifact must pass actual EIP-170 runtime and initcode limits. Do not increase limits, weaken protected checks or merely hide an oversized artifact. Add a regression test that deploys the helper, asserts runtime <=24576, compares its output/hash to the reviewed hook creation code plus four encoded addresses, and detects a changed setup authority. Run the complete existing suite and confirm creation/runtime bytes for token, hook, router, oracle and claim evidence are unchanged. Refresh the helper ABI, artifact/source digests and outdated size documentation.\n\nDeliver the actual published fix commit, reproducible commands/results and all artifact sizes. Rerun the real IMD admission check if a supported operation is available. Do not claim a local test is service admission, or that job.continue redeploys. Identify the supported way to retry the parked launch against the reviewed fixed commit; do not invent a retry endpoint or silently deploy another token.\n\nSepolia activation remains a separate release prerequisite: confirm the concrete authorized actor and transactions for deployCompanions, actual round-0 certification and configureAndActivate before any broadcast. Keep unresolved protocol-fee halt, treasury reward-round powers and manipulation risks disclosed; this size fix does not authorize acceptance of new risks. No mainnet transactions. If continuation can only publish code, report that explicitly along with the remaining release operation.",
+        "baseCommit": "f77cf377f6eb58f05ef9b9c61f36407933d5053a",
+        "state": "completed",
+        "createdAt": "2026-10-13T10:30:49.654Z"
+      }
+    ]
+  },
+  "deliver": true,
+  "host": false,
+  "site": null,
+  "launch": {
+    "requested": false,
+    "kind": null,
+    "id": null,
+    "status": null,
+    "chainId": null
+  },
+  "oracleRequestId": null,
+  "delivery": {
+    "repoUrl": "https://github.com/identity-md-launches/launch-1534-unlock",
+    "pullRequestUrl": "https://github.com/identity-md-launches/launch-1534-unlock/pull/2",
+    "commit": "f0149886ac3c09b57a0e1d676582e6aeaeb7a69f",
+    "deliveredAt": "2026-10-13T10:47:29.452Z",
+    "media": null
+  },
+  "media": null,
+  "nodes": [
+    {
+      "key": "build_contract_project",
+      "role": "implement",
+      "state": "accepted",
+      "attempt": 1,
+      "revisions": 0,
+      "judgeRevisions": 0,
+      "dependsOn": [],
+      "allowedPaths": [],
+      "failureReason": null,
+      "dispatchNote": null,
+      "dispatchNoteAt": null,
+      "updatedAt": "2026-10-13T10:46:57.559Z",
+      "verdict": {
+        "status": "accepted",
+        "profile": "foundry",
+        "evaluation": "checks",
+        "rejectionCode": null,
+        "detail": "all checks passed",
+        "verifierVersion": "0.1.0+327e1e9f",
+        "verifiedTreeHash": "0710257dd00656d130b4c56b7a669734955bb1ef",
+        "at": "2026-10-13T10:46:57.563Z",
+        "failedChecks": []
+      },
+      "seat": {
+        "tokenId": "887",
+        "agentId": "51503"
+      },
+      "live": null
+    }
+  ],
+  "reviews": [
+    {
+      "status": "queued",
+      "chainId": 1,
+      "txHash": null,
+      "blockNumber": null,
+      "sentAt": null,
+      "entries": [
+        {
+          "nodeKey": "build_contract_project",
+          "agentId": "51503",
+          "value": 1,
+          "role": "verification:checks"
+        }
+      ]
+    }
+  ]
+}

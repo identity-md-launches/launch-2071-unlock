@@ -1,0 +1,75 @@
+{
+  "block": 26203893,
+  "rpc": "https://ethereum-rpc.publicnode.com",
+  "discovery": "https://imdusd.com/docs/reference/contracts-and-addresses/",
+  "usedByCandidate": false,
+  "reason": "Attested IMD leg requires new signer/question trust; not independent cryptographic market history.",
+  "usd": {
+    "address": "0x297b85afc6bbf9d9cca636f7ed74c56da79287a0",
+    "runtimeBytes": 2269,
+    "codehash": "0xd5478c9bf977f8d3ebc3352c2ee879b295951916a179637fbb230a721cf44a39",
+    "latestValue()": "0x0000000000000000000000000000000000000000000000005f6686f176cf1dc6000000000000000000000000000000000000000000000000000000006ad1c109",
+    "isStale()": "0x0000000000000000000000000000000000000000000000000000000000000001",
+    "maxAge()": "0x0000000000000000000000000000000000000000000000000000000000000e10",
+    "imdEthFeed()": "0x000000000000000000000000070e0603737242b01abc1d223f7c92d63e86ec97",
+    "signer()": {
+      "code": 3,
+      "message": "execution reverted"
+    },
+    "relayer()": {
+      "code": 3,
+      "message": "execution reverted"
+    },
+    "questionHash()": {
+      "code": 3,
+      "message": "execution reverted"
+    },
+    "dataChainId()": {
+      "code": 3,
+      "message": "execution reverted"
+    },
+    "answerType()": {
+      "code": 3,
+      "message": "execution reverted"
+    }
+  },
+  "imdEth": {
+    "address": "0x070e0603737242b01abc1d223f7c92d63e86ec97",
+    "runtimeBytes": 9243,
+    "codehash": "0x6dbf80143b449744509272377c28137ae0eb5c8e7aa0403d65a1c11c0a47d4cc",
+    "latestValue()": "0x0000000000000000000000000000000000000000000000000009f51a0c7039b1000000000000000000000000000000000000000000000000000000006ad1c109",
+    "isStale()": "0x0000000000000000000000000000000000000000000000000000000000000001",
+    "maxAge()": "0x0000000000000000000000000000000000000000000000000000000000000e10",
+    "imdEthFeed()": {
+      "code": 3,
+      "message": "execution reverted"
+    },
+    "signer()": {
+      "code": 3,
+      "message": "execution reverted"
+    },
+    "relayer()": "0x0000000000000000000000009aeb55c7a16c11b37dc96bd22a33906d1668e20b",
+    "questionHash()": {
+      "code": 3,
+      "message": "execution reverted"
+    },
+    "dataChainId()": {
+      "code": 3,
+      "message": "execution reverted"
+    },
+    "answerType()": {
+      "code": 3,
+      "message": "execution reverted"
+    },
+    "attester()": "0x0000000000000000000000005598aa9146215bc13eb26f2c692ad1461fd32982",
+    "attestationChainId()": "0x0000000000000000000000000000000000000000000000000000000000000001",
+    "attestationAnswerType()": "0x0000000000000000000000000000000000000000000000000000000000000003",
+    "questionPolicy()": {
+      "code": 3,
+      "message": "execution reverted"
+    },
+    "lastToBlock()": "0x00000000000000000000000000000000000000000000000000000000018fd458",
+    "minAgreed()": "0x0000000000000000000000000000000000000000000000000000000000000043",
+    "maxDeviationBps()": "0x00000000000000000000000000000000000000000000000000000000000007d0"
+  }
+}

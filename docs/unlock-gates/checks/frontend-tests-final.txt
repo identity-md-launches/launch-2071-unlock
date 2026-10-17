@@ -1,0 +1,200 @@
+(node:24) [UNDICI-EHPA] Warning: EnvHttpProxyAgent is experimental, expect them to change at any time.
+(Use `node --trace-warnings ...` to show where the warning was created)
+TAP version 13
+# (node:31) [UNDICI-EHPA] Warning: EnvHttpProxyAgent is experimental, expect them to change at any time.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: successor fee: ETH in every standard mode, fee base is the executed pool ETH leg
+ok 1 - successor fee: ETH in every standard mode, fee base is the executed pool ETH leg
+  ---
+  duration_ms: 2.704111
+  type: 'test'
+  ...
+# Subtest: candidate stays undeployed and has all sixteen tiers, separate from the live rules
+ok 2 - candidate stays undeployed and has all sixteen tiers, separate from the live rules
+  ---
+  duration_ms: 0.555674
+  type: 'test'
+  ...
+# Subtest: fee-inclusive buy and net exact-output sell preserve wei rounding
+ok 3 - fee-inclusive buy and net exact-output sell preserve wei rounding
+  ---
+  duration_ms: 48.171631
+  type: 'test'
+  ...
+# Subtest: metadata URLs reject executable, private, credentialed and ambiguous schemes
+ok 4 - metadata URLs reject executable, private, credentialed and ambiguous schemes
+  ---
+  duration_ms: 1.728406
+  type: 'test'
+  ...
+# Subtest: SVG is inert image content and rejects active/external references
+ok 5 - SVG is inert image content and rejects active/external references
+  ---
+  duration_ms: 4.91781
+  type: 'test'
+  ...
+# Subtest: index cursors cannot redirect requests or inject objects
+ok 6 - index cursors cannot redirect requests or inject objects
+  ---
+  duration_ms: 0.84907
+  type: 'test'
+  ...
+# Subtest: metadata and resource failures are visible, never unsafe fallback content
+ok 7 - metadata and resource failures are visible, never unsafe fallback content
+  ---
+  duration_ms: 8.262033
+  type: 'test'
+  ...
+# Subtest: indexed inventory is paginated discovery; only current onchain owners appear
+ok 8 - indexed inventory is paginated discovery; only current onchain owners appear
+  ---
+  duration_ms: 1.95105
+  type: 'test'
+  ...
+# Subtest: recorded authentic mainnet tokenURI images \#1116 and \#1181 render as inert blobs offline
+ok 9 - recorded authentic mainnet tokenURI images \#1116 and \#1181 render as inert blobs offline
+  ---
+  duration_ms: 10.8776
+  type: 'test'
+  ...
+# Subtest: future candidate reads refuse absent deployment, wrong chain and wrong code
+ok 10 - future candidate reads refuse absent deployment, wrong chain and wrong code
+  ---
+  duration_ms: 8.557383
+  type: 'test'
+  ...
+# Subtest: future reader separates donations, earned funds and unavailable oracle data
+ok 11 - future reader separates donations, earned funds and unavailable oracle data
+  ---
+  duration_ms: 80.143279
+  type: 'test'
+  ...
+# (node:32) [UNDICI-EHPA] Warning: EnvHttpProxyAgent is experimental, expect them to change at any time.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: mainnet writes remain blocked; no Sepolia route or native funding in unsigned plans
+ok 12 - mainnet writes remain blocked; no Sepolia route or native funding in unsigned plans
+  ---
+  duration_ms: 59.125692
+  type: 'test'
+  ...
+# Subtest: IMD treasury budgets preserve raw-unit conservation and conservative rounding
+ok 13 - IMD treasury budgets preserve raw-unit conservation and conservative rounding
+  ---
+  duration_ms: 26.833047
+  type: 'test'
+  ...
+# Subtest: mature quota never counts this block's buys and final bypass remains permanent
+ok 14 - mature quota never counts this block's buys and final bypass remains permanent
+  ---
+  duration_ms: 0.578627
+  type: 'test'
+  ...
+# Subtest: 1000/200/100 cumulative example never computes quota from remaining balance
+ok 15 - 1000/200/100 cumulative example never computes quota from remaining balance
+  ---
+  duration_ms: 0.364768
+  type: 'test'
+  ...
+# Subtest: candidate copy explains one-way spot gates separately from the sampled reference
+ok 16 - candidate copy explains one-way spot gates separately from the sampled reference
+  ---
+  duration_ms: 1.024968
+  type: 'test'
+  ...
+# (node:33) [UNDICI-EHPA] Warning: EnvHttpProxyAgent is experimental, expect them to change at any time.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: wallet allowance uses exact floors, sales and balance caps
+ok 17 - wallet allowance uses exact floors, sales and balance caps
+  ---
+  duration_ms: 3.77225
+  type: 'test'
+  ...
+# Subtest: scenario holds ledger fixed, final unlock includes transfer-only balances, achieved tiers never imply revoked rights
+ok 18 - scenario holds ledger fixed, final unlock includes transfer-only balances, achieved tiers never imply revoked rights
+  ---
+  duration_ms: 0.671549
+  type: 'test'
+  ...
+# Subtest: large BigInt values and all tiers retain monotonic allowance
+ok 19 - large BigInt values and all tiers retain monotonic allowance
+  ---
+  duration_ms: 13.797042
+  type: 'test'
+  ...
+# Subtest: input and slippage reject unsafe formats and preserve a wei
+ok 20 - input and slippage reject unsafe formats and preserve a wei
+  ---
+  duration_ms: 5.155092
+  type: 'test'
+  ...
+# Subtest: oracle progress distinguishes invalid, stale, gap, below target and elapsed-but-unconfirmed
+ok 21 - oracle progress distinguishes invalid, stale, gap, below target and elapsed-but-unconfirmed
+  ---
+  duration_ms: 3.34288
+  type: 'test'
+  ...
+# Subtest: real native round proofs reject wrong amount, recipient, incomplete tree and duplicates
+ok 22 - real native round proofs reject wrong amount, recipient, incomplete tree and duplicates
+  ---
+  duration_ms: 436.532375
+  type: 'test'
+  ...
+# Subtest: live same-block buy simulations match exact fee/delta arithmetic
+ok 23 - live same-block buy simulations match exact fee/delta arithmetic
+  ---
+  duration_ms: 1.239827
+  type: 'test'
+  ...
+# Subtest: swap step accounts exact fees and partial fills in both directions
+ok 24 - swap step accounts exact fees and partial fills in both directions
+  ---
+  duration_ms: 0.714159
+  type: 'test'
+  ...
+# Subtest: percentage fills floor in wei, reserve gas and never exceed spendable balance
+ok 25 - percentage fills floor in wei, reserve gas and never exceed spendable balance
+  ---
+  duration_ms: 1.158365
+  type: 'test'
+  ...
+# Subtest: confirmation progress does not increase merely because the clock advances
+ok 26 - confirmation progress does not increase merely because the clock advances
+  ---
+  duration_ms: 0.93507
+  type: 'test'
+  ...
+# (node:55) [UNDICI-EHPA] Warning: EnvHttpProxyAgent is experimental, expect them to change at any time.
+# (Use `node --trace-warnings ...` to show where the warning was created)
+# Subtest: IMD/ETH direction: ETH per IMD is the inverse of the pool's IMD-per-ETH price
+ok 27 - IMD/ETH direction: ETH per IMD is the inverse of the pool's IMD-per-ETH price
+  ---
+  duration_ms: 2.064621
+  type: 'test'
+  ...
+# Subtest: UNLK leg follows sorted PoolKey order and FDV uses fixed 1B supply
+ok 28 - UNLK leg follows sorted PoolKey order and FDV uses fixed 1B supply
+  ---
+  duration_ms: 0.542129
+  type: 'test'
+  ...
+# Subtest: Chainlink validation mirrors the contract and fails closed
+ok 29 - Chainlink validation mirrors the contract and fails closed
+  ---
+  duration_ms: 0.912227
+  type: 'test'
+  ...
+# Subtest: slot0 decoding handles negative ticks and the v4 state slot
+ok 30 - slot0 decoding handles negative ticks and the v4 state slot
+  ---
+  duration_ms: 4.306803
+  type: 'test'
+  ...
+1..30
+# tests 30
+# suites 0
+# pass 30
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 842.471106

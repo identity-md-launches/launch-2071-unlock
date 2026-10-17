@@ -1,0 +1,153 @@
+{
+  "documentType": "mainnet-initialization-admission-repair",
+  "observedDate": "2026-10-17",
+  "state": "IMPLEMENTED_LOCALLY_VERIFIED_PENDING_PLATFORM_RELEASE",
+  "onchain": "univ4_hook",
+  "chainId": 1,
+  "pairWith": "imd",
+  "poolBps": 8700,
+  "jobId": "563ad4ec-93f8-46fd-b6b0-2182f4a7509e",
+  "previousJobId": "ee48c6c5-0118-4efc-94cd-07d5d2dce2b7",
+  "parkedLaunch": {
+    "id": "fa2ea5af-d273-413a-9649-393518faeb6a",
+    "number": 2064,
+    "status": "parked",
+    "newDeployment": false
+  },
+  "source": {
+    "repoUrl": "https://github.com/identity-md-launches/launch-2064-unlock-symbol-unlk-review-adapt-and-depl",
+    "baseCommit": "b957a835f1cca9eef51a121851e2026fc17ff435",
+    "supportedImport": "passed",
+    "newerUpstreamAcceptedWork": false,
+    "ordinaryImportedFiles": 2766,
+    "historyEvidence": "docs/admission-fix/import-history.json"
+  },
+  "request": {
+    "action": "launch.open",
+    "owner": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9",
+    "payer": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9",
+    "treasuryBeneficiary": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9",
+    "identityVerification": "actual prior payment calldata/receipt and live prior/current job and launch records",
+    "preparedStructuredRequest": "docs/admission-fix/network/launch-open-request.json",
+    "requestValidationBlockers": [],
+    "activeJobReportedBaseCommit": "0243d7da4a4337ae8b16bcdf15bb4ead736fd68f",
+    "activeRequestAmended": false,
+    "sourceBindingStatus": "platform reconciliation required before publication"
+  },
+  "repairedRevert": {
+    "callback": "beforeInitialize",
+    "callbackSelector": "0xdc98354e",
+    "error": "InvalidConfig()",
+    "errorSelector": "0x35be3ac8",
+    "wrapper": "WrappedError",
+    "reason": "premature production-service attestation in the local admission environment",
+    "beforeFixLocalReproductionFailures": 2,
+    "beforeFixSuppliedChecks": {
+      "passed": 10,
+      "failed": 1,
+      "skipped": 0
+    }
+  },
+  "checks": {
+    "forgeBuild": "passed (Solidity 0.8.26; existing warnings retained)",
+    "forgeTest": {
+      "status": "passed",
+      "fuzzSeed": "0xbf84f3f21fd6f3e756b5aa1b53feb5a083e16964a7b58fcc36f0bcbdb81e70bd",
+      "scratchExcluded": true,
+      "suites": 94,
+      "passed": 479,
+      "failed": 0,
+      "skipped": 0,
+      "log": "docs/admission-fix/manifest-repair/full-suite.txt"
+    },
+    "forgeFmtCheck": "passed",
+    "initializationRegression": {
+      "passed": 12,
+      "failed": 0,
+      "skipped": 0
+    },
+    "independentReview": {
+      "passed": 32,
+      "failed": 0,
+      "skipped": 0,
+      "report": "docs/admission-fix/INDEPENDENT_REVIEW.md",
+      "officialPlatformPanel": false
+    },
+    "supplementaryLintBoundChecks": {
+      "passed": 3,
+      "failed": 0,
+      "scratchOnly": true
+    },
+    "localSuppliedProtectedChecks": {
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0,
+      "unmodifiedInputs": [
+        "Hook.protected.t.sol",
+        "Token.protected.t.sol"
+      ],
+      "notExecuted": {
+        "Owners.protected.t.sol": "missing supplied OwnerChecks.sol and Swapper.sol helpers"
+      },
+      "officialAdmission": false
+    },
+    "recordedBlockFork": {
+      "passed": 102,
+      "failed": 0,
+      "skipped": 0,
+      "block": 26210931,
+      "blockHash": "0x46fed6862c03072f4455212eccafbca631f5be88bc34b33ca00d4244a690129c",
+      "actualServiceRuntimes": true,
+      "actualReferenceAtActivation": true,
+      "syntheticLaunchIdentityAndTree": true,
+      "publicTransactions": false
+    },
+    "pythonRegressions": {
+      "passed": 10,
+      "failed": 0,
+      "logs": [
+        "docs/admission-fix/manifest-repair/python-manifest.txt",
+        "docs/admission-fix/manifest-repair/python-artifacts.txt"
+      ]
+    },
+    "sizeAndCreationCommitments": "passed; ABIs/artifact hashes refreshed",
+    "forgeLint": "completed with inherited diagnostics; independently triaged, no confirmed reachable defect",
+    "slitherMythril": "not run",
+    "manifestNotes": {
+      "status": "passed locally; official platform admission pending",
+      "previousLength": 4532,
+      "length": 3757,
+      "maximumLength": 4000,
+      "measurement": "UTF-16 code units",
+      "log": "docs/admission-fix/manifest-repair/manifest.txt",
+      "report": "docs/admission-fix/manifest-repair/REPORT.md",
+      "independentReadOnlyReview": "no substantive findings; not official platform admission"
+    }
+  },
+  "officialAdmission": "pending final platform attestation/admission of accepted source",
+  "platformAuditPanel": "waiting on implementation acceptance in current job",
+  "publishedSourceCommit": null,
+  "newLaunchNumber": null,
+  "addresses": null,
+  "poolKey": null,
+  "poolId": null,
+  "releaseHookSalt": null,
+  "publicDeploymentTransactions": [],
+  "sealedSetupEvidence": null,
+  "factory": "0x12c63b581d07093f6126bc02263c58f7eadaa96f",
+  "factoryDeployer": "0xcecc29b037f5064fcdf45a5c318f132ef76aa551",
+  "operationalResponsibilities": [
+    "Platform: reconcile actual request source binding and preserve requested ancestry on publication.",
+    "Platform: accept implementation, generated tests, final manifest, specialist panel/judge, published-source attestation and complete official admission.",
+    "Release service: assign actual launch record and complete native round0 tree, derive actual opening seed, mine final 0x3fcc salt against actual constructor arguments, rehearse actual owner transactions before stage1.",
+    "Named owner: execute verified source, companion, tree-certification and atomic activation transactions through the preserved wallet planner.",
+    "Release service: record successful public receipts, immutable-resolved runtimes, actual PoolKey/PoolId, explorer verification and sealed activation before claiming live trading."
+  ],
+  "noReleaseValuesInvented": true,
+  "websiteWork": false,
+  "existingSepoliaPreserved": true,
+  "report": "docs/admission-fix/REPORT.md",
+  "manifestSha256": "37cb9c4ff9acb20764f4f70045c0fdeb3529ede05bdc3c6f80d0e68b73448278",
+  "manifestKeccak": "0x58351a1f0dc3f7456d7680d4127fda01641126ee43a699300e4e226cd384a147",
+  "releaseArtifactsSha256": "761d3348eb2d44187156f8b86766eca96d486fca63c36c59ebb8fa28490eed4f"
+}

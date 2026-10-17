@@ -1,0 +1,15 @@
+{
+  "block": 26203203,
+  "factoryVerification": {
+    "runtimeMatch": "match",
+    "creationMatch": "match",
+    "verifiedAt": "2026-10-08T17:44:20Z"
+  },
+  "imdVerification": {
+    "runtimeMatch": "exact_match",
+    "creationMatch": "exact_match",
+    "verifiedAt": "2026-03-28T05:43:41Z"
+  },
+  "imdTransferBehavior": "BridgedFP extends LayerZero OFT and OpenZeppelin ERC20; no _update override, transfer tax, rebase or blacklist in verified source. Supply may bridge mint/burn; owner can change metadata and LayerZero configuration.",
+  "imdDecimals": 18
+}

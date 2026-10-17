@@ -1,0 +1,113 @@
+{
+  "sha": "9969eec44cfdf07e24b41de47f40276a58401976",
+  "node_id": "C_kwDOHV9GfNoAKDk5NjllZWM0NGNmZGYwN2UyNGI0MWRlNDdmNDAyNzZhNTg0MDE5NzY",
+  "commit": {
+    "author": {
+      "name": "SocksNFlops",
+      "email": "91764028+SocksNFlops@users.noreply.github.com",
+      "date": "2026-09-18T18:22:40Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2026-09-18T18:22:40Z"
+    },
+    "message": "fix(perm-pools): reject unverified-adapter and non-contract pool currency on mint/increase (#603)",
+    "tree": {
+      "sha": "5d629edd1fae2a5fb625835595faab0899456164",
+      "url": "https://api.github.com/repos/Uniswap/v4-periphery/git/trees/5d629edd1fae2a5fb625835595faab0899456164"
+    },
+    "url": "https://api.github.com/repos/Uniswap/v4-periphery/git/commits/9969eec44cfdf07e24b41de47f40276a58401976",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqrYFxCRC1aQ7uu5UhlAAAn9IQAJxMM9D+08M2tFo+iSA1kxxt\nxhxEk3MNgiNZI+v+jzarmykVVG0rymO/fyfXWJuznkk/63+qixeSiNxX8+vIlyqQ\nRjjxryY7jsGd0HsKcHlfLDES9hNOePVtfrK8eW/izP9Qd7o7fOp0qP3iGUWaCJ5c\nVo0rEvDm4IlS4MhKY0L9x/tagEX97kPMPCytCJd3Y6FUoPI4lpf93VM3bsi3r35O\nSp5FK0MxBEyWIiaHd4eLXLZJaYh/mFxbG+2KmzE3EcfcxfFa/a2aMfCnnXjoGRgo\nGPTxfA0HrU5aLfmGJU2p7+qG7UU4s+WmFzGZTE4EsBJHE9Pf3D9/jLiolCa5WlVL\nr+gkg/zYzxx5wCd+LONbB6qJYywr5gCv2lonI05Y5kmCB1wZA4axAKWeBl9LOtww\nmRZ+UtCP8a1t97K4B/NQ+YJzwbG/kHjExzmYWf+ACcsODKy0ntvOo7mVntikpMGW\nJqyRRtwHvZZeaC+lR3b2PMmfLZ746A0yZEO8sccn38sYKYAim5hVcIVIPsbYZsJ/\n/odGjI9I7ViK5ocEytQ4GYKjHd7iHibpg+gJFROrAJr6uOhgq2SLpLPIEVG4yOEs\ncaO895aGIpUL/Q8X3i+PiS5jvzl+TLQKUsdRGBNnJ8aHVpuudPvcnOzDIfRS3Kf6\n5EVl3GrItmOrw51eo8Xz\n=ledw\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree 5d629edd1fae2a5fb625835595faab0899456164\nparent f9b34deca5bdcf9e230b48694b2555feee7682ae\nauthor SocksNFlops <91764028+SocksNFlops@users.noreply.github.com> 1789755760 +0900\ncommitter GitHub <noreply@github.com> 1789755760 +0900\n\nfix(perm-pools): reject unverified-adapter and non-contract pool currency on mint/increase (#603)",
+      "verified_at": "2026-09-18T18:22:41Z"
+    }
+  },
+  "url": "https://api.github.com/repos/Uniswap/v4-periphery/commits/9969eec44cfdf07e24b41de47f40276a58401976",
+  "html_url": "https://github.com/Uniswap/v4-periphery/commit/9969eec44cfdf07e24b41de47f40276a58401976",
+  "comments_url": "https://api.github.com/repos/Uniswap/v4-periphery/commits/9969eec44cfdf07e24b41de47f40276a58401976/comments",
+  "author": {
+    "login": "SocksNFlops",
+    "id": 91764028,
+    "node_id": "U_kgDOBXg1PA",
+    "avatar_url": "https://avatars.githubusercontent.com/u/91764028?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/SocksNFlops",
+    "html_url": "https://github.com/SocksNFlops",
+    "followers_url": "https://api.github.com/users/SocksNFlops/followers",
+    "following_url": "https://api.github.com/users/SocksNFlops/following{/other_user}",
+    "gists_url": "https://api.github.com/users/SocksNFlops/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/SocksNFlops/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/SocksNFlops/subscriptions",
+    "organizations_url": "https://api.github.com/users/SocksNFlops/orgs",
+    "repos_url": "https://api.github.com/users/SocksNFlops/repos",
+    "events_url": "https://api.github.com/users/SocksNFlops/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/SocksNFlops/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "f9b34deca5bdcf9e230b48694b2555feee7682ae",
+      "url": "https://api.github.com/repos/Uniswap/v4-periphery/commits/f9b34deca5bdcf9e230b48694b2555feee7682ae",
+      "html_url": "https://github.com/Uniswap/v4-periphery/commit/f9b34deca5bdcf9e230b48694b2555feee7682ae"
+    }
+  ],
+  "stats": {
+    "total": 160,
+    "additions": 125,
+    "deletions": 35
+  },
+  "files": [
+    {
+      "sha": "189ac13425ca0cca4e86ca27ba1f9d3b47768c84",
+      "filename": "src/hooks/permissionedPools/PermissionedPositionManager.sol",
+      "status": "modified",
+      "additions": 30,
+      "deletions": 31,
+      "changes": 61,
+      "blob_url": "https://github.com/Uniswap/v4-periphery/blob/9969eec44cfdf07e24b41de47f40276a58401976/src%2Fhooks%2FpermissionedPools%2FPermissionedPositionManager.sol",
+      "raw_url": "https://github.com/Uniswap/v4-periphery/raw/9969eec44cfdf07e24b41de47f40276a58401976/src%2Fhooks%2FpermissionedPools%2FPermissionedPositionManager.sol",
+      "contents_url": "https://api.github.com/repos/Uniswap/v4-periphery/contents/src%2Fhooks%2FpermissionedPools%2FPermissionedPositionManager.sol?ref=9969eec44cfdf07e24b41de47f40276a58401976",
+      "patch": "@@ -41,6 +41,7 @@ contract PermissionedPositionManager is PositionManager {\n     error InvalidHook();\n     error TransferDisabled();\n     error NoVerifiedAdapter();\n+    error NonContractCurrency();\n \n     /// @dev as this contract must know the hooks address in advance, it must be passed in as a constructor argument\n     constructor(\n@@ -166,15 +167,10 @@ contract PermissionedPositionManager is PositionManager {\n         address owner,\n         bytes calldata hookData\n     ) internal override {\n-        // require at least one currency to be a verified permissions adapter\n-        if (\n-            _verifiedPermissionedTokenOf(poolKey.currency0) == address(0)\n-                && _verifiedPermissionedTokenOf(poolKey.currency1) == address(0)\n-        ) revert NoVerifiedAdapter();\n-        // allowlist is verified in the hook call\n-        if (!_checkAllowedHooks(poolKey)) revert InvalidHook();\n-        _checkRecipientAllowed(poolKey.currency0, owner);\n-        _checkRecipientAllowed(poolKey.currency1, owner);\n+        // Validate each currency; require at least one to be a verified permissions adapter.\n+        bool verified0 = _validateLiquidityCurrency(poolKey.currency0, poolKey.hooks, owner);\n+        bool verified1 = _validateLiquidityCurrency(poolKey.currency1, poolKey.hooks, owner);\n+        if (!verified0 && !verified1) revert NoVerifiedAdapter();\n         super._mint(poolKey, tickLower, tickUpper, liquidity, amount0Max, amount1Max, owner, hookData);\n     }\n \n@@ -191,10 +187,9 @@ contract PermissionedPositionManager is PositionManager {\n         bytes calldata hookData\n     ) internal override {\n         (PoolKey memory poolKey,) = getPoolAndPositionInfo(tokenId);\n-        if (!_checkAllowedHooks(poolKey)) revert InvalidHook();\n         address owner = ownerOf(tokenId);\n-        _checkRecipientAllowed(poolKey.currency0, owner);\n-        _checkRecipientAllowed(poolKey.currency1, owner);\n+        _validateLiquidityCurrency(poolKey.currency0, poolKey.hooks, owner);\n+        _validateLiquidityCurrency(poolKey.currency1, poolKey.hooks, owner);\n         super._increase(tokenId, liquidity, amount0Max, amount1Max, hookData);\n     }\n \n@@ -204,30 +199,34 @@ contract PermissionedPositionManager is PositionManager {\n         override\n     {\n         (PoolKey memory poolKey,) = getPoolAndPositionInfo(tokenId);\n-        if (!_checkAllowedHooks(poolKey)) revert InvalidHook();\n         address owner = ownerOf(tokenId);\n-        _checkRecipientAllowed(poolKey.currency0, owner);\n-        _checkRecipientAllowed(poolKey.currency1, owner);\n+        _validateLiquidityCurrency(poolKey.currency0, poolKey.hooks, owner);\n+        _validateLiquidityCurrency(poolKey.currency1, poolKey.hooks, owner);\n         super._increaseFromDeltas(tokenId, amount0Max, amount1Max, hookData);\n     }\n \n-    function _checkRecipientAllowed(Currency currency, address recipient) internal view {\n-        address permissionedToken = _verifiedPermissionedTokenOf(currency);\n-        if (permissionedToken == address(0)) return;\n-        if (!IPermissionsAdapter(Currency.unwrap(currency)).isAllowed(recipient, PermissionFlags.LIQUIDITY_ALLOWED)) {\n-            revert Unauthorized();\n+    /// @notice Validate `currency` for a liquidity-adding action and report whether it is a verified adapter.\n+    /// @dev Ordinary tokens pass. A factory-created adapter must be verified — otherwise it would be treated as\n+    ///      ordinary here, skip its hook/`LIQUIDITY_ALLOWED` checks, and be activated later via verification. A\n+    ///      verified adapter must allow `hooks` and clear the owner's `LIQUIDITY_ALLOWED`.\n+    function _validateLiquidityCurrency(Currency currency, IHooks hooks, address owner)\n+        internal\n+        view\n+        returns (bool isVerifiedAdapter)\n+    {\n+        address currencyAddress = Currency.unwrap(currency);\n+        if (_verifiedPermissionedTokenOf(currency) == address(0)) {\n+            if (PERMISSIONS_ADAPTER_FACTORY.permissionsAdapterOf(currencyAddress) != address(0)) {\n+                revert NoVerifiedAdapter();\n+            }\n+            // a non-adapter currency must be a real contract (native ETH excepted)\n+            if (currencyAddress != address(0) && currencyAddress.code.length == 0) revert NonContractCurrency();\n+            return false;\n         }\n-    }\n-\n-    function _checkAllowedHooks(PoolKey memory poolKey) internal view returns (bool) {\n-        return\n-            _checkAllowedHook(poolKey.currency0, poolKey.hooks) && _checkAllowedHook(poolKey.currency1, poolKey.hooks);\n-    }\n-\n-    function _checkAllowedHook(Currency currency, IHooks hooks) internal view returns (bool) {\n-        address permissionedToken = _verifiedPermissionedTokenOf(currency);\n-        if (permissionedToken == address(0)) return true;\n-        return IPermissionsAdapter(Currency.unwrap(currency)).allowedHooks(hooks);\n+        IPermissionsAdapter adapter = IPermissionsAdapter(currencyAddress);\n+        if (!adapter.allowedHooks(hooks)) revert InvalidHook();\n+        if (!adapter.isAllowed(owner, PermissionFlags.LIQUIDITY_ALLOWED)) revert Unauthorized();\n+        return true;\n     }\n \n     /// @dev When paying to settle, if the currency is a permissioned token, wrap the token and transfer it to the pool manager."
+    },
+    {
+      "sha": "33afaf00a2104232e5f59fac8fe6d14cfb47cacf",
+      "filename": "test/hooks/permissionedPools/PermissionedPositionManager.t.sol",
+      "status": "modified",
+      "additions": 95,
+      "deletions": 4,
+      "changes": 99,
+      "blob_url": "https://github.com/Uniswap/v4-periphery/blob/9969eec44cfdf07e24b41de47f40276a58401976/test%2Fhooks%2FpermissionedPools%2FPermissionedPositionManager.t.sol",
+      "raw_url": "https://github.com/Uniswap/v4-periphery/raw/9969eec44cfdf07e24b41de47f40276a58401976/test%2Fhooks%2FpermissionedPools%2FPermissionedPositionManager.t.sol",
+      "contents_url": "https://api.github.com/repos/Uniswap/v4-periphery/contents/test%2Fhooks%2FpermissionedPools%2FPermissionedPositionManager.t.sol?ref=9969eec44cfdf07e24b41de47f40276a58401976",
+      "patch": "@@ -771,6 +771,97 @@ contract PermissionedPositionManagerTest is Test, PermissionedPosmTestSetup, Liq\n         lpm.modifyLiquidities(calls, block.timestamp + 1);\n     }\n \n+    /// @dev Creates a factory adapter over a fresh token and returns it, WITHOUT verifying it. Loops until the\n+    ///      adapter address sorts below `permissionsAdapter0` so it can be used as currency0 (validated first).\n+    function _createUnverifiedAdapterBelow(address ceiling) internal returns (PermissionsAdapter unverified) {\n+        Currency ordinary = deployMintAndApproveCurrency(false);\n+        while (true) {\n+            unverified = PermissionsAdapter(\n+                permissionsAdapterFactory.createPermissionsAdapter(\n+                    IERC20(Currency.unwrap(ordinary)), address(this), mockAllowListChecker\n+                )\n+            );\n+            if (address(unverified) < ceiling) break;\n+        }\n+        // Sanity: created in the factory but not verified.\n+        assertEq(permissionsAdapterFactory.permissionsAdapterOf(address(unverified)), Currency.unwrap(ordinary));\n+        assertEq(permissionsAdapterFactory.verifiedPermissionsAdapterOf(address(unverified)), address(0));\n+    }\n+\n+    /// @dev A pool pairing a verified adapter with a factory-created-but-unverified adapter must reject the mint:\n+    ///      an unverified adapter is not an ordinary token and cannot skip its LIQUIDITY_ALLOWED and hook checks.\n+    function test_mint_reverts_when_paired_with_unverified_adapter() public {\n+        PermissionsAdapter unverified = _createUnverifiedAdapterBelow(address(permissionsAdapter0));\n+\n+        // unverified adapter is currency0 (sorts lower), so it is validated first.\n+        PoolKey memory k = PoolKey({\n+            currency0: Currency.wrap(address(unverified)),\n+            currency1: Currency.wrap(address(permissionsAdapter0)),\n+            fee: 3000,\n+            tickSpacing: 60,\n+            hooks: IHooks(address(0))\n+        });\n+        manager.initialize(k, SQRT_PRICE_1_1);\n+\n+        PositionConfig memory config = PositionConfig({poolKey: k, tickLower: -120, tickUpper: 120});\n+        bytes memory calls = getMintEncoded(config, 1e18, ActionConstants.MSG_SENDER, ZERO_BYTES);\n+\n+        vm.expectRevert(bytes4(keccak256(\"NoVerifiedAdapter()\")));\n+        lpm.modifyLiquidities(calls, block.timestamp + 1);\n+    }\n+\n+    function test_mint_reverts_when_paired_with_non_contract_currency() public {\n+        // A code-less non-adapter address (a not-yet-deployed adapter address), sorted below the adapter so it\n+        // is currency0 and is validated first.\n+        address phantom = address(0xBEEF);\n+        assertEq(phantom.code.length, 0);\n+\n+        PoolKey memory k = PoolKey({\n+            currency0: Currency.wrap(phantom),\n+            currency1: Currency.wrap(address(permissionsAdapter0)),\n+            fee: 3000,\n+            tickSpacing: 60,\n+            hooks: IHooks(address(0))\n+        });\n+        manager.initialize(k, SQRT_PRICE_1_1);\n+\n+        PositionConfig memory config = PositionConfig({poolKey: k, tickLower: -120, tickUpper: 120});\n+        bytes memory calls = getMintEncoded(config, 1e18, ActionConstants.MSG_SENDER, ZERO_BYTES);\n+\n+        vm.expectRevert(bytes4(keccak256(\"NonContractCurrency()\")));\n+        lpm.modifyLiquidities(calls, block.timestamp + 1);\n+    }\n+\n+    /// @dev Once the adapter is verified it clears the NoVerifiedAdapter gate. The mint then reverts with\n+    ///      InvalidHook instead (the zero-address hooks used here are not on the verified adapter's allowlist),\n+    ///      confirming verification — not the hook check — was what blocked the mint above.\n+    function test_mint_pastVerificationGate_after_adapter_is_verified() public {\n+        PermissionsAdapter unverified = _createUnverifiedAdapterBelow(address(permissionsAdapter0));\n+\n+        // Verify it: the factory requires the adapter to hold a nonzero balance of its underlying.\n+        IERC20 underlying = IERC20(permissionsAdapterFactory.permissionsAdapterOf(address(unverified)));\n+        underlying.approve(address(unverified), 1);\n+        unverified.depositForVerification(1);\n+        permissionsAdapterFactory.verifyPermissionsAdapter(address(unverified));\n+        assertEq(permissionsAdapterFactory.verifiedPermissionsAdapterOf(address(unverified)), address(underlying));\n+\n+        PoolKey memory k = PoolKey({\n+            currency0: Currency.wrap(address(unverified)),\n+            currency1: Currency.wrap(address(permissionsAdapter0)),\n+            fee: 3000,\n+            tickSpacing: 60,\n+            hooks: IHooks(address(0))\n+        });\n+        manager.initialize(k, SQRT_PRICE_1_1);\n+\n+        PositionConfig memory config = PositionConfig({poolKey: k, tickLower: -120, tickUpper: 120});\n+        bytes memory calls = getMintEncoded(config, 1e18, ActionConstants.MSG_SENDER, ZERO_BYTES);\n+\n+        // Past the NoVerifiedAdapter gate now; blocked only by the (unrelated) hook allowlist.\n+        vm.expectRevert(InvalidHook.selector);\n+        lpm.modifyLiquidities(calls, block.timestamp + 1);\n+    }\n+\n     function test_permissioned_mint_increase_allowed_user() public {\n         _test_permissioned_mint_increase_allowed_user(key0);\n         _test_permissioned_mint_increase_allowed_user(key1);\n@@ -1618,8 +1709,8 @@ contract PermissionedPositionManagerTest is Test, PermissionedPosmTestSetup, Liq\n     }\n \n     function test_permissioned_increase_reverts_when_only_one_currency_hook_revoked() public {\n-        // Use key2 (permissioned/permissioned) to exercise the `&&` short-circuit in _checkAllowedHooks.\n-        // Each side's mapping entry must independently block an increase.\n+        // Use key2 (permissioned/permissioned): each currency is validated independently, so either side's\n+        // revoked hook allowlist must block the increase on its own.\n         _test_permissioned_increase_reverts_when_only_one_currency_hook_revoked(key2, true);\n         _test_permissioned_increase_reverts_when_only_one_currency_hook_revoked(key2, false);\n     }\n@@ -1647,12 +1738,12 @@ contract PermissionedPositionManagerTest is Test, PermissionedPosmTestSetup, Liq\n     }\n \n     // =============================================================================\n-    // Owner LIQUIDITY_ALLOWED enforcement on liquidity increases (ECO-347 / Cantina #17)\n+    // Owner LIQUIDITY_ALLOWED enforcement on liquidity increases\n     // =============================================================================\n     //\n     // An ERC-721-approved operator that retains LIQUIDITY_ALLOWED must not be able to grow\n     // a delisted owner's position by paying with their own funds. `_increase` and\n-    // `_increaseFromDeltas` re-check `_checkRecipientAllowed(currency, ownerOf(tokenId))`.\n+    // `_increaseFromDeltas` re-check the owner's LIQUIDITY_ALLOWED via `_validateLiquidityCurrency`.\n \n     function test_permissioned_increase_reverts_when_owner_liquidity_revoked_via_operator() public {\n         _test_permissioned_increase_reverts_when_owner_liquidity_revoked_via_operator(key0);"
+    }
+  ]
+}

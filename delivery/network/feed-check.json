@@ -1,0 +1,21 @@
+{
+  "blockNumber": 11905741,
+  "blockHash": "0xcc877e036fb2058b121c8f86b5524536f60bca8ef5de5644520358962644091c",
+  "blockTimestamp": 1791890484,
+  "roundId": "18446744073709588378",
+  "answer": "250230000000",
+  "decimals": 8,
+  "startedAt": 1791887328,
+  "updatedAt": 1791887328,
+  "answeredInRound": "18446744073709588378",
+  "ageSeconds": 3156,
+  "aggregator": "0x719E22E3D4b690E5d96cCb40619180B5427F14AE",
+  "checks": {
+    "positiveAnswer": true,
+    "nonzeroRound": true,
+    "roundCoherent": true,
+    "timestampsCoherent": true,
+    "within90Minutes": true
+  },
+  "note": "Proxy pin does not freeze aggregator governance. Read-only evidence at this block, not future price validity."
+}

@@ -1,0 +1,53 @@
+{
+  "chainId": 11155111,
+  "status": "size_fixed_locally_launch_parked_publication_pending",
+  "tradingActiveOnSepolia": false,
+  "stage1BroadcastAllowed": false,
+  "reason": "The helper now fits EIP-170 and all local checks pass. The accepted fix still requires publication, independent review and service re-admission of the same parked launch. No public retry operation is documented. Owner signing, actual round-0 certification and unresolved protocol-fee halt, treasury reward powers and manipulation risks remain release prerequisites.",
+  "jobId": "672489ef-8304-403f-855c-b9dce583bc31",
+  "ownerVerifiedFromNewJob": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9",
+  "launchId": "55d5370e-7256-465c-808f-09ba4cc8ccee",
+  "launchNumber": 1534,
+  "publicDeploymentAddresses": null,
+  "publicDeploymentTransactions": [],
+  "publicPoolKey": null,
+  "publicPoolId": null,
+  "publicationCommit": null,
+  "rehearsal": {
+    "blockNumber": 11904506,
+    "path": "rehearsal/Sepolia.t.sol",
+    "broadcast": false,
+    "evidence": "docs/FORK_RESULTS.txt"
+  },
+  "requiredOperations": [
+    "IMD publisher records the accepted fix SHA and PR in the existing project repository; independently review that exact fixed commit.",
+    "IMD operator establishes its supported retry for parked launch 1534, pins that reviewed commit and reruns full service admission without creating another token.",
+    "Before any broadcast, reconfirm the factory signer and owner 0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9 signing path, obtain and validate actual round-0 claims and resolve the disclosed release risks.",
+    "After authorized stage 1, verify hook.setupAuthority and registry records; setup authority signs hook.deployCompanions(1534, feed, reviewed router/evidence/oracle creation code).",
+    "A confirmed certificate submitter certifies the actual complete unique-recipient round-0 tree on the staged evidence contract; claims/root are not currently exposed by the public launch API.",
+    "Setup authority signs hook.configureAndActivate with the recorded companion addresses and launch number 1534.",
+    "Operator verifies public receipts, pool records and explorer source before reporting trading active."
+  ],
+  "continuationJobId": "0edcb64f-c0cf-4ac9-afed-176758f17cde",
+  "publishedBaseCommit": "f77cf377f6eb58f05ef9b9c61f36407933d5053a",
+  "repository": "https://github.com/identity-md-launches/launch-1534-unlock",
+  "localLaunchCheck": {
+    "command": "imd launch check .",
+    "passed": true,
+    "evidence": "docs/IMD_LAUNCH_CHECK_RESULTS.txt",
+    "serviceAdmission": false
+  },
+  "serviceAdmissionRerun": false,
+  "lastObservedServiceStatus": "parked",
+  "serviceRetryOperation": "No supported public retry operation is exposed; IMD operator must establish how to re-admit the same launch against the reviewed fixed publication commit.",
+  "hookDeployerBytes": {
+    "creation": 756,
+    "runtime": 728
+  },
+  "productionBytecodeUnchanged": false,
+  "evidence": "docs/SIZE_FIX.md",
+  "revision_2026_10_13": {
+    "note": "UnlkHook and UnlkSwapRouter bytecode changed after independent review; see docs/REVISION_2026-10-13.md and delivery/STATUS.json. This file is otherwise the historical record of the size-fix job.",
+    "hookDeployerBytesUnchanged": true
+  }
+}

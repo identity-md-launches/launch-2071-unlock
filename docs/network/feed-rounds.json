@@ -1,0 +1,134 @@
+{
+  "blockNumber": 11904506,
+  "rounds": [
+    {
+      "roundId": 18446744073709588359,
+      "answer": 251429770563,
+      "startedAt": 1791824988,
+      "updatedAt": 1791824988,
+      "answeredInRound": 18446744073709588359
+    },
+    {
+      "roundId": 18446744073709588360,
+      "answer": 250995000000,
+      "startedAt": 1791828624,
+      "updatedAt": 1791828624,
+      "answeredInRound": 18446744073709588360
+    },
+    {
+      "roundId": 18446744073709588361,
+      "answer": 250841901056,
+      "startedAt": 1791832248,
+      "updatedAt": 1791832248,
+      "answeredInRound": 18446744073709588361
+    },
+    {
+      "roundId": 18446744073709588362,
+      "answer": 252217000000,
+      "startedAt": 1791835884,
+      "updatedAt": 1791835884,
+      "answeredInRound": 18446744073709588362
+    },
+    {
+      "roundId": 18446744073709588363,
+      "answer": 251016430000,
+      "startedAt": 1791839508,
+      "updatedAt": 1791839508,
+      "answeredInRound": 18446744073709588363
+    },
+    {
+      "roundId": 18446744073709588364,
+      "answer": 248354500000,
+      "startedAt": 1791841584,
+      "updatedAt": 1791841584,
+      "answeredInRound": 18446744073709588364
+    },
+    {
+      "roundId": 18446744073709588365,
+      "answer": 248018000000,
+      "startedAt": 1791845208,
+      "updatedAt": 1791845208,
+      "answeredInRound": 18446744073709588365
+    },
+    {
+      "roundId": 18446744073709588366,
+      "answer": 245492000000,
+      "startedAt": 1791846348,
+      "updatedAt": 1791846348,
+      "answeredInRound": 18446744073709588366
+    },
+    {
+      "roundId": 18446744073709588367,
+      "answer": 243255061231,
+      "startedAt": 1791849984,
+      "updatedAt": 1791849984,
+      "answeredInRound": 18446744073709588367
+    },
+    {
+      "roundId": 18446744073709588368,
+      "answer": 243070539546,
+      "startedAt": 1791853608,
+      "updatedAt": 1791853608,
+      "answeredInRound": 18446744073709588368
+    },
+    {
+      "roundId": 18446744073709588369,
+      "answer": 245505000000,
+      "startedAt": 1791855324,
+      "updatedAt": 1791855324,
+      "answeredInRound": 18446744073709588369
+    },
+    {
+      "roundId": 18446744073709588370,
+      "answer": 248018000000,
+      "startedAt": 1791858300,
+      "updatedAt": 1791858300,
+      "answeredInRound": 18446744073709588370
+    },
+    {
+      "roundId": 18446744073709588371,
+      "answer": 249189710000,
+      "startedAt": 1791861924,
+      "updatedAt": 1791861924,
+      "answeredInRound": 18446744073709588371
+    },
+    {
+      "roundId": 18446744073709588372,
+      "answer": 251091860000,
+      "startedAt": 1791865560,
+      "updatedAt": 1791865560,
+      "answeredInRound": 18446744073709588372
+    },
+    {
+      "roundId": 18446744073709588373,
+      "answer": 252762521861,
+      "startedAt": 1791869184,
+      "updatedAt": 1791869184,
+      "answeredInRound": 18446744073709588373
+    },
+    {
+      "roundId": 18446744073709588374,
+      "answer": 252837224486,
+      "startedAt": 1791872808,
+      "updatedAt": 1791872808,
+      "answeredInRound": 18446744073709588374
+    }
+  ],
+  "gapsSeconds": [
+    3636,
+    3624,
+    3636,
+    3624,
+    2076,
+    3624,
+    1140,
+    3636,
+    3624,
+    1716,
+    2976,
+    3624,
+    3636,
+    3624,
+    3624
+  ]
+}

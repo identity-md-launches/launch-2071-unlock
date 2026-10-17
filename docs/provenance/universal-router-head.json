@@ -1,0 +1,125 @@
+{
+  "sha": "543e1a19d6e21e31ced2512eec5792b50f13a0ba",
+  "node_id": "C_kwDOHulSC9oAKDU0M2UxYTE5ZDZlMjFlMzFjZWQyNTEyZWVjNTc5MmI1MGYxM2EwYmE",
+  "commit": {
+    "author": {
+      "name": "SocksNFlops",
+      "email": "91764028+SocksNFlops@users.noreply.github.com",
+      "date": "2026-09-25T15:54:06Z"
+    },
+    "committer": {
+      "name": "GitHub",
+      "email": "noreply@github.com",
+      "date": "2026-09-25T15:54:06Z"
+    },
+    "message": "fix(script): set permissionsAdapterFactory deploy params for Base, Ink and HyperEVM (#521)",
+    "tree": {
+      "sha": "4649ee07838277e86d940c866c006b2af9411136",
+      "url": "https://api.github.com/repos/Uniswap/universal-router/git/trees/4649ee07838277e86d940c866c006b2af9411136"
+    },
+    "url": "https://api.github.com/repos/Uniswap/universal-router/git/commits/543e1a19d6e21e31ced2512eec5792b50f13a0ba",
+    "comment_count": 0,
+    "verification": {
+      "verified": true,
+      "reason": "valid",
+      "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqtpkeCRC1aQ7uu5UhlAAAjhQQAFWW1Fic7N8IA3Oq6ePUoutJ\nwbM+rWXc43G3YQJtcL8Ip/P4cjvQ+TK5mNiERWvrX7AuEdAXnCcSjXPbzrrut64z\nNw5y2TeSsrKQFBup0AwY/JnPDsGW8tiYq2OZjN/2vuYhDdwFHfF82I+SuKAOR1Us\ngAL6MDBJs8QSr0D8DcQCXn3Z0KlYeDXVLRcGkzLTR8uhEg0ke7omPPwyK+alTGgo\n9kghrp8epn5J8EcWV81cuZV6CZ0Zb4WFo5RTrwQ0tCChHoELcNvi87zDZmlX6QvY\n4r4nOXg25qFm23v6jfPFcz3d9SRiKaTsbTAmdmaIqvGpD8GWOA1niEnkd5laCK18\n9nz/2ruuAsb1MpGDBB8wSdpZYunoVNtSaQrNF4zwE7XX652ImpsRaN+bK1B1GsDI\n91ERlEayB2lILDwWnKRuMDujerhLs4iGG67Bk4jFCj8ZUVhvRD31ceg0mMUxEe4j\ngouu3BGnpLooKutpa4SADRhSuzQlmPaKfsvVakkwByc0JOg7VZMbEElhxWob0B1d\naXgIZ5H6UehlV0ENygyhHk96nREoKmhBrE2mt0g1fkJ6Zxl/2HC0axvjmJFCISgy\nk2onNWknKCHRlClli3Jst1ueAOYTlVKvh0B6x1wNG5CXGU+LzJi8nB5Tlhr0V7Yh\nPXNrYZkVX2RDd3qzdgz3\n=M8Is\n-----END PGP SIGNATURE-----\n",
+      "payload": "tree 4649ee07838277e86d940c866c006b2af9411136\nparent a9c574f6caf1d6f1b51facd3fe32dec7c4df392c\nauthor SocksNFlops <91764028+SocksNFlops@users.noreply.github.com> 1790351646 +0900\ncommitter GitHub <noreply@github.com> 1790351646 +0900\n\nfix(script): set permissionsAdapterFactory deploy params for Base, Ink and HyperEVM (#521)",
+      "verified_at": "2026-09-25T15:54:07Z"
+    }
+  },
+  "url": "https://api.github.com/repos/Uniswap/universal-router/commits/543e1a19d6e21e31ced2512eec5792b50f13a0ba",
+  "html_url": "https://github.com/Uniswap/universal-router/commit/543e1a19d6e21e31ced2512eec5792b50f13a0ba",
+  "comments_url": "https://api.github.com/repos/Uniswap/universal-router/commits/543e1a19d6e21e31ced2512eec5792b50f13a0ba/comments",
+  "author": {
+    "login": "SocksNFlops",
+    "id": 91764028,
+    "node_id": "U_kgDOBXg1PA",
+    "avatar_url": "https://avatars.githubusercontent.com/u/91764028?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/SocksNFlops",
+    "html_url": "https://github.com/SocksNFlops",
+    "followers_url": "https://api.github.com/users/SocksNFlops/followers",
+    "following_url": "https://api.github.com/users/SocksNFlops/following{/other_user}",
+    "gists_url": "https://api.github.com/users/SocksNFlops/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/SocksNFlops/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/SocksNFlops/subscriptions",
+    "organizations_url": "https://api.github.com/users/SocksNFlops/orgs",
+    "repos_url": "https://api.github.com/users/SocksNFlops/repos",
+    "events_url": "https://api.github.com/users/SocksNFlops/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/SocksNFlops/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "web-flow",
+    "id": 19864447,
+    "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+    "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/web-flow",
+    "html_url": "https://github.com/web-flow",
+    "followers_url": "https://api.github.com/users/web-flow/followers",
+    "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+    "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+    "organizations_url": "https://api.github.com/users/web-flow/orgs",
+    "repos_url": "https://api.github.com/users/web-flow/repos",
+    "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/web-flow/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "a9c574f6caf1d6f1b51facd3fe32dec7c4df392c",
+      "url": "https://api.github.com/repos/Uniswap/universal-router/commits/a9c574f6caf1d6f1b51facd3fe32dec7c4df392c",
+      "html_url": "https://github.com/Uniswap/universal-router/commit/a9c574f6caf1d6f1b51facd3fe32dec7c4df392c"
+    }
+  ],
+  "stats": {
+    "total": 6,
+    "additions": 3,
+    "deletions": 3
+  },
+  "files": [
+    {
+      "sha": "5539035bc9a92f47fd5541d5a38b2ed573634281",
+      "filename": "script/deployParameters/DeployBase.s.sol",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/Uniswap/universal-router/blob/543e1a19d6e21e31ced2512eec5792b50f13a0ba/script%2FdeployParameters%2FDeployBase.s.sol",
+      "raw_url": "https://github.com/Uniswap/universal-router/raw/543e1a19d6e21e31ced2512eec5792b50f13a0ba/script%2FdeployParameters%2FDeployBase.s.sol",
+      "contents_url": "https://api.github.com/repos/Uniswap/universal-router/contents/script%2FdeployParameters%2FDeployBase.s.sol?ref=543e1a19d6e21e31ced2512eec5792b50f13a0ba",
+      "patch": "@@ -14,7 +14,7 @@ contract DeployBase is DeployUniversalRouter {\n             pairInitCodeHash: 0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f,\n             poolInitCodeHash: 0xe34f199b19b2b4f47f68442619d555527d244f78a3297ea89325f843f87b8b54,\n             v4PoolManager: 0x498581fF718922c3f8e6A244956aF099B2652b2b,\n-            permissionsAdapterFactory: address(0), // ToDo: Add permissions adapter factory\n+            permissionsAdapterFactory: 0xDc264714F68d84CF29BC605589405E78bDBE7C9f,\n             v3NFTPositionManager: 0x03a520b32C04BF3bEEf7BEb72E919cf822Ed34f1,\n             v4PositionManager: 0x7C5f5A4bBd8fD63184577525326123B519429bDc,\n             spokePool: 0x09aea4b2242abC8bb4BB78D537A67a245A7bEC64"
+    },
+    {
+      "sha": "2fe38f897272ff2945728333c67972a4416dc5d0",
+      "filename": "script/deployParameters/DeployHyperEVM.s.sol",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/Uniswap/universal-router/blob/543e1a19d6e21e31ced2512eec5792b50f13a0ba/script%2FdeployParameters%2FDeployHyperEVM.s.sol",
+      "raw_url": "https://github.com/Uniswap/universal-router/raw/543e1a19d6e21e31ced2512eec5792b50f13a0ba/script%2FdeployParameters%2FDeployHyperEVM.s.sol",
+      "contents_url": "https://api.github.com/repos/Uniswap/universal-router/contents/script%2FdeployParameters%2FDeployHyperEVM.s.sol?ref=543e1a19d6e21e31ced2512eec5792b50f13a0ba",
+      "patch": "@@ -16,7 +16,7 @@ contract DeployHyperEVM is DeployUniversalRouter {\n             pairInitCodeHash: 0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f,\n             poolInitCodeHash: 0xe34f199b19b2b4f47f68442619d555527d244f78a3297ea89325f843f87b8b54,\n             v4PoolManager: 0x12D4Fd9C5DeDd00ab8a0bCe2CF0167bbf94b6B1F,\n-            permissionsAdapterFactory: 0x2a9049F60a1a42E82ba340eFe02b9Ba468Aff803,\n+            permissionsAdapterFactory: 0x8702463e73f74d0b6765aBceb314Ef07aCb92650,\n             v3NFTPositionManager: 0x39654A85A4C05127f5Fd6ED22CAeC077A0fB1377,\n             v4PositionManager: 0x0d7Ab5B3db668128Aff6F70C4eBC71D7d4DA9bf9,\n             // Across SpokePool on HyperEVM (chainId()=999, wrappedNativeToken()=WHYPE)"
+    },
+    {
+      "sha": "4fb3b490081beddc38e8395b3e3be6510fc7f05a",
+      "filename": "script/deployParameters/DeployInk.s.sol",
+      "status": "modified",
+      "additions": 1,
+      "deletions": 1,
+      "changes": 2,
+      "blob_url": "https://github.com/Uniswap/universal-router/blob/543e1a19d6e21e31ced2512eec5792b50f13a0ba/script%2FdeployParameters%2FDeployInk.s.sol",
+      "raw_url": "https://github.com/Uniswap/universal-router/raw/543e1a19d6e21e31ced2512eec5792b50f13a0ba/script%2FdeployParameters%2FDeployInk.s.sol",
+      "contents_url": "https://api.github.com/repos/Uniswap/universal-router/contents/script%2FdeployParameters%2FDeployInk.s.sol?ref=543e1a19d6e21e31ced2512eec5792b50f13a0ba",
+      "patch": "@@ -14,7 +14,7 @@ contract DeployInk is DeployUniversalRouter {\n             pairInitCodeHash: 0x96e8ac4277198ff8b6f785478aa9a39f403cb768dd02cbee326c3e7da348845f,\n             poolInitCodeHash: 0xe34f199b19b2b4f47f68442619d555527d244f78a3297ea89325f843f87b8b54,\n             v4PoolManager: 0x360E68faCcca8cA495c1B759Fd9EEe466db9FB32,\n-            permissionsAdapterFactory: address(0), // ToDo: Add permissions adapter factory\n+            permissionsAdapterFactory: 0xABfb859E6c3324fE522bFbB19CB41345003ceD65,\n             v3NFTPositionManager: 0xC0836E5B058BBE22ae2266e1AC488A1A0fD8DCE8,\n             v4PositionManager: 0x1b35d13a2E2528f192637F14B05f0Dc0e7dEB566,\n             spokePool: 0xeF684C38F94F48775959ECf2012D7E864ffb9dd4"
+    }
+  ]
+}

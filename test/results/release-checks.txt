@@ -1,0 +1,18 @@
+test_constructor_arguments_count_towards_initcode_limit (release_tests.ReleaseArtifactsTest.test_constructor_arguments_count_towards_initcode_limit) ... ok
+test_every_creation_body_is_checked_including_helper (release_tests.ReleaseArtifactsTest.test_every_creation_body_is_checked_including_helper) ... ok
+test_every_runtime_is_checked_including_helper (release_tests.ReleaseArtifactsTest.test_every_runtime_is_checked_including_helper) ... ok
+test_exact_evm_limits_with_constructor_arguments_pass (release_tests.ReleaseArtifactsTest.test_exact_evm_limits_with_constructor_arguments_pass) ... ok
+test_real_release_artifacts_pass (release_tests.ReleaseArtifactsTest.test_real_release_artifacts_pass) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 3.854s
+
+OK
+PASS: 498 original files and modes reconstruct published Git tree 0710257dd00656d130b4c56b7a669734955bb1ef
+PASS UnlkToken: body=3444 initcode=3444 runtime=2320; both hashes and ABI match
+PASS UnlkHook: body=25702 initcode=25830 runtime=24328; both hashes and ABI match
+PASS UnlkSwapRouter: body=8102 initcode=8166 runtime=7761; both hashes and ABI match
+PASS MerkleClaimEvidence: body=5943 initcode=6007 runtime=5675; both hashes and ABI match
+PASS UnlkOracle: body=7857 initcode=7953 runtime=7517; both hashes and ABI match
+PASS HookDeployer: body=756 initcode=756 runtime=728; both hashes and ABI match
+ReviewedCode matches all four compiler creation-code hashes.

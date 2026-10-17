@@ -1,0 +1,25 @@
+{
+  "url": "https://api.imd.fun/requests/check",
+  "at": "2026-10-13T11:22:51.425362+00:00",
+  "httpStatus": 200,
+  "response": {
+    "action": "launch.open",
+    "kind": "hook",
+    "plan": [],
+    "facts": [],
+    "judged": false,
+    "blockers": [
+      {
+        "code": "bad_path_count",
+        "detail": "expected between 1 and 16 allowed paths",
+        "node": "impl"
+      },
+      {
+        "code": "bad_path_count",
+        "detail": "expected between 1 and 16 allowed paths",
+        "node": "tests"
+      }
+    ],
+    "suggestions": []
+  }
+}

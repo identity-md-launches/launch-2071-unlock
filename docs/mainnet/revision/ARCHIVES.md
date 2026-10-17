@@ -1,0 +1,7 @@
+# Lossless evidence packaging
+
+The original bytes of three historical verification JSON files are retained in XZ archives using Python standard-library `lzma`. No compiler dependency, library, source contract, live frontend or protected checker was compressed, replaced or removed. `docs/mainnet/evidence-archives.json` records the original path, byte length, SHA-256 and compressed SHA-256. `scripts/mainnet/verify.py` authenticates all archives and performs the same existing runtime/source checks on the decoded mainnet records.
+
+To reconstruct an original for inspection, use Python `lzma.decompress(Path(archive).read_bytes())` and write it to a chosen scratch file, then compare its SHA-256 to the manifest. These are exact historical bytes, not regenerated source/API answers. Historical checksum files that name the original JSON paths refer to these decoded bytes.
+
+The release exporter now writes duplicate full creation-bytecode JSON to disposable `test/scratch/mainnet-artifacts/`; the pinned source rebuild, ABIs, constructor signatures, creation commitments, runtime template commitments and EVM size checks are delivered. There is no external fetch or dependency needed to recreate the bytecode. The final unsigned-proof example is represented by its calldata length/hash; `market-evidence.json` retains the full raw proof and header used to reproduce it. Full runtime calldata can be regenerated offline, but a historical proof must be within the contract's 64..256-block submission window to be used on chain.

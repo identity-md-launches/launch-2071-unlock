@@ -1,0 +1,3 @@
+Historical record archived byte-for-byte: docs/unlock-gates/historical-checks.tar.xz
+Original member: docs/mainnet/historical-checks-unchanged.txt
+Hashes and recovery: docs/unlock-gates/ARCHIVES.md and historical-checks.json

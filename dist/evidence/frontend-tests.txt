@@ -1,0 +1,79 @@
+
+> unlock-sepolia-web@1.0.0 test
+> tsx --test tests/*.test.ts
+
+TAP version 13
+# Subtest: wallet allowance uses exact floors, sales and balance caps
+ok 1 - wallet allowance uses exact floors, sales and balance caps
+  ---
+  duration_ms: 1.336455
+  type: 'test'
+  ...
+# Subtest: scenario holds ledger fixed, final unlock includes transfer-only balances, achieved tiers never imply revoked rights
+ok 2 - scenario holds ledger fixed, final unlock includes transfer-only balances, achieved tiers never imply revoked rights
+  ---
+  duration_ms: 0.24683
+  type: 'test'
+  ...
+# Subtest: large BigInt values and all tiers retain monotonic allowance
+ok 3 - large BigInt values and all tiers retain monotonic allowance
+  ---
+  duration_ms: 1.303676
+  type: 'test'
+  ...
+# Subtest: input and slippage reject unsafe formats and preserve a wei
+ok 4 - input and slippage reject unsafe formats and preserve a wei
+  ---
+  duration_ms: 0.708182
+  type: 'test'
+  ...
+# Subtest: oracle progress distinguishes invalid, stale, gap, below target and elapsed-but-unconfirmed
+ok 5 - oracle progress distinguishes invalid, stale, gap, below target and elapsed-but-unconfirmed
+  ---
+  duration_ms: 0.343917
+  type: 'test'
+  ...
+# Subtest: real native round proofs reject wrong amount, recipient, incomplete tree and duplicates
+ok 6 - real native round proofs reject wrong amount, recipient, incomplete tree and duplicates
+  ---
+  duration_ms: 230.78014
+  type: 'test'
+  ...
+# Subtest: live same-block buy simulations match exact fee/delta arithmetic
+ok 7 - live same-block buy simulations match exact fee/delta arithmetic
+  ---
+  duration_ms: 0.652138
+  type: 'test'
+  ...
+# Subtest: swap step accounts exact fees and partial fills in both directions
+ok 8 - swap step accounts exact fees and partial fills in both directions
+  ---
+  duration_ms: 0.458697
+  type: 'test'
+  ...
+# Subtest: percentage fills floor in wei, reserve gas and never exceed spendable balance
+ok 9 - percentage fills floor in wei, reserve gas and never exceed spendable balance
+  ---
+  duration_ms: 6.469895
+  type: 'test'
+  ...
+# Subtest: confirmation progress does not increase merely because the clock advances
+ok 10 - confirmation progress does not increase merely because the clock advances
+  ---
+  duration_ms: 0.543164
+  type: 'test'
+  ...
+1..10
+# tests 10
+# suites 0
+# pass 10
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 1083.379987
+npm notice
+npm notice New major version of npm available! 10.9.7 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

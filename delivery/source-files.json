@@ -1,0 +1,2492 @@
+{
+  ".gitignore": {
+    "gitBlob": "a83efc8beea550f731dd2b503eea4932576f7b61",
+    "mode": "100644",
+    "sha256": "da37b51311e5b16a5e3a8b5396d7ed2e07805d3b8b77d0763283e2201d19d97b"
+  },
+  "LICENSE": {
+    "gitBlob": "0324b2a2420f3f98c0325eff08efb6ec986a5855",
+    "mode": "100644",
+    "sha256": "6bf86d119e8529253ddccfbd1f540c14c65a4a1e1909da88d34a41a2d000f8e1"
+  },
+  "README.md": {
+    "gitBlob": "371cd6a2b9229425d745f004047a8cc0c213952a",
+    "mode": "100644",
+    "sha256": "e5b178b92721b1b6f5ecae2f25a092d6d3c82e4a80cc4603214ac1b9e6a9a295"
+  },
+  "RELEASE_STATUS.json": {
+    "gitBlob": "c6f344aefebb68d68decf0383e10f8ceac0c5e39",
+    "mode": "100644",
+    "sha256": "b9a5f25baf67f442217f9fcc7d64e4eb143467ff58ca660ff9fbae3d0a1ee8ed"
+  },
+  "dependencies.lock.json": {
+    "gitBlob": "0c19ddf2fecb84ccd32179140550240698c94e62",
+    "mode": "100644",
+    "sha256": "36375ea7ff065847dcff417ef051ca9228cf569fdbccc4c1f52fd1468b310756"
+  },
+  "docs/ARTIFACTS.json": {
+    "gitBlob": "4a5231f1827259f10b79a61141a759518001a382",
+    "mode": "100644",
+    "sha256": "7f30a3063a41a0f9f7823a764e59644be9239dd4ab4120344dec1518ae011554"
+  },
+  "docs/BUILD_RESULTS.txt": {
+    "gitBlob": "a9c61e7338d249709f7638f676ca0e7f3ba79957",
+    "mode": "100644",
+    "sha256": "6bd35696e83a13642b5f2c803a9d5996695e5eb737dea425fe2b8c57b27485c6"
+  },
+  "docs/BYTECODE_COMPARISON_RESULTS.txt": {
+    "gitBlob": "6a556cbfc64993c8adcc288fd3be87cf75b87f87",
+    "mode": "100644",
+    "sha256": "a8af79d8a8cceb54e2fc0532a20bd8f3bc0d4f8033cc0794a066e302522b99a1"
+  },
+  "docs/DEPLOYMENT.md": {
+    "gitBlob": "df74a8f356e8b82358857d9fbfb8743a44b251e8",
+    "mode": "100644",
+    "sha256": "4d8a476a4df3dbed23ef308ece95970330ec0642233c997c2a4ea4e8880e8f8e"
+  },
+  "docs/ECONOMICS_RESULTS.txt": {
+    "gitBlob": "d9d7273cc864597560837acace9d6e03009d0f72",
+    "mode": "100644",
+    "sha256": "41459434cf2a4d19e719098518af658c97f56794d54e02de894f2a2c5b6f9283"
+  },
+  "docs/FMT_RESULTS.txt": {
+    "gitBlob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+    "mode": "100644",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "docs/FORK_RESULTS.txt": {
+    "gitBlob": "1aaac175005e9538b69cc6a32000dbeae85f9596",
+    "mode": "100644",
+    "sha256": "b280b42887aa4313b73575b24cdcd1a2f4a72948838479d41a19572df9ba8a2e"
+  },
+  "docs/IMD_LAUNCH_CHECK_RESULTS.txt": {
+    "gitBlob": "e4b4c1fa5f7dc54d26ba3b3ebe78a0d8935ffe28",
+    "mode": "100644",
+    "sha256": "824e8925db1c9d5f63c430cb95659ec9f4f694a6ad6334f35b2ece346a2e70ed"
+  },
+  "docs/LINT_RESULTS.txt": {
+    "gitBlob": "bcf27f7d46b03d2b9ba775f951355e5098bac0e9",
+    "mode": "100644",
+    "sha256": "4b01265004098544ca35ef96f2ccff21cd809c972cc076eb3340e94469b95a2e"
+  },
+  "docs/MINIMAL_ENV_TEST_RESULTS.txt": {
+    "gitBlob": "955cb0d9f1280dac088102248794c27ef1e5c4e9",
+    "mode": "100644",
+    "sha256": "55cdee59e45540b52a346dcc676791561fd76a2d7b15d6c885588180c629be66"
+  },
+  "docs/NETWORK_VERIFICATION_RESULTS.txt": {
+    "gitBlob": "f1e60f2c49714da580c1a10fd4b7e4ba07ce7e62",
+    "mode": "100644",
+    "sha256": "297bfc474b064a03aa06d80e31755a6b3dd3a4a57ccf8821319dece6bb863b7c"
+  },
+  "docs/PROTECTED_TEST_RESULTS.txt": {
+    "gitBlob": "e5a8c550631f18acf4bdafb9b4a680baa2f4d072",
+    "mode": "100644",
+    "sha256": "9818540f720ae399761046fe8857dded7379a3a66bf8e65f114f7f99fa139bd2"
+  },
+  "docs/RECOVERY.md": {
+    "gitBlob": "95f967cce997b9462f6a1cabd2dc2b2608abbd97",
+    "mode": "100644",
+    "sha256": "5c6b2ae6f07df2f056a8f6233b06f435af976d8d8d02534907b1ecd5e82da358"
+  },
+  "docs/RELEASE_ARTIFACT_TEST_RESULTS.txt": {
+    "gitBlob": "4a92518d6f7643b3668a6d4e83290d756b0415e9",
+    "mode": "100644",
+    "sha256": "63645cf4b1ee22bc75d19e84ef85cf58f88575980c45531a892ee8781f50f28e"
+  },
+  "docs/SECURITY_REVIEW.md": {
+    "gitBlob": "7a6f398c599ff90bd0963f99265d06e3de5ca1e0",
+    "mode": "100644",
+    "sha256": "fa12b9902b3fbcc743b42aa0c46b1bb7e8d4b3d3b815123c841a39acc2c65bed"
+  },
+  "docs/SIZE_FIX.md": {
+    "gitBlob": "9631ce70cbdb3e8c95ed882d38a7122e225d1643",
+    "mode": "100644",
+    "sha256": "d4f649e9942d369667f7a5823b4809e47904149a3c56a3aad54fafe589a0c29b"
+  },
+  "docs/SOURCE_SHA256SUMS": {
+    "gitBlob": "72e046aa0f8edd9db38d7f3039af8632e5b9afc3",
+    "mode": "100644",
+    "sha256": "300461c651a31287915fcbe1d2e70183b130504f61938b6bf559240a1e750551"
+  },
+  "docs/SOURCE_VERIFICATION_RESULTS.txt": {
+    "gitBlob": "3e02e8477d4ec696ce09c06019da6428116857db",
+    "mode": "100644",
+    "sha256": "7ec007e4f9df6e30bb704c9e89975f5ace66909cb6df15474cdd74855655d9cf"
+  },
+  "docs/TEST_RESULTS.txt": {
+    "gitBlob": "b0d23191e4029c540b0ba549f2321eb926b2a64a",
+    "mode": "100644",
+    "sha256": "eba853641de4686e43d3dd7455ad1e57c0f2d8db970fe5ee4b7f9cbce97b7552"
+  },
+  "docs/VALIDATION.md": {
+    "gitBlob": "eedae39fa495dd9cf1aaf3f3f1da8f2eb3bdd4f1",
+    "mode": "100644",
+    "sha256": "b2a5374642e95091031c4b08dc9ae04f2ac3dfad5405d8a5174f933017683f86"
+  },
+  "docs/abi/CheckReleaseConfig.json": {
+    "gitBlob": "66267f93ef8a7c648ff90c5a1d5ab18abe485ec9",
+    "mode": "100644",
+    "sha256": "a6cc5235cd5c9a67cbe98dd71b79ae76a2171c61db786afa623020d46830dc52"
+  },
+  "docs/abi/HookDeployer.json": {
+    "gitBlob": "ddef97d2f83d01797e84570e69f63eb6dca5b862",
+    "mode": "100644",
+    "sha256": "3bd9fe2c0ff0c3390632293cae1892377a8da02f343448478c880ac872ff26c5"
+  },
+  "docs/abi/IChainlinkEthUsd.json": {
+    "gitBlob": "47d7a1c313b8e42b559226efb595621d38015703",
+    "mode": "100644",
+    "sha256": "6c18d7d4306d7d61736d0008084d867648290e38290d5194af4a59ac51a5b33f"
+  },
+  "docs/abi/IClaimEvidence.json": {
+    "gitBlob": "3c53c513871820bc61704ccad805d88cde39bce0",
+    "mode": "100644",
+    "sha256": "36678ff66bf277923fc58c7b596aa45a2103c3a42333715ba92776786a5134c5"
+  },
+  "docs/abi/IHooks.json": {
+    "gitBlob": "f4d42cf2bf11c3555d747f5d6ac0ce5e0081dd71",
+    "mode": "100644",
+    "sha256": "6381badc447f848115cbcd8e3f72af4340aaf3d64330a4125314d6eb41c2c394"
+  },
+  "docs/abi/ILaunchFactoryView.json": {
+    "gitBlob": "2d9330a0ac5710666cde06e70f14bdb4661065d2",
+    "mode": "100644",
+    "sha256": "d666aa186442a72bd984ee0ab3c942de7438644fdce17fdafb93196b6abf236d"
+  },
+  "docs/abi/ILaunchRegistryView.json": {
+    "gitBlob": "1c2e48727d7d307b0eb360db4a30f8786039dde6",
+    "mode": "100644",
+    "sha256": "e41b506677a28cb130e10dd5db25031dc66d9232883e8f50b28fd4c7ddd6a00c"
+  },
+  "docs/abi/IMerkleDistributor.json": {
+    "gitBlob": "c8e8e8ada0368d4d599e1c8de94073907d697ce2",
+    "mode": "100644",
+    "sha256": "3107c768a2b0e760b77fe9844e729f3bcf75ee26a4cd5612e8d5e7f1b2c28aa1"
+  },
+  "docs/abi/IPoolManager.json": {
+    "gitBlob": "80db784e076e6ade3257be8541ad00d0cd11e478",
+    "mode": "100644",
+    "sha256": "ff9d0e3c4bde345d2487a03ea88f13b000cd3da9a58df6f38a7515c12a7d1a66"
+  },
+  "docs/abi/IRouteContext.json": {
+    "gitBlob": "dccbdc5f9f56e8621d893b1c07ca899dbac9850c",
+    "mode": "100644",
+    "sha256": "430b63204027eefe1ec2850d853160510f681df7afc533dd38eca01bc883358d"
+  },
+  "docs/abi/LaunchFactory.json": {
+    "gitBlob": "b6df9a6de0c2f354c3a11a1b94516a0ac4488a87",
+    "mode": "100644",
+    "sha256": "cf228516c24697439d6bdf683ac0412231f76f6579cb6df265cd35fb081fa069"
+  },
+  "docs/abi/LaunchFees.json": {
+    "gitBlob": "849e6377e5754ebc7f65e0eb63322e265a453cf2",
+    "mode": "100644",
+    "sha256": "5fa22426c495f751132c4d50f2c44521824c7ecd67236a54602b2c8ae72c6d4c"
+  },
+  "docs/abi/LaunchRegistry.json": {
+    "gitBlob": "985aa44c7fe8cf64faecd11edb0f224d94e4b192",
+    "mode": "100644",
+    "sha256": "b4f35b42219a6082365aea70dd0db4c0d875febae01d6c9385a2b670d688aa79"
+  },
+  "docs/abi/MerkleClaimEvidence.json": {
+    "gitBlob": "f6857374e69864b9ac2d600da1b51ceeb0e37778",
+    "mode": "100644",
+    "sha256": "608cee018c3c6b99b24a7236d1c1d08a51507932b99dbe186bfc55bd8f8c2240"
+  },
+  "docs/abi/MerkleDistributor.json": {
+    "gitBlob": "47aa5ea199fcb479d50e6a9d08e6b913d18d716e",
+    "mode": "100644",
+    "sha256": "6436e231feb5e3e2cfabf9c76e0a2901943891f7e00b7f078dd84ecebe78c286"
+  },
+  "docs/abi/Stage2.json": {
+    "gitBlob": "269adecb48557a66f124dad668d4dff672eb09e3",
+    "mode": "100644",
+    "sha256": "505d6b013084f853fb86ca8356c0820c88614edfbbacc66ee7d88aa620ba4ab5"
+  },
+  "docs/abi/UnlkHook.json": {
+    "gitBlob": "047c1a584101afa4af5f6d95aa5ecf01edc638a7",
+    "mode": "100644",
+    "sha256": "f519481845e934a876a9e63279803f43b079f5e112833843c93cb1dfd8f5db35"
+  },
+  "docs/abi/UnlkOracle.json": {
+    "gitBlob": "2183a7048681632ee230f63913662a6bb77009fc",
+    "mode": "100644",
+    "sha256": "290cffdef5222ddc4d0b65a8ba4d2d201ab980c1179fb7e9c680313728129fa9"
+  },
+  "docs/abi/UnlkSwapRouter.json": {
+    "gitBlob": "96f0d48d0ea9b1979bb2aae85d34f20699a3f50a",
+    "mode": "100644",
+    "sha256": "76eb8edcb6b4a665f06c3944bba8cad4bb7d141d8e6e8f280c3144bf2573d2d6"
+  },
+  "docs/abi/UnlkToken.json": {
+    "gitBlob": "8dbdf197fcee54d2a57cc1983c49b4823198b022",
+    "mode": "100644",
+    "sha256": "d8aa3c2ee30aacb9d86a9ef1b73dd59911e835a0ac7faaf56b424ee95384d1ad"
+  },
+  "docs/network/capabilities.json": {
+    "gitBlob": "4ce8f88ddda39d8b4812502d1ed14c2c3431d33b",
+    "mode": "100644",
+    "sha256": "9d2e7887dfb1f9a15b522a24f6ac2db54cb08207290d5777f1b1e3e23f42755e"
+  },
+  "docs/network/factory-artifacts.json": {
+    "gitBlob": "9d93fa64b44251fc61928c06e11d99439815a287",
+    "mode": "100644",
+    "sha256": "fd2fe6b09d3a906ff5788552be076722f269499bdd46cf4443cf88d8d54127a2"
+  },
+  "docs/network/factory-reference.json": {
+    "gitBlob": "396c992b1962711634e4e5f9bfa28067e7518343",
+    "mode": "100644",
+    "sha256": "830384393422246d886214f3f8d8163be8967a4a6613d4a7dd9ed8c571089ec6"
+  },
+  "docs/network/factory.runtime.hex": {
+    "gitBlob": "63afb9d79344b52b26ef99c3ecea741c0d76cad0",
+    "mode": "100644",
+    "sha256": "4c9636991ff4094aa6009d2ffc9ec0da218a8bebf42128d251ec16d9aa161e12"
+  },
+  "docs/network/feed-reference.json": {
+    "gitBlob": "c071411735a9327fe85afed87b55f69c6afb1008",
+    "mode": "100644",
+    "sha256": "67f850246aaab1980e86ee047a4ae933aaac74713df089bdcf9ae91a82b9d586"
+  },
+  "docs/network/feed-rounds.json": {
+    "gitBlob": "61a6f000a2001a64bf686302f6fdbe0a7b442ad0",
+    "mode": "100644",
+    "sha256": "8b3f6716f2cc09f9818ed9c14140e11033d75e7f3c2542004f849721dbe68c1e"
+  },
+  "docs/network/feed.runtime.hex": {
+    "gitBlob": "efeacd642e71d9c03c13664a6fd3ea7c47564687",
+    "mode": "100644",
+    "sha256": "6e1b5ee2b3d3b22cea3a5ec6802c1aff95ebb4f4b9f8cf51536e89a74fb0ed8f"
+  },
+  "docs/network/fees.runtime.hex": {
+    "gitBlob": "5c2e781959d15d53ba9a8310f6734f4e3a4e6c32",
+    "mode": "100644",
+    "sha256": "4e46ff998d583269db3235992518aa1b8a79a79ee068000c0f04fcab6047c9fb"
+  },
+  "docs/network/job-identity.json": {
+    "gitBlob": "1d6adcda25f15a445319f3b0f982cc43ed00ff4e",
+    "mode": "100644",
+    "sha256": "fca608af176de4ba068b77a46ffd3f1ceb07817cae4d56f3ca100724acb3ba2c"
+  },
+  "docs/network/manager.runtime.hex": {
+    "gitBlob": "fa20c06a6196cca8368689a38fd1a7a67bc75f56",
+    "mode": "100644",
+    "sha256": "8a2de6b74210b6bc3edb12a62324dddcc9d9f9e19d785de4f7649fb30cc4a966"
+  },
+  "docs/network/policies.json": {
+    "gitBlob": "00af1d0d629ab4a354463dc379aa35abc25d2e2f",
+    "mode": "100644",
+    "sha256": "98dd80960c13f5267a97ae8211f4db27f09bca01867a8740af1a9f6d1e680ee7"
+  },
+  "docs/network/registry-reference.json": {
+    "gitBlob": "5ffe3a4768e9b4c10390d72941c39742b4fd61bf",
+    "mode": "100644",
+    "sha256": "63f4e8cc750c313ddea9610f48c6996e60e3df7d9da16cf99b03c9ced8f27ac8"
+  },
+  "docs/network/registry.runtime.hex": {
+    "gitBlob": "9dbe8984a49cee215424cef3a293ecccdf5fea1d",
+    "mode": "100644",
+    "sha256": "8e30bec1269c467043d4ef841833befa3c141e8d938f521d876d324ab59970d1"
+  },
+  "docs/network/sepolia.json": {
+    "gitBlob": "3251fb57f2cd346a2552767fb6f6d7cf4249f5e1",
+    "mode": "100644",
+    "sha256": "ff92638171cce677bf5d863fb34e29f4a1c90f25a536171a1af873fecea83e15"
+  },
+  "docs/network/services.json": {
+    "gitBlob": "5727fc3ad26d3e8be95ebfb920de4f9647232643",
+    "mode": "100644",
+    "sha256": "817d96dca0e50ff49927d8c03d16fb69350397de903735e37e2e9cd914ba2082"
+  },
+  "docs/network/size-fix-status.json": {
+    "gitBlob": "a6d2f8380d9ddaad6ded3597fe4c2270646f76db",
+    "mode": "100644",
+    "sha256": "4c155d3a1ac1fc97be8d56f0192beb9db04790ef72e177bf9946edb57dbafdf7"
+  },
+  "foundry.toml": {
+    "gitBlob": "0f92a93bdd63f0e22515181b9e0c7fc118cc5a2a",
+    "mode": "100644",
+    "sha256": "86921c837f9edb4bb45f99d93c6540c32080f12482aabf5d38a3258b10ea678b"
+  },
+  "launch.json": {
+    "gitBlob": "2e0a5ed7b2dba873cd6d8a999426da00bbefab66",
+    "mode": "100644",
+    "sha256": "5557f90ba2f212410bbfb46a099dcbb8a2c34d19967fc496f5770a980885a300"
+  },
+  "lib/forge-std/LICENSE-APACHE": {
+    "gitBlob": "cf01a499fbc56499b51f087c7cad0cec85fabaaa",
+    "mode": "100644",
+    "sha256": "50b6bf8bdb63265ce14953b480b7aaa0271e78f56843b99c184abd3ae5048cd7"
+  },
+  "lib/forge-std/LICENSE-MIT": {
+    "gitBlob": "28f98304ac6db414af24a4e9cb31407dd524329f",
+    "mode": "100644",
+    "sha256": "6d185dfe089d4de346d391fc5997fbd4739bad1d6556010413c10f420d704ecc"
+  },
+  "lib/forge-std/src/Base.sol": {
+    "gitBlob": "d948010fe9f8ee530774c9c9d1f5ee4922f77673",
+    "mode": "100644",
+    "sha256": "76b05dda37981797d3d403f29fc6cad79b46e2fc11da47d649ff13acb69158b2"
+  },
+  "lib/forge-std/src/Config.sol": {
+    "gitBlob": "3d35bb583a0c39032b18a2a74706634e7e175cec",
+    "mode": "100644",
+    "sha256": "850649e2ede6e0e1384ba00eba1335a7af7e97643c731a4587335c0f51f67041"
+  },
+  "lib/forge-std/src/LibVariable.sol": {
+    "gitBlob": "e3ad4deae9f9984a2eee5f740082ccea4650e690",
+    "mode": "100644",
+    "sha256": "2a87cb6a58c72cde9d8f6174b431c7d8c118c6b100ce15bba30cea1623db58f0"
+  },
+  "lib/forge-std/src/Script.sol": {
+    "gitBlob": "03e0beba0b8b44486c6ac62fc65e38e1ac328abe",
+    "mode": "100644",
+    "sha256": "172a6201241215bdc1f552197f9950e4d2ab7f56dd1e1b992dc51dc71d4e17a1"
+  },
+  "lib/forge-std/src/StdAssertions.sol": {
+    "gitBlob": "c1bca13345fdbd1b5acf720f7f26b8c76c841c73",
+    "mode": "100644",
+    "sha256": "094cd0489ca2cd59e06aa8587163f79c49184e982b07d9b5ee929b3485f62b32"
+  },
+  "lib/forge-std/src/StdChains.sol": {
+    "gitBlob": "d960427468b558b1429b7ef772c33beadf066943",
+    "mode": "100644",
+    "sha256": "a991421c558459756142b6e25825959b880e0a41b50f14ac87183f57b0c0c7f3"
+  },
+  "lib/forge-std/src/StdCheats.sol": {
+    "gitBlob": "d8bec36b78729fde21bee2a9cab5199a18762840",
+    "mode": "100644",
+    "sha256": "a7d3652e28fb129038404285f05a778af293fb9e8126e51aa1d1a3741238484e"
+  },
+  "lib/forge-std/src/StdConfig.sol": {
+    "gitBlob": "fa02aaeb79ac44666e7ebe3f6143d7896e71c75c",
+    "mode": "100644",
+    "sha256": "0ee23a9b52ee831f9f811ea24969150a154d32d579c88c34aee4eb8c16dc4545"
+  },
+  "lib/forge-std/src/StdConstants.sol": {
+    "gitBlob": "71055ff7816f397a2e979c4a171bec4094da0957",
+    "mode": "100644",
+    "sha256": "647fce028d730a3a6a843018dc51c2be76e81de18df2b98aff415d6367990acd"
+  },
+  "lib/forge-std/src/StdError.sol": {
+    "gitBlob": "94df1594514fa821fc797a317c24fd93d6c83180",
+    "mode": "100644",
+    "sha256": "c1f7271f11a44628810ef6beb2da0c43add131ff9cfcac4d7acd633c269ccf7d"
+  },
+  "lib/forge-std/src/StdInvariant.sol": {
+    "gitBlob": "cbe36f80c4f05a5229ee8e2eb7f25637a74faee0",
+    "mode": "100644",
+    "sha256": "39f68926c59f072d1b023f8e9e51bfe56c1b6d4aa9cd3b3bbb3214d70eb369e3"
+  },
+  "lib/forge-std/src/StdJson.sol": {
+    "gitBlob": "950db3aaa95f8ce5ed662d0c0ae9229c42144547",
+    "mode": "100644",
+    "sha256": "014e57fc9a9f5d0c97082923c121a46fda667e6bd3b8d6a51521390fe27b203c"
+  },
+  "lib/forge-std/src/StdMath.sol": {
+    "gitBlob": "19942f78db95de013184882153d7c2e29e454e1c",
+    "mode": "100644",
+    "sha256": "7224cea66fc06c7a9d303084cccb14eaedffe4b21b3f9695d06dc590d2894d7d"
+  },
+  "lib/forge-std/src/StdSecp256k1.sol": {
+    "gitBlob": "05977e3d1c4e23009c7603726c1712592ebd5ac5",
+    "mode": "100644",
+    "sha256": "3bab3dab8484edfec81f69d001f55817231b5c276aec067ac0ddc7ba57500bd1"
+  },
+  "lib/forge-std/src/StdStorage.sol": {
+    "gitBlob": "030df3862f8cfcefa0f2c7325ce72ed7e6ae83dc",
+    "mode": "100644",
+    "sha256": "d065072920d0c6d7801adc7ce83f5f6c5dce239c1f022cfd2abc400c67b8b5de"
+  },
+  "lib/forge-std/src/StdStyle.sol": {
+    "gitBlob": "33b815fcbd48540497c3b4ff78eae0da791b7e2c",
+    "mode": "100644",
+    "sha256": "903ea6f4e4aa31e416b5043abecc09ced41dc78c9ce9dabb5c745337ee13139d"
+  },
+  "lib/forge-std/src/StdToml.sol": {
+    "gitBlob": "dcebbef58b77478f627cd3ed7817018372416949",
+    "mode": "100644",
+    "sha256": "08ab6f56c8f260b5290ab04ba54dee5d30bb27e36db36ae87e2fa48d9f5bae07"
+  },
+  "lib/forge-std/src/StdUtils.sol": {
+    "gitBlob": "cbc18406413f9f6758ecfaadcb28c1cbe83201f4",
+    "mode": "100644",
+    "sha256": "a4e27662dcfa63d54102b0a85150ec35326ac6ecfeb62fa1200ad5b1acbd7453"
+  },
+  "lib/forge-std/src/Test.sol": {
+    "gitBlob": "204d58374f70961291c5866fdff1acad8efaea0e",
+    "mode": "100644",
+    "sha256": "6ac6a04a9723f3b51a86fcd0c4cf02e8011f112df052a8eea8e986d85b0bb3d7"
+  },
+  "lib/forge-std/src/Vm.sol": {
+    "gitBlob": "0673436273f0a4b4558be109a4ffc1c3e867390b",
+    "mode": "100644",
+    "sha256": "ef506791a7590953c833dcc022818ca395fd6e4d0439c44c1464862cc6394cdb"
+  },
+  "lib/forge-std/src/console.sol": {
+    "gitBlob": "0ac1b691ad9f289f63967d9807b3b292118c9521",
+    "mode": "100644",
+    "sha256": "894dc6e40fe62d887df6243112d8c775df2db60babc3024ee04a5564b90af64d"
+  },
+  "lib/forge-std/src/console2.sol": {
+    "gitBlob": "1ecdbbf7232cdce05bc7ead79a06a6cfccd40434",
+    "mode": "100644",
+    "sha256": "62d8ccbd118fec4f99c5e847322d6ca0d7fbe6a0a16e5a26b0590869fcd69357"
+  },
+  "lib/forge-std/src/interfaces/IERC1155.sol": {
+    "gitBlob": "0876e1062af50a31186f172cf1082f06157b5841",
+    "mode": "100644",
+    "sha256": "c91902e9def995b836fc3c6d05fbb0852e162d43ef7da0a7eae0dd5647201fb4"
+  },
+  "lib/forge-std/src/interfaces/IERC165.sol": {
+    "gitBlob": "fced182216c565d7dced7323f5754c725129a1a6",
+    "mode": "100644",
+    "sha256": "d9bea769cd3aa52c5dfbfe7b447a63b00ab22baaa4f9d2af789f44553078a27b"
+  },
+  "lib/forge-std/src/interfaces/IERC20.sol": {
+    "gitBlob": "1a17fe134105e16979ba18ea46b7b771230e8122",
+    "mode": "100644",
+    "sha256": "cb4bf7f4c0bc513e2c82f251a84e67d2e950cef12e570f40a0d4880b2e25fc9f"
+  },
+  "lib/forge-std/src/interfaces/IERC4626.sol": {
+    "gitBlob": "33aa3b116ff0ffc965b2cbbf7a52896ab112844a",
+    "mode": "100644",
+    "sha256": "a26450fb85e7675d34b586bca016dc1579873d08230a4b61ae1805626122e363"
+  },
+  "lib/forge-std/src/interfaces/IERC6909.sol": {
+    "gitBlob": "a42840020b2667337d8f07da5f4f3a264d2346c6",
+    "mode": "100644",
+    "sha256": "c907bf06b96cf67b5a201f5e050954da169f2c2b152123be46a9f5224b6dabe4"
+  },
+  "lib/forge-std/src/interfaces/IERC721.sol": {
+    "gitBlob": "251975cdad82d539096bddbdcfac61f8809a8736",
+    "mode": "100644",
+    "sha256": "26d6c0ca2857cfbc183ecd7182176221d8d12ad962450503fe9c71fc9fefbbd1"
+  },
+  "lib/forge-std/src/interfaces/IERC7540.sol": {
+    "gitBlob": "80faf3a61779018f3de500fbe2200eaba445e694",
+    "mode": "100644",
+    "sha256": "ba107208db72d088d55280507ccecbb10222d891c3edca8a286a6e7f62addf6f"
+  },
+  "lib/forge-std/src/interfaces/IERC7575.sol": {
+    "gitBlob": "391e727e9ce86967c9fff9cac43711b466504695",
+    "mode": "100644",
+    "sha256": "cd5875dc29b0419c4a3a742ee43c4a16a7b5f7bcc34485fee811dd53c738ef5d"
+  },
+  "lib/forge-std/src/interfaces/IMulticall3.sol": {
+    "gitBlob": "95fd239229303991a112890325530bdf02305c74",
+    "mode": "100644",
+    "sha256": "4453fb721509f03cd792b718b8d1621f3a8db4065311a85c686b9fd09d781a6d"
+  },
+  "lib/forge-std/src/safeconsole.sol": {
+    "gitBlob": "e12d0600a3fe145e5685c156110845db578d5d2a",
+    "mode": "100644",
+    "sha256": "fd74d8ed377e1470217cd6dce7699dcbc4e79b3893f17ae2a298c0e7e4418181"
+  },
+  "lib/openzeppelin-contracts/LICENSE": {
+    "gitBlob": "b2fee8f211650092ffdcbd519ef3ffbc1c258b8f",
+    "mode": "100644",
+    "sha256": "8b3fddff3cff904ab9bd7c48a9288fb08ab4f47b179c07af6df7886b12cb04d6"
+  },
+  "lib/openzeppelin-contracts/contracts/access/AccessControl.sol": {
+    "gitBlob": "3e3341e9cfd62e7137f4dd4ea6445b43e4c619c1",
+    "mode": "100644",
+    "sha256": "1086a1ad3788972b885ff3f209da510615dde6214d46b29e1cd2a4924f66c06d"
+  },
+  "lib/openzeppelin-contracts/contracts/access/IAccessControl.sol": {
+    "gitBlob": "a0d60380e64210767043cea2640df9c3fde49132",
+    "mode": "100644",
+    "sha256": "07df6e1b2e3fc5fee97262fb0b0bcdbac3943fbd24e5b5075c65943f9e28fcc2"
+  },
+  "lib/openzeppelin-contracts/contracts/access/Ownable.sol": {
+    "gitBlob": "bd96f6661dcbf7b2d4948823ac0e7bfb4ba31fb1",
+    "mode": "100644",
+    "sha256": "38578bd71c0a909840e67202db527cc6b4e6b437e0f39f0c909da32c1e30cb81"
+  },
+  "lib/openzeppelin-contracts/contracts/access/Ownable2Step.sol": {
+    "gitBlob": "3a0747ce7cd58d3848fb178ed68333409fcd2b47",
+    "mode": "100644",
+    "sha256": "c75345d7b9feef17ae29f2a800ca2f65f8021cf80436a41d6ec00f57f5180f36"
+  },
+  "lib/openzeppelin-contracts/contracts/access/README.adoc": {
+    "gitBlob": "b89865b2c179324c78889effefaa46fc1a91d858",
+    "mode": "100644",
+    "sha256": "f538804943bd3a629cac625ecf05155c523b86998206a594ad514e6ffaa89d24"
+  },
+  "lib/openzeppelin-contracts/contracts/access/extensions/AccessControlDefaultAdminRules.sol": {
+    "gitBlob": "f2e11fbed6c040762499ef403965ab5c22b21313",
+    "mode": "100644",
+    "sha256": "6a0078637836ee7ad6ebcd94148077ab1145af03fc644816162355721da20e27"
+  },
+  "lib/openzeppelin-contracts/contracts/access/extensions/AccessControlEnumerable.sol": {
+    "gitBlob": "3e54f80ebf9d837e87f899093b360b9049226bad",
+    "mode": "100644",
+    "sha256": "2e55d0572283d7241858c80eff0997bc0c6c41544131219e61b31c467d0fc13d"
+  },
+  "lib/openzeppelin-contracts/contracts/access/extensions/IAccessControlDefaultAdminRules.sol": {
+    "gitBlob": "3740749c4b832463f8e8278b98eae3e0bc63d879",
+    "mode": "100644",
+    "sha256": "c7bbf8bc9e68a131951d23f099b50e8d2737d07a0307dfcb26be0595f3efcfa6"
+  },
+  "lib/openzeppelin-contracts/contracts/access/extensions/IAccessControlEnumerable.sol": {
+    "gitBlob": "bb9bac86ee15c372fbb2069b7212c0d2ec15e3cf",
+    "mode": "100644",
+    "sha256": "f91dc4b5750c1bac7a6a11a6057f14f01121847e6a6284e1200d8a87a4c4ff1e"
+  },
+  "lib/openzeppelin-contracts/contracts/access/manager/AccessManaged.sol": {
+    "gitBlob": "dff81f006313eb21cb60dba08f0e651994684662",
+    "mode": "100644",
+    "sha256": "967cc84936e581c4f6aca21805b01bbde5f4ef536352268cd024c44c83773031"
+  },
+  "lib/openzeppelin-contracts/contracts/access/manager/AccessManager.sol": {
+    "gitBlob": "a8d37ffd8660c5f95e7738d55c4fe6c0493fb2d9",
+    "mode": "100644",
+    "sha256": "de3d9f389bb1a37eaa8c29c43b04ebcda5b133a0bc2dd8e1d333443b8eccf256"
+  },
+  "lib/openzeppelin-contracts/contracts/access/manager/AuthorityUtils.sol": {
+    "gitBlob": "bc6c299596d5a9c0857a473fcf19552e94a0f2a5",
+    "mode": "100644",
+    "sha256": "e50a3b80fe3a15ceeb82cf7bc3d670caef2e40d18fed97b0a6cdccec0564894d"
+  },
+  "lib/openzeppelin-contracts/contracts/access/manager/IAccessManaged.sol": {
+    "gitBlob": "95206bdeca5fdba104813bd25c0387fdf08b3fac",
+    "mode": "100644",
+    "sha256": "b6cbb31989224829b1bcbcb7c34088eb16362650174da2cc98b2d7e01a1609bd"
+  },
+  "lib/openzeppelin-contracts/contracts/access/manager/IAccessManager.sol": {
+    "gitBlob": "994ff27940075e8e1b0150ee52d12c0ab1293487",
+    "mode": "100644",
+    "sha256": "8cdaf322e982ef0a9a460253f909adecb05c1fe85614b49cb012d4e596544896"
+  },
+  "lib/openzeppelin-contracts/contracts/access/manager/IAuthority.sol": {
+    "gitBlob": "e2d3898fd4fadfe9b823487dcb12e0885d1915c1",
+    "mode": "100644",
+    "sha256": "9fc27c63a17ed287dd1070ccca4bc9d3250af3d9e0c2c4ebf95173395ed98726"
+  },
+  "lib/openzeppelin-contracts/contracts/account/README.adoc": {
+    "gitBlob": "d2eb9db5ee96a2810dbc8e663fe9cce2eae4d228",
+    "mode": "100644",
+    "sha256": "a65832b530b80ec8d8d468be04703eac8f5213bbc5e23f56cbb4b3aba90c3b0a"
+  },
+  "lib/openzeppelin-contracts/contracts/account/utils/draft-ERC4337Utils.sol": {
+    "gitBlob": "96f3da5f34d078528aadf6377a7b8c0f1f3b6a25",
+    "mode": "100644",
+    "sha256": "83ae9c520ac6546b688edb9d0e04509c90684ad64d1075a06de429352639d5ae"
+  },
+  "lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol": {
+    "gitBlob": "84d9fafa254753ed2864c1be1cef0305c3dea8f9",
+    "mode": "100644",
+    "sha256": "1c869ff1273590446f9ac4ae98f3c55cc8802838be5e0a91044d2f0dbcaf9b80"
+  },
+  "lib/openzeppelin-contracts/contracts/finance/README.adoc": {
+    "gitBlob": "c855cbb6a994fbccda7a2f92749ee2221365ae2c",
+    "mode": "100644",
+    "sha256": "6eda655e635a745337fedb389ea92808012a04cf934103da2b2fdd060cbf800e"
+  },
+  "lib/openzeppelin-contracts/contracts/finance/VestingWallet.sol": {
+    "gitBlob": "6f2b516064a88bab6516638c5520583cd9496e3e",
+    "mode": "100644",
+    "sha256": "88540f2ec7d23a3b2cd4b7d6ae633225367c79029fb3cf8a395bb4b5556589b9"
+  },
+  "lib/openzeppelin-contracts/contracts/finance/VestingWalletCliff.sol": {
+    "gitBlob": "3884d67a0908d20b4bac502d66031911d429df70",
+    "mode": "100644",
+    "sha256": "d1ba68cd6050932110e1f3461f7e34b7b69b2ef47db43de0c1d4f9d246358040"
+  },
+  "lib/openzeppelin-contracts/contracts/governance/Governor.sol": {
+    "gitBlob": "eef9b3acf19af408997ed7947301dc32a3b055b7",
+    "mode": "100644",
+    "sha256": "a21d906fa2d6657546d5ba5f37d5f03b89bd9c14568f4d1a7fbb76a28e66d8d4"
+  },
+  "lib/openzeppelin-contracts/contracts/governance/IGovernor.sol": {
+    "gitBlob": "73ca3fd42bf9205255d60f741ef51ace69824b14",
+    "mode": "100644",
+    "sha256": "59beacbf8206cfb05ccf972544c7c15976e4d1193bb56ae17b8fd119e1e0b77d"
+  },
+  "lib/openzeppelin-contracts/contracts/governance/README.adoc": {
+    "gitBlob": "d390d1be82d06772d2fddc7efee4e34237e4c961",
+    "mode": "100644",
+    "sha256": "a6212c044dad1a5a987b73b946d59f2b1dbf288febd3debc8d7d64304effe34a"
+  },
+  "lib/openzeppelin-contracts/contracts/governance/TimelockController.sol": {
+    "gitBlob": "9f7ec91860f0d0edb222e5f80e638d738b5e2746",
+    "mode": "100644",
+    "sha256": "f57e9870d2916cfb4aa475861038e9e6d46a62bf5b20736df8b67d0748f1ed93"
+  },
+  "lib/openzeppelin-contracts/contracts/governance/extensions/GovernorCountingFractional.sol": {
+    "gitBlob": "fee88a152985f81293d62018c4b3009d07b5703f",
+    "mode": "100644",
+    "sha256": "68be709fb07940dbf9f14dc4c508f8d946016748985f615a2a0fb70fbc730178"
+  },
+  "lib/openzeppelin-contracts/contracts/governance/extensions/GovernorCountingOverridable.sol": {
+    "gitBlob": "f7643ba6295c051b3d460830839e976476ed79bd",
+    "mode": "100644",
+    "sha256": "762723c12abdf76fe540fa784bf52f6fdb96f43b0a4e255e6fafc47d1b95c4fd"
+  },
+  "lib/openzeppelin-contracts/contracts/governance/extensions/GovernorCountingSimple.sol": {
+    "gitBlob": "f5f61a7ff90ad0bdd8199db085bc52d4153e33d0",
+    "mode": "100644",
+    "sha256": "57c399e39b8d231ad0cb6a0e170e718cea620cb5bf345032c7585f9020465b69"
+  },
+  "lib/openzeppelin-contracts/contracts/governance/extensions/GovernorPreventLateQuorum.sol": {
+    "gitBlob": "02b201d8a04608849ebe1cde9c476b46da0418e8",
+    "mode": "100644",
+    "sha256": "aa4b34f37e8ef9b9a934afd4558ac87c7ebfd5074c4cbff5e107d42a62c8384a"
+  },
+  "lib/openzeppelin-contracts/contracts/governance/extensions/GovernorSettings.sol": {
+    "gitBlob": "7347ee293f9f7e170d039db66ed1338d98be86f0",
+    "mode": "100644",
+    "sha256": "f6268357cb5aeb8c2509699f78127b9b360e9bb57c2b4cb1406ca24a4573d66e"
+  },
+  "lib/openzeppelin-contracts/contracts/governance/extensions/GovernorStorage.sol": {
+    "gitBlob": "781ee84cd7a7f57fb3426aae6d3f71f453a8cdab",
+    "mode": "100644",
+    "sha256": "d2b65b878e4f09c5c74d722888b271c00020711ebd05cc23f93207201dec6849"
+  },
+  "lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol": {
+    "gitBlob": "88d1ebff76590fc1ac9b9eaf5e2e8349057aec08",
+    "mode": "100644",
+    "sha256": "1364465283d6463e96cef984df20e557a18b1aad26014f4f689b5d9866a312f8"
+  },
+  "lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol": {
+    "gitBlob": "1a5f5cef6beb27f99261e110b0b0dda33dc7da28",
+    "mode": "100644",
+    "sha256": "4f227122c16135ff5a7d272e2447b43cc1cc26badb431d0a320471b2bf11f22b"
+  },
+  "lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockControl.sol": {
+    "gitBlob": "e0e4263d9910cbd22184bc28bbd0024d69d161d0",
+    "mode": "100644",
+    "sha256": "6216562fd1af2a83399d5e52bd033778b6f8342eb3a2fe31977613383699323b"
+  },
+  "lib/openzeppelin-contracts/contracts/governance/extensions/GovernorVotes.sol": {
+    "gitBlob": "f94913fe71170750911acc007eccca53d3733163",
+    "mode": "100644",
+    "sha256": "abe36c3b907dd3ea48e4b8af7d675dcdec2318f81bf3557be19b97430d15e8da"
+  },
+  "lib/openzeppelin-contracts/contracts/governance/extensions/GovernorVotesQuorumFraction.sol": {
+    "gitBlob": "85a1f982690b5193392ed3c83ba95ac965751df6",
+    "mode": "100644",
+    "sha256": "9febb68a832e0bc5e15fee84a1112436c8839f7f2294b3ec103cb1700af71c3c"
+  },
+  "lib/openzeppelin-contracts/contracts/governance/utils/IVotes.sol": {
+    "gitBlob": "4038a4a7e0077e7175b4b88db47abb415d83dadb",
+    "mode": "100644",
+    "sha256": "eda187d590cfb031462836fb517fff46c3118b6978b61549bee5b45820bb7e6f"
+  },
+  "lib/openzeppelin-contracts/contracts/governance/utils/Votes.sol": {
+    "gitBlob": "c189682ace5ac1b2acb6a851ea0f3f571ab2a6c1",
+    "mode": "100644",
+    "sha256": "a8d5d606ca2635a767b29145dc58c7f57bd68ec48a0eb353704f71468b0f02eb"
+  },
+  "lib/openzeppelin-contracts/contracts/governance/utils/VotesExtended.sol": {
+    "gitBlob": "5b6732038aee5289e57aa2a045ea116981418a3e",
+    "mode": "100644",
+    "sha256": "956c2a0ca22d5c2bbe3c700c4e3c47be67bcbfb240967654c85744fc8f7a7ca5"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC1155.sol": {
+    "gitBlob": "bb502b1da88ca1e7986463e11dd1080fddcbd618",
+    "mode": "100644",
+    "sha256": "6b08e7a48198dbe997205dad74a6dae1e5024dd4ef38ea7a70285950ba95bf24"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC1155MetadataURI.sol": {
+    "gitBlob": "dac0bab5457a334faeb9bd38ba22defd823ce16b",
+    "mode": "100644",
+    "sha256": "15df60a6b44a11ad12c8c6744ebb962834728fa4f20387430312c814394adf2a"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC1155Receiver.sol": {
+    "gitBlob": "6bb7c9684a3be2df4295b75696bcfcf2d1f5d713",
+    "mode": "100644",
+    "sha256": "ae9854dbfd4d879b6ed765d4de55ac7f9e67598ece010262bf46f3a86152115a"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC1271.sol": {
+    "gitBlob": "8c239942ac894b2ebb9b192646b5b0e455cd968f",
+    "mode": "100644",
+    "sha256": "599887e85d375f463f30e3c4cf139ea541e73c7b3535eb040da5e8d8145a4f14"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC1363.sol": {
+    "gitBlob": "a7e8c274dc51c84f5d964e35712d0c4750a97957",
+    "mode": "100644",
+    "sha256": "ba5b3b99bec389b04e2e9865fccce5f0b97546e666ca246fb87d9c91e2cb43bd"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC1363Receiver.sol": {
+    "gitBlob": "c3d9cb9652cd9d33d1b55fa3e4511db7e6b7db15",
+    "mode": "100644",
+    "sha256": "5454c4c33938d6cc20aa51c8f61d39d57077b569c2c685b76cf921a11f68ace9"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC1363Spender.sol": {
+    "gitBlob": "13af938f06611e85ad16708b3d0e9de9c80d1fdc",
+    "mode": "100644",
+    "sha256": "6e27f3eafd6190ceea989405d9e6cd15aa00c6530d316f82fffa746412ef1d94"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC165.sol": {
+    "gitBlob": "944dd0d59127e60f7b55fd8dacde9ea64f43b245",
+    "mode": "100644",
+    "sha256": "49abfb8fa26e3f1715fe05948a96e3762b805bd4a77d103eb40ba96b1acfa144"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC1820Implementer.sol": {
+    "gitBlob": "b15d6eebf5763e9c1742283c6af6558d14bd03e0",
+    "mode": "100644",
+    "sha256": "5470216fe808730988f715d3b92d4a2174c4597473508e206a30d42d819bbaeb"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC1820Registry.sol": {
+    "gitBlob": "d501a8bb95c7df93b9a2f27ff8c098a35719b2bd",
+    "mode": "100644",
+    "sha256": "2ebefe2368099036084f1906a432ffa6c74c1c4c3a7a4a7911ae707abe6e70d5"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC1967.sol": {
+    "gitBlob": "d285ec889e88ba5f9d106714561307e93920931f",
+    "mode": "100644",
+    "sha256": "886b093d8f7c41f73af42b8e183314b3654531a9d5e11f07c41a5a7f11d3e006"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC20.sol": {
+    "gitBlob": "21d5a41327566dac52adc0037d35d9177241eca4",
+    "mode": "100644",
+    "sha256": "cb42f0b4d269ba8ef2629c176a7f99bf4fb50837c92f45596b54822b26e3df4b"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC20Metadata.sol": {
+    "gitBlob": "b7bc6916f42c2a8263f88365c962eb5fdc292e05",
+    "mode": "100644",
+    "sha256": "5fb70a9fa6d8e6193c557ea59dd18415bfe7facdf93fcf8ca1a415a9b7ff6706"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC2309.sol": {
+    "gitBlob": "0117155173c9f4047f1c45ce4371df0c242700da",
+    "mode": "100644",
+    "sha256": "303bf0382f2b1a2f6887670b671414ef66dfe378d8d800753f67def2316e1dac"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC2612.sol": {
+    "gitBlob": "c0427bbfdf5b741719bd63835bdbdbadcff540d5",
+    "mode": "100644",
+    "sha256": "8e9a3e95b74ab333b0d3319b4346293d3c84363bdfc6d95d08894f2bb95b94be"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC2981.sol": {
+    "gitBlob": "385f7c168c46eb33dffd01d137b627cd158bb444",
+    "mode": "100644",
+    "sha256": "60873d71048cd1e3ee7e2282a7db0ea5725e5c15d6899190dbc8c4514af3b40a"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC3156.sol": {
+    "gitBlob": "0f48bf3879899bb63393d8dce766d8954b00bc9c",
+    "mode": "100644",
+    "sha256": "27ed5fdc9ead61628277367c5fff80ace73defd91a69f9f9d9559a300f3ea8e6"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC3156FlashBorrower.sol": {
+    "gitBlob": "300916a8d6de79fb6d123ce2d33ffb27ad72d19a",
+    "mode": "100644",
+    "sha256": "b94728812754670f31dd1e465e551180b18a244c24bee809e58d313c1dcd9536"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC3156FlashLender.sol": {
+    "gitBlob": "324ecabd0ed15e24efd201141d41ec5ec49415bd",
+    "mode": "100644",
+    "sha256": "bd289f3442596bf856950a63e9da9ab17ea74591b70fca1a79ca46d861804647"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC4626.sol": {
+    "gitBlob": "8ebadd72fcff1635b6a71be07903963e3f76fd2e",
+    "mode": "100644",
+    "sha256": "76ac9a58abb54725e50d19c66583135efc523410f6d6fbcdfc0528c4cf070cbb"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC4906.sol": {
+    "gitBlob": "6ecd061347ba313732474babf4f93c159fe0ff22",
+    "mode": "100644",
+    "sha256": "2b81c911f4c289d34f8d11064ce495bb8f49ba9a408df6ee1cbe4020eaf0ec10"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC5267.sol": {
+    "gitBlob": "47a9fd5885563f1d65a77f0847bdd91bfed9d17a",
+    "mode": "100644",
+    "sha256": "efd1ebd1e04b6ef9c3b8781a097588f83da954323f438d54a71dc06508e6c7b8"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC5313.sol": {
+    "gitBlob": "62f8d75c570bb191ca4b302e7bcb525644fdfde0",
+    "mode": "100644",
+    "sha256": "8bc20fb9e53bdb556386519448975a15afa3794230a90b6e3050fe00cbb48d50"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC5805.sol": {
+    "gitBlob": "a89e22df4a4198ad394513540c3e81f45f9354bd",
+    "mode": "100644",
+    "sha256": "6ecc2370599496e6d862c2b4893975ec240f0ef8475daef1d20b5dd1efa90102"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC6372.sol": {
+    "gitBlob": "7d2ea4a55584b3ef799669c359b5454ffcb4b225",
+    "mode": "100644",
+    "sha256": "2294c70df203a6a38985d064adca030293bec4b7aaa1237b62c7b1a34154f130"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC721.sol": {
+    "gitBlob": "0ea735bb3201ebbd5249a3cc7427a252575c0d4d",
+    "mode": "100644",
+    "sha256": "f33ff9bb851371eab816597d29e77dea7947c392de6bce6bea29df3439546b16"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC721Enumerable.sol": {
+    "gitBlob": "d83a056213c62d34b9c4e22950b588e4ee7c29aa",
+    "mode": "100644",
+    "sha256": "3f2f9f48dbc9651ff725a00b0349b1a8280bdd309b97654d10e359739d1ff2dc"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC721Metadata.sol": {
+    "gitBlob": "d79dd68694c2bbaa55fd7078063ea8125fec52d5",
+    "mode": "100644",
+    "sha256": "9b62abc2c247f42681d4f3261628e510dfe6cea0f433d2174b332739c6e349ca"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC721Receiver.sol": {
+    "gitBlob": "6b2a5aa6771fdbfa87595fa32c973aa5b87c62a1",
+    "mode": "100644",
+    "sha256": "d3ff9df7e9539f4eb7db7fc788d2e722ea7ba737de738d1c66e929fa6d158e8d"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC777.sol": {
+    "gitBlob": "d7b856a78c47e11a047e34a0ae2838607cf59e52",
+    "mode": "100644",
+    "sha256": "ad6fd27ce2c6d22d9d491268e81a71243208dd8b85dc99de78399a88a28d4715"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC777Recipient.sol": {
+    "gitBlob": "c377de971fca6727b352d981e9dc3894664bc707",
+    "mode": "100644",
+    "sha256": "2c2e97190c7201dbec1d043c0515abd8c1f8d9ca3b6e3352c1d659e2c3e12251"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/IERC777Sender.sol": {
+    "gitBlob": "0ec8c278484d5a4ada197652e1462236c952e57d",
+    "mode": "100644",
+    "sha256": "361a409d3a0058d75419d4c6c7340c8e4acc03ac9b98d09f4c0a01b8320397a7"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/README.adoc": {
+    "gitBlob": "61aae05d167a5a96bde3ae33dca9eb64c3b03f6b",
+    "mode": "100644",
+    "sha256": "e4e799125f9c88bf4ba4153ba7cf7157c5a4848dcde60d5f69b86d06aa042e9b"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/draft-IERC1822.sol": {
+    "gitBlob": "f846ea6bf0ef6089ce61910390065d6a896cb370",
+    "mode": "100644",
+    "sha256": "71190a8ee26dab908d3dad703ccfff09ebfc5850f2f405463e21df21a8643bbc"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/draft-IERC4337.sol": {
+    "gitBlob": "fc7a171b1ce56f27be2e804f7d2cfb1332104ed6",
+    "mode": "100644",
+    "sha256": "cc44ca3ee21ff3f1dc30cd7639d878bb269fd1e1a4e9a24d1a3eb33347eba08f"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/draft-IERC6093.sol": {
+    "gitBlob": "3227fd624fca8e3dc2ba54e672c550be7a158e5f",
+    "mode": "100644",
+    "sha256": "56380323009ef4a119d44550b910fde1bff9cedde8f7f4c690152c7629bc3338"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/draft-IERC7579.sol": {
+    "gitBlob": "52bbf1afad610baf9cbffc42cfda21e13588f94c",
+    "mode": "100644",
+    "sha256": "82d53bdb15d4b09f67460c45a88727f8122a84f79e52fc253ac58466ad11d0f3"
+  },
+  "lib/openzeppelin-contracts/contracts/interfaces/draft-IERC7674.sol": {
+    "gitBlob": "be3c413ec36da656f8e641ddaa748f7057db67b0",
+    "mode": "100644",
+    "sha256": "c9aec3a4d47b7f8a8b4642b6616a685cf414346123daec9aab52eb51216ad2ca"
+  },
+  "lib/openzeppelin-contracts/contracts/metatx/ERC2771Context.sol": {
+    "gitBlob": "794bfb3e5ef94ced4c5ad319bbfd9e3e20a83e75",
+    "mode": "100644",
+    "sha256": "66e42d6798dedb18c2cdc92ca164aefb67ee3d37c90ec5aae0c311719c19d634"
+  },
+  "lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol": {
+    "gitBlob": "e23f02ba541495987d755752b27439953897767d",
+    "mode": "100644",
+    "sha256": "7b5a653aee9d79f048f7d1aba2aa2d94f6afd1f8d08e49fa1268328f3ac14606"
+  },
+  "lib/openzeppelin-contracts/contracts/metatx/README.adoc": {
+    "gitBlob": "c02fb103dfe423d8dcf8f39805b57522259fbf71",
+    "mode": "100644",
+    "sha256": "da696b2ed37e40942dff187df81a644c0bc41e407164f73e6ef25aa04df7c40d"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/AccessManagedTarget.sol": {
+    "gitBlob": "673feedaac638b48fb3f35d9a3861e28932b1ea3",
+    "mode": "100644",
+    "sha256": "0d53af2ad074bfa1d7dd63df419da792d99cd135e26a4e1e51643ce6f7162b08"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/AccessManagerMock.sol": {
+    "gitBlob": "952c761199d791237156eaf2eadff44f263d3207",
+    "mode": "100644",
+    "sha256": "255cc1db4211b75423ce4df34c1fd4dc06f8be76d87b3932940245b935727edc"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/ArraysMock.sol": {
+    "gitBlob": "63f4c8e69f3f72b938e6e6ff27dbacbeb9b6da71",
+    "mode": "100644",
+    "sha256": "88b2a06416f1180a5c1a52239cfe891b95b7e26c969d6a5c50e27d820ec3e498"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/AuthorityMock.sol": {
+    "gitBlob": "4adc56baa599bd4c7ef51c86075f48dc6de8bfff",
+    "mode": "100644",
+    "sha256": "57dd92709bcce1a9d0097900e5865014e6fd14e4260564697ec3070be54d8992"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/Base64Dirty.sol": {
+    "gitBlob": "238bd26a3692d752714b7dfe8d6ebcb0662a63d1",
+    "mode": "100644",
+    "sha256": "7327e18b158ed38951e5d9214dcea7302178fb3a99cf6f3249947ad953e0fac6"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/BatchCaller.sol": {
+    "gitBlob": "740691ba4f09b0abe9ff3a65eb086e68768d0d65",
+    "mode": "100644",
+    "sha256": "8b84caf564705e2e69562e47b768121c1f8db2eb9a61853591bb2c0e265a215a"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/CallReceiverMock.sol": {
+    "gitBlob": "841cd6b9c1338ddcef18ca24c0564d919a7b126f",
+    "mode": "100644",
+    "sha256": "8f439bbe79d1a0f10bfa913ecb3c06ba89da383ecbbf205d1382c67b99e5a2ac"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/ConstructorMock.sol": {
+    "gitBlob": "50e671b6d50827dcefa796c82f74ebe8cd2ca59a",
+    "mode": "100644",
+    "sha256": "74ebec9bdfdc48f62820ecf68f8d5afcbeb95e65fb20bc039393b9065e68e6f1"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/ContextMock.sol": {
+    "gitBlob": "199b2a9783dde25a14a0d0ebc9beba22bda80c02",
+    "mode": "100644",
+    "sha256": "57506c9de3c72e7caac22fdf638684bf808b27a919264565fac2cc70c7c540ab"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/DummyImplementation.sol": {
+    "gitBlob": "0f1147407f582e2dc1cae96c4aeb845e6d0fe514",
+    "mode": "100644",
+    "sha256": "7874cd9c9c1d48ec80d4ca86800ef3987d62c58c826785bc9acd97a8e3b87af4"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/EIP712Verifier.sol": {
+    "gitBlob": "3fcaba8822848a4384022b31e214f23599f41f09",
+    "mode": "100644",
+    "sha256": "6cca07f68e91b0b1e08a0e2d3e8f66d650c4230405e1aace3dcb8f1c0d01310a"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/ERC1271WalletMock.sol": {
+    "gitBlob": "cba7d47d73c6711e3f911b25de13cc09c82cf37a",
+    "mode": "100644",
+    "sha256": "e5ba6044a8e724501576ad9eefb2b3a810512e943e097c1ab1e2aae607bf540e"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/ERC165/ERC165InterfacesSupported.sol": {
+    "gitBlob": "dffd6a24ed6f0d3f4f81258b757f25adab61b50f",
+    "mode": "100644",
+    "sha256": "37d9a3f88ff7f47678527b15052e9537bdc5e0d6c38b4652ea6c477bbc19e0c2"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/ERC165/ERC165MaliciousData.sol": {
+    "gitBlob": "35427567d4ea93b51883cc382df0d7a5e1918ac9",
+    "mode": "100644",
+    "sha256": "7b05b4bf60ff37b2bc771eb1805fae42d312f4b98c18208a8ae151b707342a30"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/ERC165/ERC165MissingData.sol": {
+    "gitBlob": "fec43391b9795e20a4d99c9e5bf14f056f9fc2cf",
+    "mode": "100644",
+    "sha256": "aa3128c92b8d83910bdf431aa302f520a1899d193c5b4fed8c7810165c733aa6"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/ERC165/ERC165NotSupported.sol": {
+    "gitBlob": "78ef9c8e01eee2facaa143916ba3a8bed39ad113",
+    "mode": "100644",
+    "sha256": "fee73b1735fe0300ebd447d1cc838d12fe93a3b2f55b35cb2bc7b396dd9bc42b"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/ERC165/ERC165ReturnBomb.sol": {
+    "gitBlob": "4bfacfd669e70d8766cd7f70b97bbd1c56003134",
+    "mode": "100644",
+    "sha256": "02876d982d9c2fe819023faf5bc97130d32c1a9aea335e55b777ebb6f358ba8f"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/ERC2771ContextMock.sol": {
+    "gitBlob": "33887cf4575ffc5a70349a5f0538452f047802fb",
+    "mode": "100644",
+    "sha256": "663f3efa768497dbc7f473a6e3ede2dd3d26a1b2270522f7f1b4139223157f89"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/ERC3156FlashBorrowerMock.sol": {
+    "gitBlob": "fc60fb2862ed8b6b2decf202ceac049ffbd26b7a",
+    "mode": "100644",
+    "sha256": "a179e0a2a961e7849f5074f4f5a567a433bf74846db7bf7e4380f3950a25f8af"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/EtherReceiverMock.sol": {
+    "gitBlob": "1b1c9363a1e279292bb304e85238d2691f0e6e05",
+    "mode": "100644",
+    "sha256": "53a433c761a684c4c497c46744b6f547c88e52b6b20d945934c060b615524fe0"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/InitializableMock.sol": {
+    "gitBlob": "7f76caacd493c983b5d6cd1a2938edd3193b40e0",
+    "mode": "100644",
+    "sha256": "4986de7adbb19cc6c7c23708f549615995c630938dcf38f68ee224df97183f6c"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/MerkleProofCustomHashMock.sol": {
+    "gitBlob": "e51bfce1b7f775eb2358e28a57552c68e4e9dca2",
+    "mode": "100644",
+    "sha256": "110bb8ffc4dd550bcbb5f6694b20df7d031227c90f1ce1a334461d74bf368cce"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/MerkleTreeMock.sol": {
+    "gitBlob": "dcde6b65884204c07be48706679f476317fbafd8",
+    "mode": "100644",
+    "sha256": "a7a33bdde139451a3a53ae6d7f3c2cd116ab8246109f29bf2aa0d45e8e028cd5"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/MulticallHelper.sol": {
+    "gitBlob": "d70f3bf4ead87d507b7d40cf6e98283e2f278b6b",
+    "mode": "100644",
+    "sha256": "7988ea6738d565238c3d590bd40d2fb8440932f6ea541fc94d3baf0aab0f213b"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/MultipleInheritanceInitializableMocks.sol": {
+    "gitBlob": "9cca8f014d6ade664f49ef0e8395ff73a29c7093",
+    "mode": "100644",
+    "sha256": "c9599b16c0d7a4699389de4ff1c1fddbbe84467001e8941456da115598dc7dcc"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/PausableMock.sol": {
+    "gitBlob": "fa701e2c7ad5221fdd4b8fec1ba01031377af5bd",
+    "mode": "100644",
+    "sha256": "52bbb9188ed64756f18fc15541ce61417041a0fef0421a226e1ca7d4e1e082bc"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/ReentrancyAttack.sol": {
+    "gitBlob": "c2ecca18e7104e7b338cf6b95ec690f641766751",
+    "mode": "100644",
+    "sha256": "d859a3449774d37fce3fbf6271fedb68862df6c2e0db6db850fb826e685721c6"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/ReentrancyMock.sol": {
+    "gitBlob": "b600819e90b20829e0a88863e5198cf0559629e7",
+    "mode": "100644",
+    "sha256": "eb19ab002f434938ca78a680988fe73d00af1338372c4682b6318d984353ffdf"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/ReentrancyTransientMock.sol": {
+    "gitBlob": "08b8d46246bedb5d1d1eac3fb9c85182b377f33a",
+    "mode": "100644",
+    "sha256": "2645f5f754cc049d9b62bbd49a2bfa5d94543f3598b56380646bad7538730d46"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/RegressionImplementation.sol": {
+    "gitBlob": "19b9706d423c7ee0647fabf37f7af85e01761aad",
+    "mode": "100644",
+    "sha256": "07a42883048dad2cfc4bc28ec1273e6e3e200793e769dd6c9bb0ba7d5f9c2fc3"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/SingleInheritanceInitializableMocks.sol": {
+    "gitBlob": "0bd3c614f118de851a46c0a7d48a314b7a64c39d",
+    "mode": "100644",
+    "sha256": "1f1ecd6de6e8f733dc2f9a5099937d06792cf1553c43030ce4571a0313d27732"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/Stateless.sol": {
+    "gitBlob": "0bc89e4ceb7f40c6b433a3cea5a5425385161784",
+    "mode": "100644",
+    "sha256": "19bd91207c5fe5c53c75daacb58270fa2392fd748911738250dd63d81c950937"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/StorageSlotMock.sol": {
+    "gitBlob": "ec176e21fb56d71a656fb6ed5ea3987c3c91c7e6",
+    "mode": "100644",
+    "sha256": "b8755ca2d8ff35877777d9e88d2074132c59f5a70642d600231c5aa47aae101f"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/TimelockReentrant.sol": {
+    "gitBlob": "aab676a500e37f5d5a05112b0f9c1af0f1552efc",
+    "mode": "100644",
+    "sha256": "c0e0016699ccd469c0fa85d5064b326f8761b5d1f79b777f25c8136ae355fb17"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/TransientSlotMock.sol": {
+    "gitBlob": "6b18fa52f29fc6e2f712e32c54414ae8c1f19ae8",
+    "mode": "100644",
+    "sha256": "03587cecc565d549b34317a8fce9abaed370d8f9c8c031077e64925c1e244ce0"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/UpgradeableBeaconMock.sol": {
+    "gitBlob": "354ac02f0d71953c1eece686f67c15833aade3f5",
+    "mode": "100644",
+    "sha256": "af6a9e366669679e29f76e3fdd7001ca89072f7cded1f023bfc0b0b406bd5497"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/VotesExtendedMock.sol": {
+    "gitBlob": "9c456190e97b8aac974a38d05b1508a5b5caccc3",
+    "mode": "100644",
+    "sha256": "964e8b25c99ae96746cc8f607d56b9f233dccac0250f890d515197cdff172767"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/VotesMock.sol": {
+    "gitBlob": "e28d6b557eb6d9b98a8c99d29de0342e5c583c70",
+    "mode": "100644",
+    "sha256": "8fa865f0fe32b9efb376a50418943b8509e088bea884c153604830272d2171d7"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/account/utils/ERC7579UtilsMock.sol": {
+    "gitBlob": "599f1760937cff387887f8edc0032018199f7ad6",
+    "mode": "100644",
+    "sha256": "78a0d7d93b9b942fb6620b97c0068b6968111da5893e9e17d54cba582902f3b7"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol": {
+    "gitBlob": "0fd01f3c921d2b004c6d674152de715f26cf3d06",
+    "mode": "100644",
+    "sha256": "321716c14f5770eaeb24c6c0c817070178f45e021a4dd2654c61694fc3b2db7d"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/docs/ERC20WithAutoMinerReward.sol": {
+    "gitBlob": "46be53238c1076a5546bc2c21ff4ece68a7a1146",
+    "mode": "100644",
+    "sha256": "d3e5bdba9ecac0c89afc69a58ba154daa66751efef0623292de8d3e72c8f2954"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/docs/ERC4626Fees.sol": {
+    "gitBlob": "bfebaa7c2eb0e913e7c34ffc774b69287feb1a54",
+    "mode": "100644",
+    "sha256": "239204e6c79be9709d19dafd65e2b1eec454c1170719a2d9734d8fdbea7aebba"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/docs/MyNFT.sol": {
+    "gitBlob": "1a442fa0aad7f22d8cd042a2a4e7b4e7a8fdf484",
+    "mode": "100644",
+    "sha256": "21243704a963b297d4e2fddfe729b72a1b4f34697b2f0edfc95acc0a659bfee1"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/docs/access-control/AccessControlERC20MintBase.sol": {
+    "gitBlob": "25139cbc4781b1a4596a30e1a621f1b00bc2dbeb",
+    "mode": "100644",
+    "sha256": "7e8046f0f4de490266612a02961d556a3b7379fec3ed8f867d9de40b69d9510e"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/docs/access-control/AccessControlERC20MintMissing.sol": {
+    "gitBlob": "46002fd047ff5ac054d1dc7f206e01f16cf5a7da",
+    "mode": "100644",
+    "sha256": "23e8b239a5b2b5726bcab68bca73180506a7c5165a7866ff4caac75250d6fd55"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/docs/access-control/AccessControlERC20MintOnlyRole.sol": {
+    "gitBlob": "a71060ad89662a6967c22ddefb1e67acd3da49c5",
+    "mode": "100644",
+    "sha256": "a9847b207bc96f0bd3a53777aa1fdf5746a542ff55454ed17ff4a79834c8478b"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/docs/access-control/AccessControlModified.sol": {
+    "gitBlob": "9994afc927a99b9bb1ebe2a5136de91f8e2b1495",
+    "mode": "100644",
+    "sha256": "418915c903b0a511afe7c29daa616c8f065cd506f42b9d3e14c55ce67f563d3f"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/docs/access-control/AccessControlNonRevokableAdmin.sol": {
+    "gitBlob": "7440a223892e819ec1daed8be20c18f7de6a9d3c",
+    "mode": "100644",
+    "sha256": "037dd24a25aa2626f86c77cb1f479c2f8d22f27509a05dc8476f9bab9dabb7c3"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/docs/access-control/AccessManagedERC20MintBase.sol": {
+    "gitBlob": "02ae00a1ae7cb62a0e3d5f63b7e41af20fdba68e",
+    "mode": "100644",
+    "sha256": "e2e5623c64b3172f050a1483167ca16ac017b8d9ef87c2932c90f6388050c248"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/docs/access-control/MyContractOwnable.sol": {
+    "gitBlob": "0dfc804f256a28e8745257d1ffc6eafa3067ba96",
+    "mode": "100644",
+    "sha256": "899d5adf7305f32376dc24929220d6f692cb8d4b2ad74228fbbdbd608e1fc0dd"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/docs/governance/MyGovernor.sol": {
+    "gitBlob": "b1bc47ed8a463c42d2bba630a1513b7847bf0a10",
+    "mode": "100644",
+    "sha256": "8d6d42dc6fa7211191ccda26c8ee1e126ae53739ed653195b04746529141adcb"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/docs/governance/MyToken.sol": {
+    "gitBlob": "cfb16755760f2c90a311d4fe1535ae1756feb094",
+    "mode": "100644",
+    "sha256": "176e5c6f76e527990f99495f7c04112248c3086800b97a3d2a5a55511f053725"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/docs/governance/MyTokenTimestampBased.sol": {
+    "gitBlob": "7c0d3295659354cd53e1f10cf0485e77be0e2ab1",
+    "mode": "100644",
+    "sha256": "7978c04917bfec65f67170f4aada7507c7537785f968f5d0ba0223425fd058cd"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/docs/governance/MyTokenWrapped.sol": {
+    "gitBlob": "4b671ce7891dd1041a387065bf1a5d97a257de3c",
+    "mode": "100644",
+    "sha256": "b0af8fce700965a405cb3e29fd6b4e37a1be9cc5748b9318b2801155bb9d2ea0"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/docs/token/ERC1155/GameItems.sol": {
+    "gitBlob": "e84fc0ba5b465863b7591cbb5de84e4d03155467",
+    "mode": "100644",
+    "sha256": "be7b6ee6a73cbc46a7dcbc7d2277490d636cff969038631ffc4aea288b9c27f9"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/docs/token/ERC1155/MyERC115HolderContract.sol": {
+    "gitBlob": "742a53ba4a6c5905af504e6222e901e7c97a67e9",
+    "mode": "100644",
+    "sha256": "22ca8c8531b9d07512a6a8ee426e3e21d6c4a67a6890cf15ccdd804ceba28d84"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/docs/token/ERC20/GLDToken.sol": {
+    "gitBlob": "b6c545459c9dede9d0715ed4a6e1c52bdd2a12ce",
+    "mode": "100644",
+    "sha256": "e859536b2941d9c5d21513dfd3e6174932fa23e620d51d56f338b1a38f388a06"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/docs/token/ERC721/GameItem.sol": {
+    "gitBlob": "b7f576f10007095d6791692e86b07eab6653811b",
+    "mode": "100644",
+    "sha256": "22668a4d012c00cb467751cabbdf95d5b3f8aa1a46909280136599c564d4b66a"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/docs/utilities/Base64NFT.sol": {
+    "gitBlob": "1fb662343102ba06bb405001b83f2fc78268c730",
+    "mode": "100644",
+    "sha256": "28b366e037b7ca4f85ca0a5d7ecca71709d3fdf1508eea3ef535345d4f32c77f"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/docs/utilities/Multicall.sol": {
+    "gitBlob": "6faac6a4cf31c6fdbbc9acad3bb3b291d1dacdcb",
+    "mode": "100644",
+    "sha256": "c5add86cf7f464e47449a56aba370e6d13af3f8a53756c1401babd58497cd53b"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/governance/GovernorCountingOverridableMock.sol": {
+    "gitBlob": "7aede5c8b6a0d1679da66c594c45887a3dd838a6",
+    "mode": "100644",
+    "sha256": "835430cd763e11bc44e1d37c65b0e895899f32cdbb88bc6512330fc9816a5269"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/governance/GovernorFractionalMock.sol": {
+    "gitBlob": "b64b4eb56b5c4fdb4b65141c4b21cf740093ec8f",
+    "mode": "100644",
+    "sha256": "3e9025d840208c78af6b38623af9bda492dd9bd9edc21bb5a60c2f9325419cff"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/governance/GovernorMock.sol": {
+    "gitBlob": "69668d285b2d185c3bc4314e0de7f8407e34eeb9",
+    "mode": "100644",
+    "sha256": "96d97b2103a45bf7855a703ed69ce45804ddb583c7c39b787c9ed32b7db4d26b"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/governance/GovernorPreventLateQuorumMock.sol": {
+    "gitBlob": "ce185a4de2310b1013cc6b31ef5cd6f1dc39c6cd",
+    "mode": "100644",
+    "sha256": "1dde99f189bce9820adb52b3384f684b36737e4ecfccb869fa025b8ef7011202"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol": {
+    "gitBlob": "e86b26475723f088c8a4c6a7b16e116cbc4bd5d7",
+    "mode": "100644",
+    "sha256": "c1d0b3919ca8880235855b2d3a651ecbab36808304460f381dd1d9ec1a1fdb1c"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol": {
+    "gitBlob": "d939f38b5c0614b1f90132b1c159acce07ab6d78",
+    "mode": "100644",
+    "sha256": "32a56804f1cb5c1d5f0a4b4c126c082f85485fdd7b956c1cf2cdf1acb5f7468f"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol": {
+    "gitBlob": "9828cb2baad58d55b7dc5329eb73b7279882cd88",
+    "mode": "100644",
+    "sha256": "c438f4e73f244963ff0e4a62ee1566399217628c5304b1f4111c92a8c95d168a"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol": {
+    "gitBlob": "01ab8f61c3c6b2e3c8eaf94501488bcd752e7e63",
+    "mode": "100644",
+    "sha256": "9283060787d100a9f372f7a8ec89c23e68c9f2bab1663d98ffa66e7f7a4edd15"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/governance/GovernorVoteMock.sol": {
+    "gitBlob": "e6949b5b25b9a0adffceeb87a81fa332f232c27a",
+    "mode": "100644",
+    "sha256": "f18d38d719608ece98ae92892c6712969c4a4d78bc99f8611ce83100530cec82"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/governance/GovernorWithParamsMock.sol": {
+    "gitBlob": "7dea2b976ccf128b3e0b4d227bd8eedfadcc250f",
+    "mode": "100644",
+    "sha256": "c76d9a50895fb58586c135096dd07a3eb7f0abc00b08e0341dd963244286b4a8"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/proxy/BadBeacon.sol": {
+    "gitBlob": "f3153a8437dbd8b7d54497da93b5cb8767807ef8",
+    "mode": "100644",
+    "sha256": "ffe363f96af3e7acd3437f4f830d925928965bf6a372f1b31ce072da259ce69f"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/proxy/ClashingImplementation.sol": {
+    "gitBlob": "43d5a34f24e5bd216db6a6411c26da681764b5bc",
+    "mode": "100644",
+    "sha256": "e74f331fa49469b66bb1465b149d4bf7772049bde159230bb7de57e9b66c293b"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/proxy/UUPSUpgradeableMock.sol": {
+    "gitBlob": "8c5641e6ca3eff16b88f5b2bb54318e0272a16af",
+    "mode": "100644",
+    "sha256": "4f3295fc68b09957ba53e25ccccdc9b86f67e3c8e801333de6f0d6974fcbec19"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/token/ERC1155ReceiverMock.sol": {
+    "gitBlob": "444f3fcc78f78c799225f23d364bff1523cddc12",
+    "mode": "100644",
+    "sha256": "517b98edda5547cd934b98e21d68a1e89195f1c0eb0c24b1825638df2ff385e6"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/token/ERC1363ForceApproveMock.sol": {
+    "gitBlob": "6a88a4139a45d43d591c2b4b6dabc930c73e201a",
+    "mode": "100644",
+    "sha256": "a62af197a83fda121b8dcae61e04b409bce03bfcedaef1fce81e07996f372ac7"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/token/ERC1363NoReturnMock.sol": {
+    "gitBlob": "bae92a81bc31d825a84efd17de53e1a260d00508",
+    "mode": "100644",
+    "sha256": "2e385ae93aeb57b08b16138dde1afd782a5389823f2b00b682ed8c978e5ee3ca"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/token/ERC1363ReceiverMock.sol": {
+    "gitBlob": "3db59d621b3d8402cf3320c86d8e0d3ff4067ca0",
+    "mode": "100644",
+    "sha256": "49a211e5af4e6cc0c9622dd1612b649ce71d6ea505451378ab6d30fab2909a6a"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/token/ERC1363ReturnFalseMock.sol": {
+    "gitBlob": "6ec64d389d0855e00448ef412bf3f5c36b80f4de",
+    "mode": "100644",
+    "sha256": "6f5d9691979cf8edd58b25d1169813fbb2b9e5538bfc2a3ef12919a54687582b"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/token/ERC1363SpenderMock.sol": {
+    "gitBlob": "990055352c98ad811a9fbef0944dc18ce1a9bb57",
+    "mode": "100644",
+    "sha256": "54f8be0e0b248bdca130e395dc5104bb86241c7d0f9d183028aff198eb5e9eb6"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/token/ERC20ApprovalMock.sol": {
+    "gitBlob": "ff33a36df7868537b832fde9f2705db5e577be8a",
+    "mode": "100644",
+    "sha256": "fab161c474d3903aa9adcfaced6349bb542a1a7d4c313cb878feebc38d444b9f"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/token/ERC20DecimalsMock.sol": {
+    "gitBlob": "a26e1f52baa6bf9bc9dd15c60da03fb36b18f7b4",
+    "mode": "100644",
+    "sha256": "bf45ba44b3b4ce31eaafe5a21ada11e4658f076be46baa51da73ade60c89ee65"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/token/ERC20ExcessDecimalsMock.sol": {
+    "gitBlob": "4627efd37981b6109c585eadc24a5e65db782cb5",
+    "mode": "100644",
+    "sha256": "0f7bebb8cf57203514ba8335b738180866410e337bdd29fdb0245f8974708616"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/token/ERC20FlashMintMock.sol": {
+    "gitBlob": "508573c2be8743f8ae6e3f58af5c22bc853f12ba",
+    "mode": "100644",
+    "sha256": "f3a1b3c12ac807afa796d92bf30ee23c4c7638f2d82f4e2ca52777b036aadbbb"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/token/ERC20ForceApproveMock.sol": {
+    "gitBlob": "36c0f574d80deaac34c6d6658a9f42757059d04d",
+    "mode": "100644",
+    "sha256": "a99a5ce622878905489a875d72e11c2ee93db088641ee5f3930c1b9fdd34db76"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/token/ERC20GetterHelper.sol": {
+    "gitBlob": "acdcced9fa11718654cedb38778493b918619b04",
+    "mode": "100644",
+    "sha256": "610077af11bb79713f58a456cf003339b607718f55e1eef74efcc05585f333ba"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/token/ERC20Mock.sol": {
+    "gitBlob": "39ab1295223db5760cf71d8d5a9619b90452d49c",
+    "mode": "100644",
+    "sha256": "fb8983f5a9605b1f870158696d1cbf386be6e5f399fd9323d812399eec2d61e1"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/token/ERC20MulticallMock.sol": {
+    "gitBlob": "dce3e705616cea66a97f3d621752573bd8dae8b0",
+    "mode": "100644",
+    "sha256": "462371aa537948eb3e2ec01c8196b29b7fbe1e018a08babc2453569f0a7d6415"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/token/ERC20NoReturnMock.sol": {
+    "gitBlob": "2129537b55e79d8487f873062e1962107a24ddc9",
+    "mode": "100644",
+    "sha256": "dfec6895e7b8db51213b714f25d10129da390a16e6bceaf95765dc0b0164abd2"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/token/ERC20Reentrant.sol": {
+    "gitBlob": "813913f757cf42af2187716543869bd5a3f75ecc",
+    "mode": "100644",
+    "sha256": "eefe86a3e9a43f113dea149a3be1d1d8e2601543da2cb589b711325c26fac021"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/token/ERC20ReturnFalseMock.sol": {
+    "gitBlob": "94bff32f12261d9c2da80f7087b68edae8fc2529",
+    "mode": "100644",
+    "sha256": "bd94a8d9b5990a2bf353d9341a9f53ace4413671feb2a62261699744d524d25d"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/token/ERC20VotesAdditionalCheckpointsMock.sol": {
+    "gitBlob": "6b283ba552457f96b85496630ba446523fe45e46",
+    "mode": "100644",
+    "sha256": "8234593556efed07403a50eec153da376cd2624aa5033033370f2d7111766c5b"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/token/ERC20VotesLegacyMock.sol": {
+    "gitBlob": "32bfaabff0635e6144206a99847e699ab8b6fb76",
+    "mode": "100644",
+    "sha256": "d9dce68b7f3c66e124d35c71d7cbbebc4264ce5c3a69d792af6678048fb7fc0e"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/token/ERC20VotesTimestampMock.sol": {
+    "gitBlob": "78fdfae9c0958c8a9fd7087d2d4cba68d1b8a139",
+    "mode": "100644",
+    "sha256": "c4abe2fcdb3678643b5ea5b27d722188ea17d95fd29a51c08a18614e6502e6e0"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/token/ERC4626LimitsMock.sol": {
+    "gitBlob": "a845365af235c1fb01bc7a51a80bb70303510e91",
+    "mode": "100644",
+    "sha256": "ebbb1f4c5f418b734a391d117b70a5b0b50ac4a4dbc5123a91630c2808000d8f"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/token/ERC4626Mock.sol": {
+    "gitBlob": "22ac5e8c73580d04c1900dde1bf90dcadc433d53",
+    "mode": "100644",
+    "sha256": "b294e59d252b0eeaca3ff845a940d867d79de8ef8ce21297a77139c95cf800f1"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/token/ERC4626OffsetMock.sol": {
+    "gitBlob": "3dde0952c98791dc32e3781351c00876143af2cc",
+    "mode": "100644",
+    "sha256": "d89d3e6815dde34878968cbc59d8fe5923d4c1bfff8721d7add9cfdb24a22790"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/token/ERC4646FeesMock.sol": {
+    "gitBlob": "368b078ec5439d71581f6f2a05d4c7fb07284457",
+    "mode": "100644",
+    "sha256": "663083d7675130fde1dc847a22053e062b762dfe85351178e122545fca324d47"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/token/ERC721ConsecutiveEnumerableMock.sol": {
+    "gitBlob": "3d50afb7378690f871eaa589231be6d882da2041",
+    "mode": "100644",
+    "sha256": "5ead826104f6fd44c8d081c28d0bfa265ca641174a65503d02a4d5fa369d9496"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/token/ERC721ConsecutiveMock.sol": {
+    "gitBlob": "92d762f5e2bfbbd13d6eca44797dc2a314cbdc99",
+    "mode": "100644",
+    "sha256": "9799583cfc0c3adecd68fd3f62fe6e7b0a84400aabac6f457b18134b4eef8b29"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/token/ERC721ReceiverMock.sol": {
+    "gitBlob": "22ec660344582b60d1bba459178571e38101ed67",
+    "mode": "100644",
+    "sha256": "dcba8d9197609dadb42247fe739a98cffb7ef50cfdeb4f6d3322fbcee253358b"
+  },
+  "lib/openzeppelin-contracts/contracts/mocks/token/ERC721URIStorageMock.sol": {
+    "gitBlob": "254435e07a8af242d177502421a7fc24314173fb",
+    "mode": "100644",
+    "sha256": "0dde04f31b298f3ecaf83680c9b45ee8ef807459f98cbe0d45c050c3d1f4b50c"
+  },
+  "lib/openzeppelin-contracts/contracts/package.json": {
+    "gitBlob": "3682eadeb97da11bbec1b7e176329f3373620680",
+    "mode": "100644",
+    "sha256": "a0b136852c4d36c261ed32f0f29aa78e7feadeeec8ded5667cf8b2f1566a2f44"
+  },
+  "lib/openzeppelin-contracts/contracts/proxy/Clones.sol": {
+    "gitBlob": "512d2d0988f3a231b2ae0ebeb1ea09a74f0cf0e6",
+    "mode": "100644",
+    "sha256": "af7216a820728b4d314087912f2b664eed19505bba7768679b1fe8cbd887d294"
+  },
+  "lib/openzeppelin-contracts/contracts/proxy/ERC1967/ERC1967Proxy.sol": {
+    "gitBlob": "eb482f6ecac7e3ab4635eb6dee9de748b77246bd",
+    "mode": "100644",
+    "sha256": "a06fe97082355529c1da9076ea6c4518875ca9fdb1a4fa1e194c35cff21b29a1"
+  },
+  "lib/openzeppelin-contracts/contracts/proxy/ERC1967/ERC1967Utils.sol": {
+    "gitBlob": "ec767d71d6002051450487a444ff25b3706d4dd7",
+    "mode": "100644",
+    "sha256": "d0ba47de9bcaf9758e0f2699a8d3f8c16201fcbd1602271811064407370e68ff"
+  },
+  "lib/openzeppelin-contracts/contracts/proxy/Proxy.sol": {
+    "gitBlob": "0e736512c4f22a84255f91db0b865672d40412bc",
+    "mode": "100644",
+    "sha256": "5f5081378d4bc82b814b0d64990b7f7b9c69697593b73a3341f4a269940ba540"
+  },
+  "lib/openzeppelin-contracts/contracts/proxy/README.adoc": {
+    "gitBlob": "1c4d0105c8b70d6edd1ec35f7b5b17eb311981e4",
+    "mode": "100644",
+    "sha256": "8487856db9639246a67cfcf2987ae34de58ecd794fef448570d7f752c4795053"
+  },
+  "lib/openzeppelin-contracts/contracts/proxy/beacon/BeaconProxy.sol": {
+    "gitBlob": "36558d67bcac7feb6a84d6cecb3fcd9202578c6c",
+    "mode": "100644",
+    "sha256": "220626a31d80fb0d7a625f0c9ac741d40cd9f3c98ef74eb5b3dd43d224701282"
+  },
+  "lib/openzeppelin-contracts/contracts/proxy/beacon/IBeacon.sol": {
+    "gitBlob": "36a3c76e926c0ed5038a2cbe074cd26e09517548",
+    "mode": "100644",
+    "sha256": "422eabc0e645e24c3a52898f6255b349323b013544a3ebdc4b2d3f7fc5bb7e9e"
+  },
+  "lib/openzeppelin-contracts/contracts/proxy/beacon/UpgradeableBeacon.sol": {
+    "gitBlob": "8db9bd23211bc1cccae40d6aa3c9b5ffad17d6d1",
+    "mode": "100644",
+    "sha256": "26dda9d5bb961b3df26602d49f9f5a0647cfdb78b63cc253aed8527030a64f25"
+  },
+  "lib/openzeppelin-contracts/contracts/proxy/transparent/ProxyAdmin.sol": {
+    "gitBlob": "6aab7269520823533ddced575c94f55e24915380",
+    "mode": "100644",
+    "sha256": "1d8a6c90de49cfe8ebf1f3d03f38e6c5be9bacfb33712c7c5682f1d9750f68bf"
+  },
+  "lib/openzeppelin-contracts/contracts/proxy/transparent/TransparentUpgradeableProxy.sol": {
+    "gitBlob": "e569ce5dbeeb00c8f82e4eb16a40f5f566156dfc",
+    "mode": "100644",
+    "sha256": "eab40b99834f6ff072f30e373b3a99cfb8b28394d0132b8fa472e3d8689baf8f"
+  },
+  "lib/openzeppelin-contracts/contracts/proxy/utils/Initializable.sol": {
+    "gitBlob": "be628de8895cdabcfeb8ba854a3a7b191a5cef98",
+    "mode": "100644",
+    "sha256": "49209fffd066814debec42cb1d22c0cbfdea1d6a259837cc63ebdef7419d8626"
+  },
+  "lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol": {
+    "gitBlob": "d87343657defc381db40b6c19f46cc5718a72a97",
+    "mode": "100644",
+    "sha256": "0ee3c26ff07f70493baa391e990ab259f8090edab48e368d717e687c3917cde8"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC1155/ERC1155.sol": {
+    "gitBlob": "4c5512d42cb863f34bec5adc66ff021821997ec1",
+    "mode": "100644",
+    "sha256": "829d011ba03b9b5dcd8c7ee15cefc12aaaf506fcc42d96ef4aac1e530aaefb54"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC1155/IERC1155.sol": {
+    "gitBlob": "9aa0b66437f34dec2b17c6a5656df6e8fe41c0a3",
+    "mode": "100644",
+    "sha256": "0c90ebc703b6211611989a68d66563eb3637af1e0e3d9df0a8b67ceb094c1659"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC1155/IERC1155Receiver.sol": {
+    "gitBlob": "ea7a834a6a1306feee1eff6879c0f74cfc855f48",
+    "mode": "100644",
+    "sha256": "57528c0a132ca5b145d40ef6db9781366ea30e679125fd4718c822cfaa3d22f0"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC1155/README.adoc": {
+    "gitBlob": "f8bf958f6239c0708cabf09f09ccd9f62f51321f",
+    "mode": "100644",
+    "sha256": "1dc473bbfc2b184966edec327773fc325ba4bdd066645894189ae3f8e3cfd5bd"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC1155/extensions/ERC1155Burnable.sol": {
+    "gitBlob": "fd6ad61dddec1947ec8f6c0cca6e6181bd5021f9",
+    "mode": "100644",
+    "sha256": "a8122e8e46870932b21294d5df9f013f6b1381fdad08ea7e7f48efe49cd3cb20"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC1155/extensions/ERC1155Pausable.sol": {
+    "gitBlob": "b628bd6a20ae25d9b988c77657df6ca2a187bb8f",
+    "mode": "100644",
+    "sha256": "7fcac7b499bb4b4bb3e538fc82fa1292132626bf7d1d892cb73e791bee776c16"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC1155/extensions/ERC1155Supply.sol": {
+    "gitBlob": "63295cf49b696a965ec7443e6314c04ba4761926",
+    "mode": "100644",
+    "sha256": "d2046ea0df034adf340f8e2b85c124f12acc41da660a997aae8ecf61c49ebb39"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC1155/extensions/ERC1155URIStorage.sol": {
+    "gitBlob": "5abf319d3273ef3593a2e1f4530e11983ade4941",
+    "mode": "100644",
+    "sha256": "52bcb7aa728be29ef2dd0b328f1300a3748221b5c234ba71f80f979816d58196"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC1155/extensions/IERC1155MetadataURI.sol": {
+    "gitBlob": "b413f4304d3e8ed805e6bc8ea73815076c1bc7bc",
+    "mode": "100644",
+    "sha256": "77eee1fa8944ebb742db88b0edb0376b8ceb035b570950bdae8db7ded1869fca"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC1155/utils/ERC1155Holder.sol": {
+    "gitBlob": "71d48f6deea04176cabe9e51a12e9fcdb9f5a479",
+    "mode": "100644",
+    "sha256": "0fda7f5dea23bc7e3587f6606a73625fb680074e39c635e8a29f55ebd4bff0dd"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC1155/utils/ERC1155Utils.sol": {
+    "gitBlob": "2621ebcf12cacaeb13c4189f0fb767dede1f8b0b",
+    "mode": "100644",
+    "sha256": "fb242770656c04b33df59f2e2e45bede14f08378e93922223889102a4f7a50e5"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol": {
+    "gitBlob": "471908d6c1b8f7b108b774528eedafd4132d7794",
+    "mode": "100644",
+    "sha256": "c322867b0b30f6d5f791e5ab9af5e3f5ff1c8c127906748f6725e592a5f40719"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC20/IERC20.sol": {
+    "gitBlob": "7d1019563f5af1dfe72a771bc4d5fac1ffc8afd9",
+    "mode": "100644",
+    "sha256": "30edf7394bab78d48b7db3a059248e1ea7c2c77d2ec0e37a13bb91415aafbe5a"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC20/README.adoc": {
+    "gitBlob": "bfbe6790b67802c0bf76490db43686767c477f6a",
+    "mode": "100644",
+    "sha256": "295519b71d0375f8b54d3f9d80f977d57bbb4143dd3d667a2113fee5dc93fd2a"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC1363.sol": {
+    "gitBlob": "35bfd173e237314f749df0bb9e10f29730a75af4",
+    "mode": "100644",
+    "sha256": "e67f88bef7bf95e183f85af3daa12c6f0e4d39f438b94d4300fe4a199b9e99ac"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Burnable.sol": {
+    "gitBlob": "4d482d8ec83617f74febf13917b283c14ebb7760",
+    "mode": "100644",
+    "sha256": "2e6108a11184dd0caab3f3ef31bd15fed1bc7e4c781a55bc867ccedd8474565c"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Capped.sol": {
+    "gitBlob": "56bafb3adfc405386ec412e45a29c2e95f9b9756",
+    "mode": "100644",
+    "sha256": "cb15f210495f2119cfec53e32738ddb23469d414c45a2d7444c2181a9940bbed"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20FlashMint.sol": {
+    "gitBlob": "0e1858a8d77d2ab4e4d1ace07352e4c6258c1522",
+    "mode": "100644",
+    "sha256": "3f371ecf7b9504e7bb88bcaa0e12afd536de5cc21a8e0a5eef2e06e5d613c6d9"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Pausable.sol": {
+    "gitBlob": "2f6d86c4a5333ea7b5718f6526ae7bb1ef76b0bd",
+    "mode": "100644",
+    "sha256": "12919f23b3b408e67b3b9c9543e37b7474e314d8f1c596472fd9201d9990a278"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Permit.sol": {
+    "gitBlob": "669e1835ea8b299833caaef369c909f51205c3a2",
+    "mode": "100644",
+    "sha256": "9aea7996292f030d04711b5d2e4f56372f5a88626dda8ff344347e43798a9cf4"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Votes.sol": {
+    "gitBlob": "d3a6aff81697a198a81f12192ef0ac308e2daaee",
+    "mode": "100644",
+    "sha256": "8caa8ad16ed9c1dadc8adb7fe216b1467187d7f4591d4b3074f005413c12f102"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Wrapper.sol": {
+    "gitBlob": "9cc5aaf5f68fa59ef27cca773ca34c8984d5a3f1",
+    "mode": "100644",
+    "sha256": "3cb248417b6d39e9b2894826069de17a15ca21555100f563928e5988bca4b52d"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC4626.sol": {
+    "gitBlob": "c4493bcf95b7f6277d3b76e69e0750bb8aa7b6a8",
+    "mode": "100644",
+    "sha256": "70136ef6035b3180d357df31ea67517d261e6f00d3c1dfc7d8cf21a473bb2d70"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Metadata.sol": {
+    "gitBlob": "3c067ef401283b6ae369fcc275e4ef6371daa7d3",
+    "mode": "100644",
+    "sha256": "9e7c70ec72d2f7d592e23ea84f3852b04f91f6f644ce57e0263493046b36afb9"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/IERC20Permit.sol": {
+    "gitBlob": "fc374368fd2bb8de71a7699e499f260ab32d1b8f",
+    "mode": "100644",
+    "sha256": "026aca1c8ee4574eb9719dca7dfc33e3e57a618715ae702a675e8a8c9ea1e82d"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC20/extensions/draft-ERC20TemporaryApproval.sol": {
+    "gitBlob": "f2f2211be8908c60da75d18d5c49811bdd6d22f9",
+    "mode": "100644",
+    "sha256": "95f19c6072a96d9f8471b3125028b08cf189fff5f311276be2df37b52ff3ca39"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC20/utils/ERC1363Utils.sol": {
+    "gitBlob": "6ba26901eb00f306fc6233dc35a50e7bfacb99f3",
+    "mode": "100644",
+    "sha256": "a32004659b79673c1f41ffd717a6b752a9fe539d776bb485344e2c4a0de76fec"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC20/utils/SafeERC20.sol": {
+    "gitBlob": "e6325509d5a9e89058e8843743b0b93566259573",
+    "mode": "100644",
+    "sha256": "02ec90351f243e373d27a490e132a0cf4d3b36e615c9dc8bd072c6862ce412a3"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC721/ERC721.sol": {
+    "gitBlob": "45e82557f323c1e2a44e877bcb937cd87fee3970",
+    "mode": "100644",
+    "sha256": "19556bdf9215d3d19890fa6306bba9763f843ada3915f255050daa9e787a557e"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC721/IERC721.sol": {
+    "gitBlob": "da3930147534c7238a19384b9c83df6604ab29f4",
+    "mode": "100644",
+    "sha256": "83dcde4af9ba4ded8b6e68e0cb8f4a9430dd23c423f6840d9f93fc6bb475f9ae"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC721/IERC721Receiver.sol": {
+    "gitBlob": "ff29abb9951363a6b2e2bf7d30e902103c0f3b7f",
+    "mode": "100644",
+    "sha256": "2a5cdcba87e5cb5309d6ce3ccba1dd164a14aedfe7a067a85ebebbc9a46b46f1"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC721/README.adoc": {
+    "gitBlob": "5554720d699b3c207fca83fab265969b784de1d8",
+    "mode": "100644",
+    "sha256": "9e81dcbfaa38c557923cd9149dd63d16e8c1dee3164d934b229c90cb77906eb0"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721Burnable.sol": {
+    "gitBlob": "c6d2245576156db0aab5a82c562238cc41f07318",
+    "mode": "100644",
+    "sha256": "7b212ebdf844128dd2b3f02f824d7e855983495a75eea9c23852301c3887e861"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721Consecutive.sol": {
+    "gitBlob": "df47ecd495b4f61b34a6e45d31f2c6e5ba78475e",
+    "mode": "100644",
+    "sha256": "5aff8b3b61d5974042d4f6464bedc8126442d7d9a5dce4e362af07746878fce6"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721Enumerable.sol": {
+    "gitBlob": "4fb77a3b86c38c2059a85afaf69d404c16284be3",
+    "mode": "100644",
+    "sha256": "e1ebb328f7bd1903f602ced8329fc0d63fba35f6776210b5c89886ebf046e720"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721Pausable.sol": {
+    "gitBlob": "f788ef56665767f3a42626920423e08382a32e6a",
+    "mode": "100644",
+    "sha256": "76bb73c8460f19c8d8d8269294b5f6e1fb73386296e1d5524fe28c1a79162915"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721Royalty.sol": {
+    "gitBlob": "f019287135647212a6f30afb8673192c39a4bdc1",
+    "mode": "100644",
+    "sha256": "779c702693aa27651e2e677ef53cb5964a045aa31c6e2f958886b60a8c80cdd4"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721URIStorage.sol": {
+    "gitBlob": "f85e8a546ace40ed2bf5c8931723b278fc8aa8db",
+    "mode": "100644",
+    "sha256": "5571fac2c95d0a756398705bc9c2161fb20b16bfe88a86089cca5ef2fad48bcb"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721Votes.sol": {
+    "gitBlob": "f71195ce7c82720dd58c28ab176e783c785d9916",
+    "mode": "100644",
+    "sha256": "37fdb0786bdfedc9e89357a9e9388ee92445ef6e14573e97348d03248ff70a80"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721Wrapper.sol": {
+    "gitBlob": "0eae15b650bd70675ed67f3d6f7001f8d6b41954",
+    "mode": "100644",
+    "sha256": "dc73149efb6bcfb181d279a9f3df407bdc8fc6a9ff5f76a2c0479dd5c3b9b5ea"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC721/extensions/IERC721Enumerable.sol": {
+    "gitBlob": "7a09cc6a09496d9cf9d4db10c9422cbc8d7feaa3",
+    "mode": "100644",
+    "sha256": "1660995643782d34787929cf39dd3a0d44117f14c3ab278329cb079d5253f35f"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC721/extensions/IERC721Metadata.sol": {
+    "gitBlob": "e9e00fab6e5bd49b5f8935f45275ebadf3a87b31",
+    "mode": "100644",
+    "sha256": "63d104c065c281e8d8e1fabe0eda19ff83d4660ce1378f9dad2471226d2bf34f"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC721/utils/ERC721Holder.sol": {
+    "gitBlob": "6bb23ace5b795c91f2b9dde02a9778502bd4c2d4",
+    "mode": "100644",
+    "sha256": "fa1e231eedfd128232d8f34e9599165fb302c9dee5e58ef009f3b99f7e5d930d"
+  },
+  "lib/openzeppelin-contracts/contracts/token/ERC721/utils/ERC721Utils.sol": {
+    "gitBlob": "2fd091afd676f33c57067b99e939117fef349a71",
+    "mode": "100644",
+    "sha256": "368171cf1ce8adbf7b95515ecf3f2f2ca38b194c38bf43dab07b6e6c0fc32f3a"
+  },
+  "lib/openzeppelin-contracts/contracts/token/common/ERC2981.sol": {
+    "gitBlob": "00dd033b766d20a72a2b5aeeeecd490eeb156cb2",
+    "mode": "100644",
+    "sha256": "8ebe451052b4a9d1a8ef3628cd4d437fb2f5ee7d26530d2013bc6f0e1f3aaf16"
+  },
+  "lib/openzeppelin-contracts/contracts/token/common/README.adoc": {
+    "gitBlob": "a70d90ddd24995ce816cf0cca67ca7138f563c23",
+    "mode": "100644",
+    "sha256": "7a0ae207c4a51977091b81feda5974e89f71fadfd8058cb98309f54d69054aee"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/Address.sol": {
+    "gitBlob": "90846a2801483ebec7abe7b7bed9b14a3bf72f83",
+    "mode": "100644",
+    "sha256": "554599883c4a4aefd00213e37316054643bcfc5903078ec00f521f88b9090de4"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/Arrays.sol": {
+    "gitBlob": "e82be02dc2ef02f874bfaa8c92e74542510b09e4",
+    "mode": "100644",
+    "sha256": "a79d0872a1ed99ae7ba1c5da175a4c2314a8049e7e7aaf636f7c6e8519721a5b"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/Base64.sol": {
+    "gitBlob": "01c838d0df7bb9ba9fc6f84c85ce95f76d51567c",
+    "mode": "100644",
+    "sha256": "cef575608f0536ce2766932ced89d3b3b64f37535272ba268fc0b61b273775cc"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/Bytes.sol": {
+    "gitBlob": "4d6ae5e9181c061f1d4990e247536ebb2b1b4758",
+    "mode": "100644",
+    "sha256": "a60a3afad5253237d173c5326d13e3907fabd22b57c40cac04b67cad53a25f60"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/CAIP10.sol": {
+    "gitBlob": "84b35da046ffd6bc8ba5d01fe77654ceb7802132",
+    "mode": "100644",
+    "sha256": "5a1b57f39ae27e7da01e3c647964a38e516581b0505cf358c99aebe6eeb4d437"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/CAIP2.sol": {
+    "gitBlob": "d06dd6da7f25252d0dbb3bca5d1bfbd43914235a",
+    "mode": "100644",
+    "sha256": "cbf5e18e186a00400705880a4125d7e4534cdcefc484f96a33bd4b355bded8f6"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/Comparators.sol": {
+    "gitBlob": "a8c5e73dfea5275c8b59556f375846bf326612bc",
+    "mode": "100644",
+    "sha256": "52fb1c8f57967d42a3214bde4a8a414ab25c2e3a844d00e171ca56487024e009"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/Context.sol": {
+    "gitBlob": "4e535fe03c243f864568b8f4430c17c25dbadb47",
+    "mode": "100644",
+    "sha256": "847fda5460fee70f56f4200f59b82ae622bb03c79c77e67af010e31b7e2cc5b6"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/Create2.sol": {
+    "gitBlob": "d3bb58a8e4f3e400e40dca1d37ede2761ea60cfe",
+    "mode": "100644",
+    "sha256": "b4169c1a98a7bd5b112dc42f558d9c66bb8327ac595588175907f0aa34b77b1d"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/Errors.sol": {
+    "gitBlob": "442fc18920f87e8d8923e8e86c4b3de6b529d01c",
+    "mode": "100644",
+    "sha256": "0704b9d6c032cca8512a3bc3f30f49f86f1f03102d2896a3d23e794b82efea66"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/Multicall.sol": {
+    "gitBlob": "475fc4352c8f7ad5c9a1ec1eeb12c22258d7aff4",
+    "mode": "100644",
+    "sha256": "ba663aa3218bb44c2b2aa2cd7df89aaf1e16f32a20ae8784e75bc311f3029033"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/Nonces.sol": {
+    "gitBlob": "37451ff93a595bc3626f2d582dc44e3d31cd95ce",
+    "mode": "100644",
+    "sha256": "9b4cbb85d1f5053c744e83302538eb643a713ffd14bc37665b224f1c66529339"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/NoncesKeyed.sol": {
+    "gitBlob": "595750b82ed3817150fdc6d99354af9f1eedcc59",
+    "mode": "100644",
+    "sha256": "3c484cca77a65404635431b391466b2d7515feca79e74423a649cb76933094af"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/Packing.sol": {
+    "gitBlob": "f7c5d6fcc3c9b48422b2a0ba178d9978fba91ef6",
+    "mode": "100644",
+    "sha256": "766829f6d9758a1318dd009143912d7aa6bbafa4f4b2a137c94d7f81a73b38ac"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/Panic.sol": {
+    "gitBlob": "e168824d34b3f0ba0be33317fb34b9e74fc148b6",
+    "mode": "100644",
+    "sha256": "270fc8401c1a13fae6a7a4a2dd6e381b95d658896701e51f0d3e2688acab3dec"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/Pausable.sol": {
+    "gitBlob": "312f1cb90fe763f222b93c564308f466bf9ef51e",
+    "mode": "100644",
+    "sha256": "6543160582b3c0319a180f31660faf6ba0a8444acbdb03357c09790a96256835"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/README.adoc": {
+    "gitBlob": "432b806e3c40b87a46c9afb6d330c20f5a741233",
+    "mode": "100644",
+    "sha256": "f9cdd84b782566d0730db6c7ce60bdd08dff11fe20417cda77b3a6e27dd07daf"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/ReentrancyGuard.sol": {
+    "gitBlob": "a95fb512f31d44755a811ad66f8e2de4b602266e",
+    "mode": "100644",
+    "sha256": "32fbb1c908ec1b4de85cc1bb10091aebd5816ffe80dfdd5ca5e084fbea67a462"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/ReentrancyGuardTransient.sol": {
+    "gitBlob": "1a62e29dafa4428262759993e3b27e1fed119919",
+    "mode": "100644",
+    "sha256": "7884e70b6ee5c6f2b0dd7ae298ada9d58c8ae2c67f4489187dd5f639a9da2a56"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/ShortStrings.sol": {
+    "gitBlob": "096b0d1c8e45bdd0bd7d444ef23e53aab77f5f13",
+    "mode": "100644",
+    "sha256": "b0cd65b5d622199fec196746f5fe66cd66a3253c089125eb5e052138960631bc"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/SlotDerivation.sol": {
+    "gitBlob": "62d1545c6504c19f930473c8d8c7f59253e36ef8",
+    "mode": "100644",
+    "sha256": "08fcc8ff9c33f431aa55eb169597e2894bfc7665cc30756cc0706e32d2c49f19"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/StorageSlot.sol": {
+    "gitBlob": "aebb10524a2c82aa78ceb8394e5f3c1b0e5abeea",
+    "mode": "100644",
+    "sha256": "75704538dcb223239280c6726d9a31cf769a7816718517c997fc7d63bdb70778"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/Strings.sol": {
+    "gitBlob": "9801d3df5c7cf14e2b841e00c2bbd5c269fc006a",
+    "mode": "100644",
+    "sha256": "d3a770c80fecceda90b7c09bca959a425881f5f9353fe6ced7bbf3accbcd7ca0"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/TransientSlot.sol": {
+    "gitBlob": "25c57dd3f96403765e2dd0502847444e64099b82",
+    "mode": "100644",
+    "sha256": "172a2fd2dadb94effdaa97843e009619162cb887df38d04c6e5792290d23dac6"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/cryptography/ECDSA.sol": {
+    "gitBlob": "175db73580957df1d5d5d4729dfc150e0436bf74",
+    "mode": "100644",
+    "sha256": "77a4dffcc36423f9ae545703fec795a09d9aecb38de5e4ca6f8e5c4f2b5701b1"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/cryptography/EIP712.sol": {
+    "gitBlob": "f15a67bd9b5a0e8a1e98d463dec80387dfd6349c",
+    "mode": "100644",
+    "sha256": "e7f41ef62494c6c26ddaaac0f2790fa365b635e7c5aaacbeafba3067574e38d7"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/cryptography/Hashes.sol": {
+    "gitBlob": "893883164fbd6069d4ebf99117d030b2ade4fbe4",
+    "mode": "100644",
+    "sha256": "a83c3f8475456c2e8bf4655314f8e5d6af586f46e9dbd0b827009c57bb42ae96"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol": {
+    "gitBlob": "78b62ced929f58473ead5f4f346acc6421ed7103",
+    "mode": "100644",
+    "sha256": "b5c6ba2a6bb578e6495ae5e04bc2cc5e1d709b131d65911962eb08ce1c9f0493"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/cryptography/MessageHashUtils.sol": {
+    "gitBlob": "43c72817166c125b9afe03401785e43f7f010804",
+    "mode": "100644",
+    "sha256": "4c8f632fd9e7579c53f1719d6d8f872796307de2c94a19151744e7533ab4184d"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/cryptography/P256.sol": {
+    "gitBlob": "eca4d360c1377eeca2d9bfa2c5af2944994ce739",
+    "mode": "100644",
+    "sha256": "479a450ada76962668769ec34bc468e9a96a5b739f538891d802b3665ad5929b"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/cryptography/RSA.sol": {
+    "gitBlob": "ef231b8e0a8a0d3cbcab7634d10e23069d4350da",
+    "mode": "100644",
+    "sha256": "7990fb0b0bc5781e546258a67517e392c06f71cae8cd89ff73bd41c4d44b52c7"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/cryptography/SignatureChecker.sol": {
+    "gitBlob": "abb578da818c357bd9da6e5f183a10f11dba4ba3",
+    "mode": "100644",
+    "sha256": "63b307585900af5db3bbf3bf942d10de82baf58ad694f6e344fe86bf9370f949"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/introspection/ERC165.sol": {
+    "gitBlob": "9fbce0447e77f71b80bbfe9514178c0ceb1532ce",
+    "mode": "100644",
+    "sha256": "7fdc4dc9e3872f6a4c1ec9cfa9583a1fc18ccd7a416397a6e698bd5bbf92f32b"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/introspection/ERC165Checker.sol": {
+    "gitBlob": "0137b426230e1d7fbe18f18df1fe617226b29249",
+    "mode": "100644",
+    "sha256": "b3d17228cb9f5b5d1dd2ab054e7ed4943c2da3565cc4b7c09d5be659195979a5"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/introspection/IERC165.sol": {
+    "gitBlob": "719ec358659d3bb92f2c6de3ca77ed7aad249d90",
+    "mode": "100644",
+    "sha256": "7c5c3f98ab876991e7dd34b84d41137e836306eb9f36f6386a631f5be3f5d6d4"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/math/Math.sol": {
+    "gitBlob": "ccf03d4acbc777b26a4f9febf5465bb91961192a",
+    "mode": "100644",
+    "sha256": "acb5a9b010a7e4db3a724c0023f6d50fb81e746ac2ae52ae2bacb17957cefcae"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/math/SafeCast.sol": {
+    "gitBlob": "b345ede1e6994a12d8ca5ba4b6e87401952cb116",
+    "mode": "100644",
+    "sha256": "9769274bf53f26a7c7896c526ea1980dc9bea5bf5c2a5fd04870008c4afc1de9"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/math/SignedMath.sol": {
+    "gitBlob": "7c97aa4c22da6567126a82c6949ec39e363ea891",
+    "mode": "100644",
+    "sha256": "1ed50b1056af886752f0fb48a0165d381e69bb4a4b18b893b066dc144a7e08d7"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/structs/BitMaps.sol": {
+    "gitBlob": "40cceb90bd40c4702abe1641842dfcf8406ca689",
+    "mode": "100644",
+    "sha256": "12d7dd76e44e30d2d076df04f970a272969f30c2a2d240a89b6e2cac3f3e7c55"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol": {
+    "gitBlob": "705c663f053a92e73638d922c1c99e8e486c3ad7",
+    "mode": "100644",
+    "sha256": "6923f92595c5878a93235267aab1697cd0fa9ffa7135464f38a4dd5899ad1840"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/structs/CircularBuffer.sol": {
+    "gitBlob": "ae0a4a88f6844deb0c3bf4d187bf65e3eb0cf2a9",
+    "mode": "100644",
+    "sha256": "471c15bba531238810d7ab94a30e0bad296caedaf194d50810e713d660bf2bc6"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol": {
+    "gitBlob": "f243243bbd77f15cb2ffb45c55087b1d73b0df77",
+    "mode": "100644",
+    "sha256": "463c51e14acbb0b9afef3f1f6903203cce5798fb168742ccd7e049e0397b2184"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/structs/EnumerableMap.sol": {
+    "gitBlob": "8e8f07e875e917c1f26f6d4a29538abef7d9b94c",
+    "mode": "100644",
+    "sha256": "f3e8526249e34bafca3942fed184bb00b935f509a67c6cf668169029949a8376"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol": {
+    "gitBlob": "065202e820425fe79690302f5d0d45549e534797",
+    "mode": "100644",
+    "sha256": "ed0804f9dcff9d2dceba8cc83f31669a84491dfcfe510050c9371aa7c48db09c"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/structs/Heap.sol": {
+    "gitBlob": "7665b08c68d10f6b540e9b0cc2021842ba264d82",
+    "mode": "100644",
+    "sha256": "dbd64e67b73cbf261368f8a7a0daad8a9c2e90044303fccb885e83743e0b0381"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/structs/MerkleTree.sol": {
+    "gitBlob": "cc83489708a9fefe64bac29ad4bc53e1878a9817",
+    "mode": "100644",
+    "sha256": "1de9d3cbefdadd37feda88c2e813c6539a0f5e68a7941e3cf5f87351157d3d35"
+  },
+  "lib/openzeppelin-contracts/contracts/utils/types/Time.sol": {
+    "gitBlob": "ac32c2d2c6b03cd8ecfa62d7e7603885a42fdd80",
+    "mode": "100644",
+    "sha256": "2e510995d02ec09da899f40f9c6200dede5b088160bc788aa3aab97b8fb6161d"
+  },
+  "lib/openzeppelin-contracts/contracts/vendor/compound/ICompoundTimelock.sol": {
+    "gitBlob": "320eea1c6a557958a7c6f799f28a3c62a5e4cdca",
+    "mode": "100644",
+    "sha256": "94caa77588265fd0dd8d58bd687ab2845e5e3858557cd575a4c8bdbb3892d666"
+  },
+  "lib/openzeppelin-contracts/contracts/vendor/compound/LICENSE": {
+    "gitBlob": "7da232470a081567006ca5dfded7dd1ddd6bf146",
+    "mode": "100644",
+    "sha256": "a5313ddb37e6343a90656fd17d8bc1421a7291ece9f67f4d10bfd89350f0c4dc"
+  },
+  "lib/solmate/LICENSE": {
+    "gitBlob": "29ebfa545f5580919a4e884d7014d7a3eb2df762",
+    "mode": "100644",
+    "sha256": "20b067f86de375aae6db0f283ab2e65de24d537733b89bd58432c101259d84cf"
+  },
+  "lib/solmate/src/auth/Owned.sol": {
+    "gitBlob": "e82b44d83f99b2e3661047d6d702f723c32513e9",
+    "mode": "100644",
+    "sha256": "8ac2f2dc41ab8012e93adb3791326ffa1e4059a20c306a777109dd81816b9125"
+  },
+  "lib/v4-core/licenses/BUSL_LICENSE": {
+    "gitBlob": "8cbb6192626642e1a1567d72ae4f14ef8f66539d",
+    "mode": "100644",
+    "sha256": "cd5241d8e1afe7098fa0f21059f7153348fdd25dbae5a8383a5f1dd2eb590321"
+  },
+  "lib/v4-core/licenses/MIT_LICENSE": {
+    "gitBlob": "e1ac41ac30d767545b24f6aae18d2ad2e40a907a",
+    "mode": "100644",
+    "sha256": "b7b0c4379346af0701f5e4df9c861295d4a3af91dc3b15eb4356ebc571303df9"
+  },
+  "lib/v4-core/src/ERC6909.sol": {
+    "gitBlob": "08e7ee1cdad3e078ef1a52b761f34e62762474d7",
+    "mode": "100644",
+    "sha256": "384859bd5d526bb84cba7d4c59191e05f2fa814ad901aab70c12486983894583"
+  },
+  "lib/v4-core/src/ERC6909Claims.sol": {
+    "gitBlob": "fb0b212cc863e5680b861476ea8f76a6d29ec806",
+    "mode": "100644",
+    "sha256": "6fa9989899398646fd7c33f837254a69e7c75b77af120970ede397c3d0fbdc37"
+  },
+  "lib/v4-core/src/Extsload.sol": {
+    "gitBlob": "96ddc43d172c772012df8d671542b3ae001e29d2",
+    "mode": "100644",
+    "sha256": "ac157c05d62562eed212cdf290046a85d192e7b1f8aba69c3ce358b0ebac4279"
+  },
+  "lib/v4-core/src/Exttload.sol": {
+    "gitBlob": "ad24b75a0d6ee7531bd5fe174984410c69f7f455",
+    "mode": "100644",
+    "sha256": "386b5618307a20144a44308b81188c7755a6c279db6c5824cf63a910864324d4"
+  },
+  "lib/v4-core/src/NoDelegateCall.sol": {
+    "gitBlob": "5e6d9609ac73ca769d5d89cdaaa081ca9c3f92dd",
+    "mode": "100644",
+    "sha256": "525bf4df92c4ac0fd582e1b6ac18fdfb5d147d410f38f19231e4c9a469187415"
+  },
+  "lib/v4-core/src/PoolManager.sol": {
+    "gitBlob": "5c9bb998ebd6b5f0553f8ca8d924eeb14f76e7ed",
+    "mode": "100644",
+    "sha256": "586d7ef5af44f09a0a158129dec1a8d697fcb4efc8fc4b73deed76fb6e8f70e9"
+  },
+  "lib/v4-core/src/ProtocolFees.sol": {
+    "gitBlob": "36d29d666aeedb959bb64374060fdd8084ae5091",
+    "mode": "100644",
+    "sha256": "bdabfbdfa0d8692ee187ffab948c295c2c6ebcc2dcf86e552fba3491309843c6"
+  },
+  "lib/v4-core/src/interfaces/IExtsload.sol": {
+    "gitBlob": "600402d7971db4ea9ed78fc85bee8bdd95842a3c",
+    "mode": "100644",
+    "sha256": "9421ef4ba198d94058cd9a4c9fd2d663c61fc682f7dafa449a873456853f0025"
+  },
+  "lib/v4-core/src/interfaces/IExttload.sol": {
+    "gitBlob": "1e0482e84d3d0f930e01eddc0e529c77bb866458",
+    "mode": "100644",
+    "sha256": "c21643d2c7f48d2d2407438a64a3ff0f376324cf6a0c62608977713652308c9e"
+  },
+  "lib/v4-core/src/interfaces/IHooks.sol": {
+    "gitBlob": "bd75eccea53cdb3c3c7648694797478cbbac0a7e",
+    "mode": "100644",
+    "sha256": "d5275e88f3afdbc78b4bb92958da7e8e172eed96c27b24501bf12e6faeee7de3"
+  },
+  "lib/v4-core/src/interfaces/IPoolManager.sol": {
+    "gitBlob": "0c5f9c29eb8b6601cebf2f7a1d4414f56484d0df",
+    "mode": "100644",
+    "sha256": "7a1b6bcb80fb299ca60b10ba284faeb36d6d7a5862e73d984509f742163c3466"
+  },
+  "lib/v4-core/src/interfaces/IProtocolFees.sol": {
+    "gitBlob": "2c2af59442bb9096e8c02a511c3c538bb61e9691",
+    "mode": "100644",
+    "sha256": "807d68adea106ec2aa51a8009155de09ebfe09e1ee7053d5a5ae448d7e840654"
+  },
+  "lib/v4-core/src/interfaces/callback/IUnlockCallback.sol": {
+    "gitBlob": "7957de5cffa9f877f4798be76e775764c5631900",
+    "mode": "100644",
+    "sha256": "2e4a514730654da2e08a82eff5b3eabae12dc1c6198951396e1d466d4c0e223e"
+  },
+  "lib/v4-core/src/interfaces/external/IERC20Minimal.sol": {
+    "gitBlob": "11e1db4e9e69a7aeddd014add0205a9d7723b473",
+    "mode": "100644",
+    "sha256": "5e966a2d22b3b234a56af4b17e36bf7be90f9b29b1ddb6a15bfefc0b6dab4282"
+  },
+  "lib/v4-core/src/interfaces/external/IERC6909Claims.sol": {
+    "gitBlob": "b44ce8dc7c879174af9f73290156b30839b5cc83",
+    "mode": "100644",
+    "sha256": "d7a5bf4d4a9f1ea612b17d26ed63c737a1d060eed1fb051f7caa632df8309218"
+  },
+  "lib/v4-core/src/libraries/BitMath.sol": {
+    "gitBlob": "6c20495bbfd7b98c0c44fe6dbaa1029906794e1c",
+    "mode": "100644",
+    "sha256": "e8a45eb3d57f9427fc47bbb2543c1a6a5f394113b378123ac7ca9f113a7502b4"
+  },
+  "lib/v4-core/src/libraries/CurrencyDelta.sol": {
+    "gitBlob": "a1049067aee49890a0b93ee605bc2bf8a06d07f7",
+    "mode": "100644",
+    "sha256": "dfbb3d232c2d52bb09c8dcbb38b4a8fd16c616b8e6bf49e6f4ee948760530f7b"
+  },
+  "lib/v4-core/src/libraries/CurrencyReserves.sol": {
+    "gitBlob": "3a3309c3327e34ed8b77db68d3216a7447fce0f9",
+    "mode": "100644",
+    "sha256": "b38f1d3807d90bbccb865c0d96caf1ef92d6df9b69adbbe43b1d12e1241523c9"
+  },
+  "lib/v4-core/src/libraries/CustomRevert.sol": {
+    "gitBlob": "9cbe7c23759512dd04831231505961fee2c989ea",
+    "mode": "100644",
+    "sha256": "30f9bda5ba65acab8f310ad2bd41153f0aa9b87c9750e6131982eea6cfd5de09"
+  },
+  "lib/v4-core/src/libraries/FixedPoint128.sol": {
+    "gitBlob": "ef69ae80e691fd9d3245d0ed711a6270b9aeb916",
+    "mode": "100644",
+    "sha256": "1ca2f55160697b73bd66fd27c8724d79a57108121ce1e8a0ab8b79f38bb58fbb"
+  },
+  "lib/v4-core/src/libraries/FixedPoint96.sol": {
+    "gitBlob": "8e704cb34edd85da4130aa3c2d9fd219a4084253",
+    "mode": "100644",
+    "sha256": "66ee26d4fb3ac639124bdfa27d3256d196970997fa127c09e9bf7154e30d4590"
+  },
+  "lib/v4-core/src/libraries/FullMath.sol": {
+    "gitBlob": "39da1b632aee89577f9d82da2b8394ea076fe839",
+    "mode": "100644",
+    "sha256": "0e8ca1bc98186b33f757083407205148bd3972f88209111d9abee22ab8c3a818"
+  },
+  "lib/v4-core/src/libraries/Hooks.sol": {
+    "gitBlob": "686035b157a227edcba6c04a9af9c06373e7863d",
+    "mode": "100644",
+    "sha256": "a6cb7a613fecd8ce7cee7c2553cfbf537191a0e2d8fcaaaed104b44c0d1359ca"
+  },
+  "lib/v4-core/src/libraries/LPFeeLibrary.sol": {
+    "gitBlob": "5a68f963e6346082ebf5633c8c5cc7ce5501cc22",
+    "mode": "100644",
+    "sha256": "e96c3fa7deac991dc09b6c5e560a340d01d6c68ccba483d4b29f8a66e5aa44e0"
+  },
+  "lib/v4-core/src/libraries/LiquidityMath.sol": {
+    "gitBlob": "ce5cfcd4f63b002ac36017f9e2259da8b5cecabd",
+    "mode": "100644",
+    "sha256": "67a39e58732340af4870342ba9230691f35501d89ed8725ca1b338deaa0eb26a"
+  },
+  "lib/v4-core/src/libraries/Lock.sol": {
+    "gitBlob": "76c8f87348ea9774e6e3bf61be31f7cac7af8f23",
+    "mode": "100644",
+    "sha256": "1c714f83921526c1cafe978d97b34e1d92c8cc8a51468abd99d8b2702f3c0c5c"
+  },
+  "lib/v4-core/src/libraries/NonzeroDeltaCount.sol": {
+    "gitBlob": "3221df0c90942bec279c65c3302f059beeb62841",
+    "mode": "100644",
+    "sha256": "0ae35ca64da2527b4e1f7afa4ca10c4b65af952dc473c33b6663101e8d199f40"
+  },
+  "lib/v4-core/src/libraries/ParseBytes.sol": {
+    "gitBlob": "3503fe4a496f194d02e2bcf722b803a17b378891",
+    "mode": "100644",
+    "sha256": "6a6f3d1cec0143fd70ea68c34e6dce3bde72f368b213f1a225ada23dbfd99bb8"
+  },
+  "lib/v4-core/src/libraries/Pool.sol": {
+    "gitBlob": "8b21217aece35f7a8fa875b0148392df270fa933",
+    "mode": "100644",
+    "sha256": "d6234cb63b5aa9511ae99885fdbab0832190dc96148bacb5db4f34c7ea28cd0b"
+  },
+  "lib/v4-core/src/libraries/Position.sol": {
+    "gitBlob": "88e6d2652c47f9ac142fc3828ab8d48a08d21a53",
+    "mode": "100644",
+    "sha256": "d4064231f17ddcf36fe644b251d50eaca2a839d8bcce2c2eae6b587271b117d4"
+  },
+  "lib/v4-core/src/libraries/ProtocolFeeLibrary.sol": {
+    "gitBlob": "c155b86aae9b4aee580db976f77582f7b52d3579",
+    "mode": "100644",
+    "sha256": "f8d96d9c8b5d12ab927b34551699bd7086750475f70254c9505e636f2cafe56a"
+  },
+  "lib/v4-core/src/libraries/SafeCast.sol": {
+    "gitBlob": "118b02cd1bdafa7333785b4b081e9d411e8afc85",
+    "mode": "100644",
+    "sha256": "c1a815a41607be5b4c86ca588a951f368156da8ee21bdfc18b5d51b58a0f27be"
+  },
+  "lib/v4-core/src/libraries/SqrtPriceMath.sol": {
+    "gitBlob": "e526706bab6b432063bbbed7f856359b64b1fd26",
+    "mode": "100644",
+    "sha256": "89e61ba0d91f1a2309072c3e56887fcd5020991dc6f6883ff589cf911dce9760"
+  },
+  "lib/v4-core/src/libraries/StateLibrary.sol": {
+    "gitBlob": "d5612db691b7cd306890598e343bf970f8e1e0e1",
+    "mode": "100644",
+    "sha256": "8c26df2b2db36cd6c2cde78aa20c236c2653148fddc2c97471c01ae91e5728e8"
+  },
+  "lib/v4-core/src/libraries/SwapMath.sol": {
+    "gitBlob": "c1baac42089792fe9402748658e37e556e9a28ae",
+    "mode": "100644",
+    "sha256": "399a3938c17c904af3addce4d177173ce83efe0e799422761fb6c343c05ba1ed"
+  },
+  "lib/v4-core/src/libraries/TickBitmap.sol": {
+    "gitBlob": "09204f46a6564cc5aef806cfe299571650980107",
+    "mode": "100644",
+    "sha256": "675cb9b96f83bac986ef9b631f557676730181f2d689c70ff8d5b914cc0506c2"
+  },
+  "lib/v4-core/src/libraries/TickMath.sol": {
+    "gitBlob": "24e6e8dfc91aadab4bb66b4663d18fb3d6b9bd69",
+    "mode": "100644",
+    "sha256": "9bd68eb7e77712f6409d220058f60e07edcabb563bab8e10db3027efc18216ac"
+  },
+  "lib/v4-core/src/libraries/TransientStateLibrary.sol": {
+    "gitBlob": "d9d4591cca3b374c0bd1106be021b8bd2f14114c",
+    "mode": "100644",
+    "sha256": "f5979286451618bc2ea077664a5e35df1db8996a7c4b546576943df12941b803"
+  },
+  "lib/v4-core/src/libraries/UnsafeMath.sol": {
+    "gitBlob": "ed88beca38d5ff65eff1532d5b3cf256231bb013",
+    "mode": "100644",
+    "sha256": "2de236e7ca0b9572a6b0184557565b6fd54e177224e202c727fe248785ede427"
+  },
+  "lib/v4-core/src/types/BalanceDelta.sol": {
+    "gitBlob": "4dca00e0bab69e1620830bdd7fcff1d284bfd6a8",
+    "mode": "100644",
+    "sha256": "320d9c13dec135c3903729e66d3a1040fe86d537a7ee53728915012ca183af32"
+  },
+  "lib/v4-core/src/types/BeforeSwapDelta.sol": {
+    "gitBlob": "30fd9cef82ad61454b032cb8370d585d16b24499",
+    "mode": "100644",
+    "sha256": "6aee06f1553e879f5909e8f4c0eac26ec23dd4821a7e56e4d5077db39a227e12"
+  },
+  "lib/v4-core/src/types/Currency.sol": {
+    "gitBlob": "d3352c2e98ce085d7d06a48f7f863360ecee5314",
+    "mode": "100644",
+    "sha256": "7297e2bb4bacc2883838876d929a83199a236e233a72ddad03d457256c623041"
+  },
+  "lib/v4-core/src/types/PoolId.sol": {
+    "gitBlob": "22a0b4f91c8d0fb63cfb6a7b1d88a7cb5a472715",
+    "mode": "100644",
+    "sha256": "548424ac50ad58212545da70207283fb8990731578c115c85d5acbcb0e1d3c9f"
+  },
+  "lib/v4-core/src/types/PoolKey.sol": {
+    "gitBlob": "0fa66f93733e30c6af7b8f184b6f278c9fdff59e",
+    "mode": "100644",
+    "sha256": "99e1afe285b5c614ebc9586ab5196db9d24a63fd924a449f5d99f490a6a6d6a9"
+  },
+  "lib/v4-core/src/types/PoolOperation.sol": {
+    "gitBlob": "4982097dbd7520db5a3d942c3f0ccb123bab445c",
+    "mode": "100644",
+    "sha256": "cf72ad0c3e5e91662029e862acd841fabce8753040b0d4e802dee64ef1157232"
+  },
+  "lib/v4-core/src/types/Slot0.sol": {
+    "gitBlob": "6c7ca1f1dfcf8cae00dba5e9c36798ca82b467ef",
+    "mode": "100644",
+    "sha256": "3726b242f1148204d77b21de3e69ad62757b0cb652ace183bb4174e9f923f717"
+  },
+  "rehearsal/Sepolia.t.sol": {
+    "gitBlob": "0383a86546e244f4033e5682dd03cbbde5794cd3",
+    "mode": "100644",
+    "sha256": "08a5267d7e32f7c5189b61497797a4a37ce7e31e994035e491756d270288b0aa"
+  },
+  "remappings.txt": {
+    "gitBlob": "b597579b6f49fab421395dba4cd84ff57c1078b7",
+    "mode": "100644",
+    "sha256": "4bfa3aae32b92f9d1033f37c8bd925522024ab9a9682b2785163663ad31f874b"
+  },
+  "script/CheckReleaseConfig.s.sol": {
+    "gitBlob": "77ee8da82fac1db480393f5d0b120b28df948f3b",
+    "mode": "100644",
+    "sha256": "01628593e7153bd3fc5cb081989a274b580662f5e581be6bc21a2f282222e923"
+  },
+  "script/LocalDemo.s.sol": {
+    "gitBlob": "4a73b39feab0ce256600ab179363f8b3e258367c",
+    "mode": "100644",
+    "sha256": "e13bf2b4530ee775b7dd6b88c695850abde4f854cecbbd843e8b2409d1e73be2"
+  },
+  "script/Stage2.s.sol": {
+    "gitBlob": "adbd7252a135cdd6685f3f6821a352c22a07cc06",
+    "mode": "100644",
+    "sha256": "d5c1af11063858dd5a719d870a789af07beae179f1da0f90a67da128e8792d1f"
+  },
+  "scripts/check.sh": {
+    "gitBlob": "0acead61af9bd3b58968375eb2cba4f54c57dff5",
+    "mode": "100755",
+    "sha256": "a98dc8ce987138c437610bf95942a45b6df7933c58dead8269b5ae010dd4f9e7"
+  },
+  "scripts/check_protected.py": {
+    "gitBlob": "6a52e1726cbcf7a5e39daefd8cade3265d33d351",
+    "mode": "100755",
+    "sha256": "85e6519ff8e80a762436c71d7a8685f3d0e5fc1e8c4f945466225870feaa75b6"
+  },
+  "scripts/export_abis.py": {
+    "gitBlob": "a4228d4cb86585e6339e9beab6e978dedae71bdf",
+    "mode": "100755",
+    "sha256": "a9ab470b72e9278e934925e876471912a93b15085678c07d99f5d8d2a7122037"
+  },
+  "scripts/generate_code_checks.py": {
+    "gitBlob": "8d3bf8d1f0f7522d1617bd977787018f7aa57fcb",
+    "mode": "100755",
+    "sha256": "6c3158ae6e86fd6c3aa8ca00a6941136110ae2d1a9fefa191c5a00e27d8f1642"
+  },
+  "scripts/mine-hook.sh": {
+    "gitBlob": "3ce3f12339993f72562022cbfb1e8c889eed4b84",
+    "mode": "100755",
+    "sha256": "5ac1af2a76933bb1eab576bbab8fae5370bc2e0253320c44634f66a4065adfb2"
+  },
+  "scripts/prepare_claim_tree.py": {
+    "gitBlob": "b882a10c141c9ab61c6988e53f8265a4c1c483e4",
+    "mode": "100755",
+    "sha256": "bf154e6b524028a66a504b36f087fa9ad010636291d1293d5b72fe88b01f2aa2"
+  },
+  "scripts/rehearse-sepolia.sh": {
+    "gitBlob": "09a27f54477a5bcb6ac7ae65a290f8838635c3b6",
+    "mode": "100755",
+    "sha256": "87c208bde30bc557039b69ea682a28246215715dc6b7974f088985520aab7102"
+  },
+  "scripts/release_artifacts.py": {
+    "gitBlob": "7d4dc51b8bd53c3da7aaa9081cbe8c3a28c62173",
+    "mode": "100644",
+    "sha256": "56bec252ec941e490554849467b0ce13daf8d2590269bbe44f9bc33a089bbaa4"
+  },
+  "scripts/verify_network.py": {
+    "gitBlob": "b1466051ce83acf9991aff11f9911decb95fb4bd",
+    "mode": "100755",
+    "sha256": "13e2f7e1d5a9e7fe0d1eae9392a94db6b1dfbb105487a84841a8298eedd6b4d7"
+  },
+  "src/HookDeployer.sol": {
+    "gitBlob": "be037d34a3714e7c526e3d0a66589b07c5cece25",
+    "mode": "100644",
+    "sha256": "9045acafb9983b1f1d3d7ec9bade29fe29a18b905b631fe4ef146a4b16eec5c7"
+  },
+  "src/HookFlags.sol": {
+    "gitBlob": "7df88479aff215bf7a5850c34d9b35fa85cf8648",
+    "mode": "100644",
+    "sha256": "52cec85dc1af6964e2da6fa5caf63e40dc901e15585c7ef7bd04c5ce36ac35c3"
+  },
+  "src/MerkleClaimEvidence.sol": {
+    "gitBlob": "27c90cc06d85ee4ccb25da4c01bbb1c61fc6bb03",
+    "mode": "100644",
+    "sha256": "b036e9c6a95a9b147b7e4881de94327d9edcf30dfd4fb5ab001e52e93ec5c796"
+  },
+  "src/UnlkHook.sol": {
+    "gitBlob": "bfe3fb3a22db6ffa33c61cd9172b3a0b57be6eb6",
+    "mode": "100644",
+    "sha256": "fe04cdf6865e6cc89f55c5538202caf22b17ce11c7c074555d71a3dc5fee6f84"
+  },
+  "src/UnlkOracle.sol": {
+    "gitBlob": "bb4d24e947fb8f811d0c0ec599d26d715846484d",
+    "mode": "100644",
+    "sha256": "e55ea60c7a522de502a71e7bac5de361afe2423437ef4905274886a1bd75b6eb"
+  },
+  "src/UnlkSwapRouter.sol": {
+    "gitBlob": "5539f8b1793ba5814e925506c9d23e917ba01cb3",
+    "mode": "100644",
+    "sha256": "ac04677b31f22349b67dd66cbc2e4c47d4e0bc7bc8d0f5713cf1f38b81f9fe3b"
+  },
+  "src/UnlkToken.sol": {
+    "gitBlob": "100be25d39e49f7d839bb56c7598c6ac3fb81c1d",
+    "mode": "100644",
+    "sha256": "70a60d3d198493fdbdf7b03e4ed8e4d17fb38825902e9f97bd5619abe6b14769"
+  },
+  "src/interfaces/IIntegration.sol": {
+    "gitBlob": "dbcc4779f07e2334fa9dca959b9ed61ef3ac5e07",
+    "mode": "100644",
+    "sha256": "af1def417a1a0bf6303bd90a4e4fa0fda2f27622e93851c464b3737d862b1954"
+  },
+  "src/libraries/OperationHash.sol": {
+    "gitBlob": "245a0b5559f14511cf69a1a47bf30d91cf28003a",
+    "mode": "100644",
+    "sha256": "bcc9780a1f7524d328acc73c0fbce8c58601ea97923995676b208de5da63812e"
+  },
+  "src/libraries/ReviewedCode.sol": {
+    "gitBlob": "3c62d2a7dc276ec26d37b3a2cbfcbc8160efb2e2",
+    "mode": "100644",
+    "sha256": "624c7fb07864eedf32099e5cefe2b38b3191bbad7d35db0735cec37a0e9e2e73"
+  },
+  "src/libraries/SeedDepth.sol": {
+    "gitBlob": "6d67b4e9a04fdd5bd5287d3120a3cbec9a4583b7",
+    "mode": "100644",
+    "sha256": "459b83f31a32857de907d40acd2834ef84c44f79027d1c011d69b81a912b0f9a"
+  },
+  "src/libraries/SepoliaRelease.sol": {
+    "gitBlob": "89d9af5d8b6d01981093198bbda11dd8202d3cd1",
+    "mode": "100644",
+    "sha256": "e982df38ced33b5057b9922e654609d9c4c88f13bf210c052f0786cd724f72ab"
+  },
+  "test/ADDITIONAL_COVERAGE.md": {
+    "gitBlob": "5e166601b5aa8dc61a9f139b3b7f79827e80f74d",
+    "mode": "100644",
+    "sha256": "7dc885f01f9096fee396a9110d12c70ab7f928252d01a6236310f8506e850aa7"
+  },
+  "test/ActivationRobustness.t.sol": {
+    "gitBlob": "a44aa0fc31b80ad7ca853425f122e7cbbcf28089",
+    "mode": "100644",
+    "sha256": "15cc9a64ef46476a0e7854b8e41684d6d15123c5a1eaaa07b9c33c7912aaa329"
+  },
+  "test/Adversarial.t.sol": {
+    "gitBlob": "772de6a7a8f798e31270d1569fcdfa4c98667d91",
+    "mode": "100644",
+    "sha256": "484c355108ef98f2c5cdce880153181536b49cff12c1dd86588533a6bb377d3a"
+  },
+  "test/BatchSettlementProperties.t.sol": {
+    "gitBlob": "049a3aa90fe43b86dbf6458c874230d92ddfc5f5",
+    "mode": "100644",
+    "sha256": "60f6d32d8073d735efa473bf01cf25957cd828ca5bdd035261c27108dfb50ab6"
+  },
+  "test/ClaimLifecycleInvariants.t.sol": {
+    "gitBlob": "bdc317f393b1668282ea7ea884504dec1bc449c7",
+    "mode": "100644",
+    "sha256": "6275b0a14eb51792120f6ce056cd6a551564b12200b6edc1fbcbe3c3460065b2"
+  },
+  "test/CreditsAndFees.t.sol": {
+    "gitBlob": "7fd8947e417c3d5a757458635d5b9ce6054f4bdc",
+    "mode": "100644",
+    "sha256": "697066317354f4f05736ac4377812ff603ec9818cdbabf2f1071b382add7f4e6"
+  },
+  "test/EvidenceAndOracleProperties.t.sol": {
+    "gitBlob": "efea2d12d96ad5f11e44d682ce4a3019aabfb54b",
+    "mode": "100644",
+    "sha256": "4542e380ee614ac390216d221bda5aead9f30115f41088352d6f3085d0649a84"
+  },
+  "test/FailurePaths.t.sol": {
+    "gitBlob": "55028a20de756d011293f5d1c9832fc1234b3a52",
+    "mode": "100644",
+    "sha256": "f135127d7c744cb9bfcbca4dd018b28792d893884b180adb9fac1283b7b26194"
+  },
+  "test/HookDeployer.t.sol": {
+    "gitBlob": "9b09509c10d2b0dd0a23fd3d6b90067cabf8bacb",
+    "mode": "100644",
+    "sha256": "53a1f3c78a49f724ca9007b64e9b4b69024eab3b24b12625989e566c6a17a754"
+  },
+  "test/Invariants.t.sol": {
+    "gitBlob": "2094e13a9d0bc3d8e3a73dbd368534f953f49f3c",
+    "mode": "100644",
+    "sha256": "b0c9470f5779aa509d20133be6782343d1140e15c96e24573b228ff672becef1"
+  },
+  "test/Launch.t.sol": {
+    "gitBlob": "9a5163f530325c685157c470d3e536bcc82a11c2",
+    "mode": "100644",
+    "sha256": "5aa3570f64f16ba865e8ebc1455a22bd6713ae63292881f328a525149c2f55fc"
+  },
+  "test/LocalScript.t.sol": {
+    "gitBlob": "077253c49cc33264db872f5bf911c783a8be38d5",
+    "mode": "100644",
+    "sha256": "8ab4d6aaba921ed04eb897ec9b0cf3f5c5c43952ccb2cd19b082ba8f26f30547"
+  },
+  "test/ManipulationEconomics.t.sol": {
+    "gitBlob": "78159c79b1b293ecdf1b882112879dfbfab37d7a",
+    "mode": "100644",
+    "sha256": "9c42c94ce58a59b8ec536cfd4928aee07219cd040326bbd229292d6702d79e82"
+  },
+  "test/NativeCustodyInvariants.t.sol": {
+    "gitBlob": "47b85f3fbfd6b8a9f3508f3495f42abf54f6cc27",
+    "mode": "100644",
+    "sha256": "b1115c6826abb25026cf4c2c13884767b74d0e42482e782208dbe0c16d1752ac"
+  },
+  "test/NativeLaunch.t.sol": {
+    "gitBlob": "e067767d57ccead9462ed7b0ce95612c3150f007",
+    "mode": "100644",
+    "sha256": "2dd290de804d6171dfdb8061c8d1f056fe4eba8447d6cfc0c38ff06869a2d3e1"
+  },
+  "test/Oracle.t.sol": {
+    "gitBlob": "c7d6e022fd8c8e7682a26983c429600734e444ff",
+    "mode": "100644",
+    "sha256": "3123fcfa8f401d45a22a2078f44f5191f154debc6575ba02a1bda1a8d4a0df2f"
+  },
+  "test/QuotaInvariants.t.sol": {
+    "gitBlob": "3ea96a77c4579942e72fcbab1a8de694b143927c",
+    "mode": "100644",
+    "sha256": "e2edfe3b95fb3b890afa24bf34a8e1b64ec64b40226c27254c4c3aaa19e7917c"
+  },
+  "test/ReleaseConfig.t.sol": {
+    "gitBlob": "eca5a6a6906649d98ed0b319615e03716545fbde",
+    "mode": "100644",
+    "sha256": "8c52ff9e2b15673ea0796dbabf610eab52b2a242b53110a4798c9033251aad91"
+  },
+  "test/RevisionProperties.t.sol": {
+    "gitBlob": "f1143e21a0c26754a1d4b5e81b9cf526290dcd98",
+    "mode": "100644",
+    "sha256": "bb006ed29540ec0831cd5a8167b51925df5fb065d1d1d5291d05a9b8fca54e74"
+  },
+  "test/SecurityRegression.t.sol": {
+    "gitBlob": "45a6f52599bfebcc9f4f146cc40b0f2b2d2b38a9",
+    "mode": "100644",
+    "sha256": "742a36044b38e22a1b9dde8e0c87b98e09e0406143768ddb4c319942dd1d5b05"
+  },
+  "test/Stage2Script.t.sol": {
+    "gitBlob": "1b52ea417bb0149b1875004c73c9cf2cda7d7ee8",
+    "mode": "100644",
+    "sha256": "be88eef668aec54d40428bc615763669c5ee2f10b75c1fd70a987efd0291b348"
+  },
+  "test/StageOneInvariants.t.sol": {
+    "gitBlob": "d9235e2ea088691fe61b95d3daaeee93568c05f5",
+    "mode": "100644",
+    "sha256": "87ab802ebd380bc2af81fbc30c8b7a52607dbdddeb475e04e8b08b4ef889500e"
+  },
+  "test/Trading.t.sol": {
+    "gitBlob": "545c48f672a8c07a2e998a742b08e280503630e2",
+    "mode": "100644",
+    "sha256": "ae89f80561e86109460c19f64333f560001ccf3cacaa60c4d669712b55e61e00"
+  },
+  "test/TwoStage.t.sol": {
+    "gitBlob": "e364c08f92a014b6f615ce714b5d68bb0d7c9d30",
+    "mode": "100644",
+    "sha256": "42e75fc690176c3179e56c6f87313a07e82b1c50b00520df818cef2815524388"
+  },
+  "test/fixtures/LocalFixtures.sol": {
+    "gitBlob": "fd82f1911fdcc415ee7d38754e8dd6696da96bc4",
+    "mode": "100644",
+    "sha256": "70006130b251a48dfc8dffdb1ad3b76c0c63f2d0fe7a1db5f9ac084fd5e7a607"
+  },
+  "test/fixtures/SystemFixture.sol": {
+    "gitBlob": "eda9c77cfe608bd839328861f53a00671ca9dbc8",
+    "mode": "100644",
+    "sha256": "f927cd66b164931e9aefe3e4701bee5a63972dd89422c60c8c12ea09f902ed93"
+  },
+  "test/imd/HookFlags.sol": {
+    "gitBlob": "7df88479aff215bf7a5850c34d9b35fa85cf8648",
+    "mode": "100644",
+    "sha256": "52cec85dc1af6964e2da6fa5caf63e40dc901e15585c7ef7bd04c5ce36ac35c3"
+  },
+  "test/imd/LaunchFactory.sol": {
+    "gitBlob": "372318c3f8376f488b68e4a6473fd4f5adadab91",
+    "mode": "100644",
+    "sha256": "820d6eb12a265f40534854114de91aed9504c87601bbdf9937cc5357d48bf978"
+  },
+  "test/imd/LaunchFees.sol": {
+    "gitBlob": "4eb6f14666dac5ec8c00fd8d103c8a5a933dbb9a",
+    "mode": "100644",
+    "sha256": "a4cd760816c6fac89eec431724a9f5b1af64ab74c5cdadc057f4d66470618d71"
+  },
+  "test/imd/LaunchRegistry.sol": {
+    "gitBlob": "b44d6da936b81d57f17d24119b4d37cb29d5be53",
+    "mode": "100644",
+    "sha256": "bfad2aef8433ba18a69e56486c0424526b9e6a4218e7690c66bbcf8055cc7341"
+  },
+  "test/imd/MerkleDistributor.sol": {
+    "gitBlob": "a98582d47ae38cdc85363ff718b4b3837d2b33e7",
+    "mode": "100644",
+    "sha256": "0cef015994cd28419e31148546bd3a576386ef758d122a1528840744dfcbd3ae"
+  },
+  "test/imd/PoolFees.sol": {
+    "gitBlob": "5a9f6543a38eed1cd7b98ee8464648abeec4934b",
+    "mode": "100644",
+    "sha256": "6d1e06948e798fa495e6add63513e488c79e511a60b24d97a610d8c16c058e71"
+  },
+  "test/imd/README.md": {
+    "gitBlob": "29ea2745bd53dd532eb0934acefd04062dbb06f1",
+    "mode": "100644",
+    "sha256": "0aa96c9bc9c497290d815ee728b3e9ab4c037ea421d2c01dd464d1681223a9e2"
+  },
+  "test/mocks/MockERC20.sol": {
+    "gitBlob": "c6b5467ace8a3cf679eede1465446f0edc461ac7",
+    "mode": "100644",
+    "sha256": "19d97ec40db4ec060464185754618c35ef2bcb7988caeb85b6c4bd0b335969fe"
+  },
+  "test/test_release_artifacts.py": {
+    "gitBlob": "d7603348ca7bebd26fe2967e0ec97ca6b56a96bf",
+    "mode": "100644",
+    "sha256": "f259776f5a8e7f4d592f6918bd71d8cf280607f664d619e9a9c918b81b565caa"
+  }
+}

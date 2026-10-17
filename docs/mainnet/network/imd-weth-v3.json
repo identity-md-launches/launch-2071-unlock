@@ -1,0 +1,42 @@
+{
+  "address": "0xD6A822D028bbf7b6EDfA1533e110Ee40c08551d9",
+  "block": 26203203,
+  "codehash": "0xa8c4242a502de08fecdd94f20848f40832bc3ed5d13d37f4dadb29233115e7fc",
+  "reads": {
+    "token0()(address)": {
+      "exit": 0,
+      "output": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+      "error": ""
+    },
+    "token1()(address)": {
+      "exit": 0,
+      "output": "0xD34a99Bc0f67aE1bbd63C660e6d0b0dd03E263B7",
+      "error": ""
+    },
+    "fee()(uint24)": {
+      "exit": 0,
+      "output": "10000 [1e4]",
+      "error": ""
+    },
+    "factory()(address)": {
+      "exit": 0,
+      "output": "0x1F98431c8aD98523631AE4a59f267346ea31F984",
+      "error": ""
+    },
+    "liquidity()(uint128)": {
+      "exit": 0,
+      "output": "0",
+      "error": ""
+    },
+    "slot0()(uint160,int24,uint16,uint16,uint16,uint8,bool)": {
+      "exit": 0,
+      "output": "2203836211050920052324214573504 [2.203e30]\n66515 [6.651e4]\n0\n1\n1\n102\ntrue",
+      "error": ""
+    },
+    "observe(uint32[])(int56[],uint160[])": {
+      "exit": 0,
+      "output": "[2219356684044 [2.219e12], 2224624672044 [2.224e12], 2225103580044 [2.225e12]]\n[795844232977884776415911198658170428983213854 [7.958e44], 822794596438023102722210467566766471330529054 [8.227e44], 825244629479853859659146764740275202453012254 [8.252e44]]",
+      "error": ""
+    }
+  }
+}

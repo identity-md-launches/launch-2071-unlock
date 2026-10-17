@@ -1,0 +1,158 @@
+{
+  "sourceCommit": "ea89426f3fe9df79096a5e02345fc8821bd1c783",
+  "checkedAt": "2026-10-14T11:43:35.968Z",
+  "block": "11913027",
+  "blockHash": "0x7afe16b177e26868fc0ec99cd25706cbfe2241add75c2175063243beefcb548c",
+  "blockTimestamp": "1791978204",
+  "checks": {
+    "chain": true,
+    "router": true,
+    "activated": true,
+    "launch": true,
+    "supply": true,
+    "decimals": true,
+    "poolKey": true,
+    "poolId": true,
+    "routerHook": true,
+    "routerManager": true,
+    "evidenceToken": true,
+    "evidenceDistributor": true,
+    "oracleHook": true,
+    "oracleToken": true,
+    "oracleManager": true,
+    "oraclePool": true,
+    "distributorToken": true,
+    "UnlkTokenRuntime": true,
+    "UnlkTokenAbi": true,
+    "UnlkTokenFrontendAbi": true,
+    "UnlkTokenDownloadAbi": true,
+    "UnlkHookRuntime": true,
+    "UnlkHookAbi": true,
+    "UnlkHookFrontendAbi": true,
+    "UnlkHookDownloadAbi": true,
+    "UnlkSwapRouterRuntime": true,
+    "UnlkSwapRouterFrontendAbi": true,
+    "UnlkSwapRouterDownloadAbi": true,
+    "UnlkOracleRuntime": true,
+    "UnlkOracleFrontendAbi": true,
+    "UnlkOracleDownloadAbi": true,
+    "MerkleClaimEvidenceRuntime": true,
+    "MerkleClaimEvidenceFrontendAbi": true,
+    "MerkleClaimEvidenceDownloadAbi": true,
+    "buyReceipt": true
+  },
+  "contracts": {
+    "UnlkToken": {
+      "address": "0x20978223b637fec0c6276ab0184cf7011dd1d483",
+      "runtimeHash": "0x3485bcdc3e143e96168f6d43684f41f01632cf2ff7fd609044a7803643498469",
+      "runtimeBytes": 2320,
+      "normalizedRuntimeMatches": true,
+      "abiHash": "2754d38e745fac0c7dac78119f2a1f7516e00f246098b348e9eed03ede16d19a",
+      "abiPinned": "2754d38e745fac0c7dac78119f2a1f7516e00f246098b348e9eed03ede16d19a"
+    },
+    "UnlkHook": {
+      "address": "0xbbb78a4898e903b082ccd09efc7823ca7339bfc0",
+      "runtimeHash": "0x9396e36a98f3024353a1c9db96f80b46607a01d584804161a3c3830a7766a54c",
+      "runtimeBytes": 24359,
+      "normalizedRuntimeMatches": true,
+      "abiHash": "bfd57f612b9ff42c1a82d59c9eef79c32fe99adb0d498244b23a30c968a08312",
+      "abiPinned": "bfd57f612b9ff42c1a82d59c9eef79c32fe99adb0d498244b23a30c968a08312"
+    },
+    "UnlkSwapRouter": {
+      "address": "0x28f04118fe5D940fE9a81740E74D611313b3004B",
+      "runtimeHash": "0xb703d72bc2fe4ef47290c6d3d62872909c6790edec7f9b4d01b38c11106723cc",
+      "runtimeBytes": 8831,
+      "normalizedRuntimeMatches": true,
+      "abiHash": "11f9f0a03043c7134eb42d408eb9f68ef4617cffa17befdc879745f75c2f3f49",
+      "abiPinned": null
+    },
+    "UnlkOracle": {
+      "address": "0x248f1cCbEA71DB201625Fb35a2835E94bbf8832E",
+      "runtimeHash": "0x7402388279a0f526a4ed1ffe39fe8e13ef489c7b8a3bd9ba01fecfac59375ebf",
+      "runtimeBytes": 7517,
+      "normalizedRuntimeMatches": true,
+      "abiHash": "f220ea6f4cb1ff5b416f48df719ec6213ee6438f3ae2008722515e994505c0f9",
+      "abiPinned": null
+    },
+    "MerkleClaimEvidence": {
+      "address": "0x5C8D9510d8493dD1aea27a53851956B203aF9BA6",
+      "runtimeHash": "0x70b396446fd4a7cd2c1239dea7c15fcf8ff2185daeeb7969530102f065b9ecfe",
+      "runtimeBytes": 5675,
+      "normalizedRuntimeMatches": true,
+      "abiHash": "1a589708ddb07d31a067ffd84b26dc5538d91d22249cfc123bc36859f4930217",
+      "abiPinned": null
+    }
+  },
+  "bindings": {
+    "token": "0x20978223b637fec0c6276ab0184cf7011dd1d483",
+    "hook": "0xbbb78a4898e903b082ccd09efc7823ca7339bfc0",
+    "router": "0x28f04118fe5d940fe9a81740e74d611313b3004b",
+    "distributor": "0xf55d5bacbf3ce5464921a94708c08a99bea99cdd",
+    "manager": "0xe03a1074c86cfedd5c142c4f04f1a1536e203543",
+    "stateView": "0xe1dd9c3fa50edb962e442f60dfbc432e24537e4c",
+    "rewards": "0x5C8D9510d8493dD1aea27a53851956B203aF9BA6",
+    "oracle": "0x248f1cCbEA71DB201625Fb35a2835E94bbf8832E",
+    "factory": "0x315752fEE5cBcAA00333E0d4d91E0cD69429E908",
+    "payer": "0x48E4E74fE1d0c14404cEB57B9fec5b21329C6ec9",
+    "feed": "0x694AA1769357215DE4FAC081bf1f309aDC325306",
+    "poolId": "0x4e5b849965ea9cf2f1f1a965b315d06767d21c9d0f40a15df672a2ea9d286ac6",
+    "key": {
+      "currency0": "0x0000000000000000000000000000000000000000",
+      "currency1": "0x20978223B637FEC0c6276aB0184cF7011dd1D483",
+      "fee": 12500,
+      "tickSpacing": 60,
+      "hooks": "0xBBB78a4898e903B082ccD09EFC7823ca7339Bfc0"
+    }
+  },
+  "state": {
+    "p": 2500,
+    "tier": 0,
+    "fullyUnlocked": false,
+    "seedTokens": "869999999999999999999997498",
+    "seedQuoteCapacity": "17477073049697769427",
+    "lower": -887220,
+    "upper": 177240,
+    "slot0": [
+      "551744011987882003553169792537470",
+      176979,
+      0,
+      12500
+    ],
+    "liquidity": "123308773220874512933136",
+    "position": [
+      "123308773220874512933136",
+      "0",
+      "0"
+    ],
+    "round": {
+      "root": "0x5f3ad28ab5edf227bcf55858bc26fdf3711ba3d3a44fca171ddeb0b6c994c53b",
+      "funded": "100000000000000000000000000",
+      "claimed": "154738878143133462282400",
+      "unlocksAt": "1791899376"
+    },
+    "count": "1",
+    "certified": true,
+    "observationCount": "5",
+    "fdv": null
+  },
+  "constants": {
+    "WINDOW": "7200",
+    "MAX_CHECKPOINT_AGE": "300",
+    "MAX_FEED_AGE": "5400",
+    "MIN_LIQUIDITY": "1000000000000000000",
+    "MIN_SEED_QUOTE_CAPACITY": "17000000000000000000",
+    "CONFIRMATION": "21600",
+    "FINAL_CONFIRMATION": "86400",
+    "MIN_CONFIRMATION_INTERVAL": "240",
+    "MAX_CONFIRMATION_GAP": "600"
+  },
+  "buyProof": {
+    "hash": "0x595a858a472215ec90b12ef0f30fa193daae4f17fa9ddb83269b6a1214e101ab",
+    "block": "11911695",
+    "status": "success"
+  },
+  "limitations": [
+    "Read-only verification; no public sell or claim broadcast by this job.",
+    "ABI pins supplied for token and hook. Other ABIs derived from accepted source and runtime matches."
+  ]
+}

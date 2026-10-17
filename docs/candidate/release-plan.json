@@ -1,0 +1,80 @@
+{
+  "documentType": "candidate-specification-not-launch-manifest",
+  "status": "undeployed; release blocked",
+  "chainId": 11155111,
+  "sourceCommit": "92e55dfe1d4b5863ceed2f744f4279942375fe65",
+  "compiler": {
+    "version": "0.8.26",
+    "evmVersion": "cancun",
+    "optimizerRuns": 200,
+    "bytecodeHash": "none"
+  },
+  "hook": {
+    "contract": "UnlkHookV2",
+    "constructorInputs": [
+      "actual PoolManager",
+      "actual new token",
+      "actual factory",
+      "actual launch owner / setup authority"
+    ],
+    "flags": "0x3fc4",
+    "permissions": [
+      "beforeInitialize",
+      "afterInitialize",
+      "beforeAddLiquidity",
+      "afterAddLiquidity",
+      "beforeRemoveLiquidity",
+      "afterRemoveLiquidity",
+      "beforeSwap",
+      "afterSwap",
+      "afterSwapReturnDelta"
+    ]
+  },
+  "pool": {
+    "currency0": "native ETH (canonical zero-currency sentinel)",
+    "currency1": "actual new UNLK token",
+    "fee": 12500,
+    "tickSpacing": 60,
+    "initialPrice": "derive from verified launch policy; no placeholder seed",
+    "allocationBps": 8700
+  },
+  "token": {
+    "contract": "UnlkToken",
+    "name": "UNLOCK",
+    "symbol": "UNLK",
+    "decimals": 18,
+    "supply": "1000000000000000000000000000",
+    "swarmBps": 1000,
+    "payerBps": 300
+  },
+  "treasury": {
+    "contract": "NftFeeVault",
+    "beneficiary": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9",
+    "feeBps": 75,
+    "feeBase": "executed native pool leg excluding extra fee",
+    "rounding": "floor to wei",
+    "accrual": "native ERC-6909 claims; redemption to vault; beneficiary self-only withdrawal"
+  },
+  "companionsCreationOrder": [
+    "UnlkRouterV2",
+    "MerkleClaimEvidence",
+    "UnlkOracle",
+    "NftFeeVault",
+    "SetupVerifierV2"
+  ],
+  "artifactRecord": "ARTIFACTS.json",
+  "setupPreparation": "script/candidate/PrepareCandidate.s.sol",
+  "deployment": null,
+  "frontendDeployment": null,
+  "nftGallery": {
+    "chainId": 1,
+    "collection": "0x0000ec93127baa929e58e97dd0095a2bfb38ec1d",
+    "wallet": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9",
+    "readOnly": true
+  },
+  "releaseBlockers": [
+    "B-01: actual standard-router sourcing/delivery is not observable to the hook",
+    "B-02: native-specified executed fee requires supplemental settlement not provided by the observed standard route",
+    "independent adversarial review pending"
+  ]
+}

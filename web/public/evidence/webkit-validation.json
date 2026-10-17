@@ -1,0 +1,30 @@
+{
+  "checkedAt": "2026-10-14T11:47:06.864Z",
+  "pages": [
+    {
+      "width": 390,
+      "scroll": 390,
+      "font": true,
+      "actionBottom": 839
+    },
+    {
+      "width": 320,
+      "scroll": 320,
+      "font": true,
+      "actionBottom": 919
+    },
+    {
+      "width": 1440,
+      "scroll": 1440,
+      "font": true,
+      "actionBottom": 802
+    }
+  ],
+  "checks": [
+    "390px: reflow, local font, chart selection, wallet dialog/Escape, Sell input/slippage/credit explanation",
+    "320px: reflow, local font, chart selection, wallet dialog/Escape, Sell input/slippage/credit explanation",
+    "1440px: reflow, local font, chart selection, wallet dialog/Escape, Sell input/slippage/credit explanation"
+  ],
+  "errors": [],
+  "transport": "WebKit test HTTPS requests are forwarded by Node to the real public read endpoints because this runtime’s direct TLS requests fail access-control checks. No response values are fabricated."
+}

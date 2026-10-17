@@ -1,0 +1,8 @@
+{
+  "block": 26203792,
+  "blockHash": "0xd92b0c0eb99a048ed7910cdb48195118eff282f571df151488f1c042054cd557",
+  "unsigned": true,
+  "calldataBytes": 12036,
+  "calldataKeccak": "0xa48cd00cdf3c08b6f3bd916f2037911bfe7cd5c5ca4230c5267736c31cd3a637",
+  "reproduce": "scripts/mainnet/oracle-proof.py --recorded docs/mainnet/revision/market-evidence.json --block 26203792 --output <file>; historical block must still be 64..256 old at preparation; offline encoding remains reproducible from recorded data"
+}

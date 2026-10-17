@@ -1,0 +1,33 @@
+{
+  "name": "unlock-sepolia-web",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc --noEmit && vite build",
+    "typecheck": "tsc --noEmit",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "tsx --test tests/*.test.ts",
+    "verify:chain": "tsx scripts/verify-chain.ts",
+    "check:browser": "node scripts/check-browser.mjs",
+    "check:wallet": "node scripts/check-wallet.mjs",
+    "verify:live": "tsx scripts/verify-live-interactions.ts",
+    "check:recovery": "node scripts/check-recovery.mjs"
+  },
+  "dependencies": {
+    "@coinbase/wallet-sdk": "4.3.7",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "viem": "2.37.13"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.13",
+    "@types/react-dom": "19.1.9",
+    "@types/node": "24.5.2",
+    "@vitejs/plugin-react": "5.0.3",
+    "vite": "7.1.7",
+    "typescript": "5.9.2",
+    "tsx": "4.20.5"
+  }
+}

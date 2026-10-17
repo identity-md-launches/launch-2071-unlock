@@ -1,0 +1,3 @@
+Verified byte-exact historical text archive: 141 files, SHA256/Git blob/modes
+Verified byte-exact archived JSON: docs/network/factory-reference.json
+Verified byte-exact archived JSON: docs/network/factory-artifacts.json

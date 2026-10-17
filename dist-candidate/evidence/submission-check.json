@@ -1,0 +1,21 @@
+{
+  "scope": "Complete Git candidate regular-file contents including unchanged contracts/dependencies, frontend source and static export. Excludes ignored pinned inputs, scratch/cache, artifact upload directory and Git metadata.",
+  "baseCommit": "b01b41bfdf20a20519c5902eda3d0677b7f2b6df",
+  "limitBytes": 8388608,
+  "regularFiles": 696,
+  "regularFileBytes": 7716441,
+  "distBytes": 1482394,
+  "withinLimit": true,
+  "checks": {
+    "protectedTrackedFilesUnchanged": true,
+    "noSubmodulesOrSymlinks": true,
+    "noGeneratedDependencyDirectoriesOrArchives": true,
+    "allPublicAssetsMatchExport": true,
+    "relativeEntryAssetsExist": true,
+    "shareMetadataPresent": true,
+    "manifestAndLockAgree": true,
+    "ignoreFilesUnchanged": true,
+    "gitDiffWhitespaceClean": true
+  },
+  "note": "No ignore file changed, so no ignore path budget is needed. Complete runtime assets and authentic reward fallback retained. Source/export await the contributor publisher; no new commit or CID is claimed."
+}

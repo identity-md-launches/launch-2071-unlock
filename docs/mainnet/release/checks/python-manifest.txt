@@ -1,0 +1,8 @@
+test_current_manifest_and_compiled_constructors (test_mainnet_manifest.MainnetManifestTest.test_current_manifest_and_compiled_constructors) ... ok
+test_each_wrong_launch_input_is_rejected (test_mainnet_manifest.MainnetManifestTest.test_each_wrong_launch_input_is_rejected) ... ok
+test_imported_sepolia_manifest_is_rejected_and_archived (test_mainnet_manifest.MainnetManifestTest.test_imported_sepolia_manifest_is_rejected_and_archived) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.007s
+
+OK

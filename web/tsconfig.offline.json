@@ -1,0 +1,42 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "types": [
+      "node"
+    ],
+    "typeRoots": [
+      "./vendor/types"
+    ],
+    "paths": {
+      "react": [
+        "vendor/types/react/index.d.ts"
+      ],
+      "react/*": [
+        "vendor/types/react/*"
+      ],
+      "react-dom/*": [
+        "vendor/types/react-dom/*"
+      ],
+      "viem": [
+        "vendor/types/viem/_types/index.d.ts"
+      ],
+      "viem/*": [
+        "vendor/types/viem/_types/*"
+      ],
+      "@coinbase/wallet-sdk": [
+        "vendor/types/coinbase/dist/index.d.ts"
+      ],
+      "abitype": [
+        "vendor/types/abitype/dist/types/exports/index.d.ts"
+      ],
+      "csstype": [
+        "vendor/types/csstype/index.d.ts"
+      ]
+    }
+  },
+  "include": [
+    "src",
+    "tests"
+  ]
+}

@@ -1,0 +1,30 @@
+--- a/src/mainnet/UnlkImdHook.sol
++++ b/src/mainnet/UnlkImdHook.sol
+@@ -187,8 +187,9 @@
+     // ------------------------------------------------------------------ stage 1
+ 
+     /// @notice Bind once to the official sorted UNLK/IMD key, fee12500 and spacing60.
+-    /// Only the factory may initialize. No companion is read; mainnet service and quote-token
+-    /// identities are verified atomically in the launch transaction before accepting the pool.
++    /// Only the constructor-bound factory may initialize. Binding and seeding need no companions
++    /// or production service attestation. Every setup entry point attests the mainnet services;
++    /// activation repeats that attestation before enabling trading, credits or milestones.
+     function beforeInitialize(address sender, PoolKey calldata key, uint160)
+         external
+         onlyManager
+@@ -202,7 +203,6 @@
+                 || c0 >= c1
+                 || !((c0 == quoteToken && c1 == address(token)) || (c1 == quoteToken && c0 == address(token)))
+         ) revert InvalidPool();
+-        _verifyServices();
+         tokenIs0 = c0 == address(token);
+         bound = true;
+         _key = key;
+@@ -264,6 +264,7 @@
+         if (msg.sender != setupAuthority) revert Unauthorized();
+         if (activated) revert AlreadyActivated();
+         if (keccak256(code) != ReviewedCode.PRICE_SOURCE || args.length != 0) revert InvalidConfig();
++        _verifyServices();
+         at = _create(bytes.concat(code, args), keccak256(abi.encode("price", ++stagings)));
+         stagedPriceSource = at;
+     }

@@ -1,0 +1,107 @@
+[
+  {
+    "package": "react",
+    "version": "19.1.1",
+    "url": "https://registry.npmjs.org/react/-/react-19.1.1.tgz",
+    "archiveSha256": "754c21ed5078d3d211a443c9e4137031ecd72e1725d0ef3d235443c294eea2a5",
+    "licenseFile": "react-19.1.1.txt"
+  },
+  {
+    "package": "react-dom",
+    "version": "19.1.1",
+    "url": "https://registry.npmjs.org/react-dom/-/react-dom-19.1.1.tgz",
+    "archiveSha256": "d72ebd28017f0ccfee96e4c3d9b2f69a0ab8109edfd51f17316a1fd68bd0bdd8",
+    "licenseFile": "react-dom-19.1.1.txt"
+  },
+  {
+    "package": "scheduler",
+    "version": "0.26.0",
+    "url": "https://registry.npmjs.org/scheduler/-/scheduler-0.26.0.tgz",
+    "archiveSha256": "1bbc5d3401d25b848a2a76d4f8f77d99cc95cdff6db054483a7d4067c279d72a",
+    "licenseFile": "scheduler-0.26.0.txt"
+  },
+  {
+    "package": "buffer",
+    "version": "6.0.3",
+    "url": "https://registry.npmjs.org/buffer/-/buffer-6.0.3.tgz",
+    "archiveSha256": "555b6f49224afcf6b2c5a9aea7cd34a7f443f395b10532bc5580022d57aa51f5",
+    "licenseFile": "buffer-6.0.3.txt"
+  },
+  {
+    "package": "ieee754",
+    "version": "1.2.1",
+    "url": "https://registry.npmjs.org/ieee754/-/ieee754-1.2.1.tgz",
+    "archiveSha256": "8ef14b9b397e339db89db97881fb714f49319d8f0eb1275901f45567b28f9dac",
+    "licenseFile": "ieee754-1.2.1.txt"
+  },
+  {
+    "package": "@noble/hashes",
+    "version": "1.8.0",
+    "url": "https://registry.npmjs.org/@noble/hashes/-/hashes-1.8.0.tgz",
+    "archiveSha256": "e8a765d92c04faaccba8776411c5038cb195f812ee629fce07e1d2e6aec80ea0",
+    "licenseFile": "noble_hashes-1.8.0.txt"
+  },
+  {
+    "package": "@noble/curves",
+    "version": "1.9.1",
+    "url": "https://registry.npmjs.org/@noble/curves/-/curves-1.9.1.tgz",
+    "archiveSha256": "182bea65005197c699c41f78ae2ebfbfad47e8bc31aea9f83818de080e262d00",
+    "licenseFile": "noble_curves-1.9.1.txt"
+  },
+  {
+    "package": "@scure/bip32",
+    "version": "1.7.0",
+    "url": "https://registry.npmjs.org/@scure/bip32/-/bip32-1.7.0.tgz",
+    "archiveSha256": "0a459440b75c384be436e9d2b128510e1fd4ed0cb4abe7a31eafcb114c966ca4",
+    "licenseFile": "scure_bip32-1.7.0.txt"
+  },
+  {
+    "package": "@scure/bip39",
+    "version": "1.6.0",
+    "url": "https://registry.npmjs.org/@scure/bip39/-/bip39-1.6.0.tgz",
+    "archiveSha256": "a55b9327570f4558494e3fc75227861a3bdcf1f401cdd9adc98dca617cba020e",
+    "licenseFile": "scure_bip39-1.6.0.txt"
+  },
+  {
+    "package": "ox",
+    "version": "0.9.6",
+    "url": "https://registry.npmjs.org/ox/-/ox-0.9.6.tgz",
+    "archiveSha256": "0acb1acf83defbfb8cb3c99417960249ff4cdf5b9dd43c4e680a853c6f6a67c7",
+    "licenseFile": "ox-0.9.6.txt"
+  },
+  {
+    "package": "isows",
+    "version": "1.0.7",
+    "url": "https://registry.npmjs.org/isows/-/isows-1.0.7.tgz",
+    "archiveSha256": "2505f30cc52bdc04a150ffe42075cc7b9434404e0f91b0b1b0c4ab52db62f46d",
+    "licenseFile": "isows-1.0.7.txt"
+  },
+  {
+    "package": "ws",
+    "version": "8.18.3",
+    "url": "https://registry.npmjs.org/ws/-/ws-8.18.3.tgz",
+    "archiveSha256": "424be604c8e7926fc29a1f067bf2dac256af3bcea62fe30395018bbaf8a9be2a",
+    "licenseFile": "ws-8.18.3.txt"
+  },
+  {
+    "package": "preact",
+    "version": "10.24.2",
+    "url": "https://registry.npmjs.org/preact/-/preact-10.24.2.tgz",
+    "archiveSha256": "feaa22a539eb84591fcaecf8d2b86114421cc6e580fce3756bad4befd18d0772",
+    "licenseFile": "preact-10.24.2.txt"
+  },
+  {
+    "package": "clsx",
+    "version": "1.2.1",
+    "url": "https://registry.npmjs.org/clsx/-/clsx-1.2.1.tgz",
+    "archiveSha256": "46b9e4c79edcfff507f3155b6c2cdc22e17331fb4ebb0994f62f38eccef8a279",
+    "licenseFile": "clsx-1.2.1.txt"
+  },
+  {
+    "package": "eventemitter3",
+    "version": "5.0.1",
+    "url": "https://registry.npmjs.org/eventemitter3/-/eventemitter3-5.0.1.tgz",
+    "archiveSha256": "3188d3a05772c99cf0ccf44f6cd8530bcbaf02ce0addcc47c33f26daff0f952c",
+    "licenseFile": "eventemitter3-5.0.1.txt"
+  }
+]

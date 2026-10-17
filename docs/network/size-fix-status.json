@@ -1,0 +1,126 @@
+{
+  "observedAt": "2026-10-13T10:36:17.854184+00:00",
+  "sources": {
+    "job": "https://api.imd.fun/jobs/672489ef-8304-403f-855c-b9dce583bc31",
+    "launch": "https://api.imd.fun/launches/55d5370e-7256-465c-808f-09ba4cc8ccee?claims=1",
+    "capabilities": "https://api.imd.fun/requests/capabilities",
+    "openapi": "https://api.imd.fun/openapi.json",
+    "documentation": "https://imd.fun/docs/"
+  },
+  "remoteRefs": [
+    "f77cf377f6eb58f05ef9b9c61f36407933d5053a\tHEAD",
+    "f77cf377f6eb58f05ef9b9c61f36407933d5053a\trefs/heads/main"
+  ],
+  "job": {
+    "id": "672489ef-8304-403f-855c-b9dce583bc31",
+    "state": "completed",
+    "paidBy": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9",
+    "delivery": {
+      "repoUrl": "https://github.com/identity-md-launches/launch-1534-unlock",
+      "pullRequestUrl": "https://github.com/identity-md-launches/launch-1534-unlock/pull/1",
+      "commit": "f77cf377f6eb58f05ef9b9c61f36407933d5053a",
+      "deliveredAt": "2026-10-13T09:51:38.707Z",
+      "media": null
+    }
+  },
+  "project": {
+    "head": "672489ef-8304-403f-855c-b9dce583bc31",
+    "running": "0edcb64f-c0cf-4ac9-afed-176758f17cde",
+    "versions": [
+      {
+        "jobId": "672489ef-8304-403f-855c-b9dce583bc31",
+        "state": "completed",
+        "baseCommit": "0243d7da4a4337ae8b16bcdf15bb4ead736fd68f"
+      },
+      {
+        "jobId": "0edcb64f-c0cf-4ac9-afed-176758f17cde",
+        "state": "executing",
+        "baseCommit": "f77cf377f6eb58f05ef9b9c61f36407933d5053a"
+      }
+    ]
+  },
+  "launch": {
+    "id": "55d5370e-7256-465c-808f-09ba4cc8ccee",
+    "launchNumber": 1534,
+    "status": "parked",
+    "chainId": 11155111,
+    "sourceRepoUrl": "https://github.com/identity-md-launches/launch-1534-unlock",
+    "sourceCommit": "f77cf377f6eb58f05ef9b9c61f36407933d5053a",
+    "parkedReason": "bytecode: HookDeployer is 26264 bytes, over the EIP-170 limit",
+    "artifactCount": 0,
+    "manifestHash": "0f6eb08026e955f32ca1cc826b305b47a90bc8609ef5493333a82b775e45381e",
+    "policyVersion": 32,
+    "economics": {
+      "poolBps": 8700
+    },
+    "requester": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9",
+    "admissionChecks": [
+      {
+        "name": "provenance",
+        "detail": "8 node(s) accepted at f77cf377",
+        "status": "passed"
+      },
+      {
+        "name": "findings",
+        "detail": "8 accepted submission(s), no unresolved blocking findings",
+        "status": "passed"
+      },
+      {
+        "name": "independent_review",
+        "detail": "1 independent review(s)",
+        "status": "passed"
+      },
+      {
+        "name": "bytecode",
+        "detail": "HookDeployer is 26264 bytes, over the EIP-170 limit",
+        "status": "failed"
+      },
+      {
+        "name": "manifest",
+        "detail": "UNLK on UnlkHook, flags 0x3fc0",
+        "status": "passed"
+      },
+      {
+        "name": "protected_invariants",
+        "detail": "invariants-3f077c008a26: Suite result: ok. 7 passed; 0 failed; 0 skipped; finished in 2.00ms (2.50ms CPU time)",
+        "status": "passed"
+      },
+      {
+        "name": "economics",
+        "detail": "457 allocation(s), root 0xfe303e52",
+        "status": "passed"
+      }
+    ],
+    "artifacts": [],
+    "allocations": [],
+    "merkleRoot": null,
+    "claims": null,
+    "rewardSnapshot": null
+  },
+  "publicActions": [
+    "job.open",
+    "job.continue",
+    "launch.open",
+    "oracle.request",
+    "workflow.open",
+    "schedule.create",
+    "schedule.topup"
+  ],
+  "openapiPaths": [
+    "/openapi.json",
+    "/requests/capabilities",
+    "/requests/quote",
+    "/requests/{id}",
+    "/requests/{id}/submit"
+  ],
+  "interpretation": "The published source is still the base commit. No public retry/re-admission operation is advertised. job.continue publishes source and does not redeploy. An IMD operator must establish a supported way to re-admit the same parked launch against the accepted, reviewed fix commit; no endpoint is assumed.",
+  "readOnlyRpcAttempt": {
+    "url": "https://ethereum-sepolia-rpc.publicnode.com",
+    "methods": [
+      "eth_chainId",
+      "eth_blockNumber"
+    ],
+    "result": "HTTP 403 Forbidden",
+    "currentOnchainSignerVerified": false
+  }
+}

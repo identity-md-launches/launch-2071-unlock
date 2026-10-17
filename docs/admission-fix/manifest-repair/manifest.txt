@@ -1,0 +1,2 @@
+Mainnet manifest, ten permissions (0x3fcc), pair, token and factory constructors match.
+Notes: 3757/4000 UTF-16 code units.

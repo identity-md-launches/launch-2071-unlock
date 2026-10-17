@@ -1,0 +1,197 @@
+{
+  "note": "WCAG sRGB relative-luminance calculation from final CSS tokens. Opaque page, panel and hover surfaces were confirmed in rendered Chromium inspection. Disabled controls are exempt; artwork grid lines are supplemental.",
+  "checks": [
+    {
+      "foreground": "text",
+      "foregroundHex": "#f4f4f5",
+      "background": "ink",
+      "backgroundHex": "#09090b",
+      "ratio": 18.1,
+      "required": 4.5
+    },
+    {
+      "foreground": "text",
+      "foregroundHex": "#f4f4f5",
+      "background": "surface",
+      "backgroundHex": "#111114",
+      "ratio": 17.149,
+      "required": 4.5
+    },
+    {
+      "foreground": "text",
+      "foregroundHex": "#f4f4f5",
+      "background": "surface-hover",
+      "backgroundHex": "#1c1c21",
+      "ratio": 15.439,
+      "required": 4.5
+    },
+    {
+      "foreground": "text-muted",
+      "foregroundHex": "#a1a1aa",
+      "background": "ink",
+      "backgroundHex": "#09090b",
+      "ratio": 7.763,
+      "required": 4.5
+    },
+    {
+      "foreground": "text-muted",
+      "foregroundHex": "#a1a1aa",
+      "background": "surface",
+      "backgroundHex": "#111114",
+      "ratio": 7.355,
+      "required": 4.5
+    },
+    {
+      "foreground": "text-muted",
+      "foregroundHex": "#a1a1aa",
+      "background": "surface-hover",
+      "backgroundHex": "#1c1c21",
+      "ratio": 6.622,
+      "required": 4.5
+    },
+    {
+      "foreground": "control",
+      "foregroundHex": "#71717a",
+      "background": "ink",
+      "backgroundHex": "#09090b",
+      "ratio": 4.117,
+      "required": 3
+    },
+    {
+      "foreground": "control",
+      "foregroundHex": "#71717a",
+      "background": "surface",
+      "backgroundHex": "#111114",
+      "ratio": 3.9,
+      "required": 3
+    },
+    {
+      "foreground": "control",
+      "foregroundHex": "#71717a",
+      "background": "surface-hover",
+      "backgroundHex": "#1c1c21",
+      "ratio": 3.511,
+      "required": 3
+    },
+    {
+      "foreground": "earned",
+      "foregroundHex": "#34d399",
+      "background": "ink",
+      "backgroundHex": "#09090b",
+      "ratio": 10.349,
+      "required": 4.5
+    },
+    {
+      "foreground": "earned",
+      "foregroundHex": "#34d399",
+      "background": "surface",
+      "backgroundHex": "#111114",
+      "ratio": 9.805,
+      "required": 4.5
+    },
+    {
+      "foreground": "earned",
+      "foregroundHex": "#34d399",
+      "background": "surface-hover",
+      "backgroundHex": "#1c1c21",
+      "ratio": 8.828,
+      "required": 4.5
+    },
+    {
+      "foreground": "target",
+      "foregroundHex": "#fbbf24",
+      "background": "ink",
+      "backgroundHex": "#09090b",
+      "ratio": 11.918,
+      "required": 4.5
+    },
+    {
+      "foreground": "target",
+      "foregroundHex": "#fbbf24",
+      "background": "surface",
+      "backgroundHex": "#111114",
+      "ratio": 11.291,
+      "required": 4.5
+    },
+    {
+      "foreground": "target",
+      "foregroundHex": "#fbbf24",
+      "background": "surface-hover",
+      "backgroundHex": "#1c1c21",
+      "ratio": 10.166,
+      "required": 4.5
+    },
+    {
+      "foreground": "selection",
+      "foregroundHex": "#22d3ee",
+      "background": "ink",
+      "backgroundHex": "#09090b",
+      "ratio": 11.009,
+      "required": 4.5
+    },
+    {
+      "foreground": "selection",
+      "foregroundHex": "#22d3ee",
+      "background": "surface",
+      "backgroundHex": "#111114",
+      "ratio": 10.43,
+      "required": 4.5
+    },
+    {
+      "foreground": "selection",
+      "foregroundHex": "#22d3ee",
+      "background": "surface-hover",
+      "backgroundHex": "#1c1c21",
+      "ratio": 9.391,
+      "required": 4.5
+    },
+    {
+      "foreground": "sell",
+      "foregroundHex": "#f472b6",
+      "background": "ink",
+      "backgroundHex": "#09090b",
+      "ratio": 7.512,
+      "required": 4.5
+    },
+    {
+      "foreground": "sell",
+      "foregroundHex": "#f472b6",
+      "background": "surface",
+      "backgroundHex": "#111114",
+      "ratio": 7.117,
+      "required": 4.5
+    },
+    {
+      "foreground": "sell",
+      "foregroundHex": "#f472b6",
+      "background": "surface-hover",
+      "backgroundHex": "#1c1c21",
+      "ratio": 6.408,
+      "required": 4.5
+    },
+    {
+      "foreground": "error",
+      "foregroundHex": "#f87171",
+      "background": "ink",
+      "backgroundHex": "#09090b",
+      "ratio": 7.192,
+      "required": 4.5
+    },
+    {
+      "foreground": "error",
+      "foregroundHex": "#f87171",
+      "background": "surface",
+      "backgroundHex": "#111114",
+      "ratio": 6.814,
+      "required": 4.5
+    },
+    {
+      "foreground": "error",
+      "foregroundHex": "#f87171",
+      "background": "surface-hover",
+      "backgroundHex": "#1c1c21",
+      "ratio": 6.135,
+      "required": 4.5
+    }
+  ]
+}

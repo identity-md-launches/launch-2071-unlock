@@ -1,0 +1,656 @@
+{
+  "rewardSnapshot": null,
+  "merkleRoot": null,
+  "claims": null,
+  "id": "fa2ea5af-d273-413a-9649-393518faeb6a",
+  "launchNumber": 2064,
+  "kind": "univ4_hook",
+  "status": "parked",
+  "chainId": 1,
+  "sourceRepoUrl": "https://github.com/identity-md-launches/launch-2064-unlock-symbol-unlk-review-adapt-and-depl",
+  "sourceCommit": "b957a835f1cca9eef51a121851e2026fc17ff435",
+  "parkedReason": "protected_invariants: invariants-1088d95c9ece: [FAIL: the hook refused PoolManager.initialize from the launch factory on the launch's pool: name the factory with $factory, and accept the pool it opens (the launch token, the paired currency, the manifest's fee and tick spacing)] test_initializesFromTheLaunchFactory() (gas: 69034); [FAIL: the hook refused PoolManager.initialize from the launch factory on the launch's pool: name the factory with $factory, and accept the pool it opens (the launch token, the paired currency, the manifest's fee and tick spacing)] test_initializesFromTheLaunchFactory() (gas: 69034)",
+  "artifactCount": 0,
+  "manifestHash": "8ce44e5d260bc515d5e33d4261fde981639983155f21014d1ac99c34092662f7",
+  "attestationHash": "86e6e54c4fc981479ee020d0487a0bf0a4aa0fa84bb1cb21bf59a1811862b7cd",
+  "attestation": {
+    "treeHash": "889efe7a5b8a5186533ed6349e5f38eb23bc548f",
+    "verifierVersion": "0.1.0+c3fba9eb",
+    "verifierKey": "68249df1f422fa72f61ca7f0ddaf9b62043959c5c134498441d5e552a9921782",
+    "toolchain": {
+      "solc": "0.8.26",
+      "forge": "forge Version: 1.8.3",
+      "viaIR": false,
+      "optimizer": true,
+      "evmVersion": "cancun",
+      "bytecodeHash": "none",
+      "optimizerRuns": 200
+    },
+    "contracts": [
+      {
+        "name": "HookDeployerV2",
+        "path": "src/candidate/HookDeployerV2.sol",
+        "abiHash": "196317b8e1ce2467bfa7a2ab46967149dbc3f4dadb694cd03bdfa320ef20967d",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "b321a7400611be1ac8d35eb16738378b4b7bf17f7894dfd2c7eaffbe1a79b519",
+        "creationCodeHash": "71e1feb17c1a2a0c06dcfc4f2f6c6e5c22da6284ae464e18f7bac2aa0c8b8094",
+        "deployedCodeHash": "c606090ae4ad0fb2d50a69285faad5d8b0f05127c5129caa24b771f18dee2db1",
+        "creationCodeBytes": 756,
+        "deployedCodeBytes": 728
+      },
+      {
+        "name": "NativeFeeMath",
+        "path": "src/candidate/NativeFeeMath.sol",
+        "abiHash": "518674ab2b227e5f11e9084f615d57663cde47bce1ba168b4c19c7ee22a73d70",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "c3f3334a3388e09e99b84f63e5700002e6ab08d892d85d4c7d6f64409547390e",
+        "creationCodeHash": "03f00af6a2c1e216c5142290f5a7c5a73b7dca9ff4182f298fb7a6b46fc82bef",
+        "deployedCodeHash": "324d2f77e170e519647f21af4dd0b9d0c4677a0d6fe8cd1d41c195a62780eeba",
+        "creationCodeBytes": 94,
+        "deployedCodeBytes": 44
+      },
+      {
+        "name": "NftFeeVault",
+        "path": "src/candidate/NftFeeVault.sol",
+        "abiHash": "a45078958dc319aad2994eee742b73c180cfd09519af07d9ff7f8dfd9cdc447a",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "931d761f534edf0dc0b218d19506ac87cf5272afd7756f4118c79bcb5a8d546c",
+        "creationCodeHash": "4300025b84c35bffcf7f76bb070f83c9c3577c369fe049c75e9ed6670a4cdc2f",
+        "deployedCodeHash": "d9f497f31297c7276e87314abb75b33a4a9d3e822159cd05fda27a114a6fc0a6",
+        "creationCodeBytes": 3420,
+        "deployedCodeBytes": 3127
+      },
+      {
+        "name": "ReviewedCodeV2",
+        "path": "src/candidate/ReviewedCodeV2.sol",
+        "abiHash": "518674ab2b227e5f11e9084f615d57663cde47bce1ba168b4c19c7ee22a73d70",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "7c16ee0c7a42d43fe2e0cf69c68484cb3eabda4e29a4e1a95d98363dbbbd6392",
+        "creationCodeHash": "03f00af6a2c1e216c5142290f5a7c5a73b7dca9ff4182f298fb7a6b46fc82bef",
+        "deployedCodeHash": "324d2f77e170e519647f21af4dd0b9d0c4677a0d6fe8cd1d41c195a62780eeba",
+        "creationCodeBytes": 94,
+        "deployedCodeBytes": 44
+      },
+      {
+        "name": "SetupVerifierV2",
+        "path": "src/candidate/SetupVerifierV2.sol",
+        "abiHash": "a473ac8fac8cdff6aac4d91d3aa3333339197bdef9b38609991d2ae8a32a6bcd",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "58e62d89ed90799f39b2f8b6b24fc66337f98335c88ee10a5af10b79b621f823",
+        "creationCodeHash": "1d2b707426fc748978d84e3ce45337210411e51192c5218f39875586d9999e4c",
+        "deployedCodeHash": "527dd4bc74844d2ffe1cab183787f6ee0c96f01265d337696d9b9b46fb4ddbc1",
+        "creationCodeBytes": 6820,
+        "deployedCodeBytes": 6792
+      },
+      {
+        "name": "UnlkHookV2",
+        "path": "src/candidate/UnlkHookV2.sol",
+        "abiHash": "1782f90724f1ab8a36de7298a1c342554ea2da17bda450b3e7834a195e4b07ab",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "5b71a80d5a8ad5cf462551aac34b2334b3a80667caaf15729dd04160c8983394",
+        "creationCodeHash": "04f2cd5f4370cb10e050afa02a37b642fd8869d66d4c4afc30dc04027b074a2d",
+        "deployedCodeHash": "6d30251557f53b864b3cfd26678e58d2be62b87028d63f6efc13c679919621b9",
+        "creationCodeBytes": 22226,
+        "deployedCodeBytes": 21055
+      },
+      {
+        "name": "UnlkRouterV2",
+        "path": "src/candidate/UnlkRouterV2.sol",
+        "abiHash": "e227924200932820a7f60b5226374d6586cef382b6329365a68d9681a55f0b4d",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "f9cdd89968cda98c88bdd5b82e4f320ecdc81fb52445be8a7a1f53ceddcf5e88",
+        "creationCodeHash": "59c5c69321e9bed98eddced5e8a7c79d133958c12c8f4e09c42e8f1107ed77cb",
+        "deployedCodeHash": "86d65a6e17ed8da907faf958062360b8031814a37b5a4d5a83b80273c174bee5",
+        "creationCodeBytes": 10223,
+        "deployedCodeBytes": 9847
+      },
+      {
+        "name": "HookDeployer",
+        "path": "src/HookDeployer.sol",
+        "abiHash": "1249caf7a371f1f1204ec430a1deca8e0b4c8c2caef50645ef4a857a4e5d7961",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "0d02223a73061700f065b55cc22fc0438f08b7f43577b7ea51fa00a66fe6d746",
+        "creationCodeHash": "71e1feb17c1a2a0c06dcfc4f2f6c6e5c22da6284ae464e18f7bac2aa0c8b8094",
+        "deployedCodeHash": "c606090ae4ad0fb2d50a69285faad5d8b0f05127c5129caa24b771f18dee2db1",
+        "creationCodeBytes": 756,
+        "deployedCodeBytes": 728
+      },
+      {
+        "name": "HookFlags",
+        "path": "src/HookFlags.sol",
+        "abiHash": "518674ab2b227e5f11e9084f615d57663cde47bce1ba168b4c19c7ee22a73d70",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "4a29542b2f80a2e73ac4ae8e335092f52d56d55441d11c25212238f51519808d",
+        "creationCodeHash": "03f00af6a2c1e216c5142290f5a7c5a73b7dca9ff4182f298fb7a6b46fc82bef",
+        "deployedCodeHash": "324d2f77e170e519647f21af4dd0b9d0c4677a0d6fe8cd1d41c195a62780eeba",
+        "creationCodeBytes": 94,
+        "deployedCodeBytes": 44
+      },
+      {
+        "name": "OperationHash",
+        "path": "src/libraries/OperationHash.sol",
+        "abiHash": "518674ab2b227e5f11e9084f615d57663cde47bce1ba168b4c19c7ee22a73d70",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "54b34e21148ab81e360747b49768b2823b3d0a7f4de16a6bd21d9c2ff3913e1e",
+        "creationCodeHash": "03f00af6a2c1e216c5142290f5a7c5a73b7dca9ff4182f298fb7a6b46fc82bef",
+        "deployedCodeHash": "324d2f77e170e519647f21af4dd0b9d0c4677a0d6fe8cd1d41c195a62780eeba",
+        "creationCodeBytes": 94,
+        "deployedCodeBytes": 44
+      },
+      {
+        "name": "ReviewedCode",
+        "path": "src/libraries/ReviewedCode.sol",
+        "abiHash": "518674ab2b227e5f11e9084f615d57663cde47bce1ba168b4c19c7ee22a73d70",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "084ca92470d36acc14bcd7f02bb4ebc771dd88805d91bafe6c6e9ef0fab79855",
+        "creationCodeHash": "03f00af6a2c1e216c5142290f5a7c5a73b7dca9ff4182f298fb7a6b46fc82bef",
+        "deployedCodeHash": "324d2f77e170e519647f21af4dd0b9d0c4677a0d6fe8cd1d41c195a62780eeba",
+        "creationCodeBytes": 94,
+        "deployedCodeBytes": 44
+      },
+      {
+        "name": "SeedDepth",
+        "path": "src/libraries/SeedDepth.sol",
+        "abiHash": "518674ab2b227e5f11e9084f615d57663cde47bce1ba168b4c19c7ee22a73d70",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "51c3b7ec6a59282e3ceca6fc6649be3ffd651b0d0c8a2715a103cc9d6b3f29a4",
+        "creationCodeHash": "03f00af6a2c1e216c5142290f5a7c5a73b7dca9ff4182f298fb7a6b46fc82bef",
+        "deployedCodeHash": "324d2f77e170e519647f21af4dd0b9d0c4677a0d6fe8cd1d41c195a62780eeba",
+        "creationCodeBytes": 94,
+        "deployedCodeBytes": 44
+      },
+      {
+        "name": "SepoliaRelease",
+        "path": "src/libraries/SepoliaRelease.sol",
+        "abiHash": "518674ab2b227e5f11e9084f615d57663cde47bce1ba168b4c19c7ee22a73d70",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "11f88e1313959267f7c7132d1d63e23e6f60144378b4a1a86a1ab9b40baea371",
+        "creationCodeHash": "03f00af6a2c1e216c5142290f5a7c5a73b7dca9ff4182f298fb7a6b46fc82bef",
+        "deployedCodeHash": "324d2f77e170e519647f21af4dd0b9d0c4677a0d6fe8cd1d41c195a62780eeba",
+        "creationCodeBytes": 94,
+        "deployedCodeBytes": 44
+      },
+      {
+        "name": "BlockState",
+        "path": "src/mainnet/BlockState.sol",
+        "abiHash": "a0ad00ad2aa6966c0d0451f7384a9833f89a2413f0b19aab670002b006801834",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "4b6bb295ad7b75e114a168a3988078db510b1fb4426a6f667cb45c3d89aa4969",
+        "creationCodeHash": "03f00af6a2c1e216c5142290f5a7c5a73b7dca9ff4182f298fb7a6b46fc82bef",
+        "deployedCodeHash": "324d2f77e170e519647f21af4dd0b9d0c4677a0d6fe8cd1d41c195a62780eeba",
+        "creationCodeBytes": 94,
+        "deployedCodeBytes": 44
+      },
+      {
+        "name": "ImdFeeVault",
+        "path": "src/mainnet/ImdFeeVault.sol",
+        "abiHash": "d447c3367a69b394601a24d311a03348d0575b50370fd32ee3397fdf3a9bc9b5",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "ff44c9ad0b846d214cee9ac0a3ee2770d101e489af89c1be55b672cd6051d987",
+        "creationCodeHash": "545f07cb05390eb2448a33bdb834922490ce1943711ad9c00b5a64334d784526",
+        "deployedCodeHash": "92ca6dabe3736e6fa31c7b94cb4ccdaea217b3c3b250345502a8eb0fce72463f",
+        "creationCodeBytes": 4639,
+        "deployedCodeBytes": 4196
+      },
+      {
+        "name": "ImdReviewedCode",
+        "path": "src/mainnet/ImdReviewedCode.sol",
+        "abiHash": "518674ab2b227e5f11e9084f615d57663cde47bce1ba168b4c19c7ee22a73d70",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "347c5befdd43324b3a794612d0d256e4c2333e85b0a09b9480ca094ad41205a2",
+        "creationCodeHash": "03f00af6a2c1e216c5142290f5a7c5a73b7dca9ff4182f298fb7a6b46fc82bef",
+        "deployedCodeHash": "324d2f77e170e519647f21af4dd0b9d0c4677a0d6fe8cd1d41c195a62780eeba",
+        "creationCodeBytes": 94,
+        "deployedCodeBytes": 44
+      },
+      {
+        "name": "ImdSampledUsdSource",
+        "path": "src/mainnet/ImdSampledUsdSource.sol",
+        "abiHash": "1c4bb8e885445aaa388421e69af75c2c6252e272843dea4dd74216f9110eb89e",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "cb0038d7344541b55182d5e02567cb75ce29f4db6ed4a05b1c0453348c9b23ae",
+        "creationCodeHash": "cc41e96f4df03749101cba4c0ea0f1b19b8504147e5adfa3da5654ae07123760",
+        "deployedCodeHash": "6abe1cc73f4ccaeed5a8974178c10ae5961146b446ef6a63e0e82623cb7d6c53",
+        "creationCodeBytes": 6677,
+        "deployedCodeBytes": 6649
+      },
+      {
+        "name": "ImdSeedDepth",
+        "path": "src/mainnet/ImdSeedDepth.sol",
+        "abiHash": "518674ab2b227e5f11e9084f615d57663cde47bce1ba168b4c19c7ee22a73d70",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "3836d092db176a7d6df2fc2a615c4a1131b1b15901583f386ddf636a4ff6a8dc",
+        "creationCodeHash": "03f00af6a2c1e216c5142290f5a7c5a73b7dca9ff4182f298fb7a6b46fc82bef",
+        "deployedCodeHash": "324d2f77e170e519647f21af4dd0b9d0c4677a0d6fe8cd1d41c195a62780eeba",
+        "creationCodeBytes": 94,
+        "deployedCodeBytes": 44
+      },
+      {
+        "name": "ImdSetupVerifier",
+        "path": "src/mainnet/ImdSetupVerifier.sol",
+        "abiHash": "a473ac8fac8cdff6aac4d91d3aa3333339197bdef9b38609991d2ae8a32a6bcd",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "a38a7551e307280cbb16bba69fe3bc8c67f0e0abb3fe41127ec762a07cd6c0c5",
+        "creationCodeHash": "c4371041dde369148c36abba9e99ee1da4d5d04fefc1f94eceff9b43e87da825",
+        "deployedCodeHash": "e7c0eb2fa1f1294121379b405830bac3aa4fb4905d60ea93559b28c5f8e8596c",
+        "creationCodeBytes": 7263,
+        "deployedCodeBytes": 7235
+      },
+      {
+        "name": "ImdSpotMath",
+        "path": "src/mainnet/ImdSpotMath.sol",
+        "abiHash": "518674ab2b227e5f11e9084f615d57663cde47bce1ba168b4c19c7ee22a73d70",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "9ffa8e24ee13a919b92d64903599e2d183c730f64da3b6e54edb4bd71a3d1557",
+        "creationCodeHash": "03f00af6a2c1e216c5142290f5a7c5a73b7dca9ff4182f298fb7a6b46fc82bef",
+        "deployedCodeHash": "324d2f77e170e519647f21af4dd0b9d0c4677a0d6fe8cd1d41c195a62780eeba",
+        "creationCodeBytes": 94,
+        "deployedCodeBytes": 44
+      },
+      {
+        "name": "ImdSpotUsdSource",
+        "path": "src/mainnet/ImdSpotUsdSource.sol",
+        "abiHash": "9f9aae8b2733f14773a352f4562f5b73aa06333350499245f05feca68ad5ef06",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "6a340785338d96600eaea7c2f22d2b5bb32ea3fd7ebcdac72abe187c65527785",
+        "creationCodeHash": "e7b1f5414585af1da7b6c2f98428b84f42e1032dad4d9b4719f108459e4dfcef",
+        "deployedCodeHash": "9def905ccf4ef59005f68ac299ae481bc2cc97bd6ada0659bf7027a71eea61e0",
+        "creationCodeBytes": 3208,
+        "deployedCodeBytes": 3180
+      },
+      {
+        "name": "ImdUsdSource",
+        "path": "src/mainnet/ImdUsdSource.sol",
+        "abiHash": "4522ddea9a83b4e956b1f2b6ae2e50517df75c765673a60917f0444a958090f1",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "db000fedba3535ec9425c9c3a2b04704235467962b6e2d5575ff7ed3aaeb5822",
+        "creationCodeHash": "1b0e2385f02578597e6d729a571419c87f3572d03cc7d35f119aa8a8ca9020fc",
+        "deployedCodeHash": "e242b90bdbe5bef09f35752d52dc4961e7024498e4f404539828712e131b313a",
+        "creationCodeBytes": 5905,
+        "deployedCodeBytes": 5533
+      },
+      {
+        "name": "ImdV4UsdSource",
+        "path": "src/mainnet/ImdV4UsdSource.sol",
+        "abiHash": "d727ed87e29bdaa49d22e9509bc5fe48b5b1d34d7d2a49e29affac6e4cc1422a",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "bef91b485522894d48b535c30758807852c7622d64977b0a89cdef5e4ee65c13",
+        "creationCodeHash": "491923a78651b19d12ee6726ce52944f9483c48cdd792b865bc141bf7424c201",
+        "deployedCodeHash": "f715cbf559302b8f41995eecc22737d9c3135ae82e7862964dba9cf9ac06a296",
+        "creationCodeBytes": 11619,
+        "deployedCodeBytes": 11569
+      },
+      {
+        "name": "MainnetPins",
+        "path": "src/mainnet/MainnetPins.sol",
+        "abiHash": "518674ab2b227e5f11e9084f615d57663cde47bce1ba168b4c19c7ee22a73d70",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "080c2b5956f96f973fe5bbaaa6a362f1f4390b9bfa750179e50839c3ea2ba259",
+        "creationCodeHash": "03f00af6a2c1e216c5142290f5a7c5a73b7dca9ff4182f298fb7a6b46fc82bef",
+        "deployedCodeHash": "324d2f77e170e519647f21af4dd0b9d0c4677a0d6fe8cd1d41c195a62780eeba",
+        "creationCodeBytes": 94,
+        "deployedCodeBytes": 44
+      },
+      {
+        "name": "StateProof",
+        "path": "src/mainnet/StateProof.sol",
+        "abiHash": "4cef1b55ccbef92a46bf7cc7a99dfcfdb2d530b7fa6fff0489c4a17259a191be",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "08a7a0ddd2a94463263a714f35d532a21752528a2a51b33660cb0e73a2c97240",
+        "creationCodeHash": "03f00af6a2c1e216c5142290f5a7c5a73b7dca9ff4182f298fb7a6b46fc82bef",
+        "deployedCodeHash": "324d2f77e170e519647f21af4dd0b9d0c4677a0d6fe8cd1d41c195a62780eeba",
+        "creationCodeBytes": 94,
+        "deployedCodeBytes": 44
+      },
+      {
+        "name": "UnlkImdHook",
+        "path": "src/mainnet/UnlkImdHook.sol",
+        "abiHash": "e7d8521411b78586ec9b2edcd975d0a845548fa9ca4915aa6a6919e5f7f63ebb",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "e1c1f9d79542a31c225b58b69ba8d51427d8737e841ae97cc05cbafb1dd2be8a",
+        "creationCodeHash": "e0beb313f07d85c68d34ef716600de030fa68b4df907aafc4298f019860df095",
+        "deployedCodeHash": "e0c36e22b19460bc59212f497a177cff74470c5ac67aef0ea59e49fb53cb637f",
+        "creationCodeBytes": 22156,
+        "deployedCodeBytes": 20957
+      },
+      {
+        "name": "UnlkImdOracle",
+        "path": "src/mainnet/UnlkImdOracle.sol",
+        "abiHash": "b3a9c1cbe49c3d4740b75baaace5cb9de95fe3e3961ad56c2036d974702cfe58",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "0033adb89a218f963e22bf05a80f14a2ccdf4b684b673863fe9ff61106de2603",
+        "creationCodeHash": "df29287fe351afea53481169bf135cefd0cf14ad5a361b3df9bf7d6c7344aca2",
+        "deployedCodeHash": "038baee03f1c42c75c59a32a06a695cebf3b2f1fd413aae229a3c074462b2130",
+        "creationCodeBytes": 7371,
+        "deployedCodeBytes": 6996
+      },
+      {
+        "name": "WalletExecutor",
+        "path": "src/mainnet/WalletExecutor.sol",
+        "abiHash": "6ce527eba443ba3b9767c33e95b501cfde5ef4169e2468b0a3e8f780eb484b45",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "4447e9e6d3c977660ad09395b6db23dca8e5fb2448cc7e7026485f077222f96d",
+        "creationCodeHash": "9acba1668eb88661d7489872a73e902e297383089744a76c511e1d83720122e0",
+        "deployedCodeHash": "329133b7ac85c8028092934e89edd09f6ea235319c6aa7e72943bf8fc1b29aac",
+        "creationCodeBytes": 4880,
+        "deployedCodeBytes": 4576
+      },
+      {
+        "name": "MerkleClaimEvidence",
+        "path": "src/MerkleClaimEvidence.sol",
+        "abiHash": "1a589708ddb07d31a067ffd84b26dc5538d91d22249cfc123bc36859f4930217",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "2668b91fedc94dba5bd820fff299838692401344b3ad47b051f29b6507041ae7",
+        "creationCodeHash": "0e19b93cf4e406e2e314e1d0096790a4c37d580834c72bca0484cb1982c87113",
+        "deployedCodeHash": "84b198a923eca53df6fff6715027c89046b1a14c471a0e5c1d78d7b04d5ce1fe",
+        "creationCodeBytes": 5943,
+        "deployedCodeBytes": 5675
+      },
+      {
+        "name": "SuccessorFeeMath",
+        "path": "src/successor/SuccessorFeeMath.sol",
+        "abiHash": "518674ab2b227e5f11e9084f615d57663cde47bce1ba168b4c19c7ee22a73d70",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "c7a46aeeb2c51eca4205292bcd7ed624cec61274820c8d7a0f32adfb6f7c882e",
+        "creationCodeHash": "03f00af6a2c1e216c5142290f5a7c5a73b7dca9ff4182f298fb7a6b46fc82bef",
+        "deployedCodeHash": "324d2f77e170e519647f21af4dd0b9d0c4677a0d6fe8cd1d41c195a62780eeba",
+        "creationCodeBytes": 94,
+        "deployedCodeBytes": 44
+      },
+      {
+        "name": "UnlkHookV3",
+        "path": "src/successor/UnlkHookV3.sol",
+        "abiHash": "277f2800e5faaa0bdf1ecd5dbd01ec87e82d61363cd64a844cf419506707a472",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "0f8a70267d8385f3c9e7e46f0bbc1151798a43fa97e9eba479eda5e7ccde585e",
+        "creationCodeHash": "85286714a4e38f140f8d2598ffaf109118835748b7d5c3a65964132be2378570",
+        "deployedCodeHash": "7f65685507cee8846fa520c6fe5f08551a32fe49e604f1d0dbf6d90568092389",
+        "creationCodeBytes": 21699,
+        "deployedCodeBytes": 20542
+      },
+      {
+        "name": "UnlkHook",
+        "path": "src/UnlkHook.sol",
+        "abiHash": "bfd57f612b9ff42c1a82d59c9eef79c32fe99adb0d498244b23a30c968a08312",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "72394c3004d68c8940e0f78929472c48a9d3fa862cbe62b6e4faf7a6e276b614",
+        "creationCodeHash": "1e5ea98995bd91262452ad1a8512eae97e9a02a05920b89f839d440a05f8dd2d",
+        "deployedCodeHash": "8ceb1cda0c37d2ae3468f6c51d9f2be376ad9dbe354df6d8ca87b34d76587452",
+        "creationCodeBytes": 25726,
+        "deployedCodeBytes": 24359
+      },
+      {
+        "name": "UnlkOracle",
+        "path": "src/UnlkOracle.sol",
+        "abiHash": "f220ea6f4cb1ff5b416f48df719ec6213ee6438f3ae2008722515e994505c0f9",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "dd17008905f26dc14c15208545f0de8477b0d174ecabe74fc5e9fd84a94624f7",
+        "creationCodeHash": "824e95f2cea0b9ee1b6a222df8472c75808c64f44969768332d114c078eae897",
+        "deployedCodeHash": "643fa9e4d0c4cc8c71990a70e0c3063005b61c8443a811138ab8835225dc79b3",
+        "creationCodeBytes": 7857,
+        "deployedCodeBytes": 7517
+      },
+      {
+        "name": "UnlkSwapRouter",
+        "path": "src/UnlkSwapRouter.sol",
+        "abiHash": "11f9f0a03043c7134eb42d408eb9f68ef4617cffa17befdc879745f75c2f3f49",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "beaa78584665205354500980c21688eb038025556d9e8469ac57540653d9858e",
+        "creationCodeHash": "68dfbfa49b0d0140c963870ece6b83a375b00eaeddd64259ad1759ceb3a153c1",
+        "deployedCodeHash": "0d01571d78ec181f72452efd10b46ac5e5e0a83ef0ce63c7c106c4d5f18f3c77",
+        "creationCodeBytes": 9186,
+        "deployedCodeBytes": 8831
+      },
+      {
+        "name": "UnlkToken",
+        "path": "src/UnlkToken.sol",
+        "abiHash": "2754d38e745fac0c7dac78119f2a1f7516e00f246098b348e9eed03ede16d19a",
+        "opcodes": {
+          "callcode": false,
+          "delegatecall": false,
+          "selfdestruct": false
+        },
+        "metadataHash": "8a64711c058bdcadce1dd2924cefc56ed04d7b39242395a2ee261fc274941708",
+        "creationCodeHash": "0ab695920f28775428475ff223b1c3e500d89a61f300ef39d4e7d091bb1d94d8",
+        "deployedCodeHash": "c617bd6158c9cd2c0b13fa548c6c6d2138363631df71bfefadf7c8160c8a03d6",
+        "creationCodeBytes": 3444,
+        "deployedCodeBytes": 2320
+      }
+    ],
+    "manifest": {
+      "hook": {
+        "contract": "UnlkImdHook",
+        "permissions": [
+          "beforeInitialize",
+          "afterInitialize",
+          "beforeAddLiquidity",
+          "afterAddLiquidity",
+          "beforeRemoveLiquidity",
+          "afterRemoveLiquidity",
+          "beforeSwap",
+          "afterSwap",
+          "beforeSwapReturnDelta",
+          "afterSwapReturnDelta"
+        ],
+        "constructorArgs": [
+          "$poolManager",
+          "$token",
+          "$factory",
+          "$owner"
+        ]
+      },
+      "kind": "univ4_hook",
+      "pool": {
+        "fee": 12500,
+        "tickSpacing": 60,
+        "initialPrice": "79228162514264337593543950336",
+        "pairedCurrency": "0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7"
+      },
+      "notes": "NEW Ethereum mainnet UNLOCK/UNLK launch; this is a technical manifest, not deployment approval or policy configuration. Source: https://github.com/identity-md-launches/launch-1838-uniswap-v4-hook-code at 3b29fd1d044fb16bbe1595ddacf7ec4efbfdd8fa, with accepted adaptations preserved. Archived import/payment evidence in docs/mainnet/release/network binds repoUrl/baseCommit and identifies payer/owner as 0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9; revalidate actual release records. Existing Sepolia deployment is preserved; no website publication. UnlkImdHook has four constructor words in the listed order and ten permissions (0x3fcc). Both initialization callbacks are PoolManager-only; beforeInitialize accepts only the launch factory and binds the sorted UNLK/IMD PoolKey once at fee12500, spacing60. Factory creates UnlkToken, enforcing hook and native distributor, initializes the pool and locks seed principal. Fixed 1B supply, 18 decimals, minted once to factory; policy allocates 10% swarm/87% pool/3% payer with seed rounding. The required nominal initialPrice is 1:1; factory opening price derives from the policy's 2500 IMD whole-supply cap and actual token ordering. Collected LP fees split 80% payer/20% IMD distribution (1%/0.25% at zero core protocol fee); core protocol fees can increase effective trade fees without stopping swaps or gates. Extra fixed 75bps of executed IMD accrues as IMD claims to the immutable treasury beneficiary, the same named wallet. NFT buying remains manual; no automated purchases or burns. Stateless ImdSpotUsdSource: UNLK/USD = official UNLK/IMD spot * verified existing IMD/native-ETH spot * validated Chainlink ETH/USD; FDV uses fixed 1B supply. Chain/code, PoolKey, currency/decimal, liquidity and feed-freshness checks remain. No sample(), keeper, observation windows, recurring recording transactions or warm-up. Invalid references withhold only new gates after activation; otherwise valid trading, ordinary transfers and native claims independent of synchronization remain available. Quota=max(0,floor(matureE*p/10000)-S); standard Universal Router initiator accounting, one-block buy maturity and cumulative E/S preserve prior sales: 1000 acquired, 200 sold at20%, then30% permits only100 more. Initial20%; USD FDV gates100K:25%,250K:30%,500K:35%,1M:40%,2M:45%,3.5M:50%,5M:55%,7.5M:60%,10M:65%,15M:70%,20M:75%,25M:80%,30M:85%,35M:90%,40M:95%;50M permanently bypasses quotas for ALL holders. A valid touch observed after a swap or at checkpoint opens the highest crossed gate permanently, without confirmation or relocking. Accepted risks remain disclosed/tested: mature shared-executor quota pooling and manipulation of either pool, including same-transaction/flash external reference manipulation, can open all gates permanently; these are not fixed. Stage1 alone means pool deployed/trading inactive. Before broadcast, establish the supported factory release service and executable owner-signed stage2, re-mine flags/salt against final initcode and real addresses, and rehearse the actual native round0 tree. Owner calls deployPriceSource for ImdSpotUsdSource, deployCompanions, tree certification, then configureAndActivate atomically with valid current price. Setup then seals; no upgrades, pauses, resets, exemptions or later rule changes. PrepareOwnerTransactions supplies wallet envelopes once real release identities/tree are available. Release record reports missing protected harness, pending mandatory platform panel, publication/attestation and actual release inputs; supplemental reviews and fork simulations are not deployment evidence. No new mainnet addresses, transactions, PoolId, explorer verification or sealed-setup evidence are claimed. See docs/mainnet/SPOT_PRICE.md and docs/mainnet/release/STATUS.json.",
+      "token": {
+        "name": "UNLOCK",
+        "symbol": "UNLK",
+        "contract": "UnlkToken",
+        "decimals": 18
+      }
+    },
+    "manifestError": null
+  },
+  "attestationFailure": null,
+  "deployFailure": null,
+  "policyVersion": 34,
+  "economics": {
+    "poolBps": 8700,
+    "remainderTo": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9"
+  },
+  "poolFee": null,
+  "requester": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9",
+  "admissionChecks": [
+    {
+      "name": "provenance",
+      "detail": "9 node(s) accepted at b957a835",
+      "status": "passed"
+    },
+    {
+      "name": "findings",
+      "detail": "9 accepted submission(s), no unresolved blocking findings",
+      "status": "passed"
+    },
+    {
+      "name": "independent_review",
+      "detail": "1 independent review(s)",
+      "status": "passed"
+    },
+    {
+      "name": "bytecode",
+      "detail": "35 contract(s) clean and reproducible",
+      "status": "passed"
+    },
+    {
+      "name": "manifest",
+      "detail": "UNLK on UnlkImdHook, flags 0x3fcc",
+      "status": "passed"
+    },
+    {
+      "name": "protected_invariants",
+      "detail": "invariants-1088d95c9ece: [FAIL: the hook refused PoolManager.initialize from the launch factory on the launch's pool: name the factory with $factory, and accept the pool it opens (the launch token, the paired currency, the manifest's fee and tick spacing)] test_initializesFromTheLaunchFactory() (gas: 69034); [FAIL: the hook refused PoolManager.initialize from the launch factory on the launch's pool: name the factory with $factory, and accept the pool it opens (the launch token, the paired currency, the manifest's fee and tick spacing)] test_initializesFromTheLaunchFactory() (gas: 69034)",
+      "status": "failed"
+    },
+    {
+      "name": "economics",
+      "detail": "460 allocation(s), root 0xd77079b4",
+      "status": "passed"
+    }
+  ],
+  "assurances": [],
+  "logo": null,
+  "seeded": null,
+  "createdAt": "2026-10-17T09:24:37.878Z",
+  "updatedAt": "2026-10-17T09:25:28.992Z",
+  "jobs": [
+    {
+      "id": "ee48c6c5-0118-4efc-94cd-07d5d2dce2b7",
+      "objective": "Token name: UNLOCK. Symbol: UNLK. Review, adapt and DEPLOY a new Ethereum mainnet UNLK/IMD launch from the existing source. onchain=univ4_hook, chainId=1, pairWith=imd, poolBps=8700. This is a NEW LAUNCH, not job.continue or code-only. No website publication in this task. Preserve the old Sepolia deployment.\n\nSOURCE: https://github.com/identity-md-launches/launch-1838-uniswap-v4-hook-code\nBase commit: 3b29fd1d044fb16bbe1595ddacf7ec4efbfdd8fa\nLatest source job: 67368721-0842-4a73-9edd-0177c5799e60.\nUse supported repository import and bind repoUrl/baseCommit in the actual request. Run audit-imported-code, adapt-contract-project and the required independent audit panel. Preserve history and all accepted fixes; do not restart from an older candidate. docs/mainnet/SPOT_PRICE.md supersedes historical sampler instructions.\n\nPRICE: Use the implemented stateless ImdSpotUsdSource. UNLK/USD = official UNLK/IMD spot * verified existing IMD/ETH spot * validated Chainlink ETH/USD. FDV uses the fixed 1B supply. NO 48h warm-up, sample(), keeper, observation windows or recurring recording transactions. Retain chain/code/PoolKey/currency/decimal/liquidity and feed-freshness checks. Invalid references block new gates only, not otherwise valid trading or native claims.\n\nECONOMICS: UNLOCK/UNLK,1B tokens,18 decimals,minted once to factory,10% swarm/87% pool/3% payer. Official pool fee1.25% retains1% payer/0.25% IMD distribution. Extra fixed0.75% fee accrues in IMD to the treasury. Immutable treasury beneficiary and intended payer/setup wallet: 0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9. Verify actual payer/owner records. NFT buying remains manual; no automated purchases or burns.\n\nGATES: initial20%; $100K25%,250K30%,500K35%,1M40%,2M45%,3.5M50%,5M55%,7.5M60%,10M65%,15M70%,20M75%,25M80%,30M85%,35M90%,40M95%. At $50M permanently bypass quotas for ALL holders. Valid instantaneous touches open the highest crossed gate permanently; no confirmation wait or relocking. Preserve cumulative mature E/S and prior sales:1000 acquired,200 sold at20%,then30% allows only100 more. Preserve one-block buy maturity, standard-router initiator semantics, ordinary transfers, native claims independent of synchronization and principal protection. No upgrades,pauses,resets,exemptions or later rule changes.\n\nEXPLICIT RISK ACCEPTANCE: The requester accepts mature shared-executor quota pooling AND manipulation of either pool, including same-transaction/flash manipulation of the external IMD reference, opening gates early and permanently up to the final bypass. Retain disclosures/tests and reassess under this intended design. These risks are not claimed fixed; unrelated defects and mandatory platform checks are not waived.\n\nRELEASE: Rebuild the pinned source, refresh final ABIs/artifacts, verify all sizes, independently review the new spot source and run protected admission plus an actual recorded-block factory/router/setup rehearsal. Generate the correct mainnet manifest and remine hook flags/salt against final initcode. No stale manifest or synthetic release inputs.\n\nBefore stage1, establish the exact supported factory release service and executable owner-signed stage2 path. Factory creates token,hook,distributor and official pool with the enforcing hook from initialization. Then stage ImdSpotUsdSource, deploy companions, certify the actual native round0 tree, and configureAndActivate atomically when current price is valid. No time-based warm-up. If owner signatures are required, deliver a wallet-ready transaction sequence with verified targets,calldata,chain and expected effects; never request private keys. Do not broadcast stage1 without an executable stage2 path.\n\nDELIVER: published source commit, review/test results and skips, actual mainnet addresses, explorer links, transactions, PoolKey/PoolId, source-verification status and sealed-setup evidence. Validate real standard-router buy/sell paths, quota failures, fees, claims and principal; label simulations separately. Stage1 alone means pool deployed/trading inactive. Identify exact policy rejections or missing operations without fabricating success.",
+      "state": "completed",
+      "attachedAt": "2026-10-17T09:24:37.878Z"
+    }
+  ],
+  "artifacts": [],
+  "allocations": []
+}

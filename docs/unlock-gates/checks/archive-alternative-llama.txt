@@ -1,0 +1,3 @@
+Read-only archive probe: canonical IMD decimals() at Ethereum block26204722 via https://eth.llamarpc.com
+FAIL: HTTP525 SSL handshake failed; chain ID could not be retrieved.
+The provider HTML diagnostic body is omitted because it includes transport identifying metadata.

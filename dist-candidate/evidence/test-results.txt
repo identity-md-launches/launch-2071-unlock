@@ -1,0 +1,206 @@
+Compiling 114 files with Solc 0.8.26
+Solc 0.8.26 finished in 12.34s
+Compiler run successful with warnings:
+Warning (5159): "selfdestruct" has been deprecated. Note that, starting from the Cancun hard fork, the underlying opcode no longer deletes the code and data associated with an account and only transfers its Ether to the beneficiary, unless executed in the same transaction in which the contract was created (see EIP-6780). Any use in newly deployed contracts is strongly discouraged even if the new behavior is taken into account. Future changes to the EVM might further reduce the functionality of the opcode.
+  --> test/NativeCustodyInvariants.t.sol:15:9:
+   |
+15 |         selfdestruct(recipient);
+   |         ^^^^^^^^^^^^
+
+Warning (2018): Function state mutability can be restricted to view
+   --> src/UnlkHook.sol:209:5:
+    |
+209 |     function afterInitialize(address, PoolKey calldata key, uint160, int24)
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 11 tests for test/NativeLaunch.t.sol:NativeWithdrawalTest
+[PASS] testDeepNativePoolWarmsUpAndCanUnlock() (gas: 136095725)
+[PASS] testNativeBatchSettlement() (gas: 870289)
+[PASS] testNativeBuySellAndFeeDistribution() (gas: 1127528)
+[PASS] testNativeExactOutputRefundToAuthenticatedCaller() (gas: 453473)
+[PASS] testNativeSettlementResetsPriorSyncCurrency() (gas: 605836)
+[PASS] testNativeValueMismatchAndUnsolicitedSendRejected() (gas: 91930)
+[PASS] testNativeWithdrawalUsesCEIAndCannotDoubleWithdraw() (gas: 996338)
+[PASS] testOneSidedOpeningLocks87PercentWithoutEthFunding() (gas: 62586)
+[PASS] testOtherWalletCannotWithdrawNativeRefund() (gas: 461374)
+[PASS] testRejectingNativeWalletCanTradeAndRetryWithdrawal() (gas: 1074660)
+[PASS] testThinLaunchCannotUnlockFromInitialSpotOrTinyBuy() (gas: 29940461)
+Suite result: ok. 11 passed; 0 failed; 0 skipped; finished in 177.76ms (107.65ms CPU time)
+
+Ran 17 tests for test/Oracle.t.sol:OracleTest
+[PASS] testBadChainlinkRoundsAndAnswersFailClosed() (gas: 2352246)
+[PASS] testConfirmationGapRestartsRatherThanCountingUnobservedTime() (gas: 14857451)
+[PASS] testEveryTierAndPermanentUnlock() (gas: 136512808)
+[PASS] testFallingPricesNeverLowerReachedTier() (gas: 29259665)
+[PASS] testInvalidDataCannotCountTowardPendingConfirmationOrRevokeRights() (gas: 15083422)
+[PASS] testInvalidDataLongerThanGapRestartsOnNextValidCall() (gas: 694951)
+[PASS] testLongInvalidIntervalRestartsWhetherObservedOrNot() (gas: 807692)
+[PASS] testNegativeTickAveragesRoundConservativelyForBothOrders() (gas: 769389)
+[PASS] testObservedAndUnobservedInvalidIntervalsAgree() (gas: 29667292)
+[PASS] testOneBlockSpikeCannotConfirm() (gas: 740812)
+[PASS] testOracleCannotBeReboundOrConfiguredByAnyone() (gas: 73530)
+[PASS] testRealFeedCadenceCannotBeUsedToResetConfirmation() (gas: 18790257)
+[PASS] testSameTimestampManipulationHasNoTimeWeight() (gas: 760132)
+[PASS] testStaleCheckpointAndFeedPreventNewTierButNotTrades() (gas: 1332186)
+[PASS] testSustainedManipulationRequiresWindowAndConfirmation() (gas: 15128037)
+[PASS] testThresholdMappingBoundaries() (gas: 69776)
+[PASS] testWarmupAndExactWindow() (gas: 400906)
+Suite result: ok. 17 passed; 0 failed; 0 skipped; finished in 184.56ms (154.00ms CPU time)
+
+Ran 2 tests for test/QuotaInvariants.t.sol:QuotaInvariantTest
+[PASS]
+QuotaInvariantTest invariants:
+[PASS] invariant_configurationSealedAndRouteEnforced
+[PASS] invariant_ledgerMatchesExecutedDeltas
+[PASS] invariant_milestonesMonotonicAndConsistent
+[PASS] invariant_principalLockedAndFeeTermsFixed
+[PASS] invariant_routerNativeSolvency
+[PASS] invariant_salesNeverExceedQuota
+[PASS] invariant_supplyConservedAndNoCustody
+ QuotaInvariantTest invariants (runs: 96, calls: 5760, reverts: 0)
+
+╭--------------+-----------------+-------+---------+----------╮
+| Contract     | Selector        | Calls | Reverts | Discards |
++=============================================================+
+| QuotaHandler | advance         | 352   | 0       | 0        |
+|--------------+-----------------+-------+---------+----------|
+| QuotaHandler | buyExactIn      | 327   | 0       | 0        |
+|--------------+-----------------+-------+---------+----------|
+| QuotaHandler | buyExactOut     | 340   | 0       | 0        |
+|--------------+-----------------+-------+---------+----------|
+| QuotaHandler | claimAndAttest  | 387   | 0       | 0        |
+|--------------+-----------------+-------+---------+----------|
+| QuotaHandler | claimFees       | 386   | 0       | 0        |
+|--------------+-----------------+-------+---------+----------|
+| QuotaHandler | directSwap      | 337   | 0       | 0        |
+|--------------+-----------------+-------+---------+----------|
+| QuotaHandler | donate          | 360   | 0       | 0        |
+|--------------+-----------------+-------+---------+----------|
+| QuotaHandler | foreignActivate | 356   | 0       | 0        |
+|--------------+-----------------+-------+---------+----------|
+| QuotaHandler | sellExactOut    | 339   | 0       | 0        |
+|--------------+-----------------+-------+---------+----------|
+| QuotaHandler | sellOverQuota   | 389   | 0       | 0        |
+|--------------+-----------------+-------+---------+----------|
+| QuotaHandler | sellWithinQuota | 715   | 0       | 0        |
+|--------------+-----------------+-------+---------+----------|
+| QuotaHandler | setFeed         | 351   | 0       | 0        |
+|--------------+-----------------+-------+---------+----------|
+| QuotaHandler | sync            | 389   | 0       | 0        |
+|--------------+-----------------+-------+---------+----------|
+| QuotaHandler | transfer        | 364   | 0       | 0        |
+|--------------+-----------------+-------+---------+----------|
+| QuotaHandler | withdrawNative  | 368   | 0       | 0        |
+╰--------------+-----------------+-------+---------+----------╯
+
+[PASS] testHandlerActionsActuallyExecute() (gas: 23822211)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 3.85s (3.81s CPU time)
+
+Ran 4 tests for test/SeedBoundary.t.sol:SeedBoundaryTest
+[PASS] testBuyLimitIsBoundedByTheSeedFloor() (gas: 390660)
+[PASS] testLimitsInsideTheRangeAreHonoured() (gas: 771508)
+[PASS] testSellIntoAnEmptyReserveRevertsWithoutState() (gas: 394827)
+[PASS] testSellThatDrainsTheReserveStopsAtTheSeedBoundary() (gas: 1586847)
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 45.87ms (3.05ms CPU time)
+
+Ran 9 tests for test/Trading.t.sol:TradingTest
+[PASS] testAnotherWalletCannotConsumeVictimsAllowanceOrQuota() (gas: 472208)
+[PASS] testDirectManagerAndForeignRouterSpoofingRejected() (gas: 644028)
+[PASS] testDonatedRouterBalancesCannotCreateCreditOrBeSwept() (gas: 497543)
+[PASS] testExactOutputSaleAccountsActualInput() (gas: 735195)
+[PASS] testExcessSaleRollsBackPoolBalancesOracleAndNonce() (gas: 800579)
+[PASS] testFuzzQuotaBoundary(uint96) (runs: 256, μ: 1037798, ~: 1037777)
+[PASS] testReplayOldCallbackHasNoLiveContext() (gas: 427364)
+[PASS] testSaleBoundaryExecutedInputIncludesPoolFee() (gas: 1067073)
+[PASS] testTransfersDoNotMoveRightsOrAllowChainCredit() (gas: 830532)
+Suite result: ok. 9 passed; 0 failed; 0 skipped; finished in 278.07ms (238.42ms CPU time)
+
+Ran 2 tests for test/ClaimLifecycleInvariants.t.sol:ClaimLifecycleInvariantsTest
+[PASS]
+ClaimLifecycleInvariantsTest invariants:
+[PASS] invariant_DistributorReservesAndCashMatchIndependentRoundModel
+[PASS] invariant_FixedSupplyAndInitialReceiptsSurviveAllClaimSequences
+[PASS] invariant_OnlyDeliveredAttestedAndSyncedClaimsCreateRights
+ ClaimLifecycleInvariantsTest invariants (runs: 256, calls: 20480, reverts: 0)
+
+╭-----------------------+-------------------+-------+---------+----------╮
+| Contract              | Selector          | Calls | Reverts | Discards |
++========================================================================+
+| ClaimLifecycleHandler | advance           | 1941  | 0       | 0        |
+|-----------------------+-------------------+-------+---------+----------|
+| ClaimLifecycleHandler | attest            | 1819  | 0       | 0        |
+|-----------------------+-------------------+-------+---------+----------|
+| ClaimLifecycleHandler | certify           | 1920  | 0       | 0        |
+|-----------------------+-------------------+-------+---------+----------|
+| ClaimLifecycleHandler | claim             | 1872  | 0       | 0        |
+|-----------------------+-------------------+-------+---------+----------|
+| ClaimLifecycleHandler | deliverAndSync    | 1812  | 0       | 0        |
+|-----------------------+-------------------+-------+---------+----------|
+| ClaimLifecycleHandler | openRound         | 1823  | 0       | 0        |
+|-----------------------+-------------------+-------+---------+----------|
+| ClaimLifecycleHandler | sweep             | 1852  | 0       | 0        |
+|-----------------------+-------------------+-------+---------+----------|
+| ClaimLifecycleHandler | sync              | 1836  | 0       | 0        |
+|-----------------------+-------------------+-------+---------+----------|
+| ClaimLifecycleHandler | syncPayer         | 1896  | 0       | 0        |
+|-----------------------+-------------------+-------+---------+----------|
+| ClaimLifecycleHandler | transferOrDonate  | 1842  | 0       | 0        |
+|-----------------------+-------------------+-------+---------+----------|
+| ClaimLifecycleHandler | unauthorizedRound | 1867  | 0       | 0        |
+╰-----------------------+-------------------+-------+---------+----------╯
+
+[PASS] test_ModelExercisesDelayedCertificationSweepsAndRecycledFunding() (gas: 4966220)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 13.56s (13.48s CPU time)
+
+Ran 10 tests for test/CreditsAndFees.t.sol:CreditsAndFeesTest
+[PASS] testAttestationRequiresActualClaimAndExactLeaf() (gas: 438961)
+[PASS] testClaimTransferAndPayerTransferDoNotDuplicateCredit() (gas: 577960)
+[PASS] testFeeCollectionDoesNotReducePrincipal() (gas: 647552)
+[PASS] testNativeClaimNeverDependsOnAdapterOrFeed() (gas: 1190278)
+[PASS] testNativeClaimThenAttestThenSyncThenSale() (gas: 1607696)
+[PASS] testNegativeLiquidityForbiddenEvenForFactory() (gas: 82464)
+[PASS] testProofReleaseAndDedupRemainNativeRules() (gas: 573172)
+[PASS] testSaleFeesCountGrossInputAndNeverCreditFeeRecipients() (gas: 1191477)
+[PASS] testUnauthorizedLiquidityAndDonationNoCredit() (gas: 232025)
+[PASS] testUnclaimedRewardsNotEligible() (gas: 39399)
+Suite result: ok. 10 passed; 0 failed; 0 skipped; finished in 45.97ms (4.16ms CPU time)
+
+Ran 7 tests for test/NativeLaunch.t.sol:NativeLaunchTest
+[PASS] testDeepNativePoolWarmsUpAndCanUnlock() (gas: 136095724)
+[PASS] testNativeBatchSettlement() (gas: 870289)
+[PASS] testNativeBuySellAndFeeDistribution() (gas: 1127517)
+[PASS] testNativeExactOutputRefundToAuthenticatedCaller() (gas: 453384)
+[PASS] testNativeValueMismatchAndUnsolicitedSendRejected() (gas: 91952)
+[PASS] testOneSidedOpeningLocks87PercentWithoutEthFunding() (gas: 62608)
+[PASS] testThinLaunchCannotUnlockFromInitialSpotOrTinyBuy() (gas: 29940461)
+Suite result: ok. 7 passed; 0 failed; 0 skipped; finished in 146.89ms (116.29ms CPU time)
+
+Ran 2 tests for test/NativeCustodyInvariants.t.sol:NativeCustodyInvariantsTest
+[PASS]
+NativeCustodyInvariantsTest invariants:
+[PASS] invariant_ManagerHasNoUnsettledDeltaOrReusableRouteContext
+[PASS] invariant_NativeLiabilitiesRemainFullyBackedAndBelongToTheirWallet
+[PASS] invariant_TransfersDonationsAndFailedBatchesCannotCreateOrMoveRights
+ NativeCustodyInvariantsTest invariants (runs: 256, calls: 16384, reverts: 0)
+
+╭----------------------+--------------+-------+---------+----------╮
+| Contract             | Selector     | Calls | Reverts | Discards |
++==================================================================+
+| NativeCustodyHandler | donateTokens | 2613  | 0       | 0        |
+|----------------------+--------------+-------+---------+----------|
+| NativeCustodyHandler | failBatch    | 2749  | 0       | 0        |
+|----------------------+--------------+-------+---------+----------|
+| NativeCustodyHandler | forceEther   | 2739  | 0       | 0        |
+|----------------------+--------------+-------+---------+----------|
+| NativeCustodyHandler | tradeBatch   | 2815  | 0       | 0        |
+|----------------------+--------------+-------+---------+----------|
+| NativeCustodyHandler | transfer     | 2734  | 0       | 0        |
+|----------------------+--------------+-------+---------+----------|
+| NativeCustodyHandler | withdraw     | 2734  | 0       | 0        |
+╰----------------------+--------------+-------+---------+----------╯
+
+[PASS] test_HandlerTradesRejectsReentersAndDrainsWithoutTakingDonations() (gas: 5323166)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 16.81s (16.76s CPU time)
+
+Ran 9 test suites in 21.35s (35.09s CPU time): 64 tests passed, 0 failed, 0 skipped (64 total tests)

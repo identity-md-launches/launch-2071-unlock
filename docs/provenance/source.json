@@ -1,0 +1,15 @@
+{
+  "repository": "https://github.com/identity-md-launches/launch-1560-unlock",
+  "commit": "92e55dfe1d4b5863ceed2f744f4279942375fe65",
+  "observedHead": "92e55dfe1d4b5863ceed2f744f4279942375fe65",
+  "archiveSha256": "8d333dbd41bb9733ff9f679013c62c9b0e0c15d9e5dbc6f78d20cbc710734f37",
+  "exportedFiles": 696,
+  "excluded": [
+    ".git",
+    ".github",
+    "node_modules",
+    ".imd",
+    ".env*"
+  ],
+  "observedDate": "2026-10-15"
+}

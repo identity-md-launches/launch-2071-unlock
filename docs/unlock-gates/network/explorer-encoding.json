@@ -1,0 +1,23 @@
+{
+  "page": "https://explorer.imd.fun/token/0x97be1d07df38c748f25d3f0fdd164d3a9dc7c8e4",
+  "note": "Current public Explorer JavaScript excerpts, read-only. This existing token page is used to inspect route encoding, not as the new UNLK deployment.",
+  "chunks": [
+    {
+      "url": "https://explorer.imd.fun/_next/static/chunks/2ujqtgybzk1wt.js",
+      "sha256": "19b4cce6c40b855d0bf8d546bf00cb4752efecc5ce5450d035070f349122eb2d",
+      "excerpts": [
+        "(()=>{if(0n===Y)return;let e=!0,t=()=>N.readContract({address:S.quoter,abi:u.U,functionName:\"quoteExactInputSingle\",args:[{poolKey:x,zeroForOne:Q,exactAmount:Y,hookData:\"0x\"}]}).then(([t])=>{e&&I({key:J,out:t})}).catch(()=>{e&&I({key:J,failed:!0})}),n=setTimeout(t,300),a=setInterval(t,15e3);return()=>{e=!1,clearTimeout(n),clearInterval(a)}},[J,Y,Q,x,N,S.quoter]);let Z=$?.key===J?$:null,ee=Z&&\"out\"in Z?Z.out:0n,et=ee-100n*ee/10000",
+        "e:\"inputs\",type:\"bytes[]\"},{name:\"deadline\",type:\"uint256\"}],outputs:[]}],\"D\",0,function(e,a,r,i,l){let o={poolKey:e,zeroForOne:a,amountIn:r,amountOutMinimum:i,hookData:\"0x\"},u=l?(0,n.N)([{type:\"tuple\",components:[...s,{name:\"extra\",type:\"uint256\"},{name:\"hookData\",type:\"bytes\"}]}],[{...o,extra:0n}]):(0,n.N)([{type:\"tuple\",components:[...s,{name:\"hookData\",type:\"bytes\"}]}],[o]),[d,c]=a?[e.currency0,e.currency1]:[e.currency1,e.cur",
+        "cy0,e.currency1]:[e.currency1,e.currency0],p=(0,n.N)([{type:\"address\"},{type:\"uint256\"}],[d,r]),m=(0,n.N)([{type:\"address\"},{type:\"uint256\"}],[c,i]),f=(0,t.s)([\"0x06\",\"0x0c\",\"0x0f\"]);return{commands:\"0x10\",inputs:[(0,n.N)([{type:\"bytes\"},{type:\"bytes[]\"}],[f,[u,p,m]])]}}])},559451,e=>{e.s([\"f\",0,e=>(e.shortMessage??e.message??\"Something went wrong\").split(\"\\n\")[0]])},605500,(e,t,n)=>{e.i(247167),Object.defineProperty(n,\"__esModule\",{val",
+        "e.currency0],p=(0,n.N)([{type:\"address\"},{type:\"uint256\"}],[d,r]),m=(0,n.N)([{type:\"address\"},{type:\"uint256\"}],[c,i]),f=(0,t.s)([\"0x06\",\"0x0c\",\"0x0f\"]);return{commands:\"0x10\",inputs:[(0,n.N)([{type:\"bytes\"},{type:\"bytes[]\"}],[f,[u,p,m]])]}}])},559451,e=>{e.s([\"f\",0,e=>(e.shortMessage??e.message??\"Something went wrong\").split(\"\\n\")[0]])},605500,(e,t,n)=>{e.i(247167),Object.defineProperty(n,\"__esModule\",{value:!0}),Object.defineProp"
+      ]
+    },
+    {
+      "url": "https://explorer.imd.fun/_next/static/chunks/2xgo00tr47ogn.js",
+      "sha256": "799ce26889888c86c910d0573db867bd94731f996273ce5a62f51df431987323",
+      "excerpts": [
+        "cy1:\"0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7\",fee:1e4,tickSpacing:200,hooks:t},\"w\",0,t,\"A\",0,{1:{quoter:\"0x52f0e24d1c21c8a0cb1e5a5dd6198556bd9e1203\",router:\"0x66a9893cc07d91d95644aedd05d03f95e1dba8af\",permit2:\"0x000000000022D473030F116dDEE9F6B43aC78BA3\",rpc:\"https://ethereum-rpc.publicnode.com\",explorer:\"https://etherscan.io\",pairToken:{address:\"0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7\",symbol:\"IMD\",decimals:18},otherPairTokens:[{address:\"0xa0df17b5ac76"
+      ]
+    }
+  ]
+}

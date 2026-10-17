@@ -1,0 +1,17 @@
+{
+  "event": {
+    "id": "0x3b87a1665c4377f5afded9325f14335458b55ee7081a2cdad62dd54907da4470:20",
+    "kind": "Claimed",
+    "block": "11906558",
+    "hash": "0x3b87a1665c4377f5afded9325f14335458b55ee7081a2cdad62dd54907da4470",
+    "index": 20,
+    "time": "1791900300",
+    "account": "0x48E4E74fE1d0c14404cEB57B9fec5b21329C6ec9",
+    "amount": "154738878143133462282400"
+  },
+  "receipt": {
+    "status": "success",
+    "block": "11906558",
+    "to": "0xf55d5bacbf3ce5464921a94708c08a99bea99cdd"
+  }
+}

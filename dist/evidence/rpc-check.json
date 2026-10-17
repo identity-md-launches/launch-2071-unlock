@@ -1,0 +1,29 @@
+{
+  "checkedAt": "2026-10-14T08:45:12.166349+00:00",
+  "results": [
+    {
+      "url": "https://ethereum-sepolia-rpc.publicnode.com",
+      "exitCode": 0,
+      "body": "{\"jsonrpc\":\"2.0\",\"result\":\"0xaa36a7\",\"id\":1}\n",
+      "cors": [
+        "access-control-allow-origin: *"
+      ]
+    },
+    {
+      "url": "https://rpc.sepolia.ethpandaops.io",
+      "exitCode": 0,
+      "body": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":\"0xaa36a7\"}",
+      "cors": [
+        "access-control-allow-origin: http://127.0.0.1:4173"
+      ]
+    },
+    {
+      "url": "https://sepolia.rpc.sentio.xyz",
+      "exitCode": 0,
+      "body": "{\"jsonrpc\":\"2.0\",\"id\":1,\"result\":\"0xaa36a7\"}\n",
+      "cors": [
+        "access-control-allow-origin: http://127.0.0.1:4173"
+      ]
+    }
+  ]
+}

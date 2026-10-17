@@ -1,0 +1,42 @@
+{
+  "purpose": "Reverification of actual previous launch #2064 records; not a new paid request or deployment",
+  "rpc": "https://eth.drpc.org",
+  "chainId": 1,
+  "paymentTransaction": "0x9c403a85865a886e97cf63fd96f9e1c266ac9d75782d673e2c1a08c084b32ca6",
+  "blockNumber": 26210851,
+  "blockHash": "0x8ba3d13ad1aacf22ee0787155c53fb47108c413b4f4fdc3e2b2f13bfaf7a822d",
+  "status": 1,
+  "payer": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9",
+  "intake": "0xa43e6f75ee006411f79ac1c84120606c2330de82",
+  "action": "launch.open@launch-1",
+  "ownerInPaidBody": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9",
+  "remainderInPaidBody": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9",
+  "parkedLaunchRequester": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9",
+  "immutableTreasuryBeneficiary": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9",
+  "body": {
+    "objective": "Token name: UNLOCK. Symbol: UNLK. Review, adapt and DEPLOY a new Ethereum mainnet UNLK/IMD launch from the existing source. onchain=univ4_hook, chainId=1, pairWith=imd, poolBps=8700. This is a NEW LAUNCH, not job.continue or code-only. No website publication in this task. Preserve the old Sepolia deployment.\n\nSOURCE: https://github.com/identity-md-launches/launch-1838-uniswap-v4-hook-code\nBase commit: 3b29fd1d044fb16bbe1595ddacf7ec4efbfdd8fa\nLatest source job: 67368721-0842-4a73-9edd-0177c5799e60.\nUse supported repository import and bind repoUrl/baseCommit in the actual request. Run audit-imported-code, adapt-contract-project and the required independent audit panel. Preserve history and all accepted fixes; do not restart from an older candidate. docs/mainnet/SPOT_PRICE.md supersedes historical sampler instructions.\n\nPRICE: Use the implemented stateless ImdSpotUsdSource. UNLK/USD = official UNLK/IMD spot * verified existing IMD/ETH spot * validated Chainlink ETH/USD. FDV uses the fixed 1B supply. NO 48h warm-up, sample(), keeper, observation windows or recurring recording transactions. Retain chain/code/PoolKey/currency/decimal/liquidity and feed-freshness checks. Invalid references block new gates only, not otherwise valid trading or native claims.\n\nECONOMICS: UNLOCK/UNLK,1B tokens,18 decimals,minted once to factory,10% swarm/87% pool/3% payer. Official pool fee1.25% retains1% payer/0.25% IMD distribution. Extra fixed0.75% fee accrues in IMD to the treasury. Immutable treasury beneficiary and intended payer/setup wallet: 0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9. Verify actual payer/owner records. NFT buying remains manual; no automated purchases or burns.\n\nGATES: initial20%; $100K25%,250K30%,500K35%,1M40%,2M45%,3.5M50%,5M55%,7.5M60%,10M65%,15M70%,20M75%,25M80%,30M85%,35M90%,40M95%. At $50M permanently bypass quotas for ALL holders. Valid instantaneous touches open the highest crossed gate permanently; no confirmation wait or relocking. Preserve cumulative mature E/S and prior sales:1000 acquired,200 sold at20%,then30% allows only100 more. Preserve one-block buy maturity, standard-router initiator semantics, ordinary transfers, native claims independent of synchronization and principal protection. No upgrades,pauses,resets,exemptions or later rule changes.\n\nEXPLICIT RISK ACCEPTANCE: The requester accepts mature shared-executor quota pooling AND manipulation of either pool, including same-transaction/flash manipulation of the external IMD reference, opening gates early and permanently up to the final bypass. Retain disclosures/tests and reassess under this intended design. These risks are not claimed fixed; unrelated defects and mandatory platform checks are not waived.\n\nRELEASE: Rebuild the pinned source, refresh final ABIs/artifacts, verify all sizes, independently review the new spot source and run protected admission plus an actual recorded-block factory/router/setup rehearsal. Generate the correct mainnet manifest and remine hook flags/salt against final initcode. No stale manifest or synthetic release inputs.\n\nBefore stage1, establish the exact supported factory release service and executable owner-signed stage2 path. Factory creates token,hook,distributor and official pool with the enforcing hook from initialization. Then stage ImdSpotUsdSource, deploy companions, certify the actual native round0 tree, and configureAndActivate atomically when current price is valid. No time-based warm-up. If owner signatures are required, deliver a wallet-ready transaction sequence with verified targets,calldata,chain and expected effects; never request private keys. Do not broadcast stage1 without an executable stage2 path.\n\nDELIVER: published source commit, review/test results and skips, actual mainnet addresses, explorer links, transactions, PoolKey/PoolId, source-verification status and sealed-setup evidence. Validate real standard-router buy/sell paths, quota failures, fees, claims and principal; label simulations separately. Stage1 alone means pool deployed/trading inactive. Identify exact policy rejections or missing operations without fabricating success.",
+    "repoUrl": "https://github.com/identity-md-launches/launch-1838-uniswap-v4-hook-code",
+    "baseCommit": "3b29fd1d044fb16bbe1595ddacf7ec4efbfdd8fa",
+    "onchain": "univ4_hook",
+    "chainId": 1,
+    "pairWith": "imd",
+    "economics": {
+      "poolBps": 8700,
+      "remainderTo": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9"
+    },
+    "owner": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9",
+    "github": true,
+    "shape": "chain",
+    "steps": [
+      {
+        "skill": "audit-imported-code"
+      },
+      {
+        "skill": "adapt-contract-project"
+      },
+      {
+        "skill": "adversarial-review"
+      }
+    ]
+  }
+}

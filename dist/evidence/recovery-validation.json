@@ -1,0 +1,12 @@
+{
+  "checkedAt": "2026-10-14T11:40:43.703Z",
+  "checks": [
+    "Two unavailable RPCs fall back to the third real Sepolia RPC; verified live read completes",
+    "Unavailable IMD proof service uses bundled authentic round-0 tree after comparison with live native root",
+    "Stored pending receipt survives reload and exposes a manual check without any send/sign request",
+    "Recovered existing successful receipt reaches confirmed and clears pending storage",
+    "Explicit reverted receipt fixture produces a reverted status and gas-spent explanation"
+  ],
+  "errors": [],
+  "note": "No wallet provider or key. Receipt recovery reads the existing public buy. Pending/reverted responses are explicitly injected UI fixtures, not public transactions. First two RPC outages and the proof API outage are injected; successful fallback responses are live."
+}

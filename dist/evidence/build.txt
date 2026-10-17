@@ -1,0 +1,21 @@
+> unlock-sepolia-web@1.0.0 build
+> tsc --noEmit && vite build
+
+vite v7.1.7 building for production...
+transforming...
+✓ 505 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/index.html                                       1.28 kB │ gzip:   0.62 kB
+../dist/assets/jetbrains-mono-regular-CA-Os4ii.woff2    92.38 kB
+../dist/assets/jetbrains-mono-semibold-BjwzTi7v.woff2   94.48 kB
+../dist/assets/index-BkOFwGt7.css                       33.28 kB │ gzip:   6.73 kB
+../dist/assets/ccip-CJv6SR9J.js                          2.61 kB │ gzip:   1.23 kB
+../dist/assets/index-BDn4nz2S.js                       113.09 kB │ gzip:  36.43 kB
+../dist/assets/index-MshxxFjX.js                       596.50 kB │ gzip: 177.03 kB
+✓ built in 4.71s
+npm notice
+npm notice New major version of npm available! 10.9.7 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

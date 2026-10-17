@@ -1,0 +1,154 @@
+{
+  "checkedAt": "2026-10-14T11:33:21.937Z",
+  "block": "11912977",
+  "rate": "2500",
+  "fullyUnlocked": false,
+  "history": {
+    "from": "11906181",
+    "to": "11912975",
+    "complete": true,
+    "eventCount": 27,
+    "kinds": {
+      "Transfer": 13,
+      "Claimed": 1,
+      "Swap": 4,
+      "Credit": 3,
+      "Executed": 4,
+      "Sale": 1,
+      "NativeCredit": 1
+    }
+  },
+  "holders": [
+    {
+      "address": "0xE03A1074c86CFeDd5C142C4F04F1a1536e203543",
+      "balance": "858767678979454930841094080",
+      "E": "0",
+      "S": "0",
+      "within": "0",
+      "share": "85.8767%",
+      "label": "PoolManager · shared infrastructure"
+    },
+    {
+      "address": "0xF55d5BAcbf3CE5464921a94708c08A99BEa99cDd",
+      "balance": "99845261121856866537717600",
+      "E": "0",
+      "S": "0",
+      "within": "0",
+      "share": "9.9845%",
+      "label": "Reward distributor"
+    },
+    {
+      "address": "0x48E4E74fE1d0c14404cEB57B9fec5b21329C6ec9",
+      "balance": "41387059898688202621188320",
+      "E": "14976426020545069158903419",
+      "S": "3744105000000000000000000",
+      "within": "1505136267289725854",
+      "share": "4.1387%",
+      "label": "Original payer"
+    }
+  ],
+  "arithmetic": [
+    {
+      "address": "0xE03A1074c86CFeDd5C142C4F04F1a1536e203543",
+      "W": "858767678979454930841094080",
+      "E": "0",
+      "S": "0",
+      "contractRemainingQuota": "0",
+      "calculated": {
+        "within": "0",
+        "outside": "858767678979454930841094080",
+        "quota": "0",
+        "cap": "0"
+      },
+      "match": true
+    },
+    {
+      "address": "0xF55d5BAcbf3CE5464921a94708c08A99BEa99cDd",
+      "W": "99845261121856866537717600",
+      "E": "0",
+      "S": "0",
+      "contractRemainingQuota": "0",
+      "calculated": {
+        "within": "0",
+        "outside": "99845261121856866537717600",
+        "quota": "0",
+        "cap": "0"
+      },
+      "match": true
+    },
+    {
+      "address": "0x48E4E74fE1d0c14404cEB57B9fec5b21329C6ec9",
+      "W": "41387059898688202621188320",
+      "E": "14976426020545069158903419",
+      "S": "3744105000000000000000000",
+      "contractRemainingQuota": "1505136267289725854",
+      "calculated": {
+        "within": "1505136267289725854",
+        "outside": "41387058393551935331462466",
+        "quota": "1505136267289725854",
+        "cap": "3744106505136267289725854"
+      },
+      "match": true
+    }
+  ],
+  "proofs": {
+    "count": 459,
+    "allValid": true,
+    "completeRoot": "0x5f3ad28ab5edf227bcf55858bc26fdf3711ba3d3a44fca171ddeb0b6c994c53b",
+    "nativeRoot": "0x5f3ad28ab5edf227bcf55858bc26fdf3711ba3d3a44fca171ddeb0b6c994c53b"
+  },
+  "buySimulations": [
+    {
+      "amount": "0.000001",
+      "account": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9",
+      "result": [
+        "1000000000000",
+        "47890918848716951190"
+      ],
+      "math": {
+        "input": "1000000000000",
+        "output": "47890918848716951190",
+        "fee": "12500000000",
+        "sqrtAfter": "551743981217082794423852840567674",
+        "partial": false
+      },
+      "match": true
+    },
+    {
+      "amount": "0.001",
+      "account": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9",
+      "result": [
+        "1000000000000000",
+        "47888250788606177449612"
+      ],
+      "math": {
+        "input": "1000000000000000",
+        "output": "47888250788606177449612",
+        "fee": "12500000000000",
+        "sqrtAfter": "551713242902950735678953716573935",
+        "partial": false
+      },
+      "match": true
+    },
+    {
+      "amount": "0.01",
+      "account": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9",
+      "result": [
+        "10000000000000000",
+        "478642276074355305155308"
+      ],
+      "math": {
+        "input": "10000000000000000",
+        "output": "478642276074355305155308",
+        "fee": "125000000000000",
+        "sqrtAfter": "551436475491941934264976302730333",
+        "partial": false
+      },
+      "match": true
+    }
+  ],
+  "notes": [
+    "Only eth_call and read operations. No transaction was broadcast.",
+    "No state overrides were used for these live simulations."
+  ]
+}

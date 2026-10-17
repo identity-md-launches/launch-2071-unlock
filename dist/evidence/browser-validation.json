@@ -1,0 +1,368 @@
+{
+  "checkedAt": "2026-10-14T11:50:20.428Z",
+  "pages": [
+    {
+      "width": 320,
+      "route": "trade",
+      "scroll": 320,
+      "h1": "UNLK / ETH",
+      "font": true,
+      "action": {
+        "x": 25,
+        "y": 876.59375,
+        "width": 270,
+        "height": 44,
+        "top": 876.59375,
+        "right": 295,
+        "bottom": 920.59375,
+        "left": 25
+      },
+      "chart": {
+        "x": 21,
+        "y": 474.59375,
+        "width": 278,
+        "height": 240,
+        "top": 474.59375,
+        "right": 299,
+        "bottom": 714.59375,
+        "left": 21
+      },
+      "form": {
+        "x": 12,
+        "y": 802.59375,
+        "width": 296,
+        "height": 579,
+        "top": 802.59375,
+        "right": 308,
+        "bottom": 1381.59375,
+        "left": 12
+      },
+      "violations": []
+    },
+    {
+      "width": 320,
+      "route": "unlock",
+      "scroll": 320,
+      "h1": "My Unlock",
+      "font": true,
+      "violations": []
+    },
+    {
+      "width": 320,
+      "route": "milestones",
+      "scroll": 320,
+      "h1": "Milestones",
+      "font": true,
+      "chart": {
+        "x": 21,
+        "y": 579.78125,
+        "width": 278,
+        "height": 240,
+        "top": 579.78125,
+        "right": 299,
+        "bottom": 819.78125,
+        "left": 21
+      },
+      "violations": []
+    },
+    {
+      "width": 320,
+      "route": "activity",
+      "scroll": 320,
+      "h1": "Holders & activity",
+      "font": true,
+      "violations": []
+    },
+    {
+      "width": 320,
+      "route": "how",
+      "scroll": 320,
+      "h1": "Rules & risks",
+      "font": true,
+      "violations": []
+    },
+    {
+      "width": 320,
+      "route": "contracts",
+      "scroll": 320,
+      "h1": "Contracts & evidence",
+      "font": true,
+      "violations": []
+    },
+    {
+      "width": 390,
+      "route": "trade",
+      "scroll": 390,
+      "h1": "UNLK / ETH",
+      "font": true,
+      "action": {
+        "x": 25,
+        "y": 796.59375,
+        "width": 340,
+        "height": 44,
+        "top": 796.59375,
+        "right": 365,
+        "bottom": 840.59375,
+        "left": 25
+      },
+      "chart": {
+        "x": 21,
+        "y": 394.59375,
+        "width": 348,
+        "height": 240,
+        "top": 394.59375,
+        "right": 369,
+        "bottom": 634.59375,
+        "left": 21
+      },
+      "form": {
+        "x": 12,
+        "y": 722.59375,
+        "width": 366,
+        "height": 579,
+        "top": 722.59375,
+        "right": 378,
+        "bottom": 1301.59375,
+        "left": 12
+      },
+      "violations": []
+    },
+    {
+      "width": 390,
+      "route": "unlock",
+      "scroll": 390,
+      "h1": "My Unlock",
+      "font": true,
+      "violations": []
+    },
+    {
+      "width": 390,
+      "route": "milestones",
+      "scroll": 390,
+      "h1": "Milestones",
+      "font": true,
+      "chart": {
+        "x": 21,
+        "y": 535.78125,
+        "width": 348,
+        "height": 240,
+        "top": 535.78125,
+        "right": 369,
+        "bottom": 775.78125,
+        "left": 21
+      },
+      "violations": []
+    },
+    {
+      "width": 390,
+      "route": "activity",
+      "scroll": 390,
+      "h1": "Holders & activity",
+      "font": true,
+      "violations": []
+    },
+    {
+      "width": 390,
+      "route": "how",
+      "scroll": 390,
+      "h1": "Rules & risks",
+      "font": true,
+      "violations": []
+    },
+    {
+      "width": 390,
+      "route": "contracts",
+      "scroll": 390,
+      "h1": "Contracts & evidence",
+      "font": true,
+      "violations": []
+    },
+    {
+      "width": 768,
+      "route": "trade",
+      "scroll": 768,
+      "h1": "UNLK / ETH",
+      "font": true,
+      "action": {
+        "x": 41,
+        "y": 1337.1875,
+        "width": 686,
+        "height": 44,
+        "top": 1337.1875,
+        "right": 727,
+        "bottom": 1381.1875,
+        "left": 41
+      },
+      "chart": {
+        "x": 37,
+        "y": 550.1875,
+        "width": 694,
+        "height": 280,
+        "top": 550.1875,
+        "right": 731,
+        "bottom": 830.1875,
+        "left": 37
+      },
+      "form": {
+        "x": 24,
+        "y": 1013.1875,
+        "width": 720,
+        "height": 429,
+        "top": 1013.1875,
+        "right": 744,
+        "bottom": 1442.1875,
+        "left": 24
+      },
+      "violations": []
+    },
+    {
+      "width": 768,
+      "route": "unlock",
+      "scroll": 768,
+      "h1": "My Unlock",
+      "font": true,
+      "violations": []
+    },
+    {
+      "width": 768,
+      "route": "milestones",
+      "scroll": 768,
+      "h1": "Milestones",
+      "font": true,
+      "chart": {
+        "x": 37,
+        "y": 506.1875,
+        "width": 694,
+        "height": 280,
+        "top": 506.1875,
+        "right": 731,
+        "bottom": 786.1875,
+        "left": 37
+      },
+      "violations": []
+    },
+    {
+      "width": 768,
+      "route": "activity",
+      "scroll": 768,
+      "h1": "Holders & activity",
+      "font": true,
+      "violations": []
+    },
+    {
+      "width": 768,
+      "route": "how",
+      "scroll": 768,
+      "h1": "Rules & risks",
+      "font": true,
+      "violations": []
+    },
+    {
+      "width": 768,
+      "route": "contracts",
+      "scroll": 768,
+      "h1": "Contracts & evidence",
+      "font": true,
+      "violations": []
+    },
+    {
+      "width": 1440,
+      "route": "trade",
+      "scroll": 1440,
+      "h1": "UNLK / ETH",
+      "font": true,
+      "action": {
+        "x": 1017,
+        "y": 733.1875,
+        "width": 326,
+        "height": 44,
+        "top": 733.1875,
+        "right": 1343,
+        "bottom": 777.1875,
+        "left": 1017
+      },
+      "chart": {
+        "x": 101,
+        "y": 401.1875,
+        "width": 862,
+        "height": 280,
+        "top": 401.1875,
+        "right": 963,
+        "bottom": 681.1875,
+        "left": 101
+      },
+      "form": {
+        "x": 1000,
+        "y": 265.1875,
+        "width": 360,
+        "height": 569,
+        "top": 265.1875,
+        "right": 1360,
+        "bottom": 834.1875,
+        "left": 1000
+      },
+      "violations": []
+    },
+    {
+      "width": 1440,
+      "route": "unlock",
+      "scroll": 1440,
+      "h1": "My Unlock",
+      "font": true,
+      "violations": []
+    },
+    {
+      "width": 1440,
+      "route": "milestones",
+      "scroll": 1440,
+      "h1": "Milestones",
+      "font": true,
+      "chart": {
+        "x": 101,
+        "y": 434.1875,
+        "width": 958,
+        "height": 280,
+        "top": 434.1875,
+        "right": 1059,
+        "bottom": 714.1875,
+        "left": 101
+      },
+      "violations": []
+    },
+    {
+      "width": 1440,
+      "route": "activity",
+      "scroll": 1440,
+      "h1": "Holders & activity",
+      "font": true,
+      "violations": []
+    },
+    {
+      "width": 1440,
+      "route": "how",
+      "scroll": 1440,
+      "h1": "Rules & risks",
+      "font": true,
+      "violations": []
+    },
+    {
+      "width": 1440,
+      "route": "contracts",
+      "scroll": 1440,
+      "h1": "Contracts & evidence",
+      "font": true,
+      "violations": []
+    }
+  ],
+  "interactions": [
+    "Touch milestone selection; ArrowRight and End keyboard selection; final checkpoint explicitly describes full quota bypass",
+    "Real event history, All/1H range selection, accessible event slider and touch crosshair/tooltip",
+    "Manual amount, slippage, sell-credit copy; mobile wallet-browser links, Coinbase Smart Wallet, dialog Escape and focus restoration",
+    "Exact worked-example and transfer-only scenarios, full-unlock W behavior and invalid scenario input",
+    "Keyboard FAQ disclosures; activity and holder filtering, event type selection",
+    "Skip link focuses the current main without changing route",
+    "Offline rules and selection work; no fabricated balances, chart series, confirmed tier or FDV; wallet picker remains responsive"
+  ],
+  "errors": [],
+  "limitations": []
+}

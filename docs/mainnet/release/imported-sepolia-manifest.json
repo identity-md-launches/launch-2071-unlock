@@ -1,0 +1,35 @@
+{
+  "kind": "univ4_hook",
+  "hook": {
+    "contract": "UnlkHook",
+    "constructorArgs": [
+      "$poolManager",
+      "$token",
+      "$factory",
+      "$owner"
+    ],
+    "permissions": [
+      "beforeInitialize",
+      "afterInitialize",
+      "beforeAddLiquidity",
+      "afterAddLiquidity",
+      "beforeRemoveLiquidity",
+      "afterRemoveLiquidity",
+      "beforeSwap",
+      "afterSwap"
+    ]
+  },
+  "token": {
+    "contract": "UnlkToken",
+    "name": "UNLOCK",
+    "symbol": "UNLK",
+    "decimals": 18
+  },
+  "pool": {
+    "pairedCurrency": "0x0000000000000000000000000000000000000000",
+    "fee": 12500,
+    "tickSpacing": 60,
+    "initialPrice": "79228162514264337593543950336"
+  },
+  "notes": "RELEASE GATED; no public deployment or sealed activation is evidenced. NEW Sepolia launch (11155111), native ETH, poolBps=8700; not a continuation/retry of 1534. No mainnet or website. Source: https://github.com/identity-md-launches/launch-1534-unlock at f0149886ac3c09b57a0e1d676582e6aeaeb7a69f. Fresh Git fetch verified all 498 original files before this manifest-only revision; production code, dependencies and encoder fix are preserved. Platform repoUrl/baseCommit must bind that source; notes cannot set them. Historical digests cover the imported manifest; this revision needs fresh attestation. UnlkHook constructor: manager, token, launchFactory, setupAuthority = [$poolManager,$token,$factory,$owner]. UnlkToken has no constructor arguments. Eight callbacks match getHookPermissions and flags 0x3fc0; all require PoolManager. No return-delta permissions or extra hook fee. Initialization authenticates the factory and binds once to (native ETH, $token, 12500, 60, this hook). Stage 1 creates token/hook/native distributor, distributes supply, initializes that official PoolKey with its hook and seeds locked principal atomically. Token: 1B UNLK, 18 decimals, minted once to factory, unrestricted transfers; policy split 10% swarm/87% pool/3% payer, seed rounding to remainder recipient. LP fee 1.25%, split 1% payer/0.25% IMD. initialPrice is the required placeholder: derive opening price from the verified policy, specified 20 ETH whole-supply cap, never seed at 1:1. UNCONFIGURED rejects swaps, credit sync and milestones; transfers and eligible native claims work. Stage 1 alone means pool deployed, trading inactive. Stage 2 uses actual new stage-1 records: $owner calls deployCompanions(number,feed,routerCode,evidenceCode,oracleCode) with ReviewedCode-pinned creation bodies; certify the complete unique-recipient native round-0 tree via certifyRound or submitLeaves/reduce; $owner calls configureAndActivate(stagedRouter,stagedRewards,stagedOracle,number). Provenance, pool, allocations, code/settings and reciprocal bindings are checked atomically. Failure rolls back; success seals setup. No later upgrades, pauses, replacements, resets, exemptions or admin withdrawals. Earlier native claims remain provable and creditable once; claims never depend on sync. Q=max(0,floor(E*p/10000)-S): E credits authenticated official buys, original payer allocation and actual native claims; S counts executed sales. No transfer/donation/liquidity or cross-wallet credit. p=2500; USD FDV tiers $100K/$250K/$500K/$1M/$2.5M give 3500/4500/5500/7000/8500; $5M permanently bypasses quotas for all holders. Fees/authentication remain; declines never relock. Reviewed TWAP/feed/depth/sequential-confirmation rules remain; invalid data neither advances tiers nor revokes rights. Local (2026-10-13 re-verification): forge build, 187 Foundry tests in 40 suites, five Python release-gate tests and the 11 unmodified protected tests passed with manifest-derived probes. Six artifact hashes/ABIs and ReviewedCode pins match; runtime/full-initcode limits pass without exemptions (helper runtime 728 bytes; hook 24328). Existing fork evidence at block 11905741 is historical, not a new public test. Release needs independent review/admission, current Sepolia service/feed/policy checks, actual frozen allocations and verified owner-wallet signing/certification before stage 1. Prior import preflight returned bad_path_count for impl/tests. Stage2.s.sol supplies concrete wallet calls, not signing authorization. New launch number, addresses, receipts, PoolId, explorer verification and activation evidence remain deployment outputs. See delivery/OPERATIONS.md and docs/DEPLOYMENT.md. Unresolved risks: sustained-price manipulation can permanently unlock; protocol fees can halt official trades; treasury reward rounds create claim quota; other pools bypass quotas. Independent review must resolve these; no risk waiver or production-safety claim. See docs/SECURITY_REVIEW.md and docs/SIZE_FIX.md."
+}

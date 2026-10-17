@@ -1,0 +1,18 @@
+{
+  "esbuild": {
+    "directory": "esbuild-wasm",
+    "file": "esbuild.wasm",
+    "compression": "brotli",
+    "bytes": 12216548,
+    "sha256": "9e08fd1336ceb937327ece2d23d2ac602d4adbcb19b88f99073e9454a48e4894",
+    "compressedSha256": "64223d3efed64e91c61928072c7f83ceead69083d75f529e76d1a5e9539c4b6f"
+  },
+  "typescript": {
+    "directory": "types/typescript",
+    "file": "lib/_tsc.js",
+    "compression": "brotli",
+    "bytes": 6211917,
+    "sha256": "a040f97c9d0223f64c8ebc380c5e48eb7945f1142f7c1dc9c3ec4acdb6c1c613",
+    "compressedSha256": "6454f0fad87208a7aa6b569240e7b55bda9da6f4b3b42836f5a915f8f0ca5477"
+  }
+}

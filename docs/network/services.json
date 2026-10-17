@@ -1,0 +1,29 @@
+{
+  "count": 3,
+  "services": [
+    {
+      "kind": "verifier",
+      "key": "68249df1f422\u2026",
+      "version": "0.1.0+327e1e9f",
+      "up": true,
+      "lastSeenAt": "2026-10-13T07:15:04.570Z",
+      "claims": 7891315
+    },
+    {
+      "kind": "deployer",
+      "key": "179ac6caf93d\u2026",
+      "version": "0.1.0+bdb0621d",
+      "up": true,
+      "lastSeenAt": "2026-10-13T07:15:04.490Z",
+      "claims": 1168598
+    },
+    {
+      "kind": "publisher",
+      "key": "142282ed0a0c\u2026",
+      "version": "0.1.0+04d3c6da",
+      "up": true,
+      "lastSeenAt": "2026-10-13T07:15:01.818Z",
+      "claims": 620139
+    }
+  ]
+}

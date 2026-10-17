@@ -1,0 +1,169 @@
+{
+  "observedAt": "2026-10-16T11:13:40.615272+00:00",
+  "rpc": "https://ethereum-rpc.publicnode.com",
+  "chainId": 1,
+  "block": 26204722,
+  "blockHash": "0xba011c000188618d5321ba3c0e13ba2241e2c607db9e49c3a243aa50dca25d96",
+  "blockTimestamp": 1792149215,
+  "contracts": {
+    "factory": {
+      "address": "0x12c63b581d07093f6126bc02263c58f7eadaa96f",
+      "codehash": "0xb6a524d4b697c41f80c369f4990ac070c9dda6f3ef5efe36f21e6150a530b413",
+      "bytes": 17319,
+      "matchesAcceptedPin": true
+    },
+    "manager": {
+      "address": "0x000000000004444c5dc75cB358380D2e3dE08A90",
+      "codehash": "0x785f1014552b7ce7d5fb7d0c970ca60edee94fd00425d7ca21609acac7ce1293",
+      "bytes": 24009,
+      "matchesAcceptedPin": true
+    },
+    "router": {
+      "address": "0x66a9893cc07d91d95644aedd05d03f95e1dba8af",
+      "codehash": "0x6a5f46971b50c6e1b7eef97902311444e479d734e4f80ad88367783cf373fe7f",
+      "bytes": 19499,
+      "matchesAcceptedPin": true
+    },
+    "quoter": {
+      "address": "0x52f0e24d1c21c8a0cb1e5a5dd6198556bd9e1203",
+      "codehash": "0x06de58fa119c5deaa7a667fb92d3894e25d9160e62fb82c8d86d43b47eefe441",
+      "bytes": 5820,
+      "matchesAcceptedPin": true
+    },
+    "permit2": {
+      "address": "0x000000000022D473030F116dDEE9F6B43aC78BA3",
+      "codehash": "0xc67d1657868aa5146eaf24fb879fb1fdec3d2d493b3683a61c9c2f4fb2851131",
+      "bytes": 9152,
+      "matchesAcceptedPin": true
+    },
+    "imd": {
+      "address": "0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7",
+      "codehash": "0x79a1ae149d27d4aae006d4dd75cb834222c9623799bbf34359428aaf66fec3bf",
+      "bytes": 22990,
+      "matchesAcceptedPin": true
+    },
+    "ethUsd": {
+      "address": "0x5f4ec3df9cbd43714fe2740f5e3616155c5b8419",
+      "codehash": "0x4b79b5c8aee6da0f7b393e8b53e6265ef7320a1d16184c65bd3841b5aa3d700d",
+      "bytes": 9571,
+      "matchesAcceptedPin": true
+    },
+    "fees": {
+      "address": "0x12c9E1007262AfAC205567457F5826a9416a3863",
+      "codehash": "0x331d09b94bf6052e9c62668978b63c20e86b64f04734fd483e7516f84b954aaa",
+      "bytes": 1376,
+      "matchesAcceptedPin": true
+    },
+    "registry": {
+      "address": "0xA47FcB220DDd1cDddA865F89029BEc1b9EcA3bf1",
+      "codehash": "0x49e6a11ab5df44d8d9ed1c62a93e6068ca209a29fac1eb89e70233101608e6fd",
+      "bytes": 3550,
+      "matchesAcceptedPin": true
+    }
+  },
+  "calls": {
+    "factory.poolManager()(address)": {
+      "raw": "0x000000000000000000000000000000000004444c5dc75cb358380d2e3de08a90",
+      "decoded": "0x000000000004444c5dc75cB358380D2e3dE08A90"
+    },
+    "factory.fees()(address)": {
+      "raw": "0x00000000000000000000000012c9e1007262afac205567457f5826a9416a3863",
+      "decoded": "0x12c9E1007262AfAC205567457F5826a9416a3863"
+    },
+    "factory.registry()(address)": {
+      "raw": "0x000000000000000000000000a47fcb220ddd1cddda865f89029bec1b9eca3bf1",
+      "decoded": "0xA47FcB220DDd1cDddA865F89029BEc1b9EcA3bf1"
+    },
+    "factory.deployer()(address)": {
+      "raw": "0x000000000000000000000000cecc29b037f5064fcdf45a5c318f132ef76aa551",
+      "decoded": "0xcECc29B037f5064fCdF45a5C318F132ef76aA551"
+    },
+    "registry.writer()(address)": {
+      "raw": "0x00000000000000000000000012c63b581d07093f6126bc02263c58f7eadaa96f",
+      "decoded": "0x12C63b581d07093F6126bc02263c58f7EadaA96F"
+    },
+    "imd.name()(string)": {
+      "raw": "0x0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000b4964656e746974792e6d64000000000000000000000000000000000000000000",
+      "decoded": "\"Identity.md\""
+    },
+    "imd.symbol()(string)": {
+      "raw": "0x00000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000003494d440000000000000000000000000000000000000000000000000000000000",
+      "decoded": "\"IMD\""
+    },
+    "imd.decimals()(uint8)": {
+      "raw": "0x0000000000000000000000000000000000000000000000000000000000000012",
+      "decoded": "18"
+    },
+    "imd.totalSupply()(uint256)": {
+      "raw": "0x000000000000000000000000000000000000000000037403f3c8d56d6c38e000",
+      "decoded": "4174644877614000000000000 [4.174e24]"
+    },
+    "fees.poolFee()(uint24)": {
+      "raw": "0x00000000000000000000000000000000000000000000000000000000000030d4",
+      "decoded": "12500 [1.25e4]"
+    },
+    "fees.REQUESTER_BPS()(uint16)": {
+      "raw": "0x0000000000000000000000000000000000000000000000000000000000001f40",
+      "decoded": "8000"
+    },
+    "fees.feeRecipient()(address)": {
+      "raw": "0x0000000000000000000000003f252e859a277a86a3967c11d4e054b2f07a1f22",
+      "decoded": "0x3f252e859a277a86A3967c11D4E054B2f07a1F22"
+    },
+    "fees.treasury()(address)": {
+      "raw": "0x000000000000000000000000047f606fd5b2baa5f5c6c4ab8958e45cb6b054b7",
+      "decoded": "0x047F606fD5b2BaA5f5C6c4aB8958E45CB6B054B7"
+    },
+    "ethUsd.decimals()(uint8)": {
+      "raw": "0x0000000000000000000000000000000000000000000000000000000000000008",
+      "decoded": "8"
+    },
+    "ethUsd.latestRoundData()(uint80,int256,uint256,uint256,uint80)": {
+      "raw": "0x000000000000000000000000000000000000000000000007000000000000878b0000000000000000000000000000000000000000000000000000003982a53140000000000000000000000000000000000000000000000000000000006ad20677000000000000000000000000000000000000000000000000000000006ad20697000000000000000000000000000000000000000000000007000000000000878b",
+      "decoded": "129127208515966896011 [1.291e20]\n247005000000 [2.47e11]\n1792149111 [1.792e9]\n1792149143 [1.792e9]\n129127208515966896011 [1.291e20]"
+    }
+  },
+  "externalReferencePool": {
+    "poolId": "0xb07d640fd9e2eb9dc81b953c8e4fd006bdfeaf276010fb5418eb763ca15abfb3",
+    "slot": "0xe4a8e4d1df3c332e13da9c3aae6f71f683236197cd0651438608c26f09255dd3",
+    "slot0Word": "0x0000000027103e83e800e62d00000000000000130857057779d9f395e812cd4e",
+    "sqrtPriceX96": "1507916170211674923458700168526",
+    "tick": 58925,
+    "protocolFee": 4097000,
+    "lpFee": 10000,
+    "liquidity": "11641103500492225377876",
+    "virtualEthWei": "611640924211921175101",
+    "note": "one actual recorded state, not observation history or a warm production source"
+  },
+  "platform": {
+    "advertisesMainnetImdHooks": true,
+    "selectedPolicyVersion": 34,
+    "pairing": {
+      "pairWith": "imd",
+      "currency": "0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7",
+      "symbol": "IMD",
+      "name": "Identity.md",
+      "decimals": 18,
+      "kinds": [
+        "univ4_hook",
+        "evm_project",
+        "custom_token"
+      ],
+      "customCap": {
+        "min": "250000000000000000000",
+        "max": "250000000000000000000000"
+      }
+    },
+    "note": "support advertisement + runtime/getter verification, not admission of this unpublished candidate"
+  },
+  "allRuntimePinsMatch": true,
+  "chainlinkValidation": {
+    "round": "129127208515966896011",
+    "answer8": "247005000000",
+    "startedAt": 1792149111,
+    "updatedAt": 1792149143,
+    "ageSeconds": 72,
+    "answeredInRound": "129127208515966896011",
+    "validAtRecordedBlock": true
+  }
+}

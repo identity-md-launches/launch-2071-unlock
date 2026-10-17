@@ -1,0 +1,23 @@
+(node:3) [UNDICI-EHPA] Warning: EnvHttpProxyAgent is experimental, expect them to change at any time.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:12) [UNDICI-EHPA] Warning: EnvHttpProxyAgent is experimental, expect them to change at any time.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+  test/scratch/frontend/candidate.test.mjs  372.9kb
+
+⚡ Done in 2041ms
+
+  test/scratch/frontend/mainnet.test.mjs  357.3kb
+
+⚡ Done in 1160ms
+
+  test/scratch/frontend/math.test.mjs  379.5kb
+
+⚡ Done in 640ms
+
+  test/scratch/frontend/spot.test.mjs  354.7kb
+
+⚡ Done in 556ms
+Tests compiled into test/scratch/frontend. Run node --test from web/.
+(node:3) [UNDICI-EHPA] Warning: EnvHttpProxyAgent is experimental, expect them to change at any time.
+(Use `node --trace-warnings ...` to show where the warning was created)

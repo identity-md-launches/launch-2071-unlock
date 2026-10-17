@@ -1,0 +1,10 @@
+test_constructor_arguments_count_towards_initcode_limit (test_release_artifacts.ReleaseArtifactsTest.test_constructor_arguments_count_towards_initcode_limit) ... ok
+test_every_creation_body_is_checked_including_helper (test_release_artifacts.ReleaseArtifactsTest.test_every_creation_body_is_checked_including_helper) ... ok
+test_every_runtime_is_checked_including_helper (test_release_artifacts.ReleaseArtifactsTest.test_every_runtime_is_checked_including_helper) ... ok
+test_exact_evm_limits_with_constructor_arguments_pass (test_release_artifacts.ReleaseArtifactsTest.test_exact_evm_limits_with_constructor_arguments_pass) ... ok
+test_real_release_artifacts_pass (test_release_artifacts.ReleaseArtifactsTest.test_real_release_artifacts_pass) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 7.989s
+
+OK
