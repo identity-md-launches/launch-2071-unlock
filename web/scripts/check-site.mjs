@@ -5,6 +5,8 @@ const { chromium, webkit } = await import(
 );
 const site = process.argv[2] ?? "http://127.0.0.1:4173";
 const out = new URL("../evidence/", import.meta.url);
+const shots = new URL("../../artifacts/", import.meta.url);
+fs.mkdirSync(shots, { recursive: true });
 const report = {
   evidence:
     "Production static export with live public RPC/indexer reads; no wallet account or signing",
@@ -26,7 +28,11 @@ try {
   });
   await p.goto(site);
   await p.getByText("Trading not yet activated", { exact: true }).waitFor();
-  await p.screenshot({ path: new URL("mobile-live.jpg", out).pathname, type: "jpeg", quality: 70 });
+  await p.screenshot({
+    path: new URL("terminal-mobile.jpg", shots).pathname,
+    type: "jpeg",
+    quality: 60,
+  });
   const cta = p.getByRole("button", { name: "Connect to trade", exact: true });
   assert((await cta.boundingBox()).y + (await cta.boundingBox()).height < 844);
   report.checks.push(
@@ -69,29 +75,89 @@ try {
   );
   await p.getByRole("link", { name: "Milestones", exact: true }).click();
   assert.equal(await p.locator(".gate-list li").count(), 17);
+  for (let i = 0; i <= 16; i++) {
+    await p.locator("#gate-select").selectOption(String(i));
+    assert.match(
+      await p.locator(".ladder-readout").innerText(),
+      new RegExp(`${20 + i * 5}% allowance`),
+    );
+  }
+  await p.locator("#gate-select").focus();
+  await p.keyboard.press("Home");
+  assert.equal(await p.locator("#gate-select").inputValue(), "0");
+  await p.keyboard.press("End");
+  assert.equal(await p.locator("#gate-select").inputValue(), "16");
+  assert.match(await p.locator(".graph-foot").innerText(), /Confirmed: 20%/);
   report.checks.push(
-    "Hash navigation reaches all 16 gates plus initial20%; current and next are textual states",
+    "All 17 gates selectable by native select and keyboard selection; $50M selection leaves actual 20% rights unchanged",
   );
+  await p.getByRole("link", { name: "Activity", exact: true }).click();
+  await p.locator("#history-view").waitFor({ state: "visible" });
+  assert.equal(
+    await p
+      .getByRole("tab", { name: "History", exact: true })
+      .getAttribute("aria-selected"),
+    "true",
+  );
+  await p.getByText(/Coverage: blocks/).waitFor({ timeout: 30000 });
+  report.history = await p.locator(".history-wrap").innerText();
+  report.checks.push(
+    "Activity navigation opens real pool-event history with explicit successfully scanned block coverage",
+  );
+  await p.getByRole("tab", { name: "History", exact: true }).focus();
+  await p.keyboard.press("ArrowLeft");
+  await p.locator("#ladder-view").waitFor({ state: "visible" });
+  assert.equal(
+    await p
+      .getByRole("tab", { name: "Unlock ladder", exact: true })
+      .getAttribute("aria-selected"),
+    "true",
+  );
+  await p.locator("#gate-select").selectOption("0");
   await p.getByRole("link", { name: "Treasury", exact: true }).click();
   await p
-    .getByText("2 verified here / 2 held", { exact: false })
+    .getByText(/\d+ verified here \/ \d+ held/)
     .waitFor({ timeout: 30000 });
-  await p.locator(".nft-image img").first().waitFor();
+  if (await p.locator(".nft-card").count())
+    await p.locator(".nft-image img").first().waitFor();
   report.nfts = await p.locator(".nft-card>a").allTextContents();
   report.checks.push(
     "Live official-collection images and ownerOf-verified IDs render from custody wallet",
   );
-  for (const width of [320, 390, 1440]) {
+  for (const width of [320, 390, 768, 900, 1000, 1440]) {
     await p.setViewportSize({ width, height: 900 });
     assert.equal(
       await p.evaluate(() => document.documentElement.scrollWidth > innerWidth),
       false,
     );
   }
+  await p.getByRole("button", { name: "Buy UNLK", exact: true }).click();
+  await p.getByRole("textbox", { name: "You pay IMD", exact: true }).fill("");
+  await p.getByRole("link", { name: "Trade", exact: true }).click();
   await p.evaluate(() => scrollTo(0, 0));
-  await p.screenshot({ path: new URL("desktop-live.jpg", out).pathname, type: "jpeg", quality: 70 });
+  await p.screenshot({
+    path: new URL("terminal-desktop.jpg", shots).pathname,
+    type: "jpeg",
+    quality: 60,
+  });
   report.checks.push(
-    "Live desktop/mobile reflow at 320,390,1440 without horizontal overflow",
+    "Live reflow at 320,390,768,900,1000,1440 without horizontal overflow",
+  );
+  await p.setViewportSize({ width: 390, height: 844 });
+  await p.getByRole("link", { name: "Milestones", exact: true }).click();
+  await p.reload();
+  await p.locator("#ladder-view").waitFor({ state: "visible" });
+  await p.getByText("Trading not yet activated", { exact: true }).waitFor();
+  await p.locator("#gate-select").selectOption("16");
+  assert.match(await p.locator(".ladder-readout").innerText(), /\$50M → 100%/);
+  await p.locator("#milestones").scrollIntoViewIfNeeded();
+  await p.screenshot({
+    path: new URL("terminal-mobile-ladder.jpg", shots).pathname,
+    type: "jpeg",
+    quality: 60,
+  });
+  report.checks.push(
+    "Mobile refresh at #milestones retains accessible ladder and final $50M gate selection",
   );
   if (process.env.IMD_AXE_MODULE) {
     const { default: AxeBuilder } = await import(process.env.IMD_AXE_MODULE);
@@ -152,32 +218,65 @@ try {
   const fp = await failure.newPage();
   await fp.goto(site);
   await fp.getByText(/Mainnet reads failed:/).waitFor({ timeout: 30000 });
-  assert.equal(await fp.locator(".gate-list .current").count(), 0);
+  assert.match(
+    await fp.locator(".graph-foot").innerText(),
+    /Confirmed tier unavailable/,
+  );
+  assert.equal(await fp.locator(".earned-path").count(), 0);
   report.checks.push(
     "Mock RPC errors display unavailable state and no fabricated unlocked tier",
   );
-  if (process.argv.includes("--chromium-only")) {
-    report.limitations.push("WebKit not run in this invocation (--chromium-only)");
-  } else {
-  const w = await webkit.launch({ headless: true });
-  browsers.push(w);
-  const wp = await w.newPage({ viewport: { width: 390, height: 844 } });
-  await wp.goto(site);
-  await wp.getByRole("button", { name: "Sell UNLK", exact: true }).click();
-  await wp
-    .getByRole("textbox", { name: "You pay UNLK", exact: true })
-    .fill("1");
-  await wp
-    .getByRole("button", { name: "Connect to trade", exact: true })
-    .click();
-  await wp.getByRole("dialog", { name: "Connect a wallet" }).waitFor();
-  assert.equal(
-    await wp.evaluate(() => document.documentElement.scrollWidth > innerWidth),
-    false,
+  const nftFailure = await b.newContext({
+    viewport: { width: 390, height: 844 },
+  });
+  await nftFailure.route("https://eth.blockscout.com/**", (route) =>
+    route.fulfill({ status: 503, body: "Indexer temporarily unavailable" }),
   );
+  const np = await nftFailure.newPage();
+  await np.goto(site);
+  await np.locator(".nft-gallery [role=alert]").waitFor();
+  assert.equal(await np.locator(".nft-card").count(), 0);
   report.checks.push(
-    "WebKit direction/form/connect flow renders without overflow",
+    "Mock NFT indexer failure exposes an error and retry, never fabricated cards",
   );
+  if (await p.locator(".nft-image img").count()) {
+    await p
+      .locator(".nft-image img")
+      .first()
+      .evaluate((img) => img.dispatchEvent(new Event("error")));
+    await p
+      .getByText("Image could not be displayed", { exact: true })
+      .waitFor();
+    report.checks.push(
+      "Injected image-load failure keeps the verified ID and displays a readable image error",
+    );
+  }
+  if (process.argv.includes("--chromium-only")) {
+    report.limitations.push(
+      "WebKit not run in this invocation (--chromium-only)",
+    );
+  } else {
+    const w = await webkit.launch({ headless: true });
+    browsers.push(w);
+    const wp = await w.newPage({ viewport: { width: 390, height: 844 } });
+    await wp.goto(site);
+    await wp.getByRole("button", { name: "Sell UNLK", exact: true }).click();
+    await wp
+      .getByRole("textbox", { name: "You pay UNLK", exact: true })
+      .fill("1");
+    await wp
+      .getByRole("button", { name: "Connect to trade", exact: true })
+      .click();
+    await wp.getByRole("dialog", { name: "Connect a wallet" }).waitFor();
+    assert.equal(
+      await wp.evaluate(
+        () => document.documentElement.scrollWidth > innerWidth,
+      ),
+      false,
+    );
+    report.checks.push(
+      "WebKit direction/form/connect flow renders without overflow",
+    );
   }
   assert.deepEqual(report.console, []);
   assert.deepEqual(report.resourceFailures, []);

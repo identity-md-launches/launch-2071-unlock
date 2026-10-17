@@ -40,6 +40,7 @@ import {
 import { evidenceAbi, distributorAbi } from "./mainnetAbis";
 import { verifyProof, type Leaf } from "./rewards";
 import { NftGallery } from "./NftGallery";
+import { MarketTerminal } from "./MarketTerminal";
 const usd = (value: bigint | null | undefined) =>
   value === null || value === undefined ? "Unavailable" : `$${fmt(value, 2)}`;
 const money = (value: number) =>
@@ -241,7 +242,11 @@ function Swap({
     });
   }
   return (
-    <section className="swap-panel" id="trade" aria-labelledby="swap-title">
+    <section
+      className={`swap-panel ${buy ? "buy" : "sell"}`}
+      id="trade"
+      aria-labelledby="swap-title"
+    >
       <div className="panel-heading">
         <h2 id="swap-title">Swap</h2>
         <span className="small muted">Ethereum mainnet</span>
@@ -609,7 +614,7 @@ function Rights({
     <section className="section" id="rights">
       <div className="section-heading">
         <div>
-          <h2>Your selling rights</h2>
+          <h2>My Unlock</h2>
           <p>Tokens and selling credits are separate.</p>
         </div>
         {!wallet.address && (
@@ -795,153 +800,6 @@ function Rights({
     </section>
   );
 }
-function Gates({ snapshot }: { snapshot: CandidateSnapshot | null }) {
-  const wallet = useWallet();
-  const next =
-    snapshot && snapshot.tier < 16 ? NEXT_THRESHOLDS[snapshot.tier] : null;
-  const progress =
-    next && snapshot?.fdv !== null && snapshot?.fdv !== undefined
-      ? Number((snapshot.fdv * 10000n) / (BigInt(next) * 10n ** 18n)) / 100
-      : null;
-  async function checkpoint() {
-    await wallet.review({
-      title: "Observe the current milestone",
-      description:
-        "Evaluate the deployed oracle on chain. A valid touch opens every crossed gate permanently. The transaction may leave the current tier unchanged.",
-      address: HOOK,
-      abi: hookAbi,
-      functionName: "checkpoint",
-      validate: async () => {
-        const s = await readMainnetCandidate(null);
-        if (!s.activated || s.fdv === null)
-          throw Error("Activation and a valid oracle reading are required.");
-      },
-    });
-  }
-  return (
-    <section className="section" id="milestones">
-      <div className="section-heading">
-        <div>
-          <h2>The permanent unlock ladder</h2>
-          <p>One valid onchain touch. Rights stay open.</p>
-        </div>
-        <span className="milestone-total">
-          {snapshot ? `${snapshot.p / 100}%` : "Unavailable"}
-          <small>actual unlocked allowance</small>
-        </span>
-      </div>
-      <div className="gate-summary">
-        <span>
-          Rule-relevant FDV <strong>{usd(snapshot?.fdv)}</strong>
-        </span>
-        <span>
-          Next gate{" "}
-          <strong>
-            {snapshot?.fullyUnlocked
-              ? "All gates open"
-              : next
-                ? `${money(next)} → ${NEXT_RATES[snapshot!.tier + 1] / 100}%`
-                : "Unavailable"}
-          </strong>
-        </span>
-        <span>
-          Estimated progress{" "}
-          <strong>
-            {progress === null
-              ? "Unavailable"
-              : `${Math.min(100, progress).toFixed(1)}%`}
-          </strong>
-        </span>
-      </div>
-      <div
-        className="ladder-chart"
-        role="img"
-        aria-label="Seventeen-step allowance chart: initial 20 percent, sixteen permanent FDV gates ending in global quota bypass at 50 million dollars"
-      >
-        <svg
-          viewBox="0 0 1000 210"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-        >
-          <path
-            d={`M0 175${NEXT_THRESHOLDS.map((_, i) => `H${(i + 1) * 60}V${175 - (i + 1) * 10}`).join("")}H1000`}
-            fill="none"
-            stroke="var(--line)"
-            strokeWidth="3"
-          />
-          {snapshot && (
-            <path
-              d={`M0 175${Array.from({ length: snapshot.tier }, (_, i) => `H${(i + 1) * 60}V${175 - (i + 1) * 10}`).join("")}H${Math.min(1000, (snapshot.tier + 1) * 60)}`}
-              fill="none"
-              stroke="var(--accent)"
-              strokeWidth="3"
-            />
-          )}
-          <text x="0" y="206" fill="var(--muted)" fontSize="14">
-            20%
-          </text>
-          <text
-            x="1000"
-            y="206"
-            textAnchor="end"
-            fill="var(--muted)"
-            fontSize="14"
-          >
-            $50M · global bypass
-          </text>
-        </svg>
-      </div>
-      <ol className="gate-list">
-        {[0, ...NEXT_THRESHOLDS].map((target, index) => {
-          const state = snapshot
-            ? index <= snapshot.tier
-              ? index === snapshot.tier
-                ? "Current"
-                : "Unlocked"
-              : index === snapshot.tier + 1
-                ? "Next"
-                : "Locked"
-            : "Unverified";
-          return (
-            <li key={target} className={state.toLowerCase()}>
-              <span className="gate-icon" aria-hidden="true">
-                {state === "Unlocked" || state === "Current" ? "◇" : "·"}
-              </span>
-              <span>{index === 0 ? "Initial" : money(target)}</span>
-              <strong>
-                {index === 16 ? "Global bypass" : `${NEXT_RATES[index] / 100}%`}
-              </strong>
-              <span className="gate-state">{state}</span>
-            </li>
-          );
-        })}
-      </ol>
-      <p className="small muted">
-        Progress is a price estimate, not unlocked rights. Only the stored
-        onchain tier establishes rights. A successful swap or checkpoint
-        observes the valid deployed oracle and permanently opens the highest
-        crossed gate. No relock, waiting period or TWAP. FDV = UNLK/IMD ×
-        IMD/ETH × validated ETH/USD × fixed 1B supply; it is not circulating
-        market cap.
-      </p>
-      {snapshot?.oracleError && (
-        <p className="inline-status">{snapshot.oracleError}</p>
-      )}
-      <button
-        className="button"
-        disabled={
-          !snapshot?.activated ||
-          snapshot.fdv === null ||
-          wallet.busy ||
-          wallet.network !== 1
-        }
-        onClick={checkpoint}
-      >
-        Observe milestone onchain
-      </button>
-    </section>
-  );
-}
 export function NextRelease() {
   const wallet = useWallet();
   const [snapshot, setSnapshot] = useState<CandidateSnapshot | null>(null),
@@ -1005,53 +863,76 @@ export function NextRelease() {
                 : "Trading not yet activated"}
         </span>
       </div>
-      <div className="workspace">
-        <div className="intro">
+      <div className="terminal-intro">
+        <div>
           <h1>
-            Trade UNLK <br />
-            with <span>IMD.</span>
+            UNLK <span className="muted">/ IMD</span>
           </h1>
-          <p>
-            Buy credits. Unlock selling rights. <br />
-            Every milestone stays open.
-          </p>
-          <div className="intro-rule">
-            <svg
-              viewBox="0 0 60 60"
-              width="44"
-              height="44"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M19 27v-9a11 11 0 0 1 22 0v9M15 27h30v25H15zM30 37v6"
-                stroke="currentColor"
-                strokeWidth="1.5"
-              />
-            </svg>
-            <span>
-              20% initially.
-              <br />
-              <strong>Permanent global bypass at $50M.</strong>
-            </span>
-          </div>
-          <div className="intro-stats">
-            <div>
-              <span>Unlocked allowance</span>
-              <strong>{data ? `${data.p / 100}%` : "Unavailable"}</strong>
-            </div>
-            <div>
-              <span>Oracle FDV</span>
-              <strong>{usd(data?.fdv)}</strong>
-            </div>
-          </div>
-          <p className="small muted">
-            A fixed 1B supply. A one-way ladder.
-            <br />
-            Mainnet trading can lose real value.
-          </p>
+          <span className="tag">Launch 2071</span>
         </div>
-        <Swap snapshot={stale ? null : snapshot} refresh={refresh} />
+        <p>Fixed 1B supply · Permanent unlocks</p>
+      </div>
+      <dl className="terminal-metrics">
+        <div>
+          <dt>Price / FDV</dt>
+          <dd>
+            {data?.fdv != null
+              ? `$${fmt(data.fdv / 1000000000n, 10)}`
+              : "Awaiting oracle"}
+          </dd>
+          <dd className="metric-note">
+            {data?.fdv != null
+              ? `${usd(data.fdv)} FDV`
+              : data && !data.activated
+                ? "After activation"
+                : "USD unavailable"}
+          </dd>
+        </div>
+        <div>
+          <dt>Confirmed allowance</dt>
+          <dd className="accent">{data ? `${data.p / 100}%` : "Unverified"}</dd>
+          <dd className="metric-note">
+            {data ? `Onchain · ${data.tier}/16 gates` : "Reading mainnet"}
+          </dd>
+        </div>
+        <div>
+          <dt>Next milestone</dt>
+          <dd className="warning">
+            {data
+              ? data.fullyUnlocked
+                ? "All gates open"
+                : money(NEXT_THRESHOLDS[data.tier])
+              : "Unverified"}
+          </dd>
+          <dd className="metric-note">
+            {data
+              ? data.fullyUnlocked
+                ? "Permanent global bypass"
+                : `${NEXT_RATES[data.tier + 1] / 100}% cumulative`
+              : "Awaiting chain state"}
+          </dd>
+        </div>
+        <div>
+          <dt>Oracle status</dt>
+          <dd>
+            {data
+              ? data.fdv !== null
+                ? "Valid observation"
+                : data.activated
+                  ? "Unavailable"
+                  : "Awaiting activation"
+              : "Checking…"}
+          </dd>
+          <dd className="metric-note">
+            {data?.fdv != null
+              ? "Spot estimate · not earned rights"
+              : "FDV unavailable ≠ zero"}
+          </dd>
+        </div>
+      </dl>
+      <div className="workspace">
+        <MarketTerminal snapshot={data} />
+        <Swap snapshot={data} refresh={refresh} />
       </div>
       <div className="read-status">
         <span>
@@ -1065,8 +946,12 @@ export function NextRelease() {
           Refresh data
         </button>
       </div>
+      {data?.oracleError && (
+        <p className="oracle-notice inline-status" role="status">
+          {data.oracleError}
+        </p>
+      )}
       <Rights snapshot={stale ? null : snapshot} refresh={refresh} />
-      <Gates snapshot={stale ? null : snapshot} />
       <section className="section" id="treasury">
         <div className="section-heading">
           <div>
@@ -1149,11 +1034,34 @@ export function NextRelease() {
       <section className="section" id="how">
         <div className="section-heading">
           <div>
-            <h2>How UNLOCK works</h2>
+            <h2>How it works / Whitepaper</h2>
             <p>Read the rules before trading.</p>
           </div>
         </div>
         <div className="explain-grid">
+          <article>
+            <h3>Fixed supply, cumulative rights</h3>
+            <p>
+              1 billion UNLK were minted once: 87% to the pool, 10% to native
+              allocations and 3% to the payer, subject to seed rounding. No new
+              minting, counter resets or transfer-created rights. Initially, 20%
+              of mature eligible credits may be sold, less every previous sale.
+              With 1,000 credits and 200 already sold at 20%, a rise to 30%
+              permits 100 more. At $50M, every holder can sell their balance.
+            </p>
+          </article>
+          <article>
+            <h3>Price and fees</h3>
+            <p>
+              USD FDV is official UNLK/IMD spot × IMD/ETH spot × validated
+              Chainlink ETH/USD × the fixed supply. It is not circulating market
+              cap. The pool fee is 1.25%, plus a separate 0.75% IMD treasury
+              component on the executed IMD leg. At zero protocol fee and
+              without impact, effective buy/sell costs are about 1.9851% /
+              1.990625%, before rounding. The quote shows current directional
+              fees.
+            </p>
+          </article>
           <article>
             <h3>Acquire, then mature</h3>
             <p>
@@ -1166,9 +1074,10 @@ export function NextRelease() {
           <article>
             <h3>One touch is permanent</h3>
             <p>
-              Onchain observations can skip several gates at once. Existing
-              gates stay open when price falls or a reference fails. A sale must
-              fit the quota open before its own post-swap milestone observation.
+              A valid spot touch observed by a successful swap or checkpoint
+              instantly opens the highest crossed gate. Existing gates stay open
+              when price falls or a reference fails. A sale must fit the quota
+              open before its own post-swap milestone observation.
             </p>
           </article>
           <article>
@@ -1181,7 +1090,13 @@ export function NextRelease() {
             </p>
           </article>
           <article>
-            <h3>Free reads have limits</h3>
+            <h3>NFT treasury</h3>
+            <p>
+              The IMD treasury component is intended for manual purchases from
+              the official IMD NFT collection. Verified custody holdings do not
+              prove they were bought with fees. There are no automated
+              purchases, burns or guaranteed returns.
+            </p>
             <p>
               PublicNode and dRPC provide free RPC reads with rate limits and no
               uptime guarantee. State refreshes every 15 seconds; quotes expire

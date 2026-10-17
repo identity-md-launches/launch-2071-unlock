@@ -11,6 +11,7 @@
     "Actual payer eligibility and deduplicated sync",
     "Mock oracle read failure shows unavailable FDV while active trading and stored rights remain",
     "Fee-inclusive quote, token approval, expiring Permit2 approval, real router buy and executed treasury receipt",
+    "History displays the actual locally executed official-pool buy event and scanned block coverage",
     "Actual UNLK to IMD sell uses execution-account quota and zero msg.value",
     "Quote expires after 30 seconds under a virtual clock; double confirmation sends exactly once",
     "Account changes invalidate quotes and personal state",

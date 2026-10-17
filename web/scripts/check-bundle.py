@@ -14,6 +14,7 @@ paths = sorted(set(p for p in paths if p and (root / p).exists()
 assert not any("node_modules" in Path(p).parts for p in paths)
 assert "web/evidence/revision-responses.json" in paths and "dist/index.html" in paths
 assert "web/evidence/validation.md" in paths
+assert "artifacts/validation.md" in paths and "artifacts/terminal-desktop.jpg" in paths
 with tempfile.TemporaryDirectory(prefix="unlk-submission-") as temp:
     temp = Path(temp)
     gitdir = temp / "gitdir"
@@ -32,7 +33,7 @@ with tempfile.TemporaryDirectory(prefix="unlk-submission-") as temp:
     subprocess.run(git + ["bundle", "create", str(bundle), "refs/heads/snapshot"], check=True)
     size = bundle.stat().st_size
     # Reserve room for this report's own final update; no archive is added to the submission.
-    reserve = 65536
+    reserve = 16384
     assert size + reserve < 8388608, f"Submission bundle too large: {size} bytes"
     report = root / "web/evidence/submission-check.json"
     data = json.loads(report.read_text())

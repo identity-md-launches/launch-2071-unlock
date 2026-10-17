@@ -37,10 +37,17 @@ const claim = JSON.parse(
 ).leaves[0];
 const baseline = await raw("evm_snapshot");
 const forkBlock = await raw("eth_getBlockByNumber", ["latest", false]);
-const forkConfig = JSON.parse(fs.readFileSync(new URL("fork-config.json", out)));
-assert.equal(forkBlock.hash, forkConfig.blockHash, "Use the recorded unmodified fork");
+const forkConfig = JSON.parse(
+  fs.readFileSync(new URL("fork-config.json", out)),
+);
+assert.equal(
+  forkBlock.hash,
+  forkConfig.blockHash,
+  "Use the recorded unmodified fork",
+);
 const startedAt = Date.now();
-const forkNow = () => Number(BigInt(forkBlock.timestamp)) * 1000 + Date.now() - startedAt;
+const forkNow = () =>
+  Number(BigInt(forkBlock.timestamp)) * 1000 + Date.now() - startedAt;
 const results = {
   evidence:
     "Actual deployed launch 2071 on a local Anvil fork at block 26212727; wallet events and rejection injected; no public writes",
@@ -49,9 +56,77 @@ const results = {
   writes: [],
   block: forkConfig.block,
   blockHash: forkBlock.hash,
-  fixtureChanges: ["Local owner/claimant impersonation and ETH gas funding", "Local activation and approvals", "Browser clock starts at fork time", "Wallet events, rejection, feed failure, low-gas revert and receipt timing injected", "NFT indexer returns a mocked empty inventory"],
+  fixtureChanges: [
+    "Local owner/claimant impersonation and ETH gas funding",
+    "Local activation and approvals",
+    "Browser clock starts at fork time",
+    "Wallet events, rejection, feed failure, low-gas revert and receipt timing injected",
+    "NFT indexer returns a mocked empty inventory",
+    "Historical logs read separately from PublicNode; actual post-fork logs read from Anvil",
+  ],
   limitations: [],
 };
+// Some Anvil/upstream combinations expand a mixed historical/local log range.
+// Keep the real historical prefix and the real post-fork logs separate. Nothing
+// is synthesized, and public providers receive read-only eth_getLogs requests.
+async function browserRead(method, params) {
+  if (method !== "eth_getLogs") return raw(method, params);
+  const filter = params[0];
+  const start = BigInt(filter.fromBlock);
+  const end = BigInt(filter.toBlock);
+  const fork = BigInt(forkBlock.number);
+  let historical = [];
+  if (start <= fork) {
+    let lastError;
+    const prefix = {
+      ...filter,
+      toBlock: "0x" + (end < fork ? end : fork).toString(16),
+    };
+    for (const endpoint of [
+      "https://ethereum-rpc.publicnode.com",
+      "https://eth.drpc.org",
+    ]) {
+      try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({
+            jsonrpc: "2.0",
+            id: 1,
+            method,
+            params: [prefix],
+          }),
+          signal: AbortSignal.timeout(15000),
+        }).then((r) => r.json());
+        if (response.error || !Array.isArray(response.result))
+          throw Error(response.error?.message ?? "Historical logs unavailable");
+        historical = response.result;
+        results.historyPrefix = {
+          endpoint,
+          fromBlock: start.toString(),
+          toBlock: (end < fork ? end : fork).toString(),
+          actualEvents: historical.length,
+        };
+        lastError = undefined;
+        break;
+      } catch (e) {
+        lastError = e;
+      }
+    }
+    if (lastError) throw lastError;
+  }
+  const local =
+    end > fork
+      ? await raw(method, [
+          {
+            ...filter,
+            fromBlock: "0x" + (start > fork ? start : fork + 1n).toString(16),
+          },
+        ])
+      : [];
+  results.historyLocalEvents = local.length;
+  return [...historical, ...local];
+}
 let rejectNext = false;
 let feedFailure = false;
 let changeDuringGas = false;
@@ -62,8 +137,12 @@ let holdNext = false,
 const send = async (tx, mine = true) => {
   await raw("anvil_impersonateAccount", [tx.from]);
   await raw("anvil_setBalance", [tx.from, "0x56BC75E2D63100000"]);
+  const latest = await raw("eth_getBlockByNumber", ["latest", false]);
   await raw("evm_setNextBlockTimestamp", [
-    Math.floor(forkNow() / 1000) + clockOffset,
+    Math.max(
+      Math.floor(forkNow() / 1000) + clockOffset,
+      Number(BigInt(latest.timestamp)) + 1,
+    ),
   ]);
   const hash = await raw("eth_sendTransaction", [
     { ...tx, gas: tx.gas ?? "0x7a1200" },
@@ -116,7 +195,7 @@ try {
               return {
                 jsonrpc: "2.0",
                 id: x.id,
-                result: await raw(x.method, x.params),
+                result: await browserRead(x.method, x.params),
               };
             } catch (e) {
               return {
@@ -429,6 +508,19 @@ try {
   results.checks.push(
     "Fee-inclusive quote, token approval, expiring Permit2 approval, real router buy and executed treasury receipt",
   );
+  await page.getByRole("link", { name: "Activity", exact: true }).click();
+  await page.locator("#history-view").waitFor({ state: "visible" });
+  try {
+    await page.getByText(/Coverage: blocks/).waitFor({ timeout: 60000 });
+  } catch (e) {
+    results.historyFailure = await page.locator(".history-wrap").innerText();
+    throw e;
+  }
+  assert.match(await page.locator(".history-table").innerText(), /Buy/);
+  assert((await page.locator(".history-table tbody tr").count()) >= 1);
+  results.checks.push(
+    "History displays the actual locally executed official-pool buy event and scanned block coverage",
+  );
   await page.getByRole("button", { name: "Sell UNLK", exact: true }).click();
   await page
     .getByRole("textbox", { name: "You pay UNLK", exact: true })
@@ -587,22 +679,24 @@ try {
     "Injected low-gas mined revert is reported with gas spent and no automatic resend",
   );
   if (process.argv.includes("--chromium-only")) {
-    results.limitations.push("WebKit not run in this invocation (--chromium-only)");
+    results.limitations.push(
+      "WebKit not run in this invocation (--chromium-only)",
+    );
   } else {
-  const safari = await webkit.launch({ headless: true });
-  browsers.push(safari);
-  const sp = await safari.newPage({ viewport: { width: 390, height: 844 } });
-  await sp.goto(site);
-  await sp
-    .getByRole("button", { name: "Connect to trade", exact: true })
-    .click();
-  await sp.getByRole("dialog", { name: "Connect a wallet" }).waitFor();
-  await sp.keyboard.press("Escape");
-  assert.equal(
-    await sp.getByRole("dialog", { name: "Connect a wallet" }).isVisible(),
-    false,
-  );
-  results.checks.push("WebKit production render, connect sheet and Escape");
+    const safari = await webkit.launch({ headless: true });
+    browsers.push(safari);
+    const sp = await safari.newPage({ viewport: { width: 390, height: 844 } });
+    await sp.goto(site);
+    await sp
+      .getByRole("button", { name: "Connect to trade", exact: true })
+      .click();
+    await sp.getByRole("dialog", { name: "Connect a wallet" }).waitFor();
+    await sp.keyboard.press("Escape");
+    assert.equal(
+      await sp.getByRole("dialog", { name: "Connect a wallet" }).isVisible(),
+      false,
+    );
+    results.checks.push("WebKit production render, connect sheet and Escape");
   }
   assert.deepEqual(results.console, []);
   results.passed = true;

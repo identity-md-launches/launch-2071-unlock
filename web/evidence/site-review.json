@@ -5,12 +5,16 @@
     "Native connect dialog traps Tab, Escape dismisses and restores trigger focus",
     "Keyboard focus has visible two-pixel perimeter",
     "Buy/sell direction and smallest raw-unit amount interaction",
-    "Hash navigation reaches all 16 gates plus initial20%; current and next are textual states",
+    "All 17 gates selectable by native select and keyboard selection; $50M selection leaves actual 20% rights unchanged",
+    "Activity navigation opens real pool-event history with explicit successfully scanned block coverage",
     "Live official-collection images and ownerOf-verified IDs render from custody wallet",
-    "Live desktop/mobile reflow at 320,390,1440 without horizontal overflow",
+    "Live reflow at 320,390,768,900,1000,1440 without horizontal overflow",
+    "Mobile refresh at #milestones retains accessible ladder and final $50M gate selection",
     "Automated axe accessibility audit has no violations",
     "Phone bottom sheet exposes four wallet-browser links and Coinbase Smart Wallet with its base at the viewport edge",
-    "Mock RPC errors display unavailable state and no fabricated unlocked tier"
+    "Mock RPC errors display unavailable state and no fabricated unlocked tier",
+    "Mock NFT indexer failure exposes an error and retry, never fabricated cards",
+    "Injected image-load failure keeps the verified ID and displays a readable image error"
   ],
   "console": [],
   "resourceFailures": [],
@@ -22,13 +26,14 @@
     "outline": "solid",
     "width": "2px"
   },
+  "history": "Pool history\nLast 2,000 blocks\nLast 10,000 blocks\n\nActual official-pool Swap events · UNLK price in IMD\n\nNo swaps in this range\n\nThis is a verified empty range, not a zero price.\n\nCoverage: blocks 26211921–26213793 inclusive · 0 events. Table shows the latest 0. Event amounts exclude the separate treasury component. This is pool history, not a USD or all-time chart.\n\nRefresh history",
   "nfts": [
     "IMD #1181 ↗",
     "IMD #1116 ↗"
   ],
   "axe": {
     "violations": [],
-    "passes": 50
+    "passes": 51
   },
   "passed": true
 }

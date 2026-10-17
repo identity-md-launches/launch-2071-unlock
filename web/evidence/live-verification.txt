@@ -1,1 +1,1 @@
-Mainnet block 26212969: code and bindings verified, activated=false, tier=0, round0 certified=true
+{"blockNumber":"26213689","blockHash":"0x888aada5978a14c69112b0a7c1333d1446f0ab2c5825906955762c3bf3a51ba7","chainId":1,"activated":false,"tier":0,"fdv":null,"oracleError":"Gate FDV is unavailable until the owner binds the oracle at activation.","verifiedRuntimeRoles":["token","hook","vault","evidence","oracle","distributor","factory","registry","imd","router","quoter","permit2","manager"]}

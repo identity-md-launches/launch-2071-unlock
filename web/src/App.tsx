@@ -1,6 +1,13 @@
+import { useEffect, useState } from "react";
 import { ConnectButton } from "./wallet";
 import { NextRelease } from "./NextRelease";
 export function App() {
+  const [section, setSection] = useState(location.hash.slice(1) || "trade");
+  useEffect(() => {
+    const update = () => setSection(location.hash.slice(1) || "trade");
+    addEventListener("hashchange", update);
+    return () => removeEventListener("hashchange", update);
+  }, []);
   return (
     <>
       <a className="skip-link" href="#main">
@@ -26,10 +33,26 @@ export function App() {
           </span>
         </a>
         <nav aria-label="Primary navigation">
-          <a href="#trade">Trade</a>
-          <a href="#rights">Selling rights</a>
-          <a href="#milestones">Milestones</a>
-          <a href="#treasury">Treasury</a>
+          {[
+            ["trade", "Trade"],
+            ["rights", "My Unlock"],
+            ["milestones", "Milestones"],
+            ["activity", "Activity"],
+            ["treasury", "Treasury"],
+            ["how", "Docs"],
+          ].map(([id, label]) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              aria-current={
+                section === id || (id === "trade" && section === "main")
+                  ? "location"
+                  : undefined
+              }
+            >
+              {label}
+            </a>
+          ))}
         </nav>
         <ConnectButton />
       </header>

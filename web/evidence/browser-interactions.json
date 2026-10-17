@@ -11,6 +11,7 @@
     "Actual payer eligibility and deduplicated sync",
     "Mock oracle read failure shows unavailable FDV while active trading and stored rights remain",
     "Fee-inclusive quote, token approval, expiring Permit2 approval, real router buy and executed treasury receipt",
+    "History displays the actual locally executed official-pool buy event and scanned block coverage",
     "Actual UNLK to IMD sell uses execution-account quota and zero msg.value",
     "Quote expires after 30 seconds under a virtual clock; double confirmation sends exactly once",
     "Account changes invalidate quotes and personal state",
@@ -38,49 +39,49 @@
       "to": "0x932eba7e96b9e54efe6f8cdf98cb092164a57fcc",
       "from": "0x8A09064A767F3013F6FAdC99C187E4A28659614a",
       "value": "0x0",
-      "hash": "0xefb357e2925ee8e9fc2851ec5b04fcbeccc12d99dae962973802517cb0a14528"
+      "hash": "0x098e5c935133a72ce42550ebf4514cdef0bf5e5700f91d1db49f38f8a2522db0"
     },
     {
       "to": "0x932eba7e96b9e54efe6f8cdf98cb092164a57fcc",
       "from": "0x48E4E74fE1d0c14404cEB57B9fec5b21329C6ec9",
       "value": "0x0",
-      "hash": "0xeed03727422b6d57069dafd55b7b9faefeb500db5d9d9bea4e0aa841a1341bbd"
+      "hash": "0x16daa7807e157a1e3ae80ceb0f0bc6969886b29e2f7b78e88e1e043602b3a580"
     },
     {
       "to": "0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7",
       "from": "0x48E4E74fE1d0c14404cEB57B9fec5b21329C6ec9",
       "value": "0x0",
-      "hash": "0x6b1d330f45e446cb61257ac8463323dafcabe4c271da5b2336a8ad3d302c70e4"
+      "hash": "0xcf06ef5a6576d69671053ccdb724d55b91167cd79c780b3f6bd6fa338a201343"
     },
     {
       "to": "0x000000000022d473030f116ddee9f6b43ac78ba3",
       "from": "0x48E4E74fE1d0c14404cEB57B9fec5b21329C6ec9",
       "value": "0x0",
-      "hash": "0x05748ca1e32fea568d802b819442429143407737dbedd8607c10776c09d2c0cc"
+      "hash": "0x7ee00854829946c830a4e791c5c464565f1ed3415f7ec8b71d8f37433e063d43"
     },
     {
       "to": "0x66a9893cc07d91d95644aedd05d03f95e1dba8af",
       "from": "0x48E4E74fE1d0c14404cEB57B9fec5b21329C6ec9",
       "value": "0x0",
-      "hash": "0x6fbc6f2a8d44faf7dbcae14cfbb953dae090c21ddb111c5dcf9dedc4411097fe"
+      "hash": "0xfd4eb0288933506b9193eb3cecd38572c155d250bc4beb4b1089a42ccae2bf8f"
     },
     {
       "to": "0x99fa82b022be4575891a43b757bc770691e18fda",
       "from": "0x48E4E74fE1d0c14404cEB57B9fec5b21329C6ec9",
       "value": "0x0",
-      "hash": "0x4fd1fe79aa6add20a9321d74bd30b1ec30dfc38c286c3f665a430f6b87308063"
+      "hash": "0x58a8960248bde53367d8e2adf00d674709652259ab10d97e0032367a750090ef"
     },
     {
       "to": "0x000000000022d473030f116ddee9f6b43ac78ba3",
       "from": "0x48E4E74fE1d0c14404cEB57B9fec5b21329C6ec9",
       "value": "0x0",
-      "hash": "0xa8eb2d4a64d4aa1f1b520febdc2fc452106fe9677bfa5289052e8472a82e5bc8"
+      "hash": "0x0085e8a05918d8d969fbc2981cda0eb929ff036ef75db8ac873e59739684a18f"
     },
     {
       "to": "0x66a9893cc07d91d95644aedd05d03f95e1dba8af",
       "from": "0x48E4E74fE1d0c14404cEB57B9fec5b21329C6ec9",
       "value": "0x0",
-      "hash": "0xc362c66a9517721977124bf1d7f8f74c82cc4266af96749716cf7156dc2fc28e"
+      "hash": "0x847fa18663b0c7c9afd9ff9a84ac7963b2305a67f68f179b33b9fe1e20933da2"
     },
     {
       "to": "0xc70795e2d8dfac6131038dcba84aa2aaed1ceed1",
@@ -113,5 +114,12 @@
   "limitations": [
     "WebKit not run in this invocation (--chromium-only)"
   ],
+  "historyPrefix": {
+    "endpoint": "https://ethereum-rpc.publicnode.com",
+    "fromBlock": "26211921",
+    "toBlock": "26212727",
+    "actualEvents": 0
+  },
+  "historyLocalEvents": 1,
   "passed": true
 }

@@ -7,3 +7,13 @@ __pycache__/
 
 # Website path budget: dependency installs only; production dist remains included.
 **/node_modules/
+
+# Explicit delivery path budget: these five files only. Overrides the local
+# artifacts exclusion without allowing caches or other generated packaging.
+!/artifacts/
+/artifacts/*
+!/artifacts/validation.md
+!/artifacts/https-results.json
+!/artifacts/terminal-desktop.jpg
+!/artifacts/terminal-mobile.jpg
+!/artifacts/terminal-mobile-ladder.jpg

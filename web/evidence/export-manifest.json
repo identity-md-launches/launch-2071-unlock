@@ -53,24 +53,24 @@
       "sha256": "d8aa3c2ee30aacb9d86a9ef1b73dd59911e835a0ac7faaf56b424ee95384d1ad"
     },
     {
-      "path": "assets/ccip-DJk66D7A.js",
+      "path": "assets/ccip-SzU78Ugz.js",
       "bytes": 2610,
-      "sha256": "ecf051a1bc1b8aa4ec7391433de522ec59af8d70aad9917719c8e865d83b5ad6"
+      "sha256": "48c24cae8da9e5cbd464b2bb2b114251de37f3a618682668c4dc7921374e1e4e"
     },
     {
-      "path": "assets/index-CL1MK1pt.js",
+      "path": "assets/index-BZmKVt6F.js",
+      "bytes": 559880,
+      "sha256": "f7814f60a9f19fac4ac8423d549d8b7e9bce96f1d159b1c565b96fee28c20c39"
+    },
+    {
+      "path": "assets/index-BomgtdiX.js",
       "bytes": 113087,
-      "sha256": "29dae2dbfe447de57b9c0266e496fe1b13b5c29f9767a30a9d8d96b6fba21fe4"
+      "sha256": "4ed13d653bdbdfb9c68c4860f757d904336caeade7c69312382e89bf81d5aa4e"
     },
     {
-      "path": "assets/index-DA8MX0ZT.css",
-      "bytes": 16962,
-      "sha256": "3e2c13f25119bf7e15ecef4d4ddf0761bc364a98e0185b161f4f9a1afefab07d"
-    },
-    {
-      "path": "assets/index-ReAo3_-4.js",
-      "bytes": 550247,
-      "sha256": "0288eb6cc75a22ac3df4ea6b6715ed582e8daf7b7c390c55ca9b22e8e6d0440d"
+      "path": "assets/index-DmAz4gqf.css",
+      "bytes": 21957,
+      "sha256": "84522123b2d9a4a922b75f805621c0ba99a7df4ec142f4beb0d69510adcee383"
     },
     {
       "path": "assets/jetbrains-mono-regular-CA-Os4ii.woff2",
@@ -99,8 +99,8 @@
     },
     {
       "path": "index.html",
-      "bytes": 1506,
-      "sha256": "34e6062ecaea0604e84ee852c6bc916a08355bcccb9eb1d75fc2ef2c737d341e"
+      "bytes": 1649,
+      "sha256": "9a42f59c101085496efeac8b5b4080d5275f1e02d3ac48a94e7c898f06dbc884"
     },
     {
       "path": "recovery.html",
@@ -109,13 +109,13 @@
     },
     {
       "path": "share.png",
-      "bytes": 59600,
-      "sha256": "6a41849fbf89bc0c906768c0649a9ea70f549661ab1b4a55c1a1749f46ad2ea0"
+      "bytes": 46861,
+      "sha256": "4891d981b3e7b3076a85e64bcfb66e89da4b0920e20ea71c1680d7c227fd4798"
     },
     {
       "path": "share.svg",
-      "bytes": 5548,
-      "sha256": "547f438cf8644ce5c927d6f27dc8968988add8c13cd57addeff30391125a861c"
+      "bytes": 5569,
+      "sha256": "d0754cf2ba95c23394a2220a8c61240a69382b9de088f98ec27a495c6ed2d3b7"
     },
     {
       "path": "wallets/metamask.svg",
@@ -133,6 +133,6 @@
       "sha256": "dcae4de88ebfa10cffa1fe28df13d7c8c0b40736ef2b704f1f2fc348e777e443"
     }
   ],
-  "totalBytes": 1357469,
-  "exportDigest": "a0e35849e64e90a620f88c6aacf9f917d70f2e4b51ed953bb25373833059b080"
+  "totalBytes": 1359522,
+  "exportDigest": "8e1082b513a21981cee9f180cfd92f7ad8c5fe39b677377733d49229fe38dc5c"
 }

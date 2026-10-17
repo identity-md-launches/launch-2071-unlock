@@ -87,18 +87,47 @@ const current = execFileSync(
   );
 assert(!current.some((p) => p.split("/").includes("node_modules")));
 const requiredEvidence = [
-  "deployment.json", "network.json", "fork-config.json", "fork-block.json",
-  "live-preparation.json", "mainnet-code.json", "compiled-provenance.json",
-  "source-verification.json", "native-distributor-verification.json",
-  "live-verification.json", "browser-interactions.json", "site-review.json",
-  "design-probe.json", "publication-status.json", "validation.md",
-  "quote-expiry-before.json", "quote-expiry-after.json",
+  "deployment.json",
+  "network.json",
+  "fork-config.json",
+  "fork-block.json",
+  "live-preparation.json",
+  "mainnet-code.json",
+  "compiled-provenance.json",
+  "source-verification.json",
+  "native-distributor-verification.json",
+  "live-verification.json",
+  "browser-interactions.json",
+  "site-review.json",
+  "design-probe.json",
+  "publication-status.json",
+  "validation.md",
+  "quote-expiry-before.json",
+  "quote-expiry-after.json",
   "revision-responses.json",
 ];
 for (const name of requiredEvidence)
-  assert(current.includes(`web/evidence/${name}`), `Missing or excluded evidence: ${name}`);
+  assert(
+    current.includes(`web/evidence/${name}`),
+    `Missing or excluded evidence: ${name}`,
+  );
+const deliveryPaths = [
+  "artifacts/validation.md",
+  "artifacts/https-results.json",
+  "artifacts/terminal-desktop.jpg",
+  "artifacts/terminal-mobile.jpg",
+  "artifacts/terminal-mobile-ladder.jpg",
+];
+for (const file of deliveryPaths)
+  assert(
+    current.includes(file),
+    `Missing or excluded delivery artifact: ${file}`,
+  );
 for (const file of files(path.join(root, "web/evidence")))
-  assert(current.includes(path.relative(root, file)), `Evidence excluded from submission: ${file}`);
+  assert(
+    current.includes(path.relative(root, file)),
+    `Evidence excluded from submission: ${file}`,
+  );
 assert(
   !execFileSync("git", ["ls-files", "-s"], { cwd: root, encoding: "utf8" })
     .split("\n")
@@ -124,7 +153,8 @@ fs.writeFileSync(
       dependencyManifestsAndLockfilesUnchanged: true,
       submodules: 0,
       dependencyOrCacheFilesInSubmission: 0,
-      ignorePathBudget: ["**/node_modules/"],
+      ignorePathBudget: deliveryPaths,
+      inheritedDependencyExclusion: "**/node_modules/",
       distIncluded: true,
       relativeAssetUrls: true,
       requiredEvidenceIncluded: requiredEvidence,

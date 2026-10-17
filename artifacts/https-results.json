@@ -1,0 +1,157 @@
+{
+  "capturedAt": "2026-10-17T17:17:54.725Z",
+  "scope": "Read-only existing hosting checks. The revised export has not been published.",
+  "hosts": [
+    {
+      "hostname": "unlk-b35c.sites.imd.fun",
+      "dns": [
+        {
+          "address": "69.46.46.116",
+          "family": 4
+        }
+      ],
+      "tls": {
+        "authorized": true,
+        "protocol": "TLSv1.3",
+        "subject": {
+          "CN": "*.sites.imd.fun"
+        },
+        "issuer": {
+          "C": "US",
+          "O": "Let's Encrypt",
+          "CN": "YR1"
+        },
+        "subjectAltName": "DNS:*.sites.imd.fun",
+        "validFrom": "Oct  2 00:59:58 2026 GMT",
+        "validTo": "Dec 31 00:59:57 2026 GMT",
+        "hostnameVerified": true
+      },
+      "http": {
+        "status": 200,
+        "url": "https://unlk-b35c.sites.imd.fun/",
+        "title": "UNLOCK · UNLK / IMD on Ethereum"
+      },
+      "assets": [
+        {
+          "url": "https://unlk-b35c.sites.imd.fun/favicon.svg",
+          "status": 200,
+          "type": "image/svg+xml"
+        },
+        {
+          "url": "https://unlk-b35c.sites.imd.fun/assets/index-ReAo3_-4.js",
+          "status": 200,
+          "type": "text/javascript"
+        },
+        {
+          "url": "https://unlk-b35c.sites.imd.fun/assets/index-DA8MX0ZT.css",
+          "status": 200,
+          "type": "text/css"
+        }
+      ]
+    },
+    {
+      "hostname": "unlock.sites.imd.fun",
+      "dns": [
+        {
+          "address": "69.46.46.116",
+          "family": 4
+        }
+      ],
+      "tls": {
+        "authorized": true,
+        "protocol": "TLSv1.3",
+        "subject": {
+          "CN": "*.sites.imd.fun"
+        },
+        "issuer": {
+          "C": "US",
+          "O": "Let's Encrypt",
+          "CN": "YR1"
+        },
+        "subjectAltName": "DNS:*.sites.imd.fun",
+        "validFrom": "Oct  2 00:59:58 2026 GMT",
+        "validTo": "Dec 31 00:59:57 2026 GMT",
+        "hostnameVerified": true
+      },
+      "http": {
+        "status": 404,
+        "url": "https://unlock.sites.imd.fun/",
+        "title": "No such site"
+      },
+      "assets": []
+    },
+    {
+      "hostname": "unlk.sites.imd.fun",
+      "dns": [
+        {
+          "address": "69.46.46.116",
+          "family": 4
+        }
+      ],
+      "tls": {
+        "authorized": true,
+        "protocol": "TLSv1.3",
+        "subject": {
+          "CN": "*.sites.imd.fun"
+        },
+        "issuer": {
+          "C": "US",
+          "O": "Let's Encrypt",
+          "CN": "YR1"
+        },
+        "subjectAltName": "DNS:*.sites.imd.fun",
+        "validFrom": "Oct  2 00:59:58 2026 GMT",
+        "validTo": "Dec 31 00:59:57 2026 GMT",
+        "hostnameVerified": true
+      },
+      "http": {
+        "status": 200,
+        "url": "https://unlk.sites.imd.fun/",
+        "title": "UNLOCK · Trade & unlock"
+      },
+      "assets": [
+        {
+          "url": "https://unlk.sites.imd.fun/favicon.svg",
+          "status": 200,
+          "type": "image/svg+xml"
+        },
+        {
+          "url": "https://unlk.sites.imd.fun/assets/index-MshxxFjX.js",
+          "status": 200,
+          "type": "text/javascript"
+        },
+        {
+          "url": "https://unlk.sites.imd.fun/assets/index-BkOFwGt7.css",
+          "status": 200,
+          "type": "text/css"
+        }
+      ]
+    }
+  ],
+  "httpToHttps": {
+    "status": 301,
+    "location": "https://unlk-b35c.sites.imd.fun/"
+  },
+  "rpc": [
+    {
+      "endpoint": "https://ethereum-rpc.publicnode.com",
+      "status": 200,
+      "cors": "*",
+      "response": {
+        "jsonrpc": "2.0",
+        "result": "0x1",
+        "id": 1
+      }
+    },
+    {
+      "endpoint": "https://eth.drpc.org",
+      "status": 200,
+      "cors": "*",
+      "response": {
+        "id": 1,
+        "jsonrpc": "2.0",
+        "result": "0x1"
+      }
+    }
+  ]
+}

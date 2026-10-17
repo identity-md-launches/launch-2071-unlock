@@ -5,8 +5,13 @@
   "submodules": 0,
   "dependencyOrCacheFilesInSubmission": 0,
   "ignorePathBudget": [
-    "**/node_modules/"
+    "artifacts/validation.md",
+    "artifacts/https-results.json",
+    "artifacts/terminal-desktop.jpg",
+    "artifacts/terminal-mobile.jpg",
+    "artifacts/terminal-mobile-ladder.jpg"
   ],
+  "inheritedDependencyExclusion": "**/node_modules/",
   "distIncluded": true,
   "relativeAssetUrls": true,
   "requiredEvidenceIncluded": [
@@ -30,15 +35,15 @@
     "revision-responses.json"
   ],
   "exportFiles": 26,
-  "exportBytes": 1357469,
-  "exportDigest": "a0e35849e64e90a620f88c6aacf9f917d70f2e4b51ed953bb25373833059b080",
+  "exportBytes": 1359522,
+  "exportDigest": "8e1082b513a21981cee9f180cfd92f7ad8c5fe39b677377733d49229fe38dc5c",
   "compressedTreeBytes": null,
   "byteBudget": 8388608,
-  "snapshotBundleBytes": 8300892,
-  "reportUpdateReserveBytes": 65536,
-  "bundleBudgetUpperBoundBytes": 8366428,
+  "snapshotBundleBytes": 8342701,
+  "reportUpdateReserveBytes": 16384,
+  "bundleBudgetUpperBoundBytes": 8359085,
   "bundleWithinBudget": true,
-  "submissionFiles": 2817,
+  "submissionFiles": 2823,
   "measurementCommand": "python3 web/scripts/check-bundle.py",
   "measurementScope": "Standalone Git bundle of all current submitted files, including source, dependencies already tracked in lib, runtime assets and evidence; temporary metadata in /tmp only. No build/install caches or source history in this snapshot bundle."
 }
