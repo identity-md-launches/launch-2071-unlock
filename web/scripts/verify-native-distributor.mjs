@@ -1,21 +1,11 @@
 import fs from "node:fs";
-import { createPublicClient, http, keccak256 } from "viem";
-const c = createPublicClient({
-  transport: http("https://ethereum-rpc.publicnode.com"),
-});
-const b = BigInt(
-  JSON.parse(fs.readFileSync("artifacts/fork-config.json")).block,
-);
-const factory = await c.getBytecode({
-  address: "0x12c63b581d07093f6126bc02263c58f7eadaa96f",
-  blockNumber: b,
-});
-const actual = await c.getBytecode({
-  address: "0xc70795e2d8dfac6131038dcba84aa2aaed1ceed1",
-  blockNumber: b,
-});
+import { keccak256 } from "viem";
+import { root, config, read, codeFor, save, live } from "./mainnet-evidence.mjs";
+const prep = read("live-preparation.json");
+const factory = await codeFor("factory", prep.addresses.factory);
+const actual = await codeFor("distributor", prep.addresses.distributor);
 const meta = JSON.parse(
-  fs.readFileSync("docs/mainnet/release/native-distributor-artifact.json"),
+  fs.readFileSync(new URL("docs/mainnet/release/native-distributor-artifact.json", root)),
 );
 const init = factory
   .slice(2)
@@ -43,7 +33,7 @@ for (let i = 0; i < runtime.length / 2; ) {
   i += 1 + size;
 }
 const result = {
-  block: String(b),
+  block: config.block,
   factoryHash: keccak256(factory),
   initcodeHash: keccak256("0x" + init),
   expectedInitcodeHash: meta.creationKeccak,
@@ -51,12 +41,11 @@ const result = {
   expectedTemplateHash: meta.runtimeTemplateKeccak,
   bytes: runtime.length / 2,
   immutableOffsets: refs,
-  matched: expected === masked,
+  matched: expected === masked && keccak256(factory) === meta.factoryRuntimeKeccak &&
+    keccak256("0x" + init) === meta.creationKeccak &&
+    keccak256("0x" + runtime) === meta.runtimeTemplateKeccak,
   runtimeHash: keccak256(actual),
 };
-fs.writeFileSync(
-  "artifacts/native-distributor-verification.json",
-  JSON.stringify(result, null, 2),
-);
+save(live ? "native-distributor-verification-live.json" : "native-distributor-verification.json", result);
 console.log(result);
 if (!result.matched) process.exitCode = 1;

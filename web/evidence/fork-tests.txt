@@ -1,0 +1,35 @@
+Compiling 1 files with Solc 0.8.26
+Solc 0.8.26 finished in 44.90s
+Compiler run successful with warnings:
+Warning (2018): Function state mutability can be restricted to view
+   --> src/mainnet/UnlkImdHook.sol:214:5:
+    |
+214 |     function afterInitialize(address, PoolKey calldata key, uint160, int24)
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> src/mainnet/UnlkImdHook.sol:546:5:
+    |
+546 |     function afterAddLiquidity(
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> src/mainnet/UnlkImdHook.sol:558:5:
+    |
+558 |     function beforeRemoveLiquidity(
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+Warning (2018): Function state mutability can be restricted to view
+   --> src/mainnet/UnlkImdHook.sol:571:5:
+    |
+571 |     function afterRemoveLiquidity(
+    |     ^ (Relevant source part starts here and spans across multiple lines).
+
+
+Ran 3 tests for test/website/MainnetWebsiteFork.t.sol:MainnetWebsiteFork
+[PASS] testInactiveRouterRejected() (gas: 497318)
+[PASS] testLocalActivationRealRouterQuotaFeeAndMaturity() (gas: 2629037)
+[PASS] testNativeClaimBeforeActivationAttestThenSeparateSync() (gas: 965169)
+Suite result: ok. 3 passed; 0 failed; 0 skipped; finished in 11.01s (9.20s CPU time)
+
+Ran 1 test suite in 11.08s (11.01s CPU time): 3 tests passed, 0 failed, 0 skipped (3 total tests)

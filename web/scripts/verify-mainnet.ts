@@ -2,11 +2,15 @@ import fs from "node:fs";
 import { readMainnetCandidate } from "../src/mainnetReader";
 import { mainnetClient, TOKEN, HOOK, POOL_ID } from "../src/mainnet";
 const s = await readMainnetCandidate(null, mainnetClient);
-fs.mkdirSync("../artifacts", { recursive: true });
+const block = await mainnetClient.getBlock({ blockNumber: s.block });
+const out = new URL("../evidence/", import.meta.url);
+fs.mkdirSync(out, { recursive: true });
 fs.writeFileSync(
-  "../artifacts/live-verification.json",
+  new URL("live-verification.json", out),
   JSON.stringify(
-    { chainId: 1, TOKEN, HOOK, POOL_ID, ...s },
+    { evidence: "Fresh read-only Ethereum mainnet snapshot; no local mutation or public write",
+      capturedAt: new Date().toISOString(), blockHash: block.hash,
+      chainId: 1, TOKEN, HOOK, POOL_ID, ...s },
     (_, v) => (typeof v === "bigint" ? v.toString() : v),
     2,
   ),

@@ -4,13 +4,14 @@ const { chromium, webkit } = await import(
   process.env.IMD_PLAYWRIGHT ?? "playwright"
 );
 const site = process.argv[2] ?? "http://127.0.0.1:4173";
-const out = new URL("../../artifacts/", import.meta.url);
+const out = new URL("../evidence/", import.meta.url);
 const report = {
   evidence:
     "Production static export with live public RPC/indexer reads; no wallet account or signing",
   checks: [],
   console: [],
   resourceFailures: [],
+  limitations: [],
 };
 const browsers = [];
 try {
@@ -25,7 +26,7 @@ try {
   });
   await p.goto(site);
   await p.getByText("Trading not yet activated", { exact: true }).waitFor();
-  await p.screenshot({ path: new URL("mobile-live.png", out).pathname });
+  await p.screenshot({ path: new URL("mobile-live.jpg", out).pathname, type: "jpeg", quality: 70 });
   const cta = p.getByRole("button", { name: "Connect to trade", exact: true });
   assert((await cta.boundingBox()).y + (await cta.boundingBox()).height < 844);
   report.checks.push(
@@ -68,9 +69,6 @@ try {
   );
   await p.getByRole("link", { name: "Milestones", exact: true }).click();
   assert.equal(await p.locator(".gate-list li").count(), 17);
-  await p
-    .locator("#milestones")
-    .screenshot({ path: new URL("milestones-mobile.png", out).pathname });
   report.checks.push(
     "Hash navigation reaches all 16 gates plus initial20%; current and next are textual states",
   );
@@ -80,9 +78,6 @@ try {
     .waitFor({ timeout: 30000 });
   await p.locator(".nft-image img").first().waitFor();
   report.nfts = await p.locator(".nft-card>a").allTextContents();
-  await p
-    .locator(".nft-gallery")
-    .screenshot({ path: new URL("nft-live.png", out).pathname });
   report.checks.push(
     "Live official-collection images and ownerOf-verified IDs render from custody wallet",
   );
@@ -94,7 +89,7 @@ try {
     );
   }
   await p.evaluate(() => scrollTo(0, 0));
-  await p.screenshot({ path: new URL("desktop-live.png", out).pathname });
+  await p.screenshot({ path: new URL("desktop-live.jpg", out).pathname, type: "jpeg", quality: 70 });
   report.checks.push(
     "Live desktop/mobile reflow at 320,390,1440 without horizontal overflow",
   );
@@ -161,6 +156,9 @@ try {
   report.checks.push(
     "Mock RPC errors display unavailable state and no fabricated unlocked tier",
   );
+  if (process.argv.includes("--chromium-only")) {
+    report.limitations.push("WebKit not run in this invocation (--chromium-only)");
+  } else {
   const w = await webkit.launch({ headless: true });
   browsers.push(w);
   const wp = await w.newPage({ viewport: { width: 390, height: 844 } });
@@ -180,6 +178,7 @@ try {
   report.checks.push(
     "WebKit direction/form/connect flow renders without overflow",
   );
+  }
   assert.deepEqual(report.console, []);
   assert.deepEqual(report.resourceFailures, []);
   report.passed = true;

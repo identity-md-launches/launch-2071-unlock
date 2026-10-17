@@ -1,0 +1,18 @@
+No files changed, compilation skipped
+2026-10-17T14:40:30.989978Z ERROR sharedbackend: Failed to send/recv `basic` err=failed to get account for 0x932EbA7E96b9e54efe6f8Cdf98CB092164A57fcc: server returned an error response: error code -32000: historical state 599e41c324573298ceda3899ad2832ad5c9e84371ee3c7c3e0cce7f1dad27e73 is not available address=0x932EbA7E96b9e54efe6f8Cdf98CB092164A57fcc
+2026-10-17T14:40:31.479586Z ERROR sharedbackend: Failed to send/recv `basic` err=failed to get account for 0xA299831a61951249e46c5D0da21b86FbB5A94af7: server returned an error response: error code -32000: historical state 599e41c324573298ceda3899ad2832ad5c9e84371ee3c7c3e0cce7f1dad27e73 is not available address=0xA299831a61951249e46c5D0da21b86FbB5A94af7
+
+Ran 1 test for test/website/MainnetWebsiteFork.t.sol:MainnetWebsiteFork
+[FAIL: EVM error; database error: failed to get account for 0xA299831a61951249e46c5D0da21b86FbB5A94af7: server returned an error response: error code -32000: historical state 599e41c324573298ceda3899ad2832ad5c9e84371ee3c7c3e0cce7f1dad27e73 is not available] setUp() (gas: 0)
+Suite result: FAILED. 0 passed; 1 failed; 0 skipped; finished in 5.11s (0.00ns CPU time)
+
+Ran 1 test suite in 5.40s (5.11s CPU time): 0 tests passed, 1 failed, 0 skipped (1 total tests)
+
+Failing tests:
+Encountered 1 failing test in test/website/MainnetWebsiteFork.t.sol:MainnetWebsiteFork
+[FAIL: EVM error; database error: failed to get account for 0xA299831a61951249e46c5D0da21b86FbB5A94af7: server returned an error response: error code -32000: historical state 599e41c324573298ceda3899ad2832ad5c9e84371ee3c7c3e0cce7f1dad27e73 is not available] setUp() (gas: 0)
+
+Encountered a total of 1 failing tests, 0 tests succeeded
+
+Tip: Run `forge test --rerun` to retry only the 1 failed test
+Tip: Run `forge test --debug --match-test <TEST_NAME>` to inspect one failing test in the debugger

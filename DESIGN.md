@@ -24,7 +24,7 @@ Canonical tokens are in `web/src/styles.css`, using sRGB hex values.
 | `--error` | `#fca5a5` | Errors |
 | `--focus` | `#22d3ee` | Two-pixel keyboard focus perimeter |
 
-The site intentionally has one dark theme. State also has text: Current, Unlocked, Next, Locked, unavailable, pending or confirmed. Accent color never establishes quota by itself. The taste probe measured rendered contrast; its final results are in `artifacts/design-probe.json`.
+The site intentionally has one dark theme. State also has text: Current, Unlocked, Next, Locked, unavailable, pending or confirmed. Accent color never establishes quota by itself. The taste probe measured rendered contrast; its final results are in `web/evidence/design-probe.json`.
 
 ## Typography
 
@@ -55,7 +55,7 @@ This is a flat interface. Tonal surfaces and borders communicate grouping; there
 - `Rights`: real mature-credit ledger and separate native claim, attestation, reward sync and payer sync. Native proof import uses a labelled file input and visible validation errors.
 - `Gates`: actual stored tier, next gate, estimated price progress and all sixteen FDV gates plus initial 20%. Past sales and permanent global bypass are explained beside the list.
 - `NftGallery`: official collection filtering, onchain ownership and metadata verification, loading/error/stale/empty states and bounded inert image rendering. The custody count is read from the collection, not assumed from the indexer.
-- `ConnectButton`, `WalletProvider`, `Modal` in `wallet.tsx`: EIP-6963 named browser wallets, phone deep links and Coinbase Smart Wallet in one native dialog. Native modal behavior supplies focus containment and Escape dismissal; focus returns to the trigger. Account/network changes invalidate reviewed actions. Each write has its own wallet confirmation.
+- `ConnectButton`, `WalletProvider`, `Modal` in `wallet.tsx`: EIP-6963 named browser wallets, phone deep links and Coinbase Smart Wallet in one native dialog. Native modal behavior supplies focus containment and Escape dismissal; focus returns to the trigger. Account/network changes invalidate reviewed actions. Each write has its own wallet confirmation. Final preparation revalidates the action; quote expiry closes review and displays “Get a new quote; nothing was sent” in the existing transaction status surface. The revision adds no visual tokens or layout changes. See `web/evidence/quote-slow-gas.jpg` and the six-domain review in `web/evidence/validation.md`.
 - `.button.primary` is the mint action; `.button` is neutral; `.text-button` is an underlined utility. Native disabled states remain legible and have adjacent explanations. Focus uses a 2px outline with 4px offset. Hover is restrained; optional press motion is `scale(.96)` over 150ms. Reduced motion removes transitions and smooth scrolling; forced colors retain system focus.
 
 ## Do's and Don'ts

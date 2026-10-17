@@ -1,0 +1,16 @@
+No files changed, compilation skipped
+
+Ran 10 tests for test/mainnet/ProtocolFees.t.sol:ImdProtocolFeesTest
+[PASS] testAllFourModesAndFeeInclusiveQuoter() (gas: 2609879)
+[PASS] testControllerChangesDoNotResetQuotaOrBlockTradingDuringReferenceOutage() (gas: 2421091)
+[PASS] testExplorerBuySellClaimsRevenueAndDonationSeparation() (gas: 1463650)
+[PASS] testFuzzDirectionalProtocolFeesPreserveExecutedLegFeeAndSolvency(uint16,uint16,uint96) (runs: 256, μ: 1118069, ~: 1119143)
+[PASS] testFuzzExecutedImdConservation(uint96,uint16) (runs: 256, μ: 1050558, ~: 1048768)
+[PASS] testMissingTokenReceiptRollsBackWithdrawalAccounting() (gas: 904738)
+[PASS] testProtocolRevenueIsSeparateFromTreasuryAndLockedPrincipal() (gas: 768342)
+[PASS] testQuotaTransfersAndNativeClaimIndependence() (gas: 1303438)
+[PASS] testQuoteRollbackNoAccrualOrCredits() (gas: 1263218)
+[PASS] testRangeExitRollsBackFeesLedgerAndPool() (gas: 1256684)
+Suite result: ok. 10 passed; 0 failed; 0 skipped; finished in 12.22s (11.70s CPU time)
+
+Ran 1 test suite in 12.30s (12.22s CPU time): 10 tests passed, 0 failed, 0 skipped (10 total tests)

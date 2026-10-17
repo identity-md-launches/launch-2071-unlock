@@ -86,6 +86,19 @@ const current = execFileSync(
       fs.existsSync(path.join(root, p)),
   );
 assert(!current.some((p) => p.split("/").includes("node_modules")));
+const requiredEvidence = [
+  "deployment.json", "network.json", "fork-config.json", "fork-block.json",
+  "live-preparation.json", "mainnet-code.json", "compiled-provenance.json",
+  "source-verification.json", "native-distributor-verification.json",
+  "live-verification.json", "browser-interactions.json", "site-review.json",
+  "design-probe.json", "publication-status.json", "validation.md",
+  "quote-expiry-before.json", "quote-expiry-after.json",
+  "revision-responses.json",
+];
+for (const name of requiredEvidence)
+  assert(current.includes(`web/evidence/${name}`), `Missing or excluded evidence: ${name}`);
+for (const file of files(path.join(root, "web/evidence")))
+  assert(current.includes(path.relative(root, file)), `Evidence excluded from submission: ${file}`);
 assert(
   !execFileSync("git", ["ls-files", "-s"], { cwd: root, encoding: "utf8" })
     .split("\n")
@@ -99,11 +112,11 @@ const manifest = {
   exportDigest: sha(JSON.stringify(exported)),
 };
 fs.writeFileSync(
-  path.join(root, "artifacts/export-manifest.json"),
+  path.join(root, "web/evidence/export-manifest.json"),
   JSON.stringify(manifest, null, 2) + "\n",
 );
 fs.writeFileSync(
-  path.join(root, "artifacts/submission-check.json"),
+  path.join(root, "web/evidence/submission-check.json"),
   JSON.stringify(
     {
       protectedPathsUnchanged: true,
@@ -114,6 +127,7 @@ fs.writeFileSync(
       ignorePathBudget: ["**/node_modules/"],
       distIncluded: true,
       relativeAssetUrls: true,
+      requiredEvidenceIncluded: requiredEvidence,
       exportFiles: exported.length,
       exportBytes: manifest.totalBytes,
       exportDigest: manifest.exportDigest,

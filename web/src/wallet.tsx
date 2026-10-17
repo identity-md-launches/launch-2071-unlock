@@ -510,6 +510,9 @@ export function WalletProvider({ children }: { children: ReactNode }) {
       const signingChain = await ctx.provider.request({
         method: "eth_chainId",
       });
+      // Simulation, gas estimation and wallet reads may outlive the quote.
+      // Validate last, then check the connection synchronously before requesting a signature.
+      await action.validate?.();
       if (
         connectedRef.current.address !== account ||
         connectedRef.current.network !== chain.id ||

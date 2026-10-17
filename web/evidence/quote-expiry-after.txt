@@ -1,0 +1,50 @@
+{
+  "evidence": "Production export; real contracts on local mainnet fork. Test wallet rejects ALL send requests. Public RPC reads are redirected to loopback.",
+  "block": "26212727",
+  "blockHash": "0xc9b35b7491a98046f97b3704cce6845afab12b04e79501591acd5052a2865405",
+  "expectVulnerable": false,
+  "fixtureChanges": [
+    "Local-only owner impersonation and ETH gas funding",
+    "Local-only configureAndActivate",
+    "Virtual browser clock and delayed RPC responses"
+  ],
+  "checks": [
+    {
+      "scenario": "slow-gas",
+      "injected": true,
+      "sendRequests": 0,
+      "message": "Buy UNLK · error\n\nQuote expired. Get a new quote; nothing was sent.\n\n×",
+      "quoteState": "Quote expired"
+    },
+    {
+      "scenario": "slow-final-read",
+      "injected": true,
+      "sendRequests": 0,
+      "message": "Buy UNLK · error\n\nQuote expired. Get a new quote; nothing was sent.\n\n×",
+      "quoteState": "Quote expired"
+    },
+    {
+      "scenario": "block-advance",
+      "injected": true,
+      "sendRequests": 0,
+      "message": "Buy UNLK · error\n\nQuote or activation state changed. Get a new quote.\n\n×",
+      "quoteState": "Quote ready"
+    },
+    {
+      "scenario": "deadline",
+      "injected": true,
+      "sendRequests": 0,
+      "message": "Buy UNLK · error\n\nQuote or activation state changed. Get a new quote.\n\n×",
+      "quoteState": "Quote ready"
+    },
+    {
+      "scenario": "fresh",
+      "injected": true,
+      "sendRequests": 1,
+      "message": "Buy UNLK · rejected\n\nRequest rejected in your wallet. Nothing was resent.\n\n×",
+      "quoteState": "Quote ready"
+    }
+  ],
+  "localActivationHash": "0x4f3334e47d5090ec9c4db62115a495ebfa834a952c4b2adfd8eb082edcfd03ce",
+  "passed": true
+}

@@ -1,0 +1,12 @@
+[
+  {
+    "command": "node web/scripts/verify-mainnet-source.mjs",
+    "exitCode": 1,
+    "error": "Error: ENOENT: no such file or directory, open 'artifacts/live-preparation.json'"
+  },
+  {
+    "command": "node web/scripts/verify-native-distributor.mjs",
+    "exitCode": 1,
+    "error": "Error: ENOENT: no such file or directory, open 'artifacts/fork-config.json'"
+  }
+]

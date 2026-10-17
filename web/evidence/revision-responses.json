@@ -1,0 +1,14 @@
+{
+  "responses": [
+    {
+      "finding": "ddf151f0485334471a7f198a48bf61ef9011b9bf60d4f00f4565cd5a43f0e6ab",
+      "verdict": "fixed",
+      "detail": "Reproduced both documented commands exiting 1 with ENOENT for artifacts/live-preparation.json and artifacts/fork-config.json (web/evidence/missing-evidence-reproduction.json). Delivered configuration, recorded block/hash, actual RPC bytes, minimal compiler outputs, ABIs/source hash checks, validation summary, raw fork/browser/live outputs and publication observations in submission-included web/evidence/. Updated scripts and README links; check-export now fails if evidence is absent or excluded. Both commands pass offline with fetch deliberately disabled and with --live at Ethereum block 26212727 (0xc9b35b7491a98046f97b3704cce6845afab12b04e79501591acd5052a2865405). Local fork tests pass 3/3, broader contract tests 43/43; mock, fork and live evidence and fixture changes are labelled. The public job still has site=null and delivery=null; IMD delivery must assign the site URL and attach its Explorer backlink, documented in publication-status.json."
+    },
+    {
+      "finding": "db199e988fe69beda6aba036250a769aa10e2150dd42a077c1a533f22a488d38",
+      "verdict": "fixed",
+      "detail": "Reproduced on the unchanged production export at 390x844 using the real-contract local fork at block 26212727: advancing the browser clock by 31 seconds during the final gas estimate showed Quote expired but produced one wallet send request. The test wallet rejected it; no public transaction was sent. sign() now revalidates after gas estimation and final wallet reads, then synchronously checks connection before writeContract. validateQuote checks age again after its awaited snapshot and enforces activation, snapshot age, block bounds and chain/wall-clock deadline. The rebuilt export passes slow-gas and slow-final-read cases with zero send requests and a closed review, plus block/deadline rejection and a fresh-quote control that reaches the reject-only wallet exactly once. See web/evidence/quote-expiry-before.json, quote-expiry-after.json and the delivered check-quote-expiry.mjs regression."
+    }
+  ]
+}

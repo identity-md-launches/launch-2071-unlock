@@ -183,11 +183,20 @@ export async function validateQuote(q: Quote) {
   if (Date.now() - q.createdAt >= 30000)
     throw Error("Quote expired. Get a new quote; nothing was sent.");
   const fresh = await readMainnetCandidate(null, client, q.account);
+  validateQuoteSnapshot(q, fresh);
+}
+export function validateQuoteSnapshot(q: Quote, fresh: CandidateSnapshot, now = Date.now()) {
+  // A fresh read can itself be slow. Enforce the advertised lifetime after it resolves.
+  if (now - q.createdAt >= 30000 || now < q.createdAt)
+    throw Error("Quote expired. Get a new quote; nothing was sent.");
   if (
     !fresh.activated ||
+    now - fresh.readAt > 45000 ||
+    now / 1000 - Number(fresh.blockTime) > 90 ||
     fresh.block > q.block + 3n ||
     fresh.block < q.block ||
-    fresh.blockTime >= q.deadline
+    fresh.blockTime >= q.deadline ||
+    BigInt(Math.floor(now / 1000)) >= q.deadline
   )
     throw Error("Quote or activation state changed. Get a new quote.");
   if (

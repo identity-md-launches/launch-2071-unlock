@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-10-17T14:46:06.088Z",
+  "reads": [
+    {
+      "url": "https://explorer.imd.fun/token/0x99fa82b022be4575891a43b757bc770691e18fda",
+      "status": 200,
+      "finalUrl": "https://explorer.imd.fun/token/0x99fa82b022be4575891a43b757bc770691e18fda",
+      "bytes": 129492,
+      "title": "IMD › Explorer › $UNLK"
+    },
+    {
+      "url": "https://unlk.sites.imd.fun/",
+      "status": 200,
+      "finalUrl": "https://unlk.sites.imd.fun/",
+      "bytes": 1282,
+      "title": "UNLOCK · Trade & unlock"
+    },
+    {
+      "url": "https://api.imd.fun/capabilities",
+      "status": 404,
+      "finalUrl": "https://api.imd.fun/capabilities",
+      "bytes": 84,
+      "title": null
+    }
+  ]
+}

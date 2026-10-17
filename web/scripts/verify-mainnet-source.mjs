@@ -1,5 +1,6 @@
 import fs from "node:fs";
-import { createPublicClient, http, keccak256, toBytes } from "viem";
+import { keccak256, toBytes } from "viem";
+import { root, read, config, codeFor, save, live as online } from "./mainnet-evidence.mjs";
 const canonical = (x) =>
   Array.isArray(x)
     ? x.map(canonical)
@@ -10,11 +11,10 @@ const canonical = (x) =>
             .map((k) => [k, canonical(x[k])]),
         )
       : x;
-const live = JSON.parse(fs.readFileSync("artifacts/live-preparation.json"));
-const client = createPublicClient({
-  transport: http("https://ethereum-rpc.publicnode.com"),
-});
-const deployment = JSON.parse(fs.readFileSync("artifacts/deployment.json"));
+const live = read("live-preparation.json");
+const deployment = read("deployment.json");
+if (live.block !== config.block || live.blockHash !== config.blockHash)
+  throw Error("Preparation record does not match the pinned block");
 const roles = {
   token: "UnlkToken",
   hook: "UnlkImdHook",
@@ -24,13 +24,13 @@ const roles = {
 };
 const results = [];
 for (const [role, name] of Object.entries(roles)) {
-  const artifact = JSON.parse(fs.readFileSync(`out/${name}.sol/${name}.json`));
-  const code = await client.getBytecode({
-    address: live.addresses[role],
-    blockNumber: BigInt(
-      JSON.parse(fs.readFileSync("artifacts/fork-config.json")).block,
-    ),
-  });
+  const artifact = read(`compiled/${name}.json`);
+  const sourcesMatched = Object.entries(artifact.sources).every(([path, source]) =>
+    keccak256(toBytes(fs.readFileSync(new URL(path, root), "utf8"))) === source.keccak256,
+  );
+  const abi = JSON.parse(fs.readFileSync(new URL(`web/src/abis/${name}.json`, root)));
+  const publicAbi = JSON.parse(fs.readFileSync(new URL(`web/public/abi/${name}.json`, root)));
+  const code = await codeFor(role, live.addresses[role]);
   let expected = artifact.deployedBytecode.object.replace(/^0x/, ""),
     actual = code.slice(2);
   const refs = Object.values(
@@ -48,10 +48,11 @@ for (const [role, name] of Object.entries(roles)) {
       "0".repeat(ref.length * 2) +
       actual.slice(after);
   }
-  const abiHash = keccak256(toBytes(JSON.stringify(canonical(artifact.abi))));
+  const abiHash = keccak256(toBytes(JSON.stringify(canonical(abi))));
+  const publicAbiHash = keccak256(toBytes(JSON.stringify(canonical(publicAbi))));
   const pin = deployment.contracts.find((x) => x.name === name);
   const matched = actual === expected,
-    abiMatched = pin ? "0x" + pin.abiHash === abiHash : true;
+    abiMatched = artifact.abiHash === abiHash && publicAbiHash === abiHash && (!pin || "0x" + pin.abiHash === abiHash);
   results.push({
     role,
     name,
@@ -61,36 +62,17 @@ for (const [role, name] of Object.entries(roles)) {
     abiHash,
     expectedAbiHash: pin?.abiHash ?? null,
     abiMatched,
+    sourcesMatched,
   });
-  fs.writeFileSync(
-    `web/src/abis/${name}.json`,
-    JSON.stringify(artifact.abi, null, 2) + "\n",
-  );
-  fs.writeFileSync(
-    `web/public/abi/${name}.json`,
-    JSON.stringify(artifact.abi, null, 2) + "\n",
-  );
 }
-fs.writeFileSync(
-  "artifacts/source-verification.json",
-  JSON.stringify(
-    {
-      sourceCommit: deployment.sourceCommit,
-      chainId: 1,
-      block: String(
-        JSON.parse(fs.readFileSync("artifacts/fork-config.json")).block,
-      ),
-      results,
-    },
-    null,
-    2,
-  ),
-);
+save(online ? "source-verification-live.json" : "source-verification.json", {
+  sourceCommit: deployment.sourceCommit, results,
+});
 console.log(results);
 if (
   results.some(
     (r) =>
-      !r.runtimeMatchesCompiledExcludingImmutableReferences || !r.abiMatched,
+      !r.runtimeMatchesCompiledExcludingImmutableReferences || !r.abiMatched || !r.sourcesMatched,
   )
 )
   process.exitCode = 1;

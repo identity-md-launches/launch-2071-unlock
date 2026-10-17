@@ -1,0 +1,45 @@
+{
+  "evidence": "Unmodified historical Ethereum mainnet RPC reads; no mock, fork mutation or public write",
+  "chainId": 1,
+  "block": "26212727",
+  "blockHash": "0xc9b35b7491a98046f97b3704cce6845afab12b04e79501591acd5052a2865405",
+  "blockTime": "1792245551",
+  "rpcUrl": "https://eth.drpc.org",
+  "capturedAt": "2026-10-17T14:39:26.009Z",
+  "addresses": {
+    "token": "0x99fa82b022be4575891a43b757bc770691e18fda",
+    "hook": "0x932eba7e96b9e54efe6f8cdf98cb092164a57fcc",
+    "vault": "0xf2a19fba1f37f3fd41af0b7f671ccf6d07f29f50",
+    "evidence": "0x31d8c50c3c2d7c6000f1ac8cfd466404d26232ab",
+    "oracle": "0x13cd2d5452cac5e71ca16e825e280563a874c6b6",
+    "distributor": "0xc70795e2d8dfac6131038dcba84aa2aaed1ceed1",
+    "factory": "0x12c63b581d07093f6126bc02263c58f7eadaa96f",
+    "nft": "0x0000ec93127baa929e58e97dd0095a2bfb38ec1d"
+  },
+  "bindingsVerified": true,
+  "activated": false,
+  "certifiedRound0": true,
+  "round0": {
+    "root": "0x95d12621d6d028111c44dad35069cf1ffb0441e910fcafedecb1752e6ce2c5e8",
+    "funded": "100000000000000000000000000",
+    "claimed": "0",
+    "unlocksAt": "1792239455"
+  },
+  "poolKey": {
+    "currency0": "0x99fA82B022BE4575891a43b757Bc770691E18fDa",
+    "currency1": "0xD34a99Bc0f67aE1bbd63C660e6d0b0dd03E263B7",
+    "fee": 12500,
+    "tickSpacing": 60,
+    "hooks": "0x932EbA7E96b9e54efe6f8Cdf98CB092164A57fcc"
+  },
+  "expectedPoolKey": {
+    "currency0": "0x99fa82b022be4575891a43b757bc770691e18fda",
+    "currency1": "0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7",
+    "fee": 12500,
+    "tickSpacing": 60,
+    "hooks": "0x932eba7e96b9e54efe6f8cdf98cb092164a57fcc"
+  },
+  "poolId": "0x860a127e8f4b069ce93e280efda34db2b3cb21e7d73f164248f38f4220ec8d32",
+  "stagedOracle": "0x13CD2D5452cac5e71CA16e825E280563a874C6B6",
+  "stagedRewards": "0x31d8c50C3c2D7C6000f1AC8CFD466404d26232Ab"
+}

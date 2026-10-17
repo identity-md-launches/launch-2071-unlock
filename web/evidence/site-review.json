@@ -1,0 +1,34 @@
+{
+  "evidence": "Production static export with live public RPC/indexer reads; no wallet account or signing",
+  "checks": [
+    "390x844 product and complete primary action on first screen",
+    "Native connect dialog traps Tab, Escape dismisses and restores trigger focus",
+    "Keyboard focus has visible two-pixel perimeter",
+    "Buy/sell direction and smallest raw-unit amount interaction",
+    "Hash navigation reaches all 16 gates plus initial20%; current and next are textual states",
+    "Live official-collection images and ownerOf-verified IDs render from custody wallet",
+    "Live desktop/mobile reflow at 320,390,1440 without horizontal overflow",
+    "Automated axe accessibility audit has no violations",
+    "Phone bottom sheet exposes four wallet-browser links and Coinbase Smart Wallet with its base at the viewport edge",
+    "Mock RPC errors display unavailable state and no fabricated unlocked tier"
+  ],
+  "console": [],
+  "resourceFailures": [],
+  "limitations": [
+    "WebKit not run in this invocation (--chromium-only)"
+  ],
+  "focus": {
+    "name": "Refresh data",
+    "outline": "solid",
+    "width": "2px"
+  },
+  "nfts": [
+    "IMD #1181 ↗",
+    "IMD #1116 ↗"
+  ],
+  "axe": {
+    "violations": [],
+    "passes": 50
+  },
+  "passed": true
+}

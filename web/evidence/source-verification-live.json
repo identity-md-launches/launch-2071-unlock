@@ -1,0 +1,64 @@
+{
+  "evidence": "Fresh public RPC reads at the recorded mainnet block",
+  "chainId": 1,
+  "block": "26212727",
+  "blockHash": "0xc9b35b7491a98046f97b3704cce6845afab12b04e79501591acd5052a2865405",
+  "sourceCommit": "40d70b7bd0853aedf84eac839a40a5f12e6ac341",
+  "results": [
+    {
+      "role": "token",
+      "name": "UnlkToken",
+      "runtimeMatchesCompiledExcludingImmutableReferences": true,
+      "immutableReferences": 3,
+      "runtimeHash": "0x0a818174841af8609b3376ba003b1369d762b65541ddcdaef6b3e97aa32b3add",
+      "abiHash": "0x2754d38e745fac0c7dac78119f2a1f7516e00f246098b348e9eed03ede16d19a",
+      "expectedAbiHash": "2754d38e745fac0c7dac78119f2a1f7516e00f246098b348e9eed03ede16d19a",
+      "abiMatched": true,
+      "sourcesMatched": true
+    },
+    {
+      "role": "hook",
+      "name": "UnlkImdHook",
+      "runtimeMatchesCompiledExcludingImmutableReferences": true,
+      "immutableReferences": 42,
+      "runtimeHash": "0xc277dfe63a222bd720b9d1ff83562080d861e7cf782135d29e7f17886c70f406",
+      "abiHash": "0xe7d8521411b78586ec9b2edcd975d0a845548fa9ca4915aa6a6919e5f7f63ebb",
+      "expectedAbiHash": "e7d8521411b78586ec9b2edcd975d0a845548fa9ca4915aa6a6919e5f7f63ebb",
+      "abiMatched": true,
+      "sourcesMatched": true
+    },
+    {
+      "role": "vault",
+      "name": "ImdFeeVault",
+      "runtimeMatchesCompiledExcludingImmutableReferences": true,
+      "immutableReferences": 23,
+      "runtimeHash": "0x885652b41163c74bb0e902f6235b3cacbfa63e84f49854bfd7154080dc7696be",
+      "abiHash": "0xd447c3367a69b394601a24d311a03348d0575b50370fd32ee3397fdf3a9bc9b5",
+      "expectedAbiHash": null,
+      "abiMatched": true,
+      "sourcesMatched": true
+    },
+    {
+      "role": "oracle",
+      "name": "UnlkImdOracle",
+      "runtimeMatchesCompiledExcludingImmutableReferences": true,
+      "immutableReferences": 15,
+      "runtimeHash": "0x89a01da3faf9be015371373756de56c3c7818952ad7fc18af642b0eeabfd4c6a",
+      "abiHash": "0xb3a9c1cbe49c3d4740b75baaace5cb9de95fe3e3961ad56c2036d974702cfe58",
+      "expectedAbiHash": null,
+      "abiMatched": true,
+      "sourcesMatched": true
+    },
+    {
+      "role": "evidence",
+      "name": "MerkleClaimEvidence",
+      "runtimeMatchesCompiledExcludingImmutableReferences": true,
+      "immutableReferences": 6,
+      "runtimeHash": "0xa25bd004460b0e0a8f86e08d55952d8ae84bc45e7a0ee6806f10d1cbbbd69f85",
+      "abiHash": "0x1a589708ddb07d31a067ffd84b26dc5538d91d22249cfc123bc36859f4930217",
+      "expectedAbiHash": null,
+      "abiMatched": true,
+      "sourcesMatched": true
+    }
+  ]
+}

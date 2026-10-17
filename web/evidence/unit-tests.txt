@@ -1,0 +1,52 @@
+
+> unlock-sepolia-web@1.0.0 test
+> tsx --test tests/*.test.ts
+
+✔ treasury fee: IMD in every standard mode, based on the executed IMD leg (2.738907ms)
+✔ mainnet deployment has all sixteen gates and the 20% initial rate (0.582687ms)
+✔ fee-inclusive buy and net exact-output sell preserve wei rounding (170.906263ms)
+✔ metadata URLs reject executable, private, credentialed and ambiguous schemes (2.219973ms)
+✔ SVG is inert image content and rejects active/external references (6.753472ms)
+✔ index cursors cannot redirect requests or inject objects (1.813504ms)
+✔ metadata and resource failures are visible, never unsafe fallback content (809.604425ms)
+✔ indexed inventory is paginated discovery; only current onchain owners appear (80.935086ms)
+✔ recorded authentic mainnet tokenURI images #1116 and #1181 render as inert blobs offline (27.538185ms)
+✔ mainnet reads fail closed for stale blocks, wrong network and missing runtime code (12.017766ms)
+✔ all standard modes enforce launch2071 sorted key, empty hookData, execution-account take and zero native funding (106.905358ms)
+✔ PoolKey hashes to deployed PoolId (1.09803ms)
+✔ mature accounting counts past sales and bypasses for every holder at final gate (0.380087ms)
+✔ raw units and fee rounding preserve conservation (85.815821ms)
+✔ protocol fee uses direction and compounded pips (0.587307ms)
+✔ amount validation rejects floats, zero, exponent, excess decimals and uint128 overflow (1.050498ms)
+✔ quote invalidates on account, direction, amount, slippage or 30 second expiry (0.350036ms)
+✔ final quote validation rejects elapsed preparation, block drift, inactive state and deadline boundaries (1.53149ms)
+✔ all delivered native proofs match the certified onchain root (1996.143044ms)
+✔ slippage decimal parsing avoids floating-point bps drift (7.840807ms)
+✔ display formatting keeps bigint precision and never rounds a nonzero balance to zero (6.050266ms)
+✔ wallet allowance uses exact floors, sales and balance caps (71.411496ms)
+✔ scenario holds ledger fixed, final unlock includes transfer-only balances, achieved tiers never imply revoked rights (0.818657ms)
+✔ large BigInt values and all tiers retain monotonic allowance (107.831576ms)
+✔ input and slippage reject unsafe formats and preserve a wei (1.382572ms)
+✔ oracle progress distinguishes invalid, stale, gap, below target and elapsed-but-unconfirmed (0.712202ms)
+✔ real native round proofs reject wrong amount, recipient, incomplete tree and duplicates (2691.267757ms)
+✔ historical Sepolia arithmetic vectors remain consistent (not mainnet evidence) (1.09922ms)
+✔ swap step accounts exact fees and partial fills in both directions (0.6678ms)
+✔ percentage fills floor in wei, reserve gas and never exceed spendable balance (10.717912ms)
+✔ confirmation progress does not increase merely because the clock advances (5.099679ms)
+✔ IMD/ETH direction: ETH per IMD is the inverse of the pool's IMD-per-ETH price (2.208149ms)
+✔ UNLK leg follows sorted PoolKey order and FDV uses fixed 1B supply (0.647219ms)
+✔ Chainlink validation mirrors the contract and fails closed (1.374691ms)
+✔ slot0 decoding handles negative ticks and the v4 state slot (10.169985ms)
+ℹ tests 35
+ℹ suites 0
+ℹ pass 35
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 130332.714796
+npm notice
+npm notice New major version of npm available! 11.19.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice

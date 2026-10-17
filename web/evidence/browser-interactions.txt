@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "checks": [
+    "390px first screen contains product, amount and connect action",
+    "Named EIP-6963 wallet connects; inactive swaps disabled",
+    "Network switch requests Ethereum chain 1",
+    "Account change during gas estimation prevents stale review and sends nothing",
+    "Real native round0 claim before activation using locally rebuilt matching proof",
+    "Wallet rejection produces no write or resend",
+    "Activation appears automatically; attestation and credit sync stay separate",
+    "Actual payer eligibility and deduplicated sync",
+    "Mock oracle read failure shows unavailable FDV while active trading and stored rights remain",
+    "Fee-inclusive quote, token approval, expiring Permit2 approval, real router buy and executed treasury receipt",
+    "Actual UNLK to IMD sell uses execution-account quota and zero msg.value",
+    "Quote expires after 30 seconds under a virtual clock; double confirmation sends exactly once",
+    "Account changes invalidate quotes and personal state",
+    "Amounts reject excess precision",
+    "Connected transaction layout has no overflow at 320,390,1440",
+    "Virtual 180-second receipt timeout retains pending hash; manual receipt check completes without resend",
+    "Same-nonce wallet cancellation tracks the replacement and does not mark the original action complete",
+    "Injected low-gas mined revert is reported with gas spent and no automatic resend"
+  ]
+}

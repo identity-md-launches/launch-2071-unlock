@@ -27,7 +27,7 @@ contract MainnetWebsiteFork is Test {
  struct ExactIn {PoolKey poolKey;bool zeroForOne;uint128 amountIn;uint128 amountOutMinimum;bytes hookData;}
  PoolKey key;
  address trader;
- function setUp() public {vm.createSelectFork("https://ethereum-rpc.publicnode.com",26212727);trader=makeAddr("local-only-trader");assertEq(block.chainid,1);assertFalse(hook.activated());key=hook.poolKey();}
+ function setUp() public {vm.createSelectFork(vm.envOr("UNLK_FORK_RPC",string("https://eth.drpc.org")),26212727);trader=makeAddr("local-only-trader");assertEq(block.chainid,1);assertFalse(hook.activated());key=hook.poolKey();}
  function _activate() internal {vm.prank(owner);hook.configureAndActivate(IClaimEvidence(address(evidence)),UnlkImdOracle(0x13CD2D5452cac5e71CA16e825E280563a874C6B6),2071);assertTrue(hook.activated());}
  function _fundAndApprove() internal {deal(address(imd),trader,100 ether);vm.startPrank(trader);imd.approve(permit,type(uint256).max);token.approve(permit,type(uint256).max);WebsitePermit(permit).approve(address(imd),router,type(uint160).max,uint48(block.timestamp+1800));WebsitePermit(permit).approve(address(token),router,type(uint160).max,uint48(block.timestamp+1800));vm.stopPrank();}
  function _swap(bool buy,uint128 amount,uint128 minimum) internal {bytes[] memory params=new bytes[](3);params[0]=abi.encode(ExactIn(key,!buy,amount,minimum,bytes("")));params[1]=abi.encode(buy?address(imd):address(token),uint256(amount));params[2]=abi.encode(buy?address(token):address(imd),uint256(minimum));bytes[] memory inputs=new bytes[](1);inputs[0]=abi.encode(hex"060c0f",params);vm.prank(trader);WebsiteRouter(router).execute(hex"10",inputs,block.timestamp+300);}

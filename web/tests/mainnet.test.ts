@@ -26,8 +26,10 @@ import {
   fmt,
   quoteCurrent,
   feeBreakdown,
+  validateQuoteSnapshot,
   type Quote,
 } from "../src/trading";
+import type { CandidateSnapshot } from "../src/mainnetReader";
 import { verifyProof } from "../src/rewards";
 test("all standard modes enforce launch2071 sorted key, empty hookData, execution-account take and zero native funding", () => {
   for (const mode of [
@@ -152,6 +154,23 @@ test("quote invalidates on account, direction, amount, slippage or 30 second exp
   assert(!quoteCurrent(q, TOKEN, true, 2n, 50, 2000));
   assert(!quoteCurrent(q, TOKEN, true, 1n, 100, 2000));
   assert(!quoteCurrent(q, TOKEN, true, 1n, 50, 31000));
+});
+test("final quote validation rejects elapsed preparation, block drift, inactive state and deadline boundaries", () => {
+  const now = 1_000_000;
+  const q = { account: TOKEN, buy: true, amount: 10n, block: 100n,
+    createdAt: now, deadline: 1300n } as Quote;
+  const fresh = { activated: true, block: 100n, blockTime: 1000n,
+    readAt: now, wallet: { imdBalance: 10n, sellable: 10n } } as CandidateSnapshot;
+  assert.doesNotThrow(() => validateQuoteSnapshot(q, fresh, now + 29999));
+  assert.throws(() => validateQuoteSnapshot(q, fresh, now + 30000), /Quote expired/);
+  assert.throws(() => validateQuoteSnapshot(q, fresh, now - 1), /Quote expired/);
+  assert.doesNotThrow(() => validateQuoteSnapshot(q, { ...fresh, block: 103n }, now));
+  for (const patch of [{ block: 104n }, { block: 99n }, { activated: false },
+    { readAt: now - 45001 }, { blockTime: 909n }, { blockTime: 1300n }])
+    assert.throws(() => validateQuoteSnapshot(q, { ...fresh, ...patch }, now), /Quote or activation state changed/);
+  assert.throws(() => validateQuoteSnapshot({ ...q, deadline: 1000n }, fresh, now), /Quote or activation state changed/);
+  assert.throws(() => validateQuoteSnapshot({ ...q, amount: 11n }, fresh, now), /Insufficient IMD/);
+  assert.throws(() => validateQuoteSnapshot({ ...q, buy: false, amount: 11n }, fresh, now), /mature quota/);
 });
 test("all delivered native proofs match the certified onchain root", () => {
   const tree = JSON.parse(

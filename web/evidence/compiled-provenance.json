@@ -1,0 +1,14 @@
+{
+  "command": "forge build && node web/scripts/record-compiled.mjs",
+  "sourceCommit": "40d70b7bd0853aedf84eac839a40a5f12e6ac341",
+  "contracts": [
+    "UnlkToken",
+    "UnlkImdHook",
+    "ImdFeeVault",
+    "UnlkImdOracle",
+    "MerkleClaimEvidence"
+  ],
+  "sourceAndDependencyFiles": 412,
+  "sourceDigest": "7a43d09ef793eaea1f06fc5cd441e7e3f3a18164799b310a8a2abaebdcce2836",
+  "note": "Minimal compiler output retained to allow verification after npm ci without shipping the Foundry cache. Regenerate with the unchanged project build configuration."
+}

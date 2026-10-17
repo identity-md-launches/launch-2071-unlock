@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-10-17T14:49:19.831417+00:00",
+  "jobId": "b35cc3bc-234d-4e8a-880f-e6081c3c78a6",
+  "launchId": "0528a007-5ec6-4acd-b9cc-b3ded6fe2929",
+  "launchNumber": 2071,
+  "chainId": 1,
+  "token": "0x99fa82b022be4575891a43b757bc770691e18fda",
+  "supportedSiteUrl": null,
+  "deliveryCommit": null,
+  "siteStatus": "pending job delivery",
+  "explorerUrl": "https://explorer.imd.fun/token/0x99fa82b022be4575891a43b757bc770691e18fda",
+  "explorerWebsiteLinkObserved": false,
+  "evidence": [
+    "public-job-status.json",
+    "explorer-links.json",
+    "public-http-reads.json"
+  ],
+  "blocker": "The public Add a website job has host=true, deliver=true, site=null and delivery=null. No authenticated site-metadata writer is available in this job. IMD delivery must assign the site URL/commit, attach it to launch 2071 and confirm the Explorer backlink.",
+  "requiredFrom": "IMD job delivery / Explorer metadata service",
+  "actionsTaken": "Read-only public job/Explorer HTTP queries and local static export. No public writes or chain activation.",
+  "rollback": {
+    "acceptedBaselineCommit": "71376a1294b46b883301ecf80f6468b63347f701",
+    "includedFallback": "dist/recovery.html",
+    "note": "The baseline precedes this quote-expiry fix. Use the read-only fallback if publication needs rollback; do not restore the expired-quote signing defect. Preserve the final delivery commit/CID once assigned."
+  }
+}

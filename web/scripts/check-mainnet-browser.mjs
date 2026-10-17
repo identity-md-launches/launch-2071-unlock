@@ -10,7 +10,7 @@ if (!["localhost", "127.0.0.1"].includes(new URL(rpc).hostname))
   throw Error("Interaction tests may write only to a loopback fork RPC");
 const root = new URL("../../", import.meta.url),
   web = new URL("../", import.meta.url),
-  out = new URL("artifacts/", root);
+  out = new URL("web/evidence/", root);
 fs.mkdirSync(out, { recursive: true });
 let rpcId = 0;
 async function raw(method, params = []) {
@@ -36,12 +36,21 @@ const claim = JSON.parse(
   fs.readFileSync(new URL("public/claims/round-0.json", web)),
 ).leaves[0];
 const baseline = await raw("evm_snapshot");
+const forkBlock = await raw("eth_getBlockByNumber", ["latest", false]);
+const forkConfig = JSON.parse(fs.readFileSync(new URL("fork-config.json", out)));
+assert.equal(forkBlock.hash, forkConfig.blockHash, "Use the recorded unmodified fork");
+const startedAt = Date.now();
+const forkNow = () => Number(BigInt(forkBlock.timestamp)) * 1000 + Date.now() - startedAt;
 const results = {
   evidence:
     "Actual deployed launch 2071 on a local Anvil fork at block 26212727; wallet events and rejection injected; no public writes",
   checks: [],
   console: [],
   writes: [],
+  block: forkConfig.block,
+  blockHash: forkBlock.hash,
+  fixtureChanges: ["Local owner/claimant impersonation and ETH gas funding", "Local activation and approvals", "Browser clock starts at fork time", "Wallet events, rejection, feed failure, low-gas revert and receipt timing injected", "NFT indexer returns a mocked empty inventory"],
+  limitations: [],
 };
 let rejectNext = false;
 let feedFailure = false;
@@ -54,7 +63,7 @@ const send = async (tx, mine = true) => {
   await raw("anvil_impersonateAccount", [tx.from]);
   await raw("anvil_setBalance", [tx.from, "0x56BC75E2D63100000"]);
   await raw("evm_setNextBlockTimestamp", [
-    Math.floor(Date.now() / 1000) + clockOffset,
+    Math.floor(forkNow() / 1000) + clockOffset,
   ]);
   const hash = await raw("eth_sendTransaction", [
     { ...tx, gas: tx.gas ?? "0x7a1200" },
@@ -66,7 +75,7 @@ const browsers = [];
 let page;
 try {
   await raw("evm_setNextBlockTimestamp", [
-    Math.floor(Date.now() / 1000) + clockOffset,
+    Math.floor(forkNow() / 1000) + clockOffset,
   ]);
   await raw("evm_mine");
   for (const address of [owner, claim.wallet]) {
@@ -226,11 +235,10 @@ try {
     { owner },
   );
   page = await context.newPage();
-  await page.clock.install();
+  await page.clock.install({ time: new Date(forkNow()) });
   page.on("pageerror", (e) => results.console.push(e.message));
   await page.goto(site);
   await page.getByText("Trading not yet activated", { exact: true }).waitFor();
-  await page.screenshot({ path: new URL("mobile-inactive.png", out).pathname });
   results.checks.push(
     "390px first screen contains product, amount and connect action",
   );
@@ -388,7 +396,7 @@ try {
     data: encodeFunctionData({
       abi: pa,
       functionName: "approve",
-      args: [imd, router, 0n, Math.floor(Date.now() / 1000) + 1800],
+      args: [imd, router, 0n, Math.floor(forkNow() / 1000) + 1800],
     }),
     value: "0x0",
   });
@@ -510,7 +518,7 @@ try {
   assert.equal(results.writes.length, timeoutCount);
   await raw("anvil_setAutomine", [true]);
   await raw("evm_setNextBlockTimestamp", [
-    Math.floor(Date.now() / 1000) + clockOffset,
+    Math.floor(forkNow() / 1000) + clockOffset,
   ]);
   await raw("anvil_mine", ["0x3"]);
   await page
@@ -578,6 +586,9 @@ try {
   results.checks.push(
     "Injected low-gas mined revert is reported with gas spent and no automatic resend",
   );
+  if (process.argv.includes("--chromium-only")) {
+    results.limitations.push("WebKit not run in this invocation (--chromium-only)");
+  } else {
   const safari = await webkit.launch({ headless: true });
   browsers.push(safari);
   const sp = await safari.newPage({ viewport: { width: 390, height: 844 } });
@@ -592,6 +603,7 @@ try {
     false,
   );
   results.checks.push("WebKit production render, connect sheet and Escape");
+  }
   assert.deepEqual(results.console, []);
   results.passed = true;
 } catch (e) {

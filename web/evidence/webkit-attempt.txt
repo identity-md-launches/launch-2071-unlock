@@ -1,0 +1,60 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+browserType.launch: 
+╔══════════════════════════════════════════════════════╗
+║ Host system is missing dependencies to run browsers. ║
+║ Missing libraries:                                   ║
+║     libgtk-4.so.1                                    ║
+║     libpangocairo-1.0.so.0                           ║
+║     libgdk_pixbuf-2.0.so.0                           ║
+║     libcairo-gobject.so.2                            ║
+║     libgraphene-1.0.so.0                             ║
+║     liblcms2.so.2                                    ║
+║     libevent-2.1.so.7                                ║
+║     libopus.so.0                                     ║
+║     libgstallocators-1.0.so.0                        ║
+║     libgstapp-1.0.so.0                               ║
+║     libgstpbutils-1.0.so.0                           ║
+║     libgstaudio-1.0.so.0                             ║
+║     libgsttag-1.0.so.0                               ║
+║     libgstvideo-1.0.so.0                             ║
+║     libgstgl-1.0.so.0                                ║
+║     libgstcodecparsers-1.0.so.0                      ║
+║     libgstfft-1.0.so.0                               ║
+║     libflite.so.1                                    ║
+║     libflite_usenglish.so.1                          ║
+║     libflite_cmu_grapheme_lang.so.1                  ║
+║     libflite_cmu_grapheme_lex.so.1                   ║
+║     libflite_cmu_indic_lang.so.1                     ║
+║     libflite_cmu_indic_lex.so.1                      ║
+║     libflite_cmulex.so.1                             ║
+║     libflite_cmu_time_awb.so.1                       ║
+║     libflite_cmu_us_awb.so.1                         ║
+║     libflite_cmu_us_kal16.so.1                       ║
+║     libflite_cmu_us_kal.so.1                         ║
+║     libflite_cmu_us_rms.so.1                         ║
+║     libflite_cmu_us_slt.so.1                         ║
+║     libwebpdemux.so.2                                ║
+║     libavif.so.16                                    ║
+║     libharfbuzz-icu.so.0                             ║
+║     libepoxy.so.0                                    ║
+║     libwebpmux.so.3                                  ║
+║     libwayland-server.so.0                           ║
+║     libwayland-egl.so.1                              ║
+║     libwayland-client.so.0                           ║
+║     libmanette-0.2.so.0                              ║
+║     libenchant-2.so.2                                ║
+║     libsecret-1.so.0                                 ║
+║     libhyphen.so.0                                   ║
+║     libGLESv2.so.2                                   ║
+║     libx264.so                                       ║
+╚══════════════════════════════════════════════════════╝
+    at <repo>/[eval1]:2:22
+    at async node:internal/modules/esm/loader:223:26 {
+  log: [],
+  name: 'Error'
+}
+
+Node.js v24.21.0

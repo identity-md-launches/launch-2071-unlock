@@ -1,0 +1,124 @@
+{
+  "hash": "0xc9b35b7491a98046f97b3704cce6845afab12b04e79501591acd5052a2865405",
+  "parentHash": "0x17f94d27583d8205c074ca0b34d250dede8895012a7fcfb97e12579452704cc5",
+  "sha3Uncles": "0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347",
+  "miner": "0xa299831a61951249e46c5d0da21b86fbb5a94af7",
+  "stateRoot": "0x599e41c324573298ceda3899ad2832ad5c9e84371ee3c7c3e0cce7f1dad27e73",
+  "transactionsRoot": "0xf1fc21325f7c098032990d237311bab837960c3c2fac73b5ac853c0197157cfc",
+  "receiptsRoot": "0x2e4a7b9a01a373ccd842f95f59ef3f4a76c80a7f4c1cefddbf935525d1c5fb7b",
+  "logsBloom": "0x150148103091028110200180842010005868028800012200812000204001042c08900b30221e242204102300800c01c2118405021682008034412008153404025008182904d40c411840a6188be173026c202800c1140c700184000c28414208818004488203212000c0180804041a004b1502610c0061a18aac7811ceac1220000820380180731002980e0880d8000e5c0014810301052180800c02901c0421120098261c01a10429c00a8011408cc48041021620c401b890205802941084530a3809868080840008403620001a4840304c044220004824046514400a0073220e3034122158040000c8500000109c240404403a04248408025620850080c001",
+  "difficulty": "0x0",
+  "number": "0x18ff977",
+  "gasLimit": "0x3938700",
+  "gasUsed": "0x4aac59",
+  "timestamp": "0x6ad37f2f",
+  "extraData": "0xd883011102846765746888676f312e32352e37856c696e7578",
+  "mixHash": "0x60e932c1da39b03a7a51657e24b58d61b3bf1242dff9429b25311061274ecf71",
+  "nonce": "0x0000000000000000",
+  "baseFeePerGas": "0x3bec71f",
+  "withdrawalsRoot": "0xd39abc0b3a35dbae95b5c7e53025e748dc40f8ce8ee5bc13fc3dc436c42d0f2c",
+  "blobGasUsed": "0x180000",
+  "excessBlobGas": "0xa7c2411",
+  "parentBeaconBlockRoot": "0xf87e160a4bed79897efb50d9e5f91b1d9267570856b1e4574877a4936270ce2f",
+  "requestsHash": "0xe3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "size": "0x688f",
+  "uncles": [],
+  "withdrawals": [
+    {
+      "index": "0x8c0aa5b",
+      "validatorIndex": "0x1c15c3",
+      "address": "0x214826d47c2a411b5fd2201f4709157a992af9f8",
+      "amount": "0xcd0017"
+    },
+    {
+      "index": "0x8c0aa5c",
+      "validatorIndex": "0x1c15c4",
+      "address": "0x214826d47c2a411b5fd2201f4709157a992af9f8",
+      "amount": "0xcd0d4d"
+    },
+    {
+      "index": "0x8c0aa5d",
+      "validatorIndex": "0x1c15c5",
+      "address": "0x214826d47c2a411b5fd2201f4709157a992af9f8",
+      "amount": "0xccb55e"
+    },
+    {
+      "index": "0x8c0aa5e",
+      "validatorIndex": "0x1c15c6",
+      "address": "0x214826d47c2a411b5fd2201f4709157a992af9f8",
+      "amount": "0xcd266f"
+    },
+    {
+      "index": "0x8c0aa5f",
+      "validatorIndex": "0x1c15c7",
+      "address": "0x214826d47c2a411b5fd2201f4709157a992af9f8",
+      "amount": "0xcd449c"
+    },
+    {
+      "index": "0x8c0aa60",
+      "validatorIndex": "0x1c15c8",
+      "address": "0x214826d47c2a411b5fd2201f4709157a992af9f8",
+      "amount": "0xcd1d85"
+    },
+    {
+      "index": "0x8c0aa61",
+      "validatorIndex": "0x1c15c9",
+      "address": "0x214826d47c2a411b5fd2201f4709157a992af9f8",
+      "amount": "0xcce581"
+    },
+    {
+      "index": "0x8c0aa62",
+      "validatorIndex": "0x1c15ca",
+      "address": "0x214826d47c2a411b5fd2201f4709157a992af9f8",
+      "amount": "0xcd44ae"
+    },
+    {
+      "index": "0x8c0aa63",
+      "validatorIndex": "0x1c15cb",
+      "address": "0x214826d47c2a411b5fd2201f4709157a992af9f8",
+      "amount": "0xcd24b7"
+    },
+    {
+      "index": "0x8c0aa64",
+      "validatorIndex": "0x1c15cc",
+      "address": "0x214826d47c2a411b5fd2201f4709157a992af9f8",
+      "amount": "0xcd1511"
+    },
+    {
+      "index": "0x8c0aa65",
+      "validatorIndex": "0x1c15cd",
+      "address": "0x214826d47c2a411b5fd2201f4709157a992af9f8",
+      "amount": "0xcced34"
+    },
+    {
+      "index": "0x8c0aa66",
+      "validatorIndex": "0x1c15ce",
+      "address": "0x214826d47c2a411b5fd2201f4709157a992af9f8",
+      "amount": "0xccf5b7"
+    },
+    {
+      "index": "0x8c0aa67",
+      "validatorIndex": "0x1c15cf",
+      "address": "0x214826d47c2a411b5fd2201f4709157a992af9f8",
+      "amount": "0xccf807"
+    },
+    {
+      "index": "0x8c0aa68",
+      "validatorIndex": "0x1c15d0",
+      "address": "0x214826d47c2a411b5fd2201f4709157a992af9f8",
+      "amount": "0xccfd30"
+    },
+    {
+      "index": "0x8c0aa69",
+      "validatorIndex": "0x1c15d1",
+      "address": "0x214826d47c2a411b5fd2201f4709157a992af9f8",
+      "amount": "0xccf4a6"
+    },
+    {
+      "index": "0x8c0aa6a",
+      "validatorIndex": "0x1c15d2",
+      "address": "0x214826d47c2a411b5fd2201f4709157a992af9f8",
+      "amount": "0xcceebf"
+    }
+  ]
+}

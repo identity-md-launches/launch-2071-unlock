@@ -1,0 +1,56 @@
+No files changed, compilation skipped
+
+Ran 2 tests for test/mainnet/ImdFeeMath.t.sol:ImdFeeMathTest
+[PASS] testFuzzAllModeRounding(uint128) (runs: 256, μ: 3633, ~: 3640)
+[PASS] testSeedDepthReversesWithSortingNoEthFloor() (gas: 9336)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 377.33ms (375.61ms CPU time)
+
+Ran 4 tests for test/mainnet/ImdPermitAndBatch.t.sol:ImdPermitAndBatchTest
+[PASS] testBatchCreditsAndExplicitRecipientStillUseInitiator() (gas: 564755)
+[PASS] testFeeInclusiveInputOutputLimitsAndExpiryRollback() (gas: 650277)
+[PASS] testLocallySignedPermit2PermitAndBuyAtomicReplayRejected() (gas: 624644)
+[PASS] testSameExecutionCycleFullSaleRejectedAtomically() (gas: 703146)
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 427.08ms (157.72ms CPU time)
+
+Ran 18 tests for test/mainnet/OneWayGates.t.sol:OneWayGatesTest
+[PASS] testBriefBuySpikeThenFullSaleSameTransactionPreservesHighestSwapBoundary() (gas: 945372)
+[PASS] testEveryExactThresholdAndOneWeiBelowUsesSqrtNotRoundedTick() (gas: 6367380)
+[PASS] testExact1000Then200ThenOnly100At30Percent() (gas: 1970795)
+[PASS] testFuzzCumulativeEntitlementSurvivesGateJumpAndAdditionalBuy(uint96,uint8) (runs: 256, μ: 1498266, ~: 1497445)
+[PASS] testInvalidReferenceOnlyBlocksNewGatesNotTradingTransfersOrNativeClaims() (gas: 1888298)
+[PASS] testLateBatchRevertRestoresFinalBypassSalesCreditsFeesAndPool() (gas: 967339)
+[PASS] testLiquidityFeeReceiptsAndDonationsNeverCreditEligibility() (gas: 1489647)
+[PASS] testMultiTierJumpBriefSpikeAndPriceDeclineNeverReduceRights() (gas: 423923)
+[PASS] testOracleCannotBindUnauthorizedDifferentPoolOrSecondTime() (gas: 334200)
+[PASS] testPartialSalesRoundingAndNewAcquisitionsNeverResetSold() (gas: 2457467)
+[PASS] testPermanentFinalBypassForTransferOnlyHolderWithZeroEAfterDeclineAndOutage() (gas: 1195363)
+[PASS] testProtocolFeeDoesNotInvalidateSpotOrPreventPermanentGateAdvancement() (gas: 403894)
+[PASS] testRevertingReferenceStillSettlesQualifyingBuyAndWithinOldQuotaSale() (gas: 1051513)
+[PASS] testSaleCannotUseItsOwnPostSwapGateRetroactively() (gas: 1716712)
+[PASS] testSameTransactionEarlierBuyOpensGateForMatureQuotaButNewCreditWaits() (gas: 1324349)
+[PASS] testSameTransactionNewGateDoesNotMatureFreshCreditsAndRevertedBatchRestoresGate() (gas: 1290408)
+[PASS] testUnobservedPriceTouchIsNotBackfilled() (gas: 247900)
+[PASS] testWrongPoolCheckpointAndInvalidCurrentStateCannotGrantRights() (gas: 472483)
+Suite result: ok. 18 passed; 0 failed; 0 skipped; finished in 4.70s (4.48s CPU time)
+
+Ran 9 tests for test/mainnet/QuotaMitigation.t.sol:QuotaMitigationTest
+[PASS] testDirectRightsIsolatedFromTwoAlternateExecutorsAndRecipients() (gas: 1944496)
+[PASS] testFuzzFreshBuysCannotEnlargeMatureCapacity(uint96) (runs: 256, μ: 964298, ~: 961912)
+[PASS] testLegitimateSmartAccountCanUseDirectRouterAndWalletExecutor() (gas: 1302354)
+[PASS] testMainnetSegregatedFundsHighPersistsAfterMaturity() (gas: 1664888)
+Logs:
+  Alice gross IMD capital: 100000000000000000000
+  Alice UNLK buy credit: 37520205924135432073673623
+  Alice buy treasury fee IMD: 744416873449131513
+  before mitigation and after maturity exposed UNLK capacity: 7504041184827086414734724
+  Bob net IMD proceeds: 19901531076301633668
+  total treasury fee IMD: 894806277048388190
+
+[PASS] testNativeCreditsNeverWaitForBuyMaturity() (gas: 517499)
+[PASS] testSameBlockPartialCycleAndSeparateExecutionsCannotRecycleCredit() (gas: 1683285)
+[PASS] testStandardRouterPrefundingDoesNotAuthenticateUnderlyingQuotaOwner() (gas: 996749)
+[PASS] testStandardRouterRecipientDoesNotAuthenticateUnderlyingQuotaOwner() (gas: 935582)
+[PASS] testWalletExecutorAuthenticatesCallerSettlementAndBudgets() (gas: 1277847)
+Suite result: ok. 9 passed; 0 failed; 0 skipped; finished in 2.53s (2.51s CPU time)
+
+Ran 4 test suites in 8.15s (8.03s CPU time): 33 tests passed, 0 failed, 0 skipped (33 total tests)

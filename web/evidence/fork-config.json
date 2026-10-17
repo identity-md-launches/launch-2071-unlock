@@ -1,0 +1,9 @@
+{
+  "chainId": 1,
+  "block": "26212727",
+  "blockHash": "0xc9b35b7491a98046f97b3704cce6845afab12b04e79501591acd5052a2865405",
+  "timestamp": "1792245551",
+  "rpcUrl": "https://eth.drpc.org",
+  "sourceCommit": "40d70b7bd0853aedf84eac839a40a5f12e6ac341",
+  "scope": "Historical mainnet reads and local-only fork tests. No public writes."
+}

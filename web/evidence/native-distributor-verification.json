@@ -1,0 +1,28 @@
+{
+  "evidence": "Offline verification of recorded mainnet RPC bytes against compiled source; not a fresh chain read",
+  "chainId": 1,
+  "block": "26212727",
+  "blockHash": "0xc9b35b7491a98046f97b3704cce6845afab12b04e79501591acd5052a2865405",
+  "factoryHash": "0xb6a524d4b697c41f80c369f4990ac070c9dda6f3ef5efe36f21e6150a530b413",
+  "initcodeHash": "0xf1c21108732a73286b1030e87fbba14c806905275dde6fce012f2c0ca19e30b9",
+  "expectedInitcodeHash": "0xf1c21108732a73286b1030e87fbba14c806905275dde6fce012f2c0ca19e30b9",
+  "templateHash": "0xe74f53f28ce98f313e18c4dcb9d7c3adff5e56c7554a5ad902ae85f007feb8b2",
+  "expectedTemplateHash": "0xe74f53f28ce98f313e18c4dcb9d7c3adff5e56c7554a5ad902ae85f007feb8b2",
+  "bytes": 4145,
+  "immutableOffsets": [
+    491,
+    530,
+    569,
+    706,
+    1296,
+    1371,
+    1609,
+    1796,
+    1936,
+    2562,
+    2797,
+    2872
+  ],
+  "matched": true,
+  "runtimeHash": "0xa19354f8bf52d03b53eb85dc4c778497eff038900ac20aaa8591aa2a8bba5b56"
+}

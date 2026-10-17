@@ -1,0 +1,117 @@
+{
+  "evidence": "Actual deployed launch 2071 on a local Anvil fork at block 26212727; wallet events and rejection injected; no public writes",
+  "checks": [
+    "390px first screen contains product, amount and connect action",
+    "Named EIP-6963 wallet connects; inactive swaps disabled",
+    "Network switch requests Ethereum chain 1",
+    "Account change during gas estimation prevents stale review and sends nothing",
+    "Real native round0 claim before activation using locally rebuilt matching proof",
+    "Wallet rejection produces no write or resend",
+    "Activation appears automatically; attestation and credit sync stay separate",
+    "Actual payer eligibility and deduplicated sync",
+    "Mock oracle read failure shows unavailable FDV while active trading and stored rights remain",
+    "Fee-inclusive quote, token approval, expiring Permit2 approval, real router buy and executed treasury receipt",
+    "Actual UNLK to IMD sell uses execution-account quota and zero msg.value",
+    "Quote expires after 30 seconds under a virtual clock; double confirmation sends exactly once",
+    "Account changes invalidate quotes and personal state",
+    "Amounts reject excess precision",
+    "Connected transaction layout has no overflow at 320,390,1440",
+    "Virtual 180-second receipt timeout retains pending hash; manual receipt check completes without resend",
+    "Same-nonce wallet cancellation tracks the replacement and does not mark the original action complete",
+    "Injected low-gas mined revert is reported with gas spent and no automatic resend"
+  ],
+  "console": [],
+  "writes": [
+    {
+      "to": "0xc70795e2d8dfac6131038dcba84aa2aaed1ceed1",
+      "from": "0x8A09064A767F3013F6FAdC99C187E4A28659614a",
+      "value": "0x0",
+      "hash": "0x3cfbfb44d9a11a49939f95d5db699d838661c9503ba55115ebe05f3251f2fc12"
+    },
+    {
+      "to": "0x31d8c50c3c2d7c6000f1ac8cfd466404d26232ab",
+      "from": "0x8A09064A767F3013F6FAdC99C187E4A28659614a",
+      "value": "0x0",
+      "hash": "0xc1e0aabf8fe1cc9644a49148150b150932c9f6e611a0866d57bb483c0bf9ca9a"
+    },
+    {
+      "to": "0x932eba7e96b9e54efe6f8cdf98cb092164a57fcc",
+      "from": "0x8A09064A767F3013F6FAdC99C187E4A28659614a",
+      "value": "0x0",
+      "hash": "0xefb357e2925ee8e9fc2851ec5b04fcbeccc12d99dae962973802517cb0a14528"
+    },
+    {
+      "to": "0x932eba7e96b9e54efe6f8cdf98cb092164a57fcc",
+      "from": "0x48E4E74fE1d0c14404cEB57B9fec5b21329C6ec9",
+      "value": "0x0",
+      "hash": "0xeed03727422b6d57069dafd55b7b9faefeb500db5d9d9bea4e0aa841a1341bbd"
+    },
+    {
+      "to": "0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7",
+      "from": "0x48E4E74fE1d0c14404cEB57B9fec5b21329C6ec9",
+      "value": "0x0",
+      "hash": "0x6b1d330f45e446cb61257ac8463323dafcabe4c271da5b2336a8ad3d302c70e4"
+    },
+    {
+      "to": "0x000000000022d473030f116ddee9f6b43ac78ba3",
+      "from": "0x48E4E74fE1d0c14404cEB57B9fec5b21329C6ec9",
+      "value": "0x0",
+      "hash": "0x05748ca1e32fea568d802b819442429143407737dbedd8607c10776c09d2c0cc"
+    },
+    {
+      "to": "0x66a9893cc07d91d95644aedd05d03f95e1dba8af",
+      "from": "0x48E4E74fE1d0c14404cEB57B9fec5b21329C6ec9",
+      "value": "0x0",
+      "hash": "0x6fbc6f2a8d44faf7dbcae14cfbb953dae090c21ddb111c5dcf9dedc4411097fe"
+    },
+    {
+      "to": "0x99fa82b022be4575891a43b757bc770691e18fda",
+      "from": "0x48E4E74fE1d0c14404cEB57B9fec5b21329C6ec9",
+      "value": "0x0",
+      "hash": "0x4fd1fe79aa6add20a9321d74bd30b1ec30dfc38c286c3f665a430f6b87308063"
+    },
+    {
+      "to": "0x000000000022d473030f116ddee9f6b43ac78ba3",
+      "from": "0x48E4E74fE1d0c14404cEB57B9fec5b21329C6ec9",
+      "value": "0x0",
+      "hash": "0xa8eb2d4a64d4aa1f1b520febdc2fc452106fe9677bfa5289052e8472a82e5bc8"
+    },
+    {
+      "to": "0x66a9893cc07d91d95644aedd05d03f95e1dba8af",
+      "from": "0x48E4E74fE1d0c14404cEB57B9fec5b21329C6ec9",
+      "value": "0x0",
+      "hash": "0xc362c66a9517721977124bf1d7f8f74c82cc4266af96749716cf7156dc2fc28e"
+    },
+    {
+      "to": "0xc70795e2d8dfac6131038dcba84aa2aaed1ceed1",
+      "from": "0xc3280127e4c50B20e73bE6284c44D3C426748c04",
+      "value": "0x0",
+      "hash": "0xa378712e66e0a316f367292c1ef656c634ff1797d82926f776ffa76f91362984"
+    },
+    {
+      "to": "0xc70795e2d8dfac6131038dcba84aa2aaed1ceed1",
+      "from": "0x50636eA92A6EA8Bce533CCFee02D5C8E4384fe50",
+      "value": "0x0",
+      "hash": "0xf0fc72c237cdc4304e78269d77c869e72c95c8952aaffa19ff5edf9a16ed575b"
+    },
+    {
+      "to": "0xc70795e2d8dfac6131038dcba84aa2aaed1ceed1",
+      "from": "0x50636eA92A6EA8Bce533CCFee02D5C8E4384fe50",
+      "value": "0x0",
+      "hash": "0xc1068a566cbe3b4d1ff190fdd5a8d682f9d83c9a3f3b929d688cb5ef1a383dfd"
+    }
+  ],
+  "block": "26212727",
+  "blockHash": "0xc9b35b7491a98046f97b3704cce6845afab12b04e79501591acd5052a2865405",
+  "fixtureChanges": [
+    "Local owner/claimant impersonation and ETH gas funding",
+    "Local activation and approvals",
+    "Browser clock starts at fork time",
+    "Wallet events, rejection, feed failure, low-gas revert and receipt timing injected",
+    "NFT indexer returns a mocked empty inventory"
+  ],
+  "limitations": [
+    "WebKit not run in this invocation (--chromium-only)"
+  ],
+  "passed": true
+}

@@ -1,0 +1,27 @@
+{
+  "evidence": "Unmodified historical Ethereum mainnet RPC reads; no mock, fork mutation or public write",
+  "chainId": 1,
+  "block": "26212727",
+  "blockHash": "0xc9b35b7491a98046f97b3704cce6845afab12b04e79501591acd5052a2865405",
+  "blockTime": "1792245551",
+  "rpcUrl": "https://eth.drpc.org",
+  "capturedAt": "2026-10-17T14:39:26.009Z",
+  "bindingsVerified": true,
+  "activated": false,
+  "certifiedRound0": true,
+  "codeRoles": [
+    "token",
+    "hook",
+    "vault",
+    "evidence",
+    "oracle",
+    "distributor",
+    "factory",
+    "registry",
+    "imd",
+    "router",
+    "quoter",
+    "permit2",
+    "manager"
+  ]
+}
