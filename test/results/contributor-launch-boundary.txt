@@ -1,0 +1,18 @@
+Contributor launch-boundary validation
+Fuzz seed: 0xbf84f3f21fd6f3e756b5aa1b53feb5a083e16964a7b58fcc36f0bcbdb81e70bd
+forge build: passed (pre-existing compiler warnings)
+forge test: Ran 98 test suites in 244.88s (488.34s CPU time): 483 tests passed, 0 failed, 2 skipped (485 total tests)
+Offline skips: two opt-in RecordedLaunchBoundary test contracts skipped in setUp.
+Local unmodified supplied Hook/Token protected checks: Ran 2 test suites in 273.08ms (303.79ms CPU time): 11 tests passed, 0 failed, 0 skipped (11 total tests)
+Owners protected check: not run; platform OwnerChecks.sol and Swapper.sol are absent.
+Opt-in recorded mainnet fork: Ran 2 test suites in 2.50s (4.97s CPU time): 6 tests passed, 0 failed, 0 skipped (6 total tests)
+Fork block: 26210931
+Fork block hash: 0x46fed6862c03072f4455212eccafbca631f5be88bc34b33ca00d4244a690129c
+Historical admission regression replay: scratch copy with premature _verifyServices() restored; 2 expected-success tests failed as intended.
+Underlying replay revert: InvalidConfig() (0x35be3ac8), wrapped by PoolManager for beforeInitialize (0xdc98354e).
+Production sources unchanged. Scratch replay excluded from final suite and submission.
+Local checks and fork simulations are not official admission or a mainnet deployment.
+
+New invariant campaigns:
+SetupLifecycleInvariantsTest invariants (runs: 128, calls: 8192, reverts: 0)
+SetupLifecycleReverseOrderInvariantsTest invariants (runs: 128, calls: 8192, reverts: 0)
