@@ -1,0 +1,22 @@
+[
+  {
+    "name": "execute",
+    "type": "function",
+    "stateMutability": "payable",
+    "inputs": [
+      {
+        "type": "bytes",
+        "name": "commands"
+      },
+      {
+        "type": "bytes[]",
+        "name": "inputs"
+      },
+      {
+        "type": "uint256",
+        "name": "deadline"
+      }
+    ],
+    "outputs": []
+  }
+]

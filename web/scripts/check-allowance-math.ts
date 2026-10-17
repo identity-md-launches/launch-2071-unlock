@@ -1,6 +1,6 @@
 /** Generate disposable cross-language vectors against the actual hook in the existing local fixture. */
 import fs from "node:fs";
-import { allowance, RATES, UNIT } from "../src/math";
+import { allowance, RATES, UNIT } from "../tests/fixtures/sepolia-math";
 
 const MAX = (1n << 256n) - 1n;
 const ledgers = [

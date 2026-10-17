@@ -1,73 +1,67 @@
-# UNLOCK terminal design
+# UNLOCK website design
 
 ## Overview
 
-UNLOCK is a Sepolia trading interface for cumulative sell allowances and permanent milestones. The final design is a compact, flat terminal: one chart/form workspace, aligned numerical ledgers, thin separators and explicit state labels. It follows the density of the inspected Sato reference while using UNLK’s own categorical milestone rules, emblem, copy and interactions. There is no marketing hero, serif typography, decorative coin, gradient or large diamond.
+The site is a mainnet UNLK/IMD trading workspace for launch 2071. It keeps the reference site's near-black editorial identity, mint diamond mark, restrained lock motif and numerical ledgers. Trading is first, followed by personal selling rights, the permanent ladder, treasury/NFTs, explanations and contract provenance. The desktop introduction and swap sit side by side; mobile puts the amount and primary action immediately below a short introduction.
 
-The canonical implementation is `web/src/styles.css`; `App.tsx` provides navigation and `Terminal.tsx` composes the entry view. `charts.tsx`, `Trade.tsx` and `Unlock.tsx` are the primary reuse points.
+The implementation lives in `web/src/App.tsx`, `NextRelease.tsx`, `NftGallery.tsx`, `wallet.tsx` and `styles.css`. Current chain state changes labels and available actions. No sample metrics or seeded NFT holdings are part of the interface.
 
 ## Colors
 
-All colors are opaque sRGB hex tokens. There is one intentionally dark theme.
+Canonical tokens are in `web/src/styles.css`, using sRGB hex values.
 
-| Token | Value | Use |
+| Token | Value | Role |
 | --- | --- | --- |
-| `--ink` | `#09090B` | Page and input background |
-| `--surface` | `#111114` | Flat panels/dialogs |
-| `--surface-hover` | `#1C1C21` | Hover, selected neutral surfaces |
-| `--line` | `#27272A` | Panel borders, separators, supplemental graph grid |
-| `--control` | `#71717A` | Input/button boundaries and outside-allowance bar |
-| `--text` | `#F4F4F5` | Primary text |
-| `--text-muted` | `#A1A1AA` | Supporting text and chart axes |
-| `--earned` | `#34D399` | Buy, confirmed sell rights |
-| `--target` | `#FBBF24` | Future milestones, hypothetical results, unavailable oracle |
-| `--selection` / `--focus` | `#22D3EE` | Wallet actions, chart cursor, keyboard focus |
-| `--sell` | `#F472B6` | Sell and ETH-credit settlement |
-| `--error` | `#F87171` | Errors and execution blockers |
+| `--ink` | `#09090b` | Page background and text on the mint primary button |
+| `--surface` | `#111114` | Swap, notes, dialogs and receipt surface |
+| `--hover` | `#1b1b20` | Neutral interactive hover/pressed state |
+| `--text` | `#f4f4f5` | Main text |
+| `--muted` | `#a1a1aa` | Secondary text and descriptive labels |
+| `--line` | `#303036` | Structural separators |
+| `--control` | `#71717a` | Interactive outlines |
+| `--accent` | `#34d399` | Primary action, actual unlocked rights and diamond mark |
+| `--warning` | `#fbbf24` | Next gate and inactive/oracle notices |
+| `--error` | `#fca5a5` | Errors |
+| `--focus` | `#22d3ee` | Two-pixel keyboard focus perimeter |
 
-`--accent-solid` inherits emerald and becomes pink inside `.sell-mode`; filled actions use near-black text. Buy and Sell tabs use restrained dark tints (`#10261F` / `#2B1925`) with both text and pressed-state cues. Colors never carry status alone.
-
-Measured text contrast against `--surface`: primary 17.149:1, muted 7.355:1, emerald 9.805:1, amber 11.291:1, cyan 10.430:1, pink 7.117:1, red 6.814:1. Control boundaries measure 3.900:1. Opaque rendered surfaces were inspected; the detailed token calculations are in `artifacts/contrast.json`. Disabled controls are intentionally dimmed and are not represented as active actions.
+The site intentionally has one dark theme. State also has text: Current, Unlocked, Next, Locked, unavailable, pending or confirmed. Accent color never establishes quota by itself. The taste probe measured rendered contrast; its final results are in `artifacts/design-probe.json`.
 
 ## Typography
 
-JetBrains Mono is bundled as local Regular (400) and SemiBold (600) WOFF2 files in `web/src/assets/fonts/`. The SIL OFL license ships in `web/public/fonts/JetBrains-Mono-OFL.txt`. Fallbacks are `ui-monospace`, SFMono-Regular, Consolas and monospace. No font request goes to a third-party host.
+Prose uses Arial/Helvetica/system sans; numbers, addresses and the wordmark use locally bundled JetBrains Mono Regular (400) and SemiBold (600). Their WOFF2 files are in `web/src/assets/fonts`; the OFL ships in `dist/fonts`. Sans bold can use the system 700 face. No external font service is required.
 
-Six sizes: `--small` 12px for data labels/axes, `--body` 14px, `--input` 16px, `--subhead` 20px, `--heading` 24px and `--large` 28px for trade input. Body line-height is 1.5; headings use 1.3. All numerical values use tabular figures. Copy is naturally cased without tracked kicker labels. Mobile form inputs/selects are at least 16px. Text remains selectable; long addresses and amounts wrap rather than clip. `Amount` exposes exact wei-derived decimal values in its title while the visible value uses conservative precision.
+The six token sizes are 12px (`--small`), 14px (`--body`), 16px (`--input`), 20px (`--subhead`), 28px (`--heading`) and 64px (`--display`). At widths up to 1000px the introduction uses 48px, and at 760px or narrower it uses the 28px heading step. Each rendered width stays within six sizes. Numeric inputs are at least 16px; the amount uses 28px. Body line height is 1.55, headings 1.15, and the desktop display 1.03. Headings use balanced wrapping and modest negative tracking; prose has natural tracking and a 75ch maximum measure. Addresses wrap rather than truncate. The header's short connected address has the full address in its title; transaction reviews show it in full.
 
 ## Layout
 
-The main workspace is at most 1280px with 24px outer margins on larger screens. The desktop chart/form grid is `minmax(0,1fr) 360px`, separated by 16px; at 1100px the form becomes 340px. At 850px the header navigation becomes a second compact row and chart/form stack. At 560px the form becomes a single column directly after the chart, with a connection action immediately after Buy/Sell tabs while disconnected. My Unlock follows the workspace and data freshness stamp.
+The main content has a 1280px maximum width and 32px side padding. Header maximum width is 1440px. Sections use 56px vertical padding; related controls generally use 12–24px gaps. Desktop workspace columns are `1.2fr 1fr` with an 80px gap. Rights and treasury use equal columns with 64px gaps. The ladder's data list uses four columns, then three below 1000px and two below 760px.
 
-Spacing is built around 12/16/24px, with 4/8px adjustments for compact controls and data rows. At phone widths outer margins are 12px. The actual SVG ladder is 240px tall on narrow displays and 280px on desktop. A ResizeObserver uses the rendered width so 12px chart labels stay 12px; narrow category labels stagger to prevent overlap. The axis explicitly says categorical USD FDV. The ladder’s plot and history plot retain fixed height through loading and unavailable states.
+Below 1000px column gaps tighten. Below 760px the workspace, rights, treasury, explanations and contract list stack; side padding becomes 20px and sections use 36px padding. The header navigation wraps below its brand and wallet control. Secondary introduction statistics and the lock illustration leave the mobile first screen so the swap stays visible. They remain available as live information in the dedicated sections. The NFT strip has fixed-size image areas, horizontal scrolling, visible arrow controls, swipe and arrow-key support. It does not make the whole page scroll horizontally.
 
-At 390×844 the product, ladder, Buy/Sell tabs and full Connect to trade action fit. At 1440×900 the complete chart and initial trade form fit. Reflow was checked at 320, 390, 768 and 1440px in Chromium and 320, 390 and 1440px in WebKit. Native browser zoom and physical devices were not tested.
+Rendered widths checked: 320, 390 and 1440px. The 390×844 screenshot includes the complete primary action. Native browser 200% zoom, RTL and physical-device testing were not performed; see validation coverage.
 
 ## Elevation & Depth
 
-Panels use one 1px border and no shadow. Tables and disclosure groups use separators instead of nested cards. Dialogs use a native modal backdrop (`#000B`), a stronger control border and a maximum 88dvh height (90dvh on phones). Persistent transaction notices use a cyan border and stay dismissible. There are no background gradients or noisy glows.
+This is a flat interface. Tonal surfaces and borders communicate grouping; there are no card shadows, glow layers or gradient text. The swap has a 12px radius and one structural border. Section ledgers use separators rather than nested cards. Native dialogs use a translucent black backdrop, and the receipt is a fixed surface limited to 40vh with internal overflow.
 
 ## Shapes
 
-Panels use 6px corners, buttons and inputs 4px, dialogs 8px. The UNLOCK diamond is a small 20–23px header mark and bundled favicon, never a hero illustration. Icons are inline SVG or simple redundant direction symbols; wallet marks remain their official provider assets. `share.svg` and `share.png` reproduce the rule-ladder identity without claiming a live price or tier.
+`--radius` is 6px for controls. Swap/dialog/receipt surfaces use 12px. Below 640px, dialogs become bottom sheets with 16px top corners, safe-area bottom padding and a 90dvh maximum height. Wallet rows have a 48px minimum height. Small input outlines use 4px. The diamond is a small inline SVG with a 1.5px stroke. The introduction's lock is decorative and omitted on narrow screens. The ladder is a seventeen-step SVG accompanied by a complete text list, so the drawing is never the only explanation.
 
 ## Components
 
-- **App navigation:** brand, Trade, My Unlock, Milestones, Activity, Docs and wallet action. Hash routing supports static hosting. Route changes focus the main landmark. A skip link preserves the current route.
-- **Terminal metrics:** indicative price/FDV, confirmed tier, next milestone, and verified oracle status. Unknown values say unavailable; a valid spot feed never substitutes for milestone FDV.
-- **UnlockLadder (`charts.tsx`):** green confirmed segments, amber future steps, cyan selection cursor. SVG buttons support pointer/touch, Tab, Enter/Space, arrows and Home/End. A persistent, live-announced readout labels hypothetical versus confirmed checkpoints; the final point describes quota bypass. No date forecast or invented progress.
-- **PriceChart (`charts.tsx`):** official-pool event price line and ETH volume marks, time ranges, crosshair, selected observation/transaction link and keyboard range input. Coverage and freshness stay visible. Sparse events remain sparse and never become candles.
-- **Trade (`Trade.tsx`):** two pressed-state tabs, editable amount, balance, percentage fills, output, slippage, fee/gas details and one next-step action. Buy is emerald; Sell is pink. Errors and quota/liquidity/approval blockers remain beside the action. Percentage clicks never sign. The flow progresses through quote, bounded approval if needed, review, wallet confirmation and receipt recovery.
-- **WalletOverview (`Unlock.tsx`):** connected-wallet ledger, labelled stacked bar and hypothetical milestone selector. The outside segment is transferable wallet balance, not escrow. Disconnected readers see a Connect action, no fabricated personal amounts. The data provider synchronously filters values by current wallet identity.
-- **Details and supporting pages:** native `details/summary` disclose rules, oracle actions, withdrawal, rewards and deployment diagnostics. Activity tables use aligned values and explorer links; the full Activity page retains search and pagination.
-- **Wallet dialogs (`wallet.tsx`):** the existing native dialog, discovery and review flow is preserved. Escape/backdrop close and focus restoration were exercised. A connection makes no transaction request. Pending/rejected/reverted/confirmed states remain persistent and recoverable.
+- `Swap` in `NextRelease.tsx`: exact-input buy/sell control, labelled amount and slippage fields, quote details, sequential exact token/Permit2 approvals and review. It has disconnected, wrong-network, inactive, loading, expired, error, approval and ready states. Quotes identify minimum output, fees, impact, expiry, allowances and gas balance; the wallet review estimates gas before signing.
+- `Ledger`: shared definition-list pattern for aligned names and values. Values wrap, remain selectable and use tabular numbers.
+- `Rights`: real mature-credit ledger and separate native claim, attestation, reward sync and payer sync. Native proof import uses a labelled file input and visible validation errors.
+- `Gates`: actual stored tier, next gate, estimated price progress and all sixteen FDV gates plus initial 20%. Past sales and permanent global bypass are explained beside the list.
+- `NftGallery`: official collection filtering, onchain ownership and metadata verification, loading/error/stale/empty states and bounded inert image rendering. The custody count is read from the collection, not assumed from the indexer.
+- `ConnectButton`, `WalletProvider`, `Modal` in `wallet.tsx`: EIP-6963 named browser wallets, phone deep links and Coinbase Smart Wallet in one native dialog. Native modal behavior supplies focus containment and Escape dismissal; focus returns to the trigger. Account/network changes invalidate reviewed actions. Each write has its own wallet confirmation.
+- `.button.primary` is the mint action; `.button` is neutral; `.text-button` is an underlined utility. Native disabled states remain legible and have adjacent explanations. Focus uses a 2px outline with 4px offset. Hover is restrained; optional press motion is `scale(.96)` over 150ms. Reduced motion removes transitions and smooth scrolling; forced colors retain system focus.
 
-Focus uses a 2px cyan outline with a 3px offset; forced-colors rules retain outlines and boundaries. Primary trade and body wallet actions are at least 44px; the compact phone header wallet action is 40px. Dense navigation/chart ranges are at least the 24px baseline or properly spaced; the probe reports these smaller targets transparently. Hover/color transitions are 120ms and allowance updates 200ms, only when reduced motion is not requested. There is no continuous animation or `transition: all`.
+## Do's and Don'ts
 
-## Do’s and Don’ts
+Use the shared tokens, section layout, ledgers, button variants and native controls when adding a section. Start with a labelled heading and a real data/error/empty state. Keep wallet and contract logic in the existing verified adapters. Use bigint for asset and quota calculations; format unavailable values explicitly and preserve exact amounts in consequential reviews.
 
-Reuse `.panel`, `.panel-heading`, `.segmented`, `.details`, `.notice`, `.button` and the existing amount/address components. New public data needs units, source, coverage and an unavailable state. Keep simulation and wallet confirmation separate, and preserve the bound-router safety checks.
+Keep price estimates separate from stored rights. Do not turn quotes into quota eligibility claims, restore preview labels, insert sample holdings or display a missing price as zero. Avoid extra type sizes, shadows, nested cards, new accent colors and decorative hero content that moves the swap below the first mobile screen.
 
-Keep the ladder categorical; do not redraw it as a price curve. Never color a hypothetical milestone as confirmed from spot FDV alone. Never label outside-allowance tokens locked or escrowed. Do not add fabricated market series, automatic unlock dates, economic promises, generic routers, decorative hero sections or unbundled fonts.
-
-Guidance attribution: Better Interface by Jakub Krehel (MIT), pinned commit `267330e1adfc66a718fb65fa6918c1f06d0a689e`; documentation method adapted from Impeccable by Paul Bakaus (Apache-2.0), commit `9d715cc4f5564a990ca8345abfdd5df6dc9b41c8`. Notices and licenses remain in `web/NOTICE.md` and `web/licenses/design-guidance.txt`.
+Design guidance: Jakub Krehel's Better Interface (MIT), pinned commit `267330e1adfc66a718fb65fa6918c1f06d0a689e`. Documentation method: Paul Bakaus's Impeccable (Apache-2.0), commit `9d715cc4f5564a990ca8345abfdd5df6dc9b41c8`. Notices and licenses are retained in `web/NOTICE.md` and `web/licenses/design-guidance.txt`.

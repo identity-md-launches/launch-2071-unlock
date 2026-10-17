@@ -2,7 +2,6 @@ import { createRoot } from "react-dom/client";
 import { Component, type ReactNode } from "react";
 import { App } from "./App";
 import { WalletProvider } from "./wallet";
-import { DataProvider } from "./data";
 import "./styles.css";
 class ErrorBoundary extends Component<
   { children: ReactNode },
@@ -23,7 +22,8 @@ class ErrorBoundary extends Component<
         <button className="button" onClick={() => location.reload()}>
           Reload site
         </button>
-        <p>Sepolia testnet - test assets, no real monetary value</p>
+        <p>Ethereum mainnet. Real assets and gas costs.</p>
+        <a href="./recovery.html">Open contract links & native proofs</a>
       </main>
     ) : (
       this.props.children
@@ -33,9 +33,7 @@ class ErrorBoundary extends Component<
 createRoot(document.getElementById("root")!).render(
   <ErrorBoundary>
     <WalletProvider>
-      <DataProvider>
-        <App />
-      </DataProvider>
+      <App />
     </WalletProvider>
   </ErrorBoundary>,
 );

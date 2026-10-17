@@ -10,15 +10,19 @@ import {
   createWalletClient,
   custom,
   getAddress,
+  parseEventLogs,
+  formatEther,
+  parseAbi,
   type Abi,
   type Address,
   type EIP1193Provider,
   type Hex,
 } from "viem";
 import { chain, client, RPC_URLS, explorer } from "./config";
-import { verifyBindings } from "./live";
+import { verifyMainnetBindings } from "./mainnetReader";
 import { number, short } from "./math";
 import { storage } from "./storage";
+import { HOOK } from "./mainnet";
 export type Provider = EIP1193Provider & {
   on?: (event: string, fn: (value: any) => void) => void;
   removeListener?: (event: string, fn: (value: any) => void) => void;
@@ -56,8 +60,12 @@ interface Transaction {
     | "confirmed"
     | "reverted"
     | "rejected"
+    | "replaced"
     | "error";
   message?: string;
+  executedFees?: { leg: string; fee: string }[];
+  gasSpent?: string;
+  blockNumber?: string;
 }
 interface Context {
   address?: Address;
@@ -74,15 +82,35 @@ interface Context {
 const WalletContext = createContext<Context>(null!);
 export const useWallet = () => useContext(WalletContext);
 export function errorMessage(e: unknown): string {
-  const x = e as { shortMessage?: string; message?: string; code?: number };
+  const messages: string[] = [];
+  let current = e as
+    | {
+        shortMessage?: string;
+        message?: string;
+        details?: string;
+        code?: number;
+        name?: string;
+        cause?: unknown;
+      }
+    | undefined;
+  for (let depth = 0; current && depth < 8; depth++) {
+    if (current.code === 4001 || current.name === "UserRejectedRequestError")
+      return "Request rejected in your wallet. Nothing was resent.";
+    messages.push(
+      current.shortMessage ?? "",
+      current.message ?? "",
+      current.details ?? "",
+    );
+    current = current.cause as typeof current;
+  }
   const text =
-    x?.shortMessage ?? x?.message ?? "Unable to complete the request.";
-  if (x?.code === 4001 || /rejected|denied/i.test(text))
+    messages.filter(Boolean).join(" ") || "Unable to complete the request.";
+  if (/rejected|denied/i.test(text))
     return "Request rejected in your wallet. Nothing was resent.";
   if (/QuotaExceeded/i.test(text))
     return "This sale exceeds the current allowance. Refresh your wallet data and enter a smaller amount.";
   if (/insufficient funds/i.test(text))
-    return "Insufficient test ETH for the payment and gas. Add Sepolia ETH and try again.";
+    return "Insufficient assets or ETH for gas. Check your mainnet balances and try again.";
   if (/allowance/i.test(text))
     return "The router needs a sufficient token approval before it can simulate this sale.";
   return text.slice(0, 450);
@@ -148,6 +176,8 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   const connectedRef = useRef({ address, network, provider });
   connectedRef.current = { address, network, provider };
   const monitoring = useRef(new Set<string>());
+  const sending = useRef(false);
+  const preparing = useRef(false);
   useEffect(() => {
     const handler = (e: Event) => {
       const w = (e as CustomEvent<Discovered>).detail;
@@ -173,7 +203,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
       setProvider(p);
       setAddress(getAddress(accounts[0]));
       setNetwork(Number(chainId));
-      storage.set("unlk-wallet", id);
+      storage.set("unlk-mainnet-wallet", id);
       setOpen(false);
     } catch (e) {
       setConnectionError(errorMessage(e));
@@ -182,7 +212,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     }
   }
   useEffect(() => {
-    const stored = storage.get("unlk-wallet");
+    const stored = storage.get("unlk-mainnet-wallet");
     if (!stored || provider) return;
     const w = wallets.find((w) => w.info.rdns === stored);
     if (w) void connect(w.provider, w.info.rdns, false);
@@ -221,7 +251,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     setProvider(undefined);
     setNetwork(undefined);
     setReview(null);
-    storage.remove("unlk-wallet");
+    storage.remove("unlk-mainnet-wallet");
   };
   async function switchNetwork() {
     if (!provider) return;
@@ -229,7 +259,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     try {
       await provider.request({
         method: "wallet_switchEthereumChain",
-        params: [{ chainId: "0xaa36a7" }],
+        params: [{ chainId: "0x1" }],
       });
     } catch (e) {
       if ((e as { code?: number }).code === 4902) {
@@ -238,8 +268,8 @@ export function WalletProvider({ children }: { children: ReactNode }) {
             method: "wallet_addEthereumChain",
             params: [
               {
-                chainId: "0xaa36a7",
-                chainName: "Sepolia",
+                chainId: "0x1",
+                chainName: "Ethereum",
                 rpcUrls: RPC_URLS,
                 nativeCurrency: chain.nativeCurrency,
                 blockExplorerUrls: [chain.blockExplorers.default.url],
@@ -259,7 +289,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
       const sdk = createCoinbaseWalletSDK({
         appName: "UNLOCK",
         appLogoUrl: new URL("./favicon.svg", location.href.split("#")[0]).href,
-        appChainIds: [11155111],
+        appChainIds: [1],
         preference: { options: "smartWalletOnly" },
       });
       await connect(
@@ -278,16 +308,18 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     if (monitoring.current.has(hash)) return;
     monitoring.current.add(hash);
     let replaced = wasReplaced;
+    let replacementReason: string | undefined;
     try {
       const receipt = await client.waitForTransactionReceipt({
         hash,
         confirmations: 2,
         timeout: 180000,
         onReplaced: (replacement) => {
+          replacementReason = replacement.reason;
           replaced = replaced || replacement.reason !== "repriced";
           hash = replacement.transactionReceipt.transactionHash;
           storage.set(
-            "unlk-pending",
+            "unlk-mainnet-pending",
             JSON.stringify({ hash, label, superseded: replaced }),
           );
           setTx({
@@ -302,11 +334,34 @@ export function WalletProvider({ children }: { children: ReactNode }) {
           });
         },
       });
+      // A receipt can resolve under a new hash without onReplaced in some polling/confirmation paths.
+      // Treat unknown replacement as superseded; never infer that the original calldata executed.
+      if (
+        receipt.transactionHash.toLowerCase() !== monitoredHash.toLowerCase() &&
+        replacementReason !== "repriced"
+      )
+        replaced = true;
+      const feeLogs = parseEventLogs({
+        abi: parseAbi([
+          "event TreasuryFee(address indexed initiator,bool buy,bool exactInput,uint256 executedImd,uint256 fee)",
+        ]),
+        eventName: "TreasuryFee",
+        logs: receipt.logs.filter(
+          (log) => log.address.toLowerCase() === HOOK.toLowerCase(),
+        ),
+      });
+      const executedFees = feeLogs.map((log) => ({
+        leg: formatEther(log.args.executedImd),
+        fee: formatEther(log.args.fee),
+      }));
       setTx({
         hash: receipt.transactionHash,
+        executedFees,
+        gasSpent: formatEther(receipt.gasUsed * receipt.effectiveGasPrice),
+        blockNumber: receipt.blockNumber.toString(),
         label,
         status: replaced
-          ? "rejected"
+          ? "replaced"
           : receipt.status === "success"
             ? "confirmed"
             : "reverted",
@@ -316,7 +371,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
             ? "Confirmed in two blocks. Refreshing on-chain data."
             : "The transaction reverted. Gas was spent; the action did not complete.",
       });
-      storage.remove("unlk-pending");
+      storage.remove("unlk-mainnet-pending");
       setReceiptVersion((v) => v + 1);
       return receipt.status === "success" && !replaced;
     } catch {
@@ -334,7 +389,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   }
   useEffect(() => {
     try {
-      const stored = storage.get("unlk-pending");
+      const stored = storage.get("unlk-mainnet-pending");
       if (stored) {
         const x = JSON.parse(stored);
         if (/^0x[a-fA-F0-9]{64}$/.test(x.hash)) {
@@ -360,11 +415,21 @@ export function WalletProvider({ children }: { children: ReactNode }) {
       await switchNetwork();
       return;
     }
-    if (busy) return;
+    if (busy || preparing.current || sending.current) return;
+    preparing.current = true;
     setTx({ label: action.title, status: "preparing" });
     try {
-      await verifyBindings(true);
+      await verifyMainnetBindings(true);
       await action.validate?.();
+      if ((action.value ?? 0n) !== 0n)
+        throw Error("This interface never sends ETH as swap funding.");
+      const ctx = connectedRef.current;
+      if (
+        ctx.address !== address ||
+        ctx.network !== chain.id ||
+        ctx.provider !== provider
+      )
+        throw Error("Wallet changed. Review again.");
       const req = {
         address: action.address,
         abi: action.abi,
@@ -378,14 +443,25 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         client.estimateContractGas(req),
         client.getGasPrice(),
       ]);
+      if (
+        connectedRef.current.address !== address ||
+        connectedRef.current.network !== chain.id ||
+        connectedRef.current.provider !== provider
+      )
+        throw Error(
+          "Wallet or network changed while estimating gas. Review again.",
+        );
       setReview({ action, account: address, gas, gasPrice });
       setTx(null);
     } catch (e) {
       setTx({ label: action.title, status: "error", message: errorMessage(e) });
+    } finally {
+      preparing.current = false;
     }
   }
   async function sign() {
-    if (!review) return;
+    if (!review || sending.current) return;
+    sending.current = true;
     const { action, account } = review;
     const ctx = connectedRef.current;
     if (!ctx.provider || ctx.address !== account || ctx.network !== chain.id) {
@@ -395,11 +471,12 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         status: "error",
         message: "Wallet or network changed. Review the action again.",
       });
+      sending.current = false;
       return;
     }
     setTx({ label: action.title, status: "preparing" });
     try {
-      await verifyBindings(true);
+      await verifyMainnetBindings(true);
       await action.validate?.();
       const freshAccounts = (await ctx.provider.request({
         method: "eth_accounts",
@@ -420,7 +497,27 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         value: action.value ?? 0n,
       };
       const sim = await client.simulateContract(req);
+      if (
+        connectedRef.current.address !== account ||
+        connectedRef.current.network !== chain.id ||
+        connectedRef.current.provider !== ctx.provider
+      )
+        throw Error("Wallet changed during simulation. Review again.");
       const gas = await client.estimateContractGas(req);
+      const signingAccounts = (await ctx.provider.request({
+        method: "eth_accounts",
+      })) as Address[];
+      const signingChain = await ctx.provider.request({
+        method: "eth_chainId",
+      });
+      if (
+        connectedRef.current.address !== account ||
+        connectedRef.current.network !== chain.id ||
+        connectedRef.current.provider !== ctx.provider ||
+        signingAccounts[0]?.toLowerCase() !== account.toLowerCase() ||
+        Number(signingChain) !== chain.id
+      )
+        throw Error("Wallet or network changed before signing. Review again.");
       setTx({ label: action.title, status: "signing" });
       setReview(null);
       const wallet = createWalletClient({
@@ -436,7 +533,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
       });
       setTx({ hash, label: action.title, status: "pending" });
       storage.set(
-        "unlk-pending",
+        "unlk-mainnet-pending",
         JSON.stringify({ hash, label: action.title }),
       );
       const succeeded = await monitor(hash, action.title);
@@ -449,6 +546,8 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         status: /rejected/i.test(message) ? "rejected" : "error",
         message,
       });
+    } finally {
+      sending.current = false;
     }
   }
   const mobile =
@@ -570,7 +669,11 @@ export function WalletProvider({ children }: { children: ReactNode }) {
             <dl className="details">
               <div>
                 <dt>Network</dt>
-                <dd>Sepolia testnet</dd>
+                <dd>Ethereum mainnet</dd>
+              </div>
+              <div>
+                <dt>Execution account</dt>
+                <dd className="address">{review.account}</dd>
               </div>
               <div>
                 <dt>Contract</dt>
@@ -593,11 +696,11 @@ export function WalletProvider({ children }: { children: ReactNode }) {
               ))}
               <div>
                 <dt>ETH sent</dt>
-                <dd>{number(review.action.value ?? 0n, 8)} test ETH</dd>
+                <dd>{number(review.action.value ?? 0n, 8)} ETH</dd>
               </div>
               <div>
                 <dt>Estimated gas</dt>
-                <dd>~{number(review.gas * review.gasPrice, 8)} test ETH</dd>
+                <dd>~{number(review.gas * review.gasPrice, 8)} ETH</dd>
               </div>
             </dl>
             <p className="small muted">
@@ -627,6 +730,17 @@ export function WalletProvider({ children }: { children: ReactNode }) {
               {tx.label} · {tx.status}
             </strong>
             {tx.message && <p>{tx.message}</p>}
+            {tx.gasSpent && (
+              <p>
+                Gas spent: {tx.gasSpent} ETH · Block {tx.blockNumber}
+              </p>
+            )}
+            {tx.executedFees?.map((fee, i) => (
+              <p key={i}>
+                Executed IMD pool leg: {fee.leg} IMD · Treasury fee: {fee.fee}{" "}
+                IMD
+              </p>
+            ))}
             {tx.hash && (
               <a
                 href={explorer(tx.hash, "tx")}
@@ -661,7 +775,7 @@ export function ConnectButton() {
   if (w.address && w.network !== chain.id)
     return (
       <button className="button compact" onClick={w.switchNetwork}>
-        Switch to Sepolia
+        Switch to Ethereum
       </button>
     );
   return w.address ? (

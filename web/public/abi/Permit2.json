@@ -1,0 +1,56 @@
+[
+  {
+    "name": "allowance",
+    "type": "function",
+    "stateMutability": "view",
+    "inputs": [
+      {
+        "type": "address"
+      },
+      {
+        "type": "address"
+      },
+      {
+        "type": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "type": "uint160",
+        "name": "amount"
+      },
+      {
+        "type": "uint48",
+        "name": "expiration"
+      },
+      {
+        "type": "uint48",
+        "name": "nonce"
+      }
+    ]
+  },
+  {
+    "name": "approve",
+    "type": "function",
+    "stateMutability": "nonpayable",
+    "inputs": [
+      {
+        "type": "address",
+        "name": "token"
+      },
+      {
+        "type": "address",
+        "name": "spender"
+      },
+      {
+        "type": "uint160",
+        "name": "amount"
+      },
+      {
+        "type": "uint48",
+        "name": "expiration"
+      }
+    ],
+    "outputs": []
+  }
+]

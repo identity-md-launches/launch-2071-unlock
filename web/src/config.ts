@@ -3,60 +3,40 @@ import {
   fallback,
   http,
   defineChain,
-  type Abi,
   type Address,
   parseAbi,
 } from "viem";
-import tokenJson from "./abis/UnlkToken.json";
-import hookJson from "./abis/UnlkHook.json";
-import routerJson from "./abis/UnlkSwapRouter.json";
-import oracleJson from "./abis/UnlkOracle.json";
-import evidenceJson from "./abis/MerkleClaimEvidence.json";
-import distributorJson from "./abis/MerkleDistributor.json";
-import feedJson from "./abis/IChainlinkEthUsd.json";
-export const CHAIN_ID = 11155111;
+export const CHAIN_ID = 1;
 export const RPC_URLS = [
-  "https://ethereum-sepolia-rpc.publicnode.com",
-  "https://rpc.sepolia.ethpandaops.io",
-  "https://sepolia.rpc.sentio.xyz",
+  "https://ethereum-rpc.publicnode.com",
+  "https://eth.drpc.org",
 ];
 export const chain = defineChain({
   id: CHAIN_ID,
-  name: "Sepolia",
-  nativeCurrency: { name: "Sepolia Ether", symbol: "ETH", decimals: 18 },
+  name: "Ethereum",
+  nativeCurrency: { name: "Ether", symbol: "ETH", decimals: 18 },
   rpcUrls: { default: { http: RPC_URLS } },
   blockExplorers: {
-    default: { name: "Etherscan", url: "https://sepolia.etherscan.io" },
+    default: { name: "Etherscan", url: "https://etherscan.io" },
   },
-  testnet: true,
+  testnet: false,
 });
 export const addresses = {
-  token: "0x20978223b637fec0c6276ab0184cf7011dd1d483",
-  hook: "0xbbb78a4898e903b082ccd09efc7823ca7339bfc0",
-  router: "0x28f04118fe5d940fe9a81740e74d611313b3004b",
-  distributor: "0xf55d5bacbf3ce5464921a94708c08a99bea99cdd",
-  manager: "0xe03a1074c86cfedd5c142c4f04f1a1536e203543",
-  stateView: "0xe1dd9c3fa50edb962e442f60dfbc432e24537e4c",
+  token: "0x99fa82b022be4575891a43b757bc770691e18fda",
+  hook: "0x932eba7e96b9e54efe6f8cdf98cb092164a57fcc",
+  router: "0x66a9893cc07d91d95644aedd05d03f95e1dba8af",
+  distributor: "0xc70795e2d8dfac6131038dcba84aa2aaed1ceed1",
+  manager: "0x000000000004444c5dc75cb358380d2e3de08a90",
+  stateView: "0x7ffe42c4a5deea5b0fec41c94c136cf115597227",
 } as const satisfies Record<string, Address>;
 // Canonical v4 native currency sentinel, not a substitute recipient.
 export const NATIVE = "0x0000000000000000000000000000000000000000" as const;
-export const DEPLOYMENT_BLOCK = 11906181n;
-export const SOURCE_COMMIT = "ea89426f3fe9df79096a5e02345fc8821bd1c783";
+export const DEPLOYMENT_BLOCK = 26211921n;
+export const SOURCE_COMMIT = "40d70b7bd0853aedf84eac839a40a5f12e6ac341";
 export const REPO =
-  "https://github.com/identity-md-launches/launch-1560-unlock";
+  "https://github.com/identity-md-launches/launch-2071-unlock";
 export const LAUNCH_API =
-  "https://api.imd.fun/launches/c92291be-96a7-4e77-b85f-79967143c10a";
-export const BUY_PROOF =
-  "0x595a858a472215ec90b12ef0f30fa193daae4f17fa9ddb83269b6a1214e101ab" as const;
-export const abi = {
-  token: tokenJson as Abi,
-  hook: hookJson as Abi,
-  router: routerJson as Abi,
-  oracle: oracleJson as Abi,
-  evidence: evidenceJson as Abi,
-  distributor: distributorJson as Abi,
-  feed: feedJson as Abi,
-};
+  "https://api.imd.fun/launches/0528a007-5ec6-4acd-b9cc-b3ded6fe2929";
 export const stateAbi = parseAbi([
   "function getSlot0(bytes32 poolId) view returns (uint160 sqrtPriceX96, int24 tick, uint24 protocolFee, uint24 lpFee)",
   "function getLiquidity(bytes32 poolId) view returns (uint128 liquidity)",

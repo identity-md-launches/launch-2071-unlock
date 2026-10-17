@@ -4,3 +4,6 @@ broadcast/
 test/scratch/
 __pycache__/
 *.py[cod]
+
+# Website path budget: dependency installs only; production dist remains included.
+**/node_modules/

@@ -1,0 +1,23 @@
+{
+  "addresses": {
+    "token": "0x99fa82b022be4575891a43b757bc770691e18fda",
+    "hook": "0x932eba7e96b9e54efe6f8cdf98cb092164a57fcc",
+    "vault": "0xf2a19fba1f37f3fd41af0b7f671ccf6d07f29f50",
+    "evidence": "0x31d8c50c3c2d7c6000f1ac8cfd466404d26232ab",
+    "oracle": "0x13cd2d5452cac5e71ca16e825e280563a874c6b6",
+    "distributor": "0xc70795e2d8dfac6131038dcba84aa2aaed1ceed1",
+    "factory": "0x12c63b581d07093f6126bc02263c58f7eadaa96f",
+    "nft": "0x0000ec93127baa929e58e97dd0095a2bfb38ec1d"
+  },
+  "runtimeHashes": {
+    "token": "0x0a818174841af8609b3376ba003b1369d762b65541ddcdaef6b3e97aa32b3add",
+    "hook": "0xc277dfe63a222bd720b9d1ff83562080d861e7cf782135d29e7f17886c70f406",
+    "vault": "0x885652b41163c74bb0e902f6235b3cacbfa63e84f49854bfd7154080dc7696be",
+    "evidence": "0xa25bd004460b0e0a8f86e08d55952d8ae84bc45e7a0ee6806f10d1cbbbd69f85",
+    "oracle": "0x89a01da3faf9be015371373756de56c3c7818952ad7fc18af642b0eeabfd4c6a",
+    "distributor": "0xa19354f8bf52d03b53eb85dc4c778497eff038900ac20aaa8591aa2a8bba5b56",
+    "factory": "0xb6a524d4b697c41f80c369f4990ac070c9dda6f3ef5efe36f21e6150a530b413",
+    "nft": "0x68d046e0bfb8185d9db0a9a7ed57420f22dfc38321c9c91453a001a47668c530"
+  },
+  "recordedBlock": "26212528"
+}

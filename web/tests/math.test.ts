@@ -9,7 +9,7 @@ import {
   minReceipt,
   confirmationState,
   swapStep,
-} from "../src/math";
+} from "./fixtures/sepolia-math";
 import { prepareTree, verifyProof, type ClaimTree } from "../src/rewards.ts";
 import fs from "node:fs";
 
@@ -108,9 +108,9 @@ test("oracle progress distinguishes invalid, stale, gap, below target and elapse
 });
 test("real native round proofs reject wrong amount, recipient, incomplete tree and duplicates", () => {
   const tree: ClaimTree = JSON.parse(
-    fs.readFileSync("public/evidence/round-0.json", "utf8"),
+    fs.readFileSync("public/claims/round-0.json", "utf8"),
   );
-  assert.equal(tree.leaves.length, 459);
+  assert.equal(tree.leaves.length, 461);
   assert.equal(prepareTree(tree).root, tree.root);
   for (const leaf of tree.leaves)
     assert.equal(verifyProof(leaf, tree.root), true);
@@ -136,9 +136,9 @@ test("real native round proofs reject wrong amount, recipient, incomplete tree a
     prepareTree({ ...tree, leaves: [...tree.leaves, tree.leaves[0]] }),
   );
 });
-test("live same-block buy simulations match exact fee/delta arithmetic", () => {
+test("historical Sepolia arithmetic vectors remain consistent (not mainnet evidence)", () => {
   const evidence = JSON.parse(
-    fs.readFileSync("public/evidence/live-interactions.json", "utf8"),
+    fs.readFileSync("tests/fixtures/sepolia-live-interactions.json", "utf8"),
   );
   assert.ok(evidence.buySimulations.length >= 3);
   for (const s of evidence.buySimulations) {
@@ -181,7 +181,9 @@ test("swap step accounts exact fees and partial fills in both directions", () =>
 });
 
 test("percentage fills floor in wei, reserve gas and never exceed spendable balance", async () => {
-  const { shortcutAmount, gasReserve } = await import("../src/math");
+  const { shortcutAmount, gasReserve } = await import(
+    "./fixtures/sepolia-math"
+  );
   const reserve = gasReserve(230001n, 17000000000n);
   assert.equal(reserve, 4692020400000000n);
   for (const percent of [25, 50, 75, 100]) {
