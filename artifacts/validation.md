@@ -1,5 +1,40 @@
 # UNLOCK update validation · 18 October 2026
 
+## Chart RPC error revision · 18 October 2026
+
+**Complete locally for the reported defect.** Finding `55339c60e263be4d2d936a231ad74566c325dc45923b87bed857f1c6faa33d77` reproduced on the supplied accepted export (`5ce9d4a`). `web/src/PriceChart.tsx:63` rendered the entire viem error, including an unbroken JSON request body. Returning JSON-RPC code `-32000`, message `Controlled history RPC failure`, for `eth_getLogs` on both configured providers expanded the page to 1,573px at 320/390px and 1,645px at 1440px. Other requests used real read-only Ethereum state.
+
+The fix replaces raw provider diagnostics with **“History unavailable. Retrying in {seconds}s.”** and adds `overflow-wrap: anywhere` to `.price-chart .notice.error` (`web/src/styles.css:1540`). It preserves the existing backoff, Retry chart button, dated snapshot retention and stale labels. No contracts, chain/RPC configuration, treasury identities, wallet/signing code, swap/claim logic, economics, dependency manifests or lockfiles changed. The complete production `dist/` was rebuilt from the unchanged lockfile using tools installed outside the repository. `.gitignore` adds one exact-path exception for the requested root `.imd-responses.json`, with an explicit 4,096-byte budget; the response was otherwise ignored and is 1,027 bytes. Existing dependency/cache exclusions stay in place.
+
+The dedicated `web/scripts/check-chart-error.mjs` regression serves the actual production export at `/preview/`. It checks cold failures, keyboard-activated retries, successful provider recovery and failures with a retained stale chart at each width. It also temporarily places an intact treasury address and official PoolId in the same alert to test defensive wrapping without clipping or ellipsis. Results are in `web/evidence/chart-error-revision.json`.
+
+| Viewport | Original scrollWidth | Fixed cold / stale scrollWidth | Retry and recovery |
+| --- | --- | --- | --- |
+| 320×844 | 1,573px | 320 / 320px | Passed |
+| 390×844 | 1,573px | 390 / 390px | Passed |
+| 1440×844 | 1,645px | 1440 / 1440px | Passed |
+
+Actual revision checks:
+
+- External temporary copy of `web/`, unchanged manifest/lockfile: `npm ci`, `npm run typecheck`, `npm test` (**45 passed, zero failed**) and `npm run build` (**Vite 7.1.7, 507 modules, exit 0**). Existing treasury/beneficiary, NFT ownership, chart math/timestamps/reorgs and swap/claim regressions remain green.
+- `IMD_PLAYWRIGHT=<external module> PLAYWRIGHT_BROWSERS_PATH=<external browser directory> node web/scripts/check-chart-error.mjs --rpc <contributor read-only endpoint> --proxy --reproduce --out test/scratch/chart-error-before`: passed against the original export; then the same command without `--reproduce`, with `--out test/scratch/chart-error-after`, passed against rebuilt `dist/`. Both runs used live reads and controlled log failures on both configured RPC hosts; zero write attempts, page exceptions or missing local resources. An initial test-harness retry timeout was corrected by restoring the original DOM nodes after the long-text stress check; the final full run passed.
+- `IMD_PLAYWRIGHT=<external module> PLAYWRIGHT_BROWSERS_PATH=<external browser directory> node .imd/reads/skills/design-critic/scripts/taste.mjs --out test/scratch/taste --offline`: **14/16**. Render, layout, contrast, targets, tracking, sizes, metadata and motion passed. The existing two heuristic findings remain: explicitly required monospace prose, and functional labels/tabs misclassified as decorative kickers. Neither warrants changing accepted terminal styling. This probe measures the default ladder; the dedicated regression measures the chart failure states.
+- Inspected actual screenshots `test/scratch/chart-error-before/chart-error-390.png`, `test/scratch/chart-error-after/chart-error-390.png` and `test/scratch/taste/shots/390.png`. The fixed error wraps, chart/controls remain readable, and the default first screen at 390 shows UNLOCK, the swap and its Connect to trade action. Screenshots are disposable scratch, not delivery dependencies.
+- `node web/scripts/check-export.mjs`, `python3 web/scripts/check-bundle.py` and `git diff --check`: final export/size/path/whitespace checks; current exact export digest and byte counts are recorded in `web/evidence/export-manifest.json` and `web/evidence/submission-check.json`.
+
+Scoped Better Interface review after the final source change:
+
+| Domain | Coverage and result | Limits |
+| --- | --- | --- |
+| Accessibility | Preserved alert semantics, tested named Retry chart via keyboard Enter and recovery at all three widths. | No screen-reader session or new full-page axe scan. |
+| Layout | Measured the original failure and fixed cold/stale states at 320/390/1440; reviewed the 390 chart screenshot and main action. | No physical-device or browser-native zoom test. |
+| Writing | Short factual failure message states the retry delay and retains the explicit recovery action; stale data remains labeled. | No new copy outside the reported error. |
+| Typography | Preserved local fonts/type scale. Checked `overflow-wrap:anywhere`, intact long identifiers and no clipping/ellipsis. | Long-identifier stress check uses temporary test DOM content. |
+| Colors | Preserved existing error/status tokens; final probe measured default rendered text contrast successfully. | No separate contrast measurement of the chart alert; its color declarations are unchanged. |
+| UI | Exercised cold loading/failure, keyboard retry, recovery and retained-stale failure; no raw provider request body is shown. | Chromium with emulated touch viewports; Safari and physical touch were not rerun. |
+
+This is a local revision, not evidence of publication. No publishing or wallet transaction was performed. The existing hosting/delivery flow must publish the rebuilt export to the existing URL. The broader validation below remains the historical accepted-update record and was not all rerun for this narrow fix.
+
 ## Scope and result
 
 Source and the complete static export continue commit `1c9927c137c4e4a3a4f6999ce9636ec29a4b89db`. The compact terminal, swap/claim code, verified mainnet ABIs/configuration, local fonts and all sixteen unlock gates remain. This update changes treasury inventory/balance reads, adds the English whitepaper and upgrades pool history into the Price chart tab. No contract source, economics, activation, package manifest, dependency lockfile, `.gitignore` or protected dependency was changed.

@@ -1537,6 +1537,9 @@ details p {
 }
 
 /* Price chart extends the existing terminal surface. */
+.price-chart .notice.error {
+  overflow-wrap: anywhere;
+}
 .price-controls,
 .chart-navigation {
   display: flex;

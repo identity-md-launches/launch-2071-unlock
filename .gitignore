@@ -17,3 +17,6 @@ __pycache__/
 !/artifacts/terminal-desktop.jpg
 !/artifacts/terminal-mobile.jpg
 !/artifacts/terminal-mobile-ladder.jpg
+
+# Explicit revision-response path budget: this root JSON only, at most 4096 bytes.
+!/.imd-responses.json

@@ -52,6 +52,8 @@ The versioned English whitepaper documents deployed supply/allocation, mature an
 
 ## Validation
 
+The chart-error revision reproduced finding `55339c60…` against accepted snapshot `5ce9d4a`, fixed the provider-error copy/wrapping and rebuilt `dist/`. Typecheck, all 45 frontend tests and the production build passed. A dedicated production regression checks cold and stale RPC failures, long-address/PoolId wrapping, keyboard retry and recovery at 320/390/1440px. See the dated revision section in [`artifacts/validation.md`](artifacts/validation.md) and [`web/evidence/chart-error-revision.json`](web/evidence/chart-error-revision.json). The evidence below records the earlier accepted update; those broader checks were not all rerun for this scoped revision.
+
 Current results and six-domain design coverage are in [`artifacts/validation.md`](artifacts/validation.md). [`DESIGN.md`](DESIGN.md) describes the implemented system. New evidence uses the **`web/evidence/update-*`** prefix; other records are retained historical evidence from accepted work and are not newly executed checks.
 
 Actual current checks:
@@ -71,6 +73,15 @@ node web/scripts/check-update.mjs
 ```
 
 The script owns a temporary static server for its bounded run, uses the production export at a subpath and forbids signing/write methods. `web/scripts/verify-update.ts` performs fresh read-only verification; run it with `tsx`. These scripts default to the project's public Ethereum RPC. Optional endpoint arguments support contributor infrastructure; reports name public sources only.
+
+To rerun only the chart-error regression using an external Playwright installation:
+
+```sh
+IMD_PLAYWRIGHT=/path/to/playwright/index.mjs \
+node web/scripts/check-chart-error.mjs
+```
+
+It serves `dist/` under `/preview/` for the bounded run, injects a controlled `eth_getLogs` error on both configured RPC hosts and forwards other reads. Output and screenshots default to disposable `test/scratch/chart-error/`. `--rpc <endpoint>` selects a read-only provider; `--proxy` uses the configured HTTP proxy. `--reproduce` checks the original overflow and is intended for an unfixed export.
 
 ```sh
 node web/scripts/verify-mainnet-source.mjs

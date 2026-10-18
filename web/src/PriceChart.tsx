@@ -60,11 +60,11 @@ export function PriceChart() {
         setData(result);
         setError("");
         failures = 0;
-      } catch (e) {
+      } catch {
         if (abort.signal.aborted) return;
         failures++;
         setError(
-          `${e instanceof Error ? e.message : "RPC unavailable."} Retrying in ${historyBackoff(failures) / 1000}s.`,
+          `History unavailable. Retrying in ${historyBackoff(failures) / 1000}s.`,
         );
       } finally {
         if (!abort.signal.aborted) {

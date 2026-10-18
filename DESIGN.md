@@ -71,6 +71,8 @@ Existing panels use `--radius:6px`; small controls and chart-style groups use 4p
 
 Buttons generally target 44px. Compact mobile navigation uses 32px rows; the probe passed its 24px-or-spacing minimum. Focus uses a 2px cyan perimeter with 3px offset. Loading/status and errors use status/alert semantics; tooltips also have a keyboard range control. Reduced motion disables existing smooth scrolling/transitions; the chart adds no autoplay animation.
 
+Chart RPC failures use the short “History unavailable. Retrying in {seconds}s.” alert and retain the existing Retry chart control and stale-snapshot explanation. `.price-chart .notice.error` uses `overflow-wrap: anywhere` so long values wrap without clipping or expanding the terminal. Raw provider diagnostics are not rendered in this alert.
+
 ## Do's and Don'ts
 
 Reuse the existing terminal section/ledger/button patterns. Place instructions beside the chart, swap or proof control they describe. Label estimates, provenance, coverage and stale data near the values. Add another reading page as a physical static directory with relative assets and the existing tokens.
