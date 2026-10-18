@@ -4,6 +4,8 @@ export {
   NEXT_THRESHOLDS,
   NEXT_RATES,
   NFT_BENEFICIARY,
+  VAULT_BENEFICIARY,
+  TREASURY_WALLET,
   successorFee,
   type SwapMode,
 } from "./candidate";

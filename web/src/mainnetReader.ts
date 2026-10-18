@@ -25,7 +25,8 @@ import {
   QUOTER,
   PERMIT2,
   RUNTIME_PINS,
-  NFT_BENEFICIARY,
+  VAULT_BENEFICIARY,
+  TREASURY_WALLET,
   NEXT_RATES,
   verifiedMatureQuota,
   type CandidateDeployment,
@@ -86,6 +87,7 @@ export interface CandidateSnapshot {
     unlkPermit: bigint;
     unlkExpiration: number;
   } | null;
+  treasury: { address: Address; imdBalance: bigint; unlkBalance: bigint };
   vault: {
     accrued: bigint;
     withdrawn: bigint;
@@ -96,8 +98,6 @@ export interface CandidateSnapshot {
     donationsWithdrawn: bigint;
     unlkBalance: bigint;
     imdBalance: bigint;
-    custodyImd: bigint;
-    custodyUnlk: bigint;
     donatedClaims: bigint;
     actualClaims: bigint;
   };
@@ -374,8 +374,8 @@ export async function readMainnetCandidate(
     imdDecimals,
     unlkBalance,
     imdBalance,
-    custodyImd,
-    custodyUnlk,
+    treasuryImd,
+    treasuryUnlk,
     actualClaims,
   ] = await Promise.all([
     reader.readContract({
@@ -428,8 +428,8 @@ export async function readMainnetCandidate(
     }),
     balance(TOKEN, VAULT),
     balance(IMD, VAULT),
-    balance(IMD, NFT_BENEFICIARY),
-    balance(TOKEN, NFT_BENEFICIARY),
+    balance(IMD, TREASURY_WALLET),
+    balance(TOKEN, TREASURY_WALLET),
     reader.readContract({
       address: POOL_MANAGER,
       abi: parseAbi([
@@ -443,7 +443,7 @@ export async function readMainnetCandidate(
   if (
     !same(vaultHook, HOOK) ||
     !same(vaultManager, POOL_MANAGER) ||
-    !same(beneficiary, NFT_BENEFICIARY) ||
+    !same(beneficiary, VAULT_BENEFICIARY) ||
     !same(vaultQuote, IMD) ||
     !same(evidenceToken, TOKEN) ||
     !same(evidenceDistributor, DISTRIBUTOR) ||
@@ -588,6 +588,11 @@ export async function readMainnetCandidate(
     fdv,
     oracleError,
     wallet: personal,
+    treasury: {
+      address: TREASURY_WALLET,
+      imdBalance: treasuryImd,
+      unlkBalance: treasuryUnlk,
+    },
     vault: {
       accrued,
       withdrawn,
@@ -598,8 +603,6 @@ export async function readMainnetCandidate(
       donationsWithdrawn,
       unlkBalance,
       imdBalance,
-      custodyImd,
-      custodyUnlk,
       donatedClaims,
       actualClaims,
     },

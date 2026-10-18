@@ -1,63 +1,80 @@
 # UNLOCK terminal design
 
-The interface is a compact UNLK/IMD trading terminal. Its amber staircase is the visual explanation of permanent selling rights; green indicates earned onchain rights and cyan identifies the selected scenario. Presentation was recovered from `web/src/styles.css` and `App.tsx` at commit `40d70b7bd0853aedf84eac839a40a5f12e6ac341`. Current mainnet execution and signing guards are retained from `ffae6425390ebabad6dd89d83aae0c200d250e26`.
+## Overview
 
-## Colors and surfaces
+UNLOCK is a compact Ethereum UNLK/IMD trading terminal. Preserve its diamond wordmark, dense mono data, amber categorical unlock staircase and adjacent swap. This revision extends the existing presentation with a Price chart tab and a readable English whitepaper. It does not replace the established brand or transaction components.
 
-Canonical tokens are in [`web/src/styles.css`](web/src/styles.css). The interface has one dark theme.
+The source of truth is `web/src/styles.css`, `App.tsx`, `MarketTerminal.tsx`, `PriceChart.tsx` and `NextRelease.tsx`. The physical whitepaper uses matching tokens in `web/public/whitepaper/whitepaper.css`. Mainnet execution remains behind the existing wallet review and validation path.
 
-| Token | Value | Use |
+## Colors
+
+The existing single dark theme uses these exact tokens:
+
+| Token | Value | Role |
 | --- | --- | --- |
 | `--ink` | `#09090b` | Page, fields, primary-button text |
-| `--surface` | `#111114` | Terminal panels and dialogs |
-| `--hover` | `#1c1c21` | Hover and selected neutral surfaces |
-| `--line` | `#27272a` | Thin structural borders and dividers |
-| `--control` | `#71717a` | Interactive outlines |
+| `--surface` | `#111114` | Terminal panels, chart backgrounds and dialogs |
+| `--hover` | `#1c1c21` | Hover and selected neutral controls |
 | `--text` | `#f4f4f5` | Main text |
-| `--muted` | `#a1a1aa` | Labels, secondary text |
-| `--accent` | `#34d399` | Earned rights, buy action, brand |
-| `--warning` | `#fbbf24` | Future gates, activation status |
-| `--focus` | `#22d3ee` | Selected scenario, keyboard focus |
-| `--sell` | `#f472b6` | Sell direction and action |
+| `--muted` | `#a1a1aa` | Secondary text, chart axes and timestamps |
+| `--line` | `#27272a` | Structural borders and chart grids |
+| `--control` | `#71717a` | Interactive boundaries |
+| `--accent` | `#34d399` | Buy action, earned rights, line chart and rising candles |
+| `--warning` | `#fbbf24` | Future gates and stale/unconfirmed status |
+| `--focus` | `#22d3ee` | Focus, selected scenario and crosshair |
+| `--sell` | `#f472b6` | Sell action and falling candles |
 | `--error` | `#fca5a5` | Errors |
 
-Panels use a 1px border and a 6px radius (`--radius`). Small controls/tags use 4px corners. There are no gradients, glass surfaces, decorative shadows or entrance animations. Dialog backdrops darken the page. Color is accompanied by text, line patterns, rings or selected-state semantics. The rendered contrast probe passed its measured text checks; SVG artwork and all possible dynamic states are outside that measurement.
+Status always includes text or geometry. Rising candles are hollow; falling candles are filled. Color alone does not convey selection, freshness or direction. The design probe measured its resolved text pairs and passed contrast checks; its output is retained. Those measurements do not cover every SVG pixel, external image or untested dynamic state.
 
 ## Typography
 
-Locally hosted **JetBrains Mono** is used throughout, including prose, controls and numbers, as requested. Files are `web/src/assets/fonts/jetbrains-mono-regular.woff2` (400) and `jetbrains-mono-semibold.woff2` (600); the production build fingerprints both. Fallbacks are `ui-monospace, SFMono-Regular, Consolas, monospace`. `font-display: swap`, `font-synthesis: none` and tabular numerals are set on the root.
+Use locally hosted **JetBrains Mono 400/600** throughout, including prose, as required by the brief. Files are `web/src/assets/fonts/jetbrains-mono-{regular,semibold}.woff2`; the static whitepaper uses identical files in `web/public/fonts/`. The OFL notice remains in that public directory. Fallbacks are UI monospace/Consolas/monospace. Production browser checks confirmed both whitepaper faces loaded.
 
-The six tokens are 12px labels (`--small`), 14px body (`--body`), 16px inputs/subtitles (`--input`), 20px section headings (`--subhead`), 24px compact title (`--heading`) and 28px desktop title (`--large`). Body line height is 1.5; headings use 1.2. Headings tighten tracking slightly; prose uses natural spacing and a maximum 75ch measure. Amounts and accounting retain selectable text. Contract addresses wrap instead of being clipped. SVG label sizes adapt to the chart's scaled coordinate system; they are not an additional document type scale. Mobile inputs remain at least 16px, except the intentionally larger amount field.
+The terminal's six tokens are `--small:12px`, `--body:14px`, `--input:16px`, `--subhead:20px`, `--heading:24px` and `--large:28px`. Use 400 for body/data and 600 for emphasis/actions. Body line height is 1.5, headings 1.2; headings tighten tracking slightly. Tabular numerals stabilize live readings. Prose has a 75ch maximum measure. Addresses wrap and remain selectable. Chart axis labels are 12px in a responsive SVG coordinate system; small prices use scientific notation to fit the axis gutter.
 
-## Layout and spacing
+Whitepaper body is 14px with 1.65 line height and an 80ch outer content limit including padding. Its h1/h2/h3 use 28/20/16px; mobile h1 is 24px. Print switches to black on white with 10pt body and A4 margins; source URLs remain printable.
 
-The content and header have a 1344px maximum width, 32px desktop side padding and shared alignment edges. Standard gaps are 8, 12, 16, 20, 24 and 32px. The header has brand, six section links and wallet control. A thin mainnet/status strip precedes the UNLK/IMD title and four-cell live summary. The workspace uses `minmax(0, 7fr) minmax(320px, 3fr)` with a 16px gap and aligned top edges.
+## Layout
 
-Below the workspace, the page presents read freshness, wallet accounting/native actions, treasury accounting/NFTs, concise English rules and verified contract links. Required explanations use progressive disclosure where appropriate. No marketing hero separates the product from the action.
+Header and terminal share a 1344px maximum width, 32px desktop side padding and alignment edges. Existing spacing steps are 8, 12, 16, 20, 24 and 32px. The desktop workspace uses `minmax(0,7fr) minmax(320px,3fr)` with a 16px gap. The mobile swap comes first so its main action remains on the initial screen.
 
-| Breakpoint | Implemented behavior |
+| Breakpoint | Behavior |
 | --- | --- |
-| Above 1100px | Four summary cells, full desktop ticks, ladder/history left and swap right |
-| At 1100px | Two-by-two summary, fewer tick labels, tighter header; every gate remains in the select/list |
-| At 900px | Workspace stacks with swap first; navigation moves to its own row; 24px page padding |
-| At 600px | 16px page padding, compact summary and swap, single-column accounting/docs, native wallet bottom sheet, sparse chart ticks with complete selector |
-| At 360px | Header navigation wraps; controls/readouts adapt without horizontal page scroll |
+| Above 1100px | Four live summary cells; chart/ladder beside swap |
+| 1100px | Two-by-two summary; tighter header and fewer categorical tick labels |
+| 900px | Workspace stacks, swap first; navigation takes a separate row; 24px side padding |
+| 600px | 16px side padding; navigation wraps into rows; stacked accounting and docs; chart style controls fill a row; native wallet bottom sheet |
+| 360px | Compact heading and ledger spacing; all navigation remains reachable |
 
-NFTs use a compact horizontal scrolling rail with 144px cards; wheel/touch, keyboard focus and previous/next controls remain available. The history table scrolls within its named region. Representative widths 320, 390, 768, 900, 1000 and 1440 were checked on the production export. Native 200% browser zoom and physical devices were not tested.
+The price plot is 300px tall and uses ResizeObserver to keep its coordinate width equal to the rendered width. Its controls wrap; tooltips sit below the plot without covering the swap. Time is linear and timestamp-based, ending at the scanned block timestamp; boundary candles are labeled partial. No-trade buckets remain blank and line segments break across gaps. History tables scroll inside named regions, never the page. NFT cards use a horizontal 144px rail with touch, keyboard and previous/next controls.
 
-## Components and interaction states
+The standalone whitepaper has a compact header, contents links and one reading column. Tables and addresses wrap at 320px. Print hides navigation/print controls, preserves all substantive sections and adds source URLs. Terminal layout was checked at 320/390/768/1000/1440; whitepaper at 320/390/1440. Physical devices and native 200% zoom remain unverified.
 
-- [`App.tsx`](web/src/App.tsx): diamond UNLOCK_ brand, hash navigation with current-section state, skip link, header wallet control, footer.
-- [`MarketTerminal.tsx`](web/src/MarketTerminal.tsx): accessible Ladder/History tabs, amber dashed categorical staircase, green earned path, separate current/next/selected marks, native gate selector, all-gates disclosure and wallet-reviewed milestone observation. Initial 20% plus all sixteen gates end at $50M/100%. Selecting a future gate never changes confirmed rights. Native titles provide pointer tooltips; select/list expose every gate by keyboard and touch.
-- [`poolHistory.ts`](web/src/poolHistory.ts): official PoolManager/pool Swap events only; explicit complete block coverage, chain/freshness/reorg checks, cancellation and bounded ranges. The view distinguishes loading, verified empty range, real observations and retryable errors. It describes even event spacing and IMD units.
-- [`NextRelease.tsx`](web/src/NextRelease.tsx): four-cell summary, buy/sell form, accounting ledgers and native actions. Swap direction, input/receive symbols and action color agree. Inactive trading disables execution while preserving wallet connection and independent claims. Unknown FDV is unavailable, never zero. Review and signing use the existing verified transaction code.
-- [`wallet.tsx`](web/src/wallet.tsx): existing EIP-6963 discovery, wallet-browser links, Coinbase Smart Wallet and native review/connect dialogs. Dialogs trap focus, close with Escape and restore focus. Rejection, pending, confirmation, replacement and timeout states never automatically resend.
-- [`NftGallery.tsx`](web/src/NftGallery.tsx): collection and ownership verified onchain; ID/image cards, bounded inert image blobs, loading/empty/error/retry states. An image failure preserves the verified ID. Custody is not proof of a fee-funded purchase.
+## Elevation & Depth
 
-Buttons and fields have visible boundaries; most action controls are at least 44px tall. Compact mobile navigation is 32px; measured targets meet the probe's 24px-or-spacing minimum. Focus uses a 2px cyan outline with 3px offset. Errors and changing status use alert/status/live-region semantics. Reduced-motion preferences disable smooth scrolling and transitions.
+The interface is intentionally flat. One-pixel borders communicate structure; no decorative shadow, gradient, glass or entrance animation is added. Dialog backdrops darken the background. Chart grids use the existing divider token; crosshair lines are cyan dashed strokes. Selected chart-style controls use a bottom inset mark plus `aria-pressed`, consistent with existing terminal tabs.
 
-## Extending this interface
+## Shapes
 
-Use the existing section, heading, ledger and button patterns for another read-only view. Keep source-of-truth labels next to estimates and display coverage/freshness for new data. Use green for earned/buy, amber for future and cyan for selection; retain pink for sell. Keep detailed explanations below the primary interaction, preserve wrapping addresses, and do not introduce a second font or oversized hero. Additional wallet writes must retain the shared review, validation and simulation path.
+Existing panels use `--radius:6px`; small controls and chart-style groups use 4px. Chart dots/rings encode observations/selection. NFT images have an inset neutral 1px white outline at 10% opacity, preserving the existing image treatment. Avoid introducing a competing corner or icon system.
 
-Applied guidance: [Better Interface](https://github.com/jakubkrehel/skills/tree/267330e1adfc66a718fb65fa6918c1f06d0a689e/skills/better-interface), Jakub Krehel, MIT; documentation method: [Impeccable](https://github.com/pbakaus/impeccable/blob/9d715cc4f5564a990ca8345abfdd5df6dc9b41c8/skill/reference/document.md), Paul Bakaus, Apache-2.0. Six-domain coverage, fixes, screenshots and limitations are in [`artifacts/validation.md`](artifacts/validation.md).
+## Components
+
+- **`App.tsx`**: diamond UNLOCK_ wordmark, hash section navigation, visible Whitepaper link, skip link and wallet control. Preserve mobile wrapping when adding navigation.
+- **`MarketTerminal.tsx`**: keyboard-operated Unlock ladder / Price chart tabs with roving focus; pointer/native-select gate inspection; current, earned, future and selected states remain separate. Stored onchain rights are distinct from selected scenarios.
+- **`PriceChart.tsx`**: line/candlestick controls, interval/coverage selectors, current pool spot and last trade, explicit freshness, responsive SVG, crosshair, touch/drag/pinch, keyboard candle inspector, UTC OHLC/volume readout and accessible trade table. Loading, verified empty, failure, stale retention and retry are separate states. `poolHistory.ts` owns official-pool fetching, timestamped observations, candles, caching, deduplication and reorg checks.
+- **`NextRelease.tsx`**: summary, buy/sell, ledgers and native claim/attest/sync actions. Reuse `.button`, `.ledger`, `.section`, `.panel-heading` and existing account/network/signing guards. Treasury and beneficiary have distinct links and labels.
+- **`NftGallery.tsx` / `nftInventory.ts`**: the new treasury wallet is the fixed inventory identity. Official-collection filtering and onchain ownership precede cards; metadata is rendered as bounded inert image blobs. Keep ID/verification block even when an image fails. A stale snapshot never proves current ownership or fee-funded purchasing.
+- **`wallet.tsx`**: existing EIP-6963 discovery, wallet-browser links, Coinbase Smart Wallet and native modal review. Modals trap focus and restore it on Escape/close. No relay/project ID was introduced.
+- **`web/public/whitepaper/`**: independent static HTML/CSS/print script, matching local fonts, version/date, full deployed rules, source/ABI links and print media. No wallet is mounted on the reading page.
+
+Buttons generally target 44px. Compact mobile navigation uses 32px rows; the probe passed its 24px-or-spacing minimum. Focus uses a 2px cyan perimeter with 3px offset. Loading/status and errors use status/alert semantics; tooltips also have a keyboard range control. Reduced motion disables existing smooth scrolling/transitions; the chart adds no autoplay animation.
+
+## Do's and Don'ts
+
+Reuse the existing terminal section/ledger/button patterns. Place instructions beside the chart, swap or proof control they describe. Label estimates, provenance, coverage and stale data near the values. Add another reading page as a physical static directory with relative assets and the existing tokens.
+
+Keep the new treasury separate from the immutable beneficiary and connected execution account. Preserve mono typography and the swap-first phone layout. Do not invent prices, candles, historical USD conversions, fee-funded provenance or unlock rights. Do not add a marketing hero, second font, decorative effects or a different transaction path.
+
+Guidance attribution: Jakub Krehel's [Better Interface](https://github.com/jakubkrehel/skills/tree/267330e1adfc66a718fb65fa6918c1f06d0a689e/skills/better-interface), MIT; documentation method adapted from Paul Bakaus's [Impeccable](https://github.com/pbakaus/impeccable/blob/9d715cc4f5564a990ca8345abfdd5df6dc9b41c8/skill/reference/document.md), Apache-2.0. Existing notices remain in `web/NOTICE.md`. Current coverage and limitations are in `artifacts/validation.md`.

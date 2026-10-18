@@ -1,0 +1,57 @@
+
+> unlock-sepolia-web@1.0.0 test
+> tsx --test tests/*.test.ts
+
+✔ treasury fee: IMD in every standard mode, based on the executed IMD leg (3.306848ms)
+✔ mainnet deployment has all sixteen gates and the 20% initial rate (0.712754ms)
+✔ fee-inclusive buy and net exact-output sell preserve wei rounding (66.273258ms)
+✔ metadata URLs reject executable, private, credentialed and ambiguous schemes (2.018352ms)
+✔ SVG is inert image content and rejects active/external references (4.888238ms)
+✔ index cursors cannot redirect requests or inject objects (1.250264ms)
+✔ metadata and resource failures are visible, never unsafe fallback content (89.075014ms)
+✔ indexed inventory is paginated discovery; only current onchain owners appear (1.525786ms)
+✔ recorded authentic mainnet tokenURI images #1116 and #1181 render as inert blobs offline (6.750879ms)
+✔ mainnet reads fail closed for stale blocks, wrong network and missing runtime code (13.423453ms)
+✔ complete empty coverage pins official pool, block timestamps and current state (5.40138ms)
+✔ signed deltas give executed volumes; sqrt gives spot independently from execution averages (1.11399ms)
+✔ incremental cache replaces overlap, deduplicates and restarts after deep reorg (2.788864ms)
+✔ range-limited free providers split scans without losing coverage (10.229806ms)
+✔ stale, wrong-chain, reorg, partial failure and cancellation never become empty history (257.111563ms)
+✔ OHLC buckets use actual timestamp/order and executed volume, leaving no-trade gaps (1.049521ms)
+✔ price units handle direction, decimal scaling and invalid values; backoff is bounded (1.195502ms)
+✔ all standard modes enforce launch2071 sorted key, empty hookData, execution-account take and zero native funding (42.276589ms)
+✔ PoolKey hashes to deployed PoolId (1.429738ms)
+✔ mature accounting counts past sales and bypasses for every holder at final gate (0.352575ms)
+✔ raw units and fee rounding preserve conservation (50.455463ms)
+✔ protocol fee uses direction and compounded pips (0.431352ms)
+✔ amount validation rejects floats, zero, exponent, excess decimals and uint128 overflow (1.369235ms)
+✔ quote invalidates on account, direction, amount, slippage or 30 second expiry (0.324123ms)
+✔ final quote validation rejects elapsed preparation, block drift, inactive state and deadline boundaries (0.906274ms)
+✔ all delivered native proofs match the certified onchain root (218.377398ms)
+✔ slippage decimal parsing avoids floating-point bps drift (1.375977ms)
+✔ display formatting keeps bigint precision and never rounds a nonzero balance to zero (0.726361ms)
+✔ wallet allowance uses exact floors, sales and balance caps (4.703613ms)
+✔ scenario holds ledger fixed, final unlock includes transfer-only balances, achieved tiers never imply revoked rights (0.9038ms)
+✔ large BigInt values and all tiers retain monotonic allowance (4.686572ms)
+✔ input and slippage reject unsafe formats and preserve a wei (1.358215ms)
+✔ oracle progress distinguishes invalid, stale, gap, below target and elapsed-but-unconfirmed (1.631043ms)
+✔ real native round proofs reject wrong amount, recipient, incomplete tree and duplicates (434.065577ms)
+✔ historical Sepolia arithmetic vectors remain consistent (not mainnet evidence) (0.91424ms)
+✔ swap step accounts exact fees and partial fills in both directions (0.744655ms)
+✔ percentage fills floor in wei, reserve gas and never exceed spendable balance (3.011198ms)
+✔ confirmation progress does not increase merely because the clock advances (0.641232ms)
+✔ IMD/ETH direction: ETH per IMD is the inverse of the pool's IMD-per-ETH price (2.312378ms)
+✔ UNLK leg follows sorted PoolKey order and FDV uses fixed 1B supply (0.566433ms)
+✔ Chainlink validation mirrors the contract and fails closed (1.1401ms)
+✔ slot0 decoding handles negative ticks and the v4 state slot (8.111368ms)
+✔ treasury balances use new inventory wallet; redeemed funds stay in vault and beneficiary validation stays immutable (104.430568ms)
+✔ NFT owner checks accept new treasury and exclude old beneficiary, visitors and foreign collections (1.004378ms)
+✔ whitepaper is a standalone export with complete ladder, print action and reviewed ABI links (1.738922ms)
+ℹ tests 45
+ℹ suites 0
+ℹ pass 45
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5013.358364

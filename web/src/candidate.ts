@@ -1,7 +1,11 @@
 import { parseAbi } from "viem";
 
-export const NFT_BENEFICIARY =
-  "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9" as const;
+// NFT_BENEFICIARY is retained only as a legacy beneficiary alias; inventory uses TREASURY_WALLET.
+export {
+  VAULT_BENEFICIARY,
+  VAULT_BENEFICIARY as NFT_BENEFICIARY,
+  TREASURY_WALLET,
+} from "./treasury";
 export const NFT_COLLECTION =
   "0x0000ec93127baa929e58e97dd0095a2bfb38ec1d" as const;
 export const NEXT_THRESHOLDS = [

@@ -1,5 +1,7 @@
 # Current website validation
 
-The compact-terminal revision continues `ffae6425390ebabad6dd89d83aae0c200d250e26`. The current consolidated report is [artifacts/validation.md](../../artifacts/validation.md); the design system is [DESIGN.md](../../DESIGN.md). Current screenshots are in `artifacts/`. Older layout screenshots have been replaced and remain recoverable in history.
+The 18 October 2026 treasury/whitepaper/Price chart update is documented in [`../../artifacts/validation.md`](../../artifacts/validation.md). Current results use `update-*` filenames in this directory.
 
-Current unit/build/fork/browser/site/source/design results are alongside this file. Earlier reproduction, quote-before, compilation and mainnet preparation records remain as historical provenance; they are not fresh live observations. `live-verification.json` and `artifacts/https-results.json` identify this revision's fresh read-only observations. `publication-status.json` supersedes the earlier pending-URL record; the revised export still awaits delivery-service publication.
+Other evidence records are preserved historical results from accepted commits. They must not be read as newly executed checks for this revision. This revision ran frontend production/type/interaction checks and fresh read-only mainnet verification; no new contract deployment, activation, fork transaction or signed wallet transaction was performed.
+
+The source and `dist/` export are prepared locally. Publication remains a separate existing-site delivery operation; see `publication-status.json` and the current validation report.

@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#09090b" />
+    <title>UNLOCK whitepaper · Ethereum mainnet rules</title>
+    <meta
+      name="description"
+      content="The deployed UNLK/IMD rules: fixed supply, cumulative selling credits, permanent unlock gates, fees, manual NFT treasury and risks."
+    />
+    <meta property="og:title" content="UNLOCK · English whitepaper" />
+    <meta
+      property="og:description"
+      content="A plain-English account of deployed Ethereum mainnet rules, custody and risks. Version 1.1, 18 October 2026."
+    />
+    <meta property="og:image" content="../share.png" />
+    <meta property="og:type" content="article" />
+    <link rel="canonical" href="https://unlk-b35c.sites.imd.fun/whitepaper/" />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./whitepaper.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#paper">Skip to whitepaper</a>
+    <header>
+      <a class="brand" href="../#trade">UNLOCK<span>_</span></a>
+      <nav aria-label="Whitepaper navigation">
+        <a href="../#trade">Trade terminal</a
+        ><button id="print-paper" type="button">Print / Save as PDF</button>
+      </nav>
+    </header>
+    <main id="paper" tabindex="-1">
+      <h1>UNLOCK whitepaper</h1>
+      <p class="version">
+        Version 1.1 · 18 October 2026 · Ethereum mainnet (chain ID 1)
+      </p>
+      <p>
+        UNLOCK (UNLK) is a fixed-supply token paired with IMD. The official pool
+        applies cumulative selling quotas that expand at permanent USD fully
+        diluted valuation (FDV) milestones. This document explains the deployed
+        rules, their limits and the manual NFT treasury. It promises no returns.
+      </p>
+      <p class="print-help">
+        Use <strong>Print / Save as PDF</strong> above, then choose your
+        browser’s PDF destination. The print view contains this same version,
+        text, tables and source links. No download service or wallet is needed.
+      </p>
+      <nav class="contents" aria-label="Whitepaper contents">
+        <a href="#supply">Supply</a><a href="#credits">Selling rights</a
+        ><a href="#gates">Unlock ladder</a
+        ><a href="#observation">Price observations</a><a href="#fees">Fees</a
+        ><a href="#custody">Treasury & NFTs</a><a href="#risk">Risks</a
+        ><a href="#sources">Contracts & sources</a>
+      </nav>
+      <section id="supply">
+        <h2>1. Supply and transfers</h2>
+        <p>
+          The fixed supply is <strong>1,000,000,000 UNLK</strong>, with
+          <strong>18 decimals</strong>, minted once to the launch factory. The
+          policy allocation is 10% (100 million) to native distributor
+          allocations, 87% (870 million) to pool seeding and 3% (30 million) to
+          the recorded launch payer. The factory’s seed rounding can leave pool
+          dust with the payer; this does not create extra eligible credits.
+          There is no subsequent mint.
+        </p>
+        <p>
+          Ordinary ERC20 transfers are unrestricted. A transfer moves tokens
+          only: it does not create, move or reset eligible credits or the
+          cumulative sales counter. Receiving tokens by transfer alone does not
+          make them sellable through the official pool before full unlock.
+        </p>
+      </section>
+      <section id="credits">
+        <h2>2. Eligible acquisitions and selling rights</h2>
+        <p>
+          Each execution account has cumulative eligible acquisitions
+          <strong>E</strong> and cumulative official-pool sales
+          <strong>S</strong>. E includes actual UNLK output from official-pool
+          buys and proven allocation credits after synchronization. It is not
+          the account’s current token balance.
+        </p>
+        <p>
+          Buy credits are pending during their acquisition block. They become
+          mature in a later block; all buys within the same block remain pending
+          together. <strong>matureE</strong> is E minus those immature buy
+          credits. Verified payer and native allocation synchronization credits
+          do not use the buy-maturity delay.
+        </p>
+        <p>
+          Before full unlock, with the stored allowance
+          <strong>p</strong> expressed in basis points (20% = 2,000):
+        </p>
+        <pre>
+quota = max(0, floor(matureE × p / 10000) − S)
+sellable = min(current UNLK balance, quota)</pre
+        >
+        <p>
+          For example, 1,000 mature eligible tokens and 200 already sold give a
+          quota of zero at 20%. At 30%, the cumulative cap becomes 300, leaving
+          only <strong>100 additional tokens</strong> that can be sold, provided
+          the account has that balance. It is not 30% of the remaining balance,
+          and it is not a fresh 300-token allowance.
+        </p>
+        <h3>Claim, attest and sync are separate</h3>
+        <ol>
+          <li>
+            <strong>Claim:</strong> use the native MerkleDistributor claim with
+            the round’s valid recipient, amount and proof. Its round, claim
+            timing, funding and already-claimed checks apply; a claim transfers
+            the allocated tokens.
+          </li>
+          <li>
+            <strong>Attest:</strong> the claim-evidence contract validates a
+            certified round and proof against the native distributor’s claimed
+            state. It records evidence, without transferring tokens or
+            independently creating hook credits.
+          </li>
+          <li>
+            <strong>Sync:</strong> after activation,
+            <code>syncRewards(recipient)</code> credits only the newly proven
+            difference. Repeating it cannot duplicate credits. Claims made
+            before activation can be attested and synchronized later.
+          </li>
+        </ol>
+        <p>
+          <code>syncPayer()</code> credits the fixed 3% allocation once to the
+          payer recorded by launch provenance. It does not credit the caller,
+          current treasury, founder by assumption or connected visitor. Moving
+          the NFT inventory wallet changes neither payer attribution nor these
+          rules.
+        </p>
+        <p>
+          The official pool uses the pinned Universal Router’s execution
+          initiator (<code>msgSender()</code>) for E and S. The eventual token
+          recipient can differ from that initiator. The terminal defaults
+          settlement to the execution account and shows its ledger. A sale must
+          fit the quota that was open <em>before</em> its own post-swap
+          observation.
+        </p>
+      </section>
+      <section id="gates">
+        <h2>3. The permanent unlock ladder</h2>
+        <p>
+          The initial allowance is 20%. A valid recorded observation opens every
+          crossed gate through the highest reached tier. Earned gates never
+          relock when prices fall or references fail. The final $50 million gate
+          is a <strong>permanent global quota bypass</strong> for every holder,
+          including transfer-only recipients. It does not promise liquidity or
+          remove fees.
+        </p>
+        <table>
+          <caption>
+            USD FDV thresholds and cumulative allowance
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">FDV threshold</th>
+              <th scope="col">Allowance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Initial</td>
+              <td>20%</td>
+            </tr>
+            <tr>
+              <td>$100,000</td>
+              <td>25%</td>
+            </tr>
+            <tr>
+              <td>$250,000</td>
+              <td>30%</td>
+            </tr>
+            <tr>
+              <td>$500,000</td>
+              <td>35%</td>
+            </tr>
+            <tr>
+              <td>$1,000,000</td>
+              <td>40%</td>
+            </tr>
+            <tr>
+              <td>$2,000,000</td>
+              <td>45%</td>
+            </tr>
+            <tr>
+              <td>$3,500,000</td>
+              <td>50%</td>
+            </tr>
+            <tr>
+              <td>$5,000,000</td>
+              <td>55%</td>
+            </tr>
+            <tr>
+              <td>$7,500,000</td>
+              <td>60%</td>
+            </tr>
+            <tr>
+              <td>$10,000,000</td>
+              <td>65%</td>
+            </tr>
+            <tr>
+              <td>$15,000,000</td>
+              <td>70%</td>
+            </tr>
+            <tr>
+              <td>$20,000,000</td>
+              <td>75%</td>
+            </tr>
+            <tr>
+              <td>$25,000,000</td>
+              <td>80%</td>
+            </tr>
+            <tr>
+              <td>$30,000,000</td>
+              <td>85%</td>
+            </tr>
+            <tr>
+              <td>$35,000,000</td>
+              <td>90%</td>
+            </tr>
+            <tr>
+              <td>$40,000,000</td>
+              <td>95%</td>
+            </tr>
+            <tr>
+              <td>$50,000,000</td>
+              <td>Global quota bypass</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section id="observation">
+        <h2>4. What actually records a gate</h2>
+        <p>
+          The deployed oracle combines the official UNLK/IMD pool’s current
+          <code>sqrtPriceX96</code> with the admitted IMD/USD source, then uses
+          the fixed one-billion supply to calculate USD FDV. The source combines
+          the separate IMD/native-ETH reference pool’s spot price with validated
+          Chainlink ETH/USD. FDV is not circulating market capitalization.
+        </p>
+        <p>
+          The oracle checks the exact bound pool, token order, fee, factory seed
+          range and liquidity, minimum seed quote capacity, and reference
+          chain/code/decimals. The reference checks its pool’s current liquidity
+          and configured fee. ETH/USD must have a positive valid round, correct
+          decimals, coherent timestamps, an answered round at least as recent as
+          the requested round, age no greater than 90 minutes and an answer no
+          greater than the source’s cap.
+        </p>
+        <p>
+          A successful official-pool swap calls the hook’s observation after
+          quota accounting. Anyone may also call <code>checkpoint()</code> (or
+          its <code>updateMilestone()</code> alias) after activation. A valid
+          observation persists the highest crossed tier. An invalid oracle
+          reading blocks new gate advancement, while existing rights and
+          within-quota trading remain available.
+        </p>
+        <p>
+          <strong
+            >Viewing a price or crossing a chart line does not record an
+            unlock.</strong
+          >
+          There is no TWAP, 48-hour holding requirement, observation waiting
+          window or price-history reconstruction in these mainnet gates. A brief
+          valid spot-price touch can permanently open a tier. Reading state on
+          this site does not send a checkpoint transaction.
+        </p>
+        <h3>Chart interpretation</h3>
+        <p>
+          The Price chart uses only filtered Swap logs of the official UNLK/IMD
+          pool. UNLK is currency0, IMD is currency1 and both have 18 decimals:
+          IMD per UNLK is <code>(sqrtPriceX96 / 2^96)^2</code>. OHLC uses the
+          recorded post-swap spot observations within timestamped UTC buckets.
+          It is not an execution-average chart and cannot reconstruct prices
+          inside a swap.
+        </p>
+        <p>
+          Volume is the absolute executed Swap-event UNLK and IMD pool legs,
+          excluding the extra treasury component. Empty intervals have no
+          candles; line segments do not bridge no-trade gaps. Block coverage is
+          bounded and explicitly partial. Boundary candles may cover only part
+          of a bucket; the time axis ends at the scanned block timestamp. Recent
+          blocks may reorganize. Current USD/FDV is shown separately when valid;
+          historical USD candles are unavailable because there is no
+          time-aligned IMD/USD conversion series. Today’s conversion is never
+          applied to historical prices.
+        </p>
+      </section>
+      <section id="fees">
+        <h2>5. Pool and treasury fees</h2>
+        <p>
+          The official pool’s LP fee is <strong>1.25%</strong> (12,500 pips,
+          denominator 1,000,000) on the input side. Pool LP collections follow
+          the launch’s 80% payer / 20% IMD policy, nominally 1% / 0.25% before
+          other charges. The independent hook treasury component is
+          <strong>0.75%</strong> of the executed IMD pool leg, charged in IMD.
+          The two bases differ, so an exact combined 2% claim is incorrect.
+        </p>
+        <p>
+          Let <code>f(b) = floor(b × 75 / 10000)</code>, with amounts in raw
+          18-decimal IMD units. The four standard modes use these rules:
+        </p>
+        <table>
+          <caption>
+            Hook treasury fee, separate from the pool fee
+          </caption>
+          <thead>
+            <tr>
+              <th scope="col">Mode</th>
+              <th scope="col">Treasury calculation</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Exact-input buy</td>
+              <td>
+                For gross IMD budget G, choose the largest pool input b with b +
+                f(b) ≤ G. Treasury receives G − b.
+              </td>
+            </tr>
+            <tr>
+              <td>Exact-output buy</td>
+              <td>
+                Given actual executed IMD pool input b, treasury receives f(b).
+                Trader pays b + f(b).
+              </td>
+            </tr>
+            <tr>
+              <td>Exact-input sell</td>
+              <td>
+                Given actual gross IMD pool output b, treasury receives f(b).
+                Trader receives b − f(b).
+              </td>
+            </tr>
+            <tr>
+              <td>Exact-output sell</td>
+              <td>
+                For requested net IMD N, choose the smallest gross pool output b
+                with b − f(b) ≥ N. Treasury receives b − N.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          When IMD is the specified side, the fee is fixed before execution and
+          complete fills are required. Its rounding favors the treasury by at
+          most one wei versus floor-based 75 bps. Otherwise the fee is floored
+          on the executed IMD leg after the swap. Pool/core fee arithmetic has
+          its own integer rounding. At zero protocol fee, ignoring price impact
+          and rounding, effective combined costs are about 1.98511166% on buys
+          and 1.990625% on sells.
+        </p>
+        <p>
+          Uniswap core can charge a directional protocol fee in addition to the
+          LP fee. Core compounds the two: protocol + LP − floor(protocol × LP /
+          1,000,000), in pips. Quotes read the current directional fee; price
+          impact, slippage, rounding and ETH gas are separate. Fees continue
+          after full unlock. ETH is used for gas, not as the trading pair.
+        </p>
+      </section>
+      <section id="custody">
+        <h2>6. Vault, treasury and NFT custody</h2>
+        <p>
+          The hook accrues PoolManager IMD claims to the vault. The cash path
+          is:
+        </p>
+        <ol>
+          <li>
+            <strong>PoolManager claims:</strong> accrued fee claims await
+            redemption.
+          </li>
+          <li>
+            <strong><code>redeem()</code> into the vault:</strong> anyone may
+            redeem genuine pending fee claims. The vault burns those claims and
+            receives the IMD itself.
+          </li>
+          <li>
+            <strong>Beneficiary <code>withdraw()</code>:</strong> only
+            <code>0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9</code> may withdraw
+            redeemed fees, and payment goes to that same immutable beneficiary.
+          </li>
+          <li>
+            <strong>Manual transfer to treasury:</strong> moving funds onward to
+            <code>0xFe44fC8F6C32f681a0ce443902a0b08bB5B3C736</code> requires a
+            separate manual transfer controlled by the beneficiary.
+          </li>
+        </ol>
+        <p>
+          <strong
+            >The vault cannot pay the new treasury wallet directly.</strong
+          >
+          Redemption does not withdraw funds. The owner reports redeeming prior
+          claims and intends to keep funds in the vault; live chain reads
+          determine the actual amounts. This website update authorizes and
+          performs no fund movements. There is no requirement to withdraw
+          redeemed funds.
+        </p>
+        <p>
+          The ledger separates lifetime accrued fees, pending claims, lifetime
+          redeemed fees, lifetime withdrawals, currently claimable redeemed
+          fees, actual vault balances, donations and treasury holdings. Accrued
+          = pending + redeemed; redeemed = withdrawn + claimable. Actual vault
+          IMD = claimable + current donations. Actual PoolManager claims =
+          pending fee claims + donated claims. These are overlapping breakdowns,
+          not values to sum into a larger treasury. The external treasury
+          balance is a separate holding, not proven fee revenue.
+        </p>
+        <p>
+          The new treasury wallet holds the NFT inventory. Discovery uses
+          paginated public indexing filtered to the official collection
+          <code>0x0000ec93127baa929e58e97dd0095a2bfb38ec1d</code>; displayed
+          tokens are checked with onchain <code>ownerOf</code>,
+          <code>balanceOf</code> and <code>tokenURI</code>. Images are treated
+          as untrusted metadata. Indexing may lag, pages may be incomplete and
+          ownership snapshots may become stale.
+        </p>
+        <p>
+          NFT purchases and custody are manual. Holdings alone do not prove
+          fee-funded purchases. There are no automatic purchases or burns,
+          promised returns, holder revenue-sharing rights, buybacks or
+          additional utility commitments in these deployed rules.
+        </p>
+      </section>
+      <section id="risk">
+        <h2>7. Limits and risks</h2>
+        <ul>
+          <li>
+            <strong>Other-pool bypass:</strong> quotas and the 0.75% treasury
+            fee apply only to the official hooked pool. Unrestricted transfers
+            allow other pools or private trades that bypass both. Such activity
+            does not create official-pool eligible acquisition credits.
+          </li>
+          <li>
+            <strong>Spot manipulation:</strong> manipulating either the UNLK/IMD
+            pool or the external IMD/ETH reference, including within one
+            transaction, can permanently open gates early. The oracle is not
+            manipulation-resistant.
+          </li>
+          <li>
+            <strong>Shared executors:</strong> a common contract executor can
+            pool mature credits and sales across users. Recipient-level token
+            ownership does not imply separate quota accounting.
+          </li>
+          <li>
+            <strong>Market and custody:</strong> liquidity, price, execution,
+            manually held NFTs and the beneficiary’s future choices carry risk.
+            No return, liquidity floor or price guarantee is made.
+          </li>
+          <li>
+            <strong>Data availability:</strong> public RPCs and indexers can
+            fail, rate-limit, lag or reorganize recent blocks. Unknown data is
+            unavailable, not zero. Wallet signing is required for any
+            transaction; displayed estimates are not execution guarantees.
+          </li>
+          <li>
+            <strong>Review limits:</strong> agent reviews, source comparisons
+            and automated tests are not a conventional independent security
+            audit. Reviewed ABI/source evidence is not a claim of Etherscan
+            source verification.
+          </li>
+        </ul>
+      </section>
+      <section id="sources">
+        <h2>8. Deployed identities and sources</h2>
+        <p>
+          Ethereum chain ID 1. The PoolKey sorts UNLK before IMD, uses fee
+          12,500, tick spacing 60 and the hook below. The chart never
+          substitutes an unrelated UNLK/ETH pool.
+        </p>
+        <dl class="identities">
+          <dt>UNLK</dt>
+          <dd>
+            <a
+              href="https://etherscan.io/address/0x99fa82b022be4575891a43b757bc770691e18fda"
+              >0x99fa82b022be4575891a43b757bc770691e18fda</a
+            >
+          </dd>
+          <dt>IMD</dt>
+          <dd>
+            <a
+              href="https://etherscan.io/address/0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7"
+              >0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7</a
+            >
+          </dd>
+          <dt>Hook</dt>
+          <dd>
+            <a
+              href="https://etherscan.io/address/0x932eba7e96b9e54efe6f8cdf98cb092164a57fcc"
+              >0x932eba7e96b9e54efe6f8cdf98cb092164a57fcc</a
+            >
+          </dd>
+          <dt>Vault</dt>
+          <dd>
+            <a
+              href="https://etherscan.io/address/0xf2a19fba1f37f3fd41af0b7f671ccf6d07f29f50"
+              >0xf2a19fba1f37f3fd41af0b7f671ccf6d07f29f50</a
+            >
+          </dd>
+          <dt>PoolManager</dt>
+          <dd>
+            <a
+              href="https://etherscan.io/address/0x000000000004444c5dc75cb358380d2e3de08a90"
+              >0x000000000004444c5dc75cb358380d2e3de08a90</a
+            >
+          </dd>
+          <dt>Official PoolId</dt>
+          <dd>
+            0x860a127e8f4b069ce93e280efda34db2b3cb21e7d73f164248f38f4220ec8d32
+          </dd>
+          <dt>NFT collection</dt>
+          <dd>
+            <a
+              href="https://etherscan.io/address/0x0000ec93127baa929e58e97dd0095a2bfb38ec1d"
+              >0x0000ec93127baa929e58e97dd0095a2bfb38ec1d</a
+            >
+          </dd>
+          <dt>Treasury & inventory</dt>
+          <dd>
+            <a
+              href="https://etherscan.io/address/0xfe44fc8f6c32f681a0ce443902a0b08bb5b3c736"
+              >0xFe44fC8F6C32f681a0ce443902a0b08bB5B3C736</a
+            >
+          </dd>
+          <dt>Immutable beneficiary</dt>
+          <dd>
+            <a
+              href="https://etherscan.io/address/0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9"
+              >0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9</a
+            >
+          </dd>
+        </dl>
+        <p>
+          Reviewed deployment source:
+          <a
+            href="https://github.com/identity-md-launches/launch-2071-unlock/tree/40d70b7bd0853aedf84eac839a40a5f12e6ac341"
+            >commit 40d70b7bd0853aedf84eac839a40a5f12e6ac341</a
+          >. Website baseline:
+          <a
+            href="https://github.com/identity-md-launches/launch-2071-unlock/tree/1c9927c137c4e4a3a4f6999ce9636ec29a4b89db"
+            >1c9927c137c4e4a3a4f6999ce9636ec29a4b89db</a
+          >. No contract or economics changes accompany this document.
+        </p>
+        <ul class="source-links">
+          <li>
+            <a
+              href="https://github.com/identity-md-launches/launch-2071-unlock/blob/40d70b7bd0853aedf84eac839a40a5f12e6ac341/src/UnlkToken.sol"
+              >Token supply and allocation source</a
+            >
+            · <a href="../abi/UnlkToken.json">reviewed token ABI</a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/identity-md-launches/launch-2071-unlock/blob/40d70b7bd0853aedf84eac839a40a5f12e6ac341/src/mainnet/UnlkImdHook.sol"
+              >Hook credits, gates and fees source</a
+            >
+            · <a href="../abi/UnlkImdHook.json">reviewed hook ABI</a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/identity-md-launches/launch-2071-unlock/blob/40d70b7bd0853aedf84eac839a40a5f12e6ac341/src/mainnet/UnlkImdOracle.sol"
+              >Oracle source</a
+            >
+            · <a href="../abi/UnlkImdOracle.json">reviewed oracle ABI</a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/identity-md-launches/launch-2071-unlock/blob/40d70b7bd0853aedf84eac839a40a5f12e6ac341/src/mainnet/ImdSpotUsdSource.sol"
+              >IMD/USD reference validation source</a
+            >
+          </li>
+          <li>
+            <a
+              href="https://github.com/identity-md-launches/launch-2071-unlock/blob/40d70b7bd0853aedf84eac839a40a5f12e6ac341/src/mainnet/ImdFeeVault.sol"
+              >Vault source</a
+            >
+            · <a href="../abi/ImdFeeVault.json">reviewed vault ABI</a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/identity-md-launches/launch-2071-unlock/blob/40d70b7bd0853aedf84eac839a40a5f12e6ac341/src/MerkleClaimEvidence.sol"
+              >Native claim evidence source</a
+            >
+            ·
+            <a href="../abi/MerkleClaimEvidence.json">reviewed evidence ABI</a>
+          </li>
+          <li>
+            <a href="https://ethereum-rpc.publicnode.com"
+              >PublicNode Ethereum RPC</a
+            >
+            · <a href="https://eth.drpc.org">dRPC fallback</a> ·
+            <a
+              href="https://eth.blockscout.com/address/0xfe44fc8f6c32f681a0ce443902a0b08bb5b3c736"
+              >Treasury inventory indexer</a
+            >
+          </li>
+        </ul>
+      </section>
+    </main>
+    <footer>
+      UNLOCK · Version 1.1 · 18 October 2026 ·
+      <a href="../#trade">Return to terminal</a>
+    </footer>
+    <script src="./print.js"></script>
+  </body>
+</html>

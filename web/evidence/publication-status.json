@@ -1,26 +1,36 @@
 {
-  "checkedAt": "2026-10-17T17:17:54.725Z",
-  "launchId": "0528a007-5ec6-4acd-b9cc-b3ded6fe2929",
+  "checkedAt": "2026-10-18T08:20:02.227154+00:00",
   "launchNumber": 2071,
   "chainId": 1,
   "token": "0x99fa82b022be4575891a43b757bc770691e18fda",
   "supportedSiteUrl": "https://unlk-b35c.sites.imd.fun/",
-  "preferredSiteUrl": "https://unlock.sites.imd.fun/",
-  "deliveryCommit": null,
-  "siteStatus": "Existing HTTPS site verified; revised dist awaits delivery-service publication",
-  "explorerUrl": "https://explorer.imd.fun/token/0x99fa82b022be4575891a43b757bc770691e18fda",
-  "explorerWebsiteLinkObserved": true,
+  "existingSiteName": "unlk-b35c.site.identitymd.eth",
+  "localSourceAndExportComplete": true,
+  "actualPublicationCompleted": false,
+  "liveCidObserved": "bafybeiazwsqazwv7mjt6lpa5hu53opwld4btx5on3z62fb4rko7ow7ige4",
+  "localDeliveryCommit": null,
+  "siteStatus": "Local export ready for the existing-site delivery service. Existing HTTPS root still serves the prior CID.",
+  "capabilityLimitation": "No launch-bound existing-site update writer is exposed by the available tools. The installed CLI advertises publication of the contributor's own machine-signed site; it does not establish an authorized update operation for this existing launch site. No publish or naming mutation was attempted.",
+  "livePageCheck": {
+    "rootStatus": 200,
+    "whitepaperStatus": 200,
+    "newWhitepaperVersionObserved": false,
+    "httpToHttps": {
+      "status": 301,
+      "location": "https://unlk-b35c.sites.imd.fun/"
+    }
+  },
+  "actionsTaken": "Read-only HTTP/HTTPS/RPC checks, production export, unit and Chromium interaction tests. No wallet signing, RPC writes, deployments, activation, withdrawals, redemptions or transfers.",
   "evidence": [
     "../../artifacts/https-results.json",
-    "explorer-links.json"
+    "update-live.json",
+    "update-browser.json",
+    "../../artifacts/validation.md"
   ],
-  "blocker": "Preferred hostname returns 404 despite valid DNS/TLS. No supported IMD naming or publication writer is exposed. Existing hostname and its verified Explorer backlink retained; revised export not claimed live.",
-  "actionsTaken": "Read-only DNS/TLS/HTTP/RPC checks, local production export and loopback fork tests. No public activation, transaction or publishing.",
   "rollback": {
-    "acceptedBaselineCommit": "ffae6425390ebabad6dd89d83aae0c200d250e26",
-    "priorHostedExport": "ipfs://bafybeib4cpjndxi4ipjrb3f5wdtanbv6jgo5yr3x4olm6hl7ocpd5dlxuu",
-    "includedFallback": "dist/recovery.html",
-    "note": "Preserve the newer mainnet guards. Delivery service assigns the new Git commit/CID; workspace .git is protected."
+    "acceptedBaselineCommit": "1c9927c137c4e4a3a4f6999ce9636ec29a4b89db",
+    "priorHostedExport": "ipfs://bafybeiazwsqazwv7mjt6lpa5hu53opwld4btx5on3z62fb4rko7ow7ige4",
+    "includedFallback": "dist/recovery.html"
   },
-  "explorerCheckedAt": "2026-10-17T17:34:15.256Z"
+  "publicationFollowup": "Pin complete dist/ as the next version of the existing site name, preserve HTTPS/URL, then verify root, /whitepaper/, Price chart, swap and claim controls. No publication is claimed until those checks observe this export."
 }

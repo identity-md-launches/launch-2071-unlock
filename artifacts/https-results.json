@@ -1,157 +1,22 @@
 {
-  "capturedAt": "2026-10-17T17:17:54.725Z",
-  "scope": "Read-only existing hosting checks. The revised export has not been published.",
-  "hosts": [
-    {
-      "hostname": "unlk-b35c.sites.imd.fun",
-      "dns": [
-        {
-          "address": "69.46.46.116",
-          "family": 4
-        }
-      ],
-      "tls": {
-        "authorized": true,
-        "protocol": "TLSv1.3",
-        "subject": {
-          "CN": "*.sites.imd.fun"
-        },
-        "issuer": {
-          "C": "US",
-          "O": "Let's Encrypt",
-          "CN": "YR1"
-        },
-        "subjectAltName": "DNS:*.sites.imd.fun",
-        "validFrom": "Oct  2 00:59:58 2026 GMT",
-        "validTo": "Dec 31 00:59:57 2026 GMT",
-        "hostnameVerified": true
-      },
-      "http": {
-        "status": 200,
-        "url": "https://unlk-b35c.sites.imd.fun/",
-        "title": "UNLOCK · UNLK / IMD on Ethereum"
-      },
-      "assets": [
-        {
-          "url": "https://unlk-b35c.sites.imd.fun/favicon.svg",
-          "status": 200,
-          "type": "image/svg+xml"
-        },
-        {
-          "url": "https://unlk-b35c.sites.imd.fun/assets/index-ReAo3_-4.js",
-          "status": 200,
-          "type": "text/javascript"
-        },
-        {
-          "url": "https://unlk-b35c.sites.imd.fun/assets/index-DA8MX0ZT.css",
-          "status": 200,
-          "type": "text/css"
-        }
-      ]
-    },
-    {
-      "hostname": "unlock.sites.imd.fun",
-      "dns": [
-        {
-          "address": "69.46.46.116",
-          "family": 4
-        }
-      ],
-      "tls": {
-        "authorized": true,
-        "protocol": "TLSv1.3",
-        "subject": {
-          "CN": "*.sites.imd.fun"
-        },
-        "issuer": {
-          "C": "US",
-          "O": "Let's Encrypt",
-          "CN": "YR1"
-        },
-        "subjectAltName": "DNS:*.sites.imd.fun",
-        "validFrom": "Oct  2 00:59:58 2026 GMT",
-        "validTo": "Dec 31 00:59:57 2026 GMT",
-        "hostnameVerified": true
-      },
-      "http": {
-        "status": 404,
-        "url": "https://unlock.sites.imd.fun/",
-        "title": "No such site"
-      },
-      "assets": []
-    },
-    {
-      "hostname": "unlk.sites.imd.fun",
-      "dns": [
-        {
-          "address": "69.46.46.116",
-          "family": 4
-        }
-      ],
-      "tls": {
-        "authorized": true,
-        "protocol": "TLSv1.3",
-        "subject": {
-          "CN": "*.sites.imd.fun"
-        },
-        "issuer": {
-          "C": "US",
-          "O": "Let's Encrypt",
-          "CN": "YR1"
-        },
-        "subjectAltName": "DNS:*.sites.imd.fun",
-        "validFrom": "Oct  2 00:59:58 2026 GMT",
-        "validTo": "Dec 31 00:59:57 2026 GMT",
-        "hostnameVerified": true
-      },
-      "http": {
-        "status": 200,
-        "url": "https://unlk.sites.imd.fun/",
-        "title": "UNLOCK · Trade & unlock"
-      },
-      "assets": [
-        {
-          "url": "https://unlk.sites.imd.fun/favicon.svg",
-          "status": 200,
-          "type": "image/svg+xml"
-        },
-        {
-          "url": "https://unlk.sites.imd.fun/assets/index-MshxxFjX.js",
-          "status": 200,
-          "type": "text/javascript"
-        },
-        {
-          "url": "https://unlk.sites.imd.fun/assets/index-BkOFwGt7.css",
-          "status": 200,
-          "type": "text/css"
-        }
-      ]
-    }
+  "capturedAt": "2026-10-18T08:20:02.227154+00:00",
+  "scope": "Fresh read-only check of the existing hostname. This local update has not been published. HTTPS requests succeeded with default TLS/hostname verification; no insecure TLS option.",
+  "url": "https://unlk-b35c.sites.imd.fun/",
+  "httpStatus": 200,
+  "liveCid": "bafybeiazwsqazwv7mjt6lpa5hu53opwld4btx5on3z62fb4rko7ow7ige4",
+  "title": "UNLOCK \u00b7 UNLK / IMD on Ethereum",
+  "scriptAndStyleAssets": [
+    "./assets/index-BZmKVt6F.js",
+    "./assets/index-DmAz4gqf.css"
   ],
+  "whitepaper": {
+    "url": "https://unlk-b35c.sites.imd.fun/whitepaper/",
+    "status": 200,
+    "newVersionHeadingPresent": false
+  },
   "httpToHttps": {
     "status": 301,
     "location": "https://unlk-b35c.sites.imd.fun/"
   },
-  "rpc": [
-    {
-      "endpoint": "https://ethereum-rpc.publicnode.com",
-      "status": 200,
-      "cors": "*",
-      "response": {
-        "jsonrpc": "2.0",
-        "result": "0x1",
-        "id": 1
-      }
-    },
-    {
-      "endpoint": "https://eth.drpc.org",
-      "status": 200,
-      "cors": "*",
-      "response": {
-        "id": 1,
-        "jsonrpc": "2.0",
-        "result": "0x1"
-      }
-    }
-  ]
+  "localPublicationCompleted": false
 }

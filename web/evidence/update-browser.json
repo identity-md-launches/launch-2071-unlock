@@ -1,0 +1,38 @@
+{
+  "evidence": "Production export at /preview/ with fresh read-only mainnet RPC reads; controlled failures and a read-only injected test wallet. No signed or broadcast transactions.",
+  "checks": [
+    "390×844 first screen contains UNLK/IMD, amount field and complete Connect to trade action",
+    "Connect dialog traps focus; Escape closes and restores trigger focus",
+    "Existing buy/sell direction, labels and 18-decimal input work before wallet signing",
+    "Read-only EIP-6963 account connection and real mainnet quoter return a fee-aware live buy quote",
+    "Wrong network invalidates quote and offers chain-1 switching without sending a transaction",
+    "Claim/attest/reward sync/payer sync controls retained; malformed proof import reports an error",
+    "All initial + sixteen ladder scenarios remain selectable; scenario selection does not alter confirmed onchain tier",
+    "Mobile two-finger pinch and single-finger pan change the time window; chart fits 320/390/1440 and has zero axe violations",
+    "Price chart uses only official pool logs, observed OHLC, actual volume, UTC tooltips, interval/style controls, touch crosshair and time zoom",
+    "Automatic ~15s refresh requests incremental recent-block overlap; accessible trade rows show real calendar timestamps",
+    "Chart RPC failure retains original snapshot, marks it stale, reports backoff and recovers on Retry",
+    "Verified empty history has no candles and is labeled separately from price or RPC failure",
+    "NFT discovery uses new treasury exclusively; empty inventory, indexer error and refresh recovery are explicit",
+    "No horizontal page overflow at 320/390/768/1000/1440; terminal axe scan has zero violations",
+    "Standalone /whitepaper/ resolves at a static subpath, fits 320/390/1440, loads local fonts, opens print, exports matching PDF and has zero axe violations"
+  ],
+  "errors": [],
+  "resourceFailures": [],
+  "limitations": [
+    "WebKit could not launch: missing host runtime libraries; physical iPhone/Safari behavior unverified.",
+    "No real wallet signing, broadcasts, physical devices, screen reader session or browser-native 200% zoom. NFT indexer response is mocked empty for deterministic UI checks; separate fresh Blockscout/onchain evidence records actual empty treasury inventory. No historical USD conversion or all-time chart is claimed."
+  ],
+  "rpcWrites": 0,
+  "viewports": [
+    320,
+    390,
+    768,
+    1000,
+    1440
+  ],
+  "axePriceChart": [],
+  "axeTerminal": [],
+  "axeWhitepaper": [],
+  "recordedAt": "2026-10-18T08:25:24.858Z"
+}

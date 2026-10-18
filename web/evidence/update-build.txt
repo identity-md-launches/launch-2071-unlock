@@ -1,0 +1,17 @@
+
+> unlock-sepolia-web@1.0.0 build
+> tsc --noEmit && vite build
+
+vite v7.1.7 building for production...
+transforming...
+✓ 507 modules transformed.
+rendering chunks...
+computing gzip size...
+../dist/index.html                                       1.65 kB │ gzip:   0.75 kB
+../dist/assets/jetbrains-mono-regular-CA-Os4ii.woff2    92.38 kB
+../dist/assets/jetbrains-mono-semibold-BjwzTi7v.woff2   94.48 kB
+../dist/assets/index-DDw4wHdH.css                       23.66 kB │ gzip:   5.22 kB
+../dist/assets/ccip-BVYg1NW_.js                          2.61 kB │ gzip:   1.24 kB
+../dist/assets/index-BEoh-Y6o.js                       113.09 kB │ gzip:  36.43 kB
+../dist/assets/index-CwMPDXEY.js                       571.24 kB │ gzip: 172.88 kB
+✓ built in 5.88s

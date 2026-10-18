@@ -19,7 +19,11 @@ import {
   MAX_METADATA,
 } from "../src/nftSafety";
 import { verifyInventoryPage, inventoryIsStale } from "../src/nftInventory";
-import { NFT_COLLECTION, NFT_BENEFICIARY } from "../src/candidate";
+import {
+  NFT_COLLECTION,
+  NFT_BENEFICIARY,
+  TREASURY_WALLET,
+} from "../src/candidate";
 import fs from "node:fs";
 import { readCandidate } from "../src/candidateReader";
 import { keccak256, type PublicClient } from "viem";
@@ -190,7 +194,7 @@ test("indexed inventory is paginated discovery; only current onchain owners appe
   const rows = await verifyInventoryPage(
     page,
     123n,
-    async (id) => (id === 1116n ? NFT_BENEFICIARY : "new owner"),
+    async (id) => (id === 1116n ? TREASURY_WALLET : "new owner"),
     async () => {
       calls++;
       return "data:application/json,%7B%7D";
@@ -221,7 +225,7 @@ test("indexed inventory is paginated discovery; only current onchain owners appe
     verifyInventoryPage(
       page,
       123n,
-      async () => NFT_BENEFICIARY,
+      async () => TREASURY_WALLET,
       async () => "",
       abort.signal,
     ),
@@ -231,7 +235,7 @@ test("indexed inventory is paginated discovery; only current onchain owners appe
     verifyInventoryPage(
       { items: [{ id: "-1", token: { address_hash: NFT_COLLECTION } }] },
       123n,
-      async () => NFT_BENEFICIARY,
+      async () => TREASURY_WALLET,
       async () => "",
       new AbortController().signal,
     ),

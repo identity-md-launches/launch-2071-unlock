@@ -1261,9 +1261,9 @@ details p {
     height: 24px;
   }
   .site-header nav {
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    column-gap: 8px;
+    flex-wrap: wrap;
+    justify-content: start;
+    column-gap: 14px;
     row-gap: 0;
   }
   .site-header nav a {
@@ -1533,5 +1533,133 @@ details p {
     scroll-behavior: auto !important;
     animation: none !important;
     transition: none !important;
+  }
+}
+
+/* Price chart extends the existing terminal surface. */
+.price-controls,
+.chart-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: end;
+  margin: 12px 0;
+}
+.price-controls label {
+  display: grid;
+  gap: 4px;
+  color: var(--muted);
+  font-size: var(--small);
+}
+.price-controls select {
+  min-height: 44px;
+  max-width: 100%;
+}
+.chart-toggle {
+  display: flex;
+  border: 1px solid var(--control);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.chart-toggle button {
+  background: transparent;
+  border: 0;
+  padding: 8px 12px;
+}
+.chart-toggle button[aria-pressed="true"] {
+  background: var(--hover);
+  color: var(--accent);
+  box-shadow: inset 0 -2px var(--accent);
+}
+.price-readout {
+  display: grid;
+  gap: 4px;
+  font-size: var(--small);
+}
+.price-readout strong {
+  font-size: var(--input);
+}
+.price-readout span,
+.chart-freshness {
+  overflow-wrap: anywhere;
+}
+.chart-freshness {
+  margin-top: 8px;
+}
+.price-plot {
+  width: 100%;
+  height: 300px;
+  display: block;
+  touch-action: none;
+  margin-top: 8px;
+  cursor: crosshair;
+}
+.price-axis {
+  fill: var(--muted);
+  font:
+    12px "JetBrains Mono",
+    monospace;
+}
+.crosshair {
+  pointer-events: none;
+}
+.crosshair line {
+  stroke: var(--focus);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+.crosshair circle {
+  fill: var(--focus);
+  stroke: var(--surface);
+}
+.chart-navigation .button {
+  padding: 8px 14px;
+}
+.inspect-control {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: var(--small);
+  margin-top: 12px;
+}
+.inspect-control input {
+  flex: 1;
+  min-width: 0;
+  accent-color: var(--focus);
+  min-height: 44px;
+}
+.chart-tooltip {
+  min-height: 100px;
+  margin: 4px 0 12px;
+  padding: 12px 0;
+  border-block: 1px solid var(--line);
+  font-size: var(--small);
+  display: grid;
+  gap: 4px;
+  align-content: start;
+  overflow-wrap: anywhere;
+}
+.chart-data {
+  margin-top: 12px;
+}
+.chart-data summary {
+  padding-block: 12px;
+}
+@media (max-width: 600px) {
+  .price-controls {
+    align-items: stretch;
+  }
+  .price-controls label {
+    flex: 1;
+    min-width: 108px;
+  }
+  .chart-toggle {
+    width: 100%;
+  }
+  .chart-toggle button {
+    flex: 1;
+  }
+  .chart-tooltip {
+    min-height: 136px;
   }
 }

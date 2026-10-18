@@ -1,0 +1,9 @@
+{
+  "recordedAt": "2026-10-18T08:10:55.731837+00:00",
+  "evidence": "Fresh public Blockscout discovery; empty result agrees with onchain official collection balance at the separately recorded block. Not a proof of fee-funded purchases.",
+  "source": "https://eth.blockscout.com/api/v2/addresses/0xfe44fc8f6c32f681a0ce443902a0b08bb5b3c736/nft?type=ERC-721",
+  "inventory": {
+    "items": [],
+    "next_page_params": null
+  }
+}

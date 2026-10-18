@@ -4,7 +4,7 @@ import { readMainnetCandidate, type CandidateSnapshot } from "./mainnetReader";
 import { hookAbi } from "./mainnetAbis";
 import { useWallet } from "./wallet";
 import { fmt } from "./trading";
-import { readPoolHistory, type PoolHistory } from "./poolHistory";
+import { PriceChart } from "./PriceChart";
 
 const targets = [0, ...NEXT_THRESHOLDS];
 export const gateLabel = (i: number) =>
@@ -27,170 +27,6 @@ const state = (index: number, snapshot: CandidateSnapshot | null) =>
         : index === snapshot.tier + 1
           ? "Next gate"
           : "Future gate";
-
-function History() {
-  const [count, setCount] = useState(2000);
-  const [version, setVersion] = useState(0);
-  const [data, setData] = useState<PoolHistory | null>(null);
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    const abort = new AbortController();
-    setLoading(true);
-    setError("");
-    setData(null);
-    readPoolHistory(count, abort.signal)
-      .then((result) => {
-        if (!abort.signal.aborted) setData(result);
-      })
-      .catch((e) => {
-        if (!abort.signal.aborted)
-          setError(
-            e instanceof Error ? e.message : "History unavailable. Retry.",
-          );
-      })
-      .finally(() => {
-        if (!abort.signal.aborted) setLoading(false);
-      });
-    return () => abort.abort();
-  }, [count, version]);
-  const points = data?.trades ?? [];
-  const prices = points.map((p) => p.price);
-  const low = Math.min(...prices),
-    high = Math.max(...prices);
-  const plot = points
-    .map(
-      (p, i) =>
-        `${60 + (i / Math.max(1, points.length - 1)) * 860},${260 - ((p.price - low) / (high - low || 1)) * 190}`,
-    )
-    .join(" ");
-  return (
-    <div className="history-wrap">
-      <div className="chart-title">
-        <h2>Pool history</h2>
-        <select
-          aria-label="History coverage"
-          value={count}
-          onChange={(e) => setCount(Number(e.target.value))}
-        >
-          <option value={2000}>Last 2,000 blocks</option>
-          <option value={10000}>Last 10,000 blocks</option>
-        </select>
-      </div>
-      <p className="small muted">
-        Actual official-pool Swap events · UNLK price in IMD
-      </p>
-      {loading ? (
-        <div className="history-empty" role="status">
-          Reading pool events…
-        </div>
-      ) : error ? (
-        <div className="history-empty">
-          <strong>History unavailable</strong>
-          <p role="alert">{error}</p>
-          <button className="button" onClick={() => setVersion((v) => v + 1)}>
-            Retry history
-          </button>
-        </div>
-      ) : !points.length ? (
-        <div className="history-empty">
-          <strong>No swaps in this range</strong>
-          <p>This is a verified empty range, not a zero price.</p>
-        </div>
-      ) : (
-        <>
-          <svg
-            className="history-plot"
-            viewBox="0 0 1000 310"
-            role="img"
-            aria-label={`${points.length} swap observations. Price range ${low.toPrecision(5)} to ${high.toPrecision(5)} IMD per UNLK. Even event spacing.`}
-          >
-            {[70, 165, 260].map((v) => (
-              <line
-                key={v}
-                x1="60"
-                x2="920"
-                y1={v}
-                y2={v}
-                className="grid-line"
-              />
-            ))}
-            <polyline
-              points={plot}
-              fill="none"
-              stroke="var(--accent)"
-              strokeWidth="2"
-            />
-            {points.length === 1 && (
-              <circle cx="60" cy="260" r="4" fill="var(--accent)" />
-            )}
-            <text x="60" y="35" className="axis-label">
-              {high.toPrecision(5)} IMD
-            </text>
-            <text x="60" y="295" className="axis-label">
-              {low.toPrecision(5)} IMD · even event spacing
-            </text>
-          </svg>
-          <div
-            className="history-table"
-            tabIndex={0}
-            role="region"
-            aria-label="Recent pool swaps"
-          >
-            <table>
-              <thead>
-                <tr>
-                  <th>Block</th>
-                  <th>Side</th>
-                  <th>UNLK</th>
-                  <th>IMD pool leg</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[...points]
-                  .reverse()
-                  .slice(0, 30)
-                  .map((p) => (
-                    <tr key={`${p.hash}-${p.index}`}>
-                      <td>
-                        <a
-                          href={`https://etherscan.io/tx/${p.hash}`}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          {p.block.toString()} ↗
-                        </a>
-                      </td>
-                      <td className={p.buy ? "accent" : "sell-text"}>
-                        {p.buy ? "Buy" : "Sell"}
-                      </td>
-                      <td>{fmt(p.unlk, 4)}</td>
-                      <td>{fmt(p.imd, 6)}</td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          </div>
-        </>
-      )}
-      <p className="chart-note">
-        {data
-          ? `Coverage: blocks ${data.from}–${data.to} inclusive · ${points.length} events. Table shows the latest ${Math.min(30, points.length)}. `
-          : "Coverage is only confirmed after a complete successful scan. "}
-        Event amounts exclude the separate treasury component. This is pool
-        history, not a USD or all-time chart.
-      </p>
-      {data && (
-        <button
-          className="text-button"
-          onClick={() => setVersion((v) => v + 1)}
-        >
-          Refresh history
-        </button>
-      )}
-    </div>
-  );
-}
 
 export function MarketTerminal({
   snapshot,
@@ -243,7 +79,7 @@ export function MarketTerminal({
     <section
       className="graph-panel"
       id="milestones"
-      aria-label="Unlock ladder and pool history"
+      aria-label="Unlock ladder and official pool price chart"
     >
       <div
         className="chart-tabs"
@@ -284,7 +120,7 @@ export function MarketTerminal({
             }
           }}
         >
-          History
+          Price chart
         </button>
         <span className="small muted">UNLK / IMD</span>
       </div>
@@ -494,7 +330,7 @@ export function MarketTerminal({
         aria-labelledby="history-tab"
         hidden={tab !== "history"}
       >
-        {tab === "history" && <History />}
+        {tab === "history" && <PriceChart />}
       </div>
     </section>
   );

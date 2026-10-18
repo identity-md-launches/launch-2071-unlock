@@ -18,7 +18,8 @@ import {
   PERMIT2,
   NEXT_THRESHOLDS,
   NEXT_RATES,
-  NFT_BENEFICIARY,
+  VAULT_BENEFICIARY,
+  TREASURY_WALLET,
 } from "./mainnet";
 import { readMainnetCandidate, type CandidateSnapshot } from "./mainnetReader";
 import { useWallet, errorMessage } from "./wallet";
@@ -995,8 +996,14 @@ export function NextRelease() {
                   "Vault UNLK (not revenue)",
                   `${fmt(data?.vault.unlkBalance)} UNLK`,
                 ],
-                ["Custody wallet IMD", `${fmt(data?.vault.custodyImd)} IMD`],
-                ["Custody wallet UNLK", `${fmt(data?.vault.custodyUnlk)} UNLK`],
+                [
+                  "Treasury wallet IMD",
+                  `${fmt(data?.treasury.imdBalance)} IMD`,
+                ],
+                [
+                  "Treasury wallet UNLK",
+                  `${fmt(data?.treasury.unlkBalance)} UNLK`,
+                ],
               ]}
             />
           </div>
@@ -1020,12 +1027,18 @@ export function NextRelease() {
               donations; custody holdings are a separate balance.
             </p>
             <p>
-              Only the beneficiary can withdraw fees to itself. NFT purchases
-              are manual. Holdings do not prove fee-funded purchases; no
-              automatic purchases or returns are promised.
+              PoolManager claims → redeem() into the vault → beneficiary
+              withdraw() → manual transfer to the treasury. The vault cannot pay
+              the new wallet directly. Redeemed funds can stay in the vault
+              indefinitely; redemption is not a withdrawal. This site moves no
+              funds automatically. NFT purchases are manual; holdings do not
+              prove fee-funded purchases or promise returns.
             </p>
-            <External address={NFT_BENEFICIARY}>
-              Beneficiary & NFT custody
+            <External address={VAULT_BENEFICIARY}>
+              Immutable withdrawal beneficiary
+            </External>
+            <External address={TREASURY_WALLET}>
+              Treasury & NFT inventory wallet
             </External>
           </div>
         </div>
@@ -1034,8 +1047,11 @@ export function NextRelease() {
       <section className="section" id="how">
         <div className="section-heading">
           <div>
-            <h2>How it works / Whitepaper</h2>
-            <p>Read the rules before trading.</p>
+            <h2>How it works</h2>
+            <p>
+              Read the rules before trading.{" "}
+              <a href="./whitepaper/">English whitepaper ↗</a>
+            </p>
           </div>
         </div>
         <div className="explain-grid">
@@ -1155,7 +1171,8 @@ export function NextRelease() {
             "Universal Router": UNIVERSAL_ROUTER,
             Quoter: QUOTER,
             Permit2: PERMIT2,
-            "Custody wallet": NFT_BENEFICIARY,
+            "Withdrawal beneficiary": VAULT_BENEFICIARY,
+            "Treasury / NFT inventory": TREASURY_WALLET,
           }).map(([name, address]) => (
             <div key={name}>
               <span>{name}</span>

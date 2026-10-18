@@ -1,0 +1,309 @@
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("../fonts/jetbrains-mono-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("../fonts/jetbrains-mono-semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+:root {
+  --ink: #09090b;
+  --surface: #111114;
+  --text: #f4f4f5;
+  --muted: #a1a1aa;
+  --line: #27272a;
+  --control: #71717a;
+  --accent: #34d399;
+  --focus: #22d3ee;
+  color-scheme: dark;
+  font-family: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  font-size: 14px;
+  line-height: 1.65;
+  background: var(--ink);
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+a {
+  color: inherit;
+  text-underline-offset: 4px;
+  overflow-wrap: anywhere;
+}
+a:hover {
+  color: var(--focus);
+}
+header,
+footer {
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+header {
+  border-bottom: 1px solid var(--line);
+}
+header nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.brand {
+  font-size: 24px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: -0.025em;
+}
+.brand span {
+  color: var(--accent);
+}
+button {
+  font: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--control);
+  border-radius: 4px;
+  min-height: 44px;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+button:hover {
+  background: #1c1c21;
+}
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+main {
+  max-width: 80ch;
+  margin: auto;
+  padding: 32px 24px;
+}
+h1 {
+  font-size: 28px;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+h2 {
+  font-size: 20px;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+h3 {
+  font-size: 16px;
+  line-height: 1.4;
+}
+strong,
+h1,
+h2,
+h3 {
+  font-weight: 600;
+}
+p,
+li {
+  overflow-wrap: anywhere;
+}
+section {
+  margin-top: 36px;
+  scroll-margin-top: 20px;
+}
+section h2 {
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+section h3 {
+  margin-top: 24px;
+}
+p {
+  margin: 16px 0;
+}
+li {
+  margin: 12px 0;
+}
+ol,
+ul {
+  padding-left: 24px;
+}
+.version,
+footer {
+  font-size: 12px;
+  color: var(--muted);
+}
+.contents {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  padding: 16px 0;
+}
+.contents a {
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+caption {
+  text-align: left;
+  margin: 12px 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+th,
+td {
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  padding: 12px 8px;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+th:first-child,
+td:first-child {
+  width: 38%;
+}
+pre {
+  font: inherit;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  border-left: 2px solid var(--accent);
+  padding: 12px;
+  background: var(--surface);
+}
+code {
+  font: inherit;
+  overflow-wrap: anywhere;
+}
+.identities {
+  font-size: 12px;
+}
+.identities dt {
+  margin-top: 16px;
+  color: var(--muted);
+}
+.identities dd {
+  margin: 4px 0;
+  overflow-wrap: anywhere;
+}
+.source-links {
+  font-size: 12px;
+}
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  background: var(--surface);
+  padding: 12px;
+}
+.skip-link:focus {
+  top: 8px;
+}
+.print-help {
+  color: var(--muted);
+  font-size: 12px;
+}
+footer {
+  border-top: 1px solid var(--line);
+}
+@media (max-width: 600px) {
+  header,
+  footer {
+    padding: 16px;
+  }
+  main {
+    padding: 24px 16px;
+  }
+  header nav {
+    gap: 12px;
+  }
+  h1 {
+    font-size: 24px;
+  }
+  th,
+  td {
+    padding: 10px 4px;
+  }
+}
+@media print {
+  :root {
+    color-scheme: light;
+    background: white;
+    color: #111;
+    font-size: 10pt;
+    --muted: #444;
+    --line: #aaa;
+    --accent: #111;
+    --surface: #f5f5f5;
+  }
+  header nav,
+  .skip-link,
+  .print-help,
+  .contents {
+    display: none;
+  }
+  header,
+  footer {
+    padding: 8pt 0;
+    max-width: none;
+  }
+  main {
+    max-width: none;
+    padding: 0;
+  }
+  h1 {
+    font-size: 20pt;
+  }
+  h2 {
+    font-size: 14pt;
+    break-after: avoid;
+  }
+  h3 {
+    font-size: 12pt;
+    break-after: avoid;
+  }
+  section {
+    margin-top: 20pt;
+  }
+  p,
+  li {
+    orphans: 3;
+    widows: 3;
+  }
+  tr {
+    break-inside: avoid;
+  }
+  a {
+    color: inherit;
+  }
+  p a[href^="https://github.com"]::after,.source-links a[href^="https:"]::after
+  {
+    content: " (" attr(href) ")";
+    font-size: 8pt;
+    overflow-wrap: anywhere;
+  }
+  .source-links {
+    font-size: 9pt;
+  }
+  footer a {
+    display: none;
+  }
+  @page {
+    size: A4;
+    margin: 18mm;
+  }
+}

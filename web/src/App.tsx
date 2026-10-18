@@ -53,6 +53,7 @@ export function App() {
               {label}
             </a>
           ))}
+          <a href="./whitepaper/">Whitepaper</a>
         </nav>
         <ConnectButton />
       </header>
@@ -61,6 +62,7 @@ export function App() {
       </main>
       <footer className="site-footer">
         <span>UNLOCK · Launch 2071 · Ethereum</span>
+        <a href="./whitepaper/">English whitepaper</a>
         <a href="#how">Rules & risks</a>
         <a href="#contracts">Contracts</a>
         <a

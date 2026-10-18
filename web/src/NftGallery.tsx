@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { keccak256, parseAbi } from "viem";
 import {
-  NFT_BENEFICIARY,
+  TREASURY_WALLET,
   NFT_COLLECTION,
   nftClient,
   nftAbi,
@@ -114,7 +114,7 @@ export function NftGallery() {
       const inventory = JSON.parse(
         (
           await fetchBounded(
-            `https://eth.blockscout.com/api/v2/addresses/${NFT_BENEFICIARY}/nft?${params}`,
+            `https://eth.blockscout.com/api/v2/addresses/${TREASURY_WALLET}/nft?${params}`,
             MAX_METADATA * 8,
             abort.signal,
           )
@@ -122,7 +122,12 @@ export function NftGallery() {
       );
       if ((await nftClient.getChainId()) !== 1)
         throw new Error("Mainnet read service returned a different chain");
-      const block = await nftClient.getBlockNumber({ cacheTime: 0 });
+      const latest = await nftClient.getBlock({ blockTag: "latest" });
+      if (Date.now() / 1000 - Number(latest.timestamp) > 90)
+        throw Error(
+          "NFT ownership RPC is stale. Refresh when current blocks are available.",
+        );
+      const block = latest.number;
       const code = await nftClient.getBytecode({
         address: NFT_COLLECTION,
         blockNumber: block,
@@ -165,7 +170,7 @@ export function NftGallery() {
         address: NFT_COLLECTION,
         abi: nftAbi,
         functionName: "balanceOf",
-        args: [NFT_BENEFICIARY],
+        args: [TREASURY_WALLET],
         blockNumber: block,
       });
       if (request !== generation.current || abort.signal.aborted) return;
@@ -223,20 +228,20 @@ export function NftGallery() {
   return (
     <section className="panel nft-gallery" aria-labelledby="nft-title">
       <div className="panel-heading">
-        <h3 id="nft-title">Custody wallet collection</h3>
+        <h3 id="nft-title">Treasury NFT collection</h3>
         <span className="small muted">Ethereum mainnet · read only</span>
       </div>
       <p>
         Current holdings of{" "}
         <a
-          href={`https://etherscan.io/address/${NFT_BENEFICIARY}`}
+          href={`https://etherscan.io/address/${TREASURY_WALLET}`}
           target="_blank"
           rel="noreferrer"
         >
-          the fixed beneficiary ↗
+          the treasury wallet ↗
         </a>
         . Holdings do not prove fee-funded purchases. NFT buying is manual after
-        withdrawal.
+        a beneficiary withdrawal and a separate transfer to the treasury.
       </p>
       <div className="nft-toolbar">
         <span aria-live="polite">
@@ -316,11 +321,18 @@ export function NftGallery() {
         )}
       </div>
       <p className="small muted">
-        Official collection: identity.md, verified against the IMD contract
-        table and its onchain code. Discovery: paginated Blockscout inventory.
-        Verification: ownerOf and tokenURI at the displayed Ethereum block.
-        Indexing may lag; the balance count can exceed the loaded cards. Public
-        services can rate-limit or lag. No signature is requested.
+        Official collection:{" "}
+        <a
+          href={`https://etherscan.io/address/${NFT_COLLECTION}`}
+          target="_blank"
+          rel="noreferrer"
+        >
+          identity.md ↗
+        </a>
+        , verified against its onchain code. Discovery: paginated Blockscout
+        inventory. Verification: ownerOf and tokenURI at the displayed Ethereum
+        block. Indexing may lag; the balance count can exceed the loaded cards.
+        Public services can rate-limit or lag. No signature is requested.
       </p>
     </section>
   );

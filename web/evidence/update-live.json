@@ -1,0 +1,212 @@
+{
+  "recordedAt": "2026-10-18T08:07:20.358Z",
+  "evidence": "Fresh read-only Ethereum mainnet RPC verification; no wallet transactions",
+  "publicRpcSources": [
+    "https://ethereum-rpc.publicnode.com",
+    "https://eth.drpc.org"
+  ],
+  "chainId": 1,
+  "block": "26218144",
+  "blockHash": "0x65a1bde5e9c2c1d7ae30900e0f61a95397a7eab943b1bfa5ed223e1711c10fdf",
+  "identities": {
+    "TOKEN": "0x99fa82b022be4575891a43b757bc770691e18fda",
+    "IMD": "0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7",
+    "HOOK": "0x932eba7e96b9e54efe6f8cdf98cb092164a57fcc",
+    "VAULT": "0xf2a19fba1f37f3fd41af0b7f671ccf6d07f29f50",
+    "POOL_ID": "0x860a127e8f4b069ce93e280efda34db2b3cb21e7d73f164248f38f4220ec8d32",
+    "POOL_MANAGER": "0x000000000004444c5dc75cb358380d2e3de08a90",
+    "NFT_COLLECTION": "0x0000ec93127baa929e58e97dd0095a2bfb38ec1d",
+    "TREASURY_WALLET": "0xfe44fc8f6c32f681a0ce443902a0b08bb5b3c736",
+    "VAULT_BENEFICIARY": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9"
+  },
+  "runtimeBindingsVerified": true,
+  "reviewedAbiSource": "40d70b7bd0853aedf84eac839a40a5f12e6ac341; offline compiled/source hash comparison separately recorded; no Etherscan verification claim",
+  "supply": "1000000000000000000000000000",
+  "thresholds": [
+    "100000000000000000000000",
+    "250000000000000000000000",
+    "500000000000000000000000",
+    "1000000000000000000000000",
+    "2000000000000000000000000",
+    "3500000000000000000000000",
+    "5000000000000000000000000",
+    "7500000000000000000000000",
+    "10000000000000000000000000",
+    "15000000000000000000000000",
+    "20000000000000000000000000",
+    "25000000000000000000000000",
+    "30000000000000000000000000",
+    "35000000000000000000000000",
+    "40000000000000000000000000",
+    "50000000000000000000000000"
+  ],
+  "snapshot": {
+    "block": "26218144",
+    "blockTime": "1792310819",
+    "readAt": 1792310829782,
+    "activated": true,
+    "p": 2500,
+    "tier": 1,
+    "fullyUnlocked": false,
+    "round": {
+      "root": "0x95d12621d6d028111c44dad35069cf1ffb0441e910fcafedecb1752e6ce2c5e8",
+      "funded": "100000000000000000000000000",
+      "claimed": "30437137330754352030947791",
+      "unlocksAt": "1792239455"
+    },
+    "certified": true,
+    "swept": false,
+    "sqrtPrice": "319049958933283283607331216",
+    "protocolFee": 0,
+    "lpFee": 12500,
+    "fdv": "90574188504946576877189",
+    "oracleError": null,
+    "wallet": null,
+    "treasury": {
+      "address": "0xfe44fc8f6c32f681a0ce443902a0b08bb5b3c736",
+      "imdBalance": "0",
+      "unlkBalance": "0"
+    },
+    "vault": {
+      "accrued": "50187586664686516961",
+      "withdrawn": "0",
+      "redeemed": "50187586664686516961",
+      "claimable": "50187586664686516961",
+      "pendingClaims": "0",
+      "donations": "0",
+      "donationsWithdrawn": "0",
+      "unlkBalance": "0",
+      "imdBalance": "50187586664686516961",
+      "donatedClaims": "0",
+      "actualClaims": "0"
+    }
+  },
+  "nft": {
+    "name": "identity.md",
+    "codeHash": "0x68d046e0bfb8185d9db0a9a7ed57420f22dfc38321c9c91453a001a47668c530",
+    "inventoryWallet": "0xfe44fc8f6c32f681a0ce443902a0b08bb5b3c736",
+    "balance": "0"
+  },
+  "history": {
+    "from": "26216145",
+    "fromTime": 1792286711,
+    "to": "26218144",
+    "toTime": 1792310819,
+    "toHash": "0x65a1bde5e9c2c1d7ae30900e0f61a95397a7eab943b1bfa5ed223e1711c10fdf",
+    "readAt": 1792310840358,
+    "spot": 0.00001621654078369962,
+    "trades": [
+      {
+        "block": "26216510",
+        "blockHash": "0x804e33ef2a0d082e235c034c53fe83b4648cd3c56e451d4d537dc90af11fe5ee",
+        "time": 1792291103,
+        "index": 323,
+        "hash": "0x5eb130138f68d615a22e93474805b9d0deb8e4dda517da98ce126d8c687ada51",
+        "buy": false,
+        "unlk": "4508656486080063165179725",
+        "imd": "63792536279548334221",
+        "price": 0.000014154042265915652
+      },
+      {
+        "block": "26216638",
+        "blockHash": "0xf633e8f1b7f53c3b2df610daf7762ccebf74902cd363f63a70a887113a1dbca7",
+        "time": 1792292651,
+        "index": 192,
+        "hash": "0x96341101e35a36be46fcc7918b25bf6dbebd015f77ad911ea6adcb68c08288fe",
+        "buy": true,
+        "unlk": "1035796384413216663340259",
+        "imd": "14888337468982630273",
+        "price": 0.000014234340405662333
+      },
+      {
+        "block": "26216666",
+        "blockHash": "0xeb27d654e894c209c821abbdc766f991fb623b1ee1b5311be1d480343a163de4",
+        "time": 1792292987,
+        "index": 428,
+        "hash": "0x75d5692fdcc14e8bf583d2fd158602f6a4b83c17df0b8deb3f39be045a4c7c65",
+        "buy": true,
+        "unlk": "1094312612495954808655248",
+        "imd": "15821339950372208437",
+        "price": 0.000014319919486468947
+      },
+      {
+        "block": "26216702",
+        "blockHash": "0x9371f700f9f66cc2d2af1b746fbf9439b34cc02c3bb9ed46ced98a70dee85632",
+        "time": 1792293419,
+        "index": 440,
+        "hash": "0x65f04bfe615d4f838df22f369e83239fd10060519eaec09d25083f01730db1e6",
+        "buy": false,
+        "unlk": "2348281146258822450074158",
+        "imd": "32996978007670799392",
+        "price": 0.000014139477700109568
+      },
+      {
+        "block": "26216734",
+        "blockHash": "0xd7f92f3cd29b9f02c9b569d6625f77559e970fdff9474516c51a182039dc866d",
+        "time": 1792293803,
+        "index": 410,
+        "hash": "0xabd8f55828ce6c1751ec810cd4a39093abd7a4c227bb5f391e151f7073d8e408",
+        "buy": false,
+        "unlk": "568648851708234667635008",
+        "imd": "7927759297058494897",
+        "price": 0.000014096295729511172
+      },
+      {
+        "block": "26216809",
+        "blockHash": "0x79aeaee0dc62630103488741a6faaac4257812c3ae5f27f0999f7123f39db3f5",
+        "time": 1792294715,
+        "index": 280,
+        "hash": "0x4438331659a0e3a0a06afd92232e0b2f7a6d4ac544b4e55bdc9caf3d9df2e2da",
+        "buy": true,
+        "unlk": "3444033877777354261591337",
+        "imd": "49627791563275434244",
+        "price": 0.00001436429367801987
+      },
+      {
+        "block": "26216821",
+        "blockHash": "0x8fe915752e2c69237450df9f3ae1768f8954da0bafd664edd6dd2f6f9a7861eb",
+        "time": 1792294859,
+        "index": 178,
+        "hash": "0x04b404d63cbd57ec45b41fdab73a47e8e683e501d28ef931a9051a6fe4506094",
+        "buy": true,
+        "unlk": "22411887906465203285367680",
+        "imd": "347394540942928039703",
+        "price": 0.0000163109414449216
+      },
+      {
+        "block": "26217093",
+        "blockHash": "0xb9c527418a5bf8de708fa371156298e6ba04a0c61010f9b92b77735f14c3b1f0",
+        "time": 1792298123,
+        "index": 538,
+        "hash": "0x077697f30f3deca5c10cfd840bbed0653e32b500cb20f7f5332787ae4c782b80",
+        "buy": false,
+        "unlk": "463980446060639386739754",
+        "imd": "7463348109336365576",
+        "price": 0.000016267274828949754
+      },
+      {
+        "block": "26217095",
+        "blockHash": "0x02a68c8af7040638224c94a6f3ddcfb16caed260e43bc6f9eb0d392b2c868bee",
+        "time": 1792298147,
+        "index": 780,
+        "hash": "0x1c47a24a5b3650bb22183a3178aa97d1cc043b6004cb93fd2640e7691a4519cc",
+        "buy": false,
+        "unlk": "500000000000000000000000",
+        "imd": "8020389913574183662",
+        "price": 0.00001622041431319191
+      },
+      {
+        "block": "26217432",
+        "blockHash": "0x754268aae47c309ab6fe7aaf5d79e2a741bef1635489f9eb4fc8690285dbf18e",
+        "time": 1792302227,
+        "index": 383,
+        "hash": "0x5d12632acb1654d882693684912c6b979480a7900de64e0525f25d183cef3f16",
+        "buy": false,
+        "unlk": "41427369528306816358674",
+        "imd": "663490247072846591",
+        "price": 0.00001621654078369962
+      }
+    ],
+    "totalEvents": 13
+  }
+}

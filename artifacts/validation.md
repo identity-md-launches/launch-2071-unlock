@@ -1,128 +1,92 @@
-# Compact terminal revision · validation
+# UNLOCK update validation · 18 October 2026
 
-Worker observations, 2026-10-17 UTC. This report records local, fork and live checks separately; it is not independent certification. No public transaction, activation, deployment, economic change or balance migration was performed.
+## Scope and result
 
-| Area | Result |
+Source and the complete static export continue commit `1c9927c137c4e4a3a4f6999ce9636ec29a4b89db`. The compact terminal, swap/claim code, verified mainnet ABIs/configuration, local fonts and all sixteen unlock gates remain. This update changes treasury inventory/balance reads, adds the English whitepaper and upgrades pool history into the Price chart tab. No contract source, economics, activation, package manifest, dependency lockfile, `.gitignore` or protected dependency was changed.
+
+**Local implementation and checks are complete. Actual publication remains incomplete:** the existing HTTPS hostname still serves its prior CID. No launch-bound existing-site update writer is exposed. The generic installed CLI advertises publishing a contributor's own machine-signed site; that does not establish an update path for this existing launch site. No replacement site/name was created. The delivery service must pin `dist/` under the existing `unlk-b35c.site.identitymd.eth` name and verify the same URL after publication. No requester-only value is missing.
+
+## Requirements checked
+
+| Requirement | Evidence and outcome |
 | --- | --- |
-| Website | Implemented; source, lockfile and complete relative-URL `dist/` included |
-| Main action at 390×844 | Yes, entire connect/trade action visible on the first screen |
-| Frontend / contracts / pinned fork | 38 passed / 215 passed, 2 skipped / 3 passed |
-| Connected browser / quote regressions / site | 19 / 5 / 14 checks passed |
-| Accessibility scan | 0 axe violations, 51 passing rules |
-| taste@1 | 14/16; two reviewed exceptions below |
-| HTTPS | Existing hostname verified; preferred hostname returns 404 |
-| Delivery | Export ready; publication/name mapping and delivery commit belong to IMD delivery |
+| New treasury, immutable old beneficiary | `treasury.ts`, `mainnetReader.ts`, `nftInventory.ts`; tests reject substituting the new wallet for the vault beneficiary and exclude old-beneficiary/visitor NFT ownership. Live runtime/binding/accounting checks passed. |
+| Live cash path / no double-counting | Separate accrued, pending, redeemed, withdrawn, claimable, donations, vault balances and external treasury balances. UI and whitepaper explain claims → redeem into vault → beneficiary withdraw → manual transfer. No automatic movement added or executed. |
+| Official NFT filtering, ownership, pagination and safe images | Existing bounded metadata/image safety, cursor checks and ID/image/error/stale states retained. Inventory now exclusively uses the new wallet and rejects stale RPC blocks. Mocked pagination/ownership/image safety tests pass; fresh indexer/onchain reads agree the new wallet is empty. |
+| Versioned English `/whitepaper/` | Physical static HTML export with visible header/footer links, all rules/risks/addresses, reviewed ABI/source links and Print / Save as PDF. Browser generated a PDF of the matching print document in disposable scratch. |
+| Live official-pool chart | Only the specified UNLK/IMD PoolId/PoolManager; canonical block timestamps; post-swap sqrt-price OHLC; executed pool-leg volume; intervals, style, crosshair, keyboard inspection, touch/pinch/pan/zoom; separate current spot/last trade/freshness/partial coverage. |
+| Honest unavailable/empty data | Chart failure retains dated cached data, marks it stale and reports retry backoff. Verified empty ranges have no candles; no-trade gaps are blank. No historical USD series or all-time coverage is claimed. |
+| Refresh/caching/reorgs | ~15s non-overlapping refresh, in-memory per-reader/range cache, recent 12-block rescan, deduplication, canonical-hash checks/deep reorg reset, bounded range splitting, cancellation and failure backoff to 120s. |
+| Existing interactions / no wallet transactions | Encoding/fees/quota/proof regressions pass. Production browser obtained a real quoter result using a read-only injected account, switched chain state and checked claim controls/proof rejection. Signing and RPC writes were forbidden; write count was zero. |
+| Static export / metadata / phone first screen | `dist/index.html`, required runtime assets, local fonts, claims, recovery and whitepaper included. Relative asset URLs verified. Title, favicon, description, og:title and og:image present. Full primary action visible at 390×844. |
+| Source, build, design and byte budget | Unchanged dependency lockfile retained. Production build/typecheck/tests executed. `DESIGN.md` documents actual implementation. Export and complete current-tree Git bundle measured by the included checkers. |
 
-## Scope, reference and rollback
+## Fresh deployed-state evidence
 
-Continues `ffae6425390ebabad6dd89d83aae0c200d250e26`, including its newer quote-expiry fix. Presentation was recovered from the requested commit `40d70b7bd0853aedf84eac839a40a5f12e6ac341`, using its `web/src/styles.css` and `App.tsx`, plus screenshots of the live visual reference. Recovered file SHA-256 values:
+`web/evidence/update-live.json` records a read-only chain-1 snapshot at block **26,218,144**, hash `0x65a1bde5e9c2c1d7ae30900e0f61a95397a7eab943b1bfa5ed223e1711c10fdf`.
 
-- styles: `e44f4e14b716485976d7d43be3335c48124909d6abaa8ca8563f96f5d192c0cd`
-- App: `ea52f7c8b31e55f5cf5511c3d9140ba208483afd14c058ffa3850e2c8dc9b746`
+- Runtime/provenance and exact token, IMD, hook, vault, official PoolKey/PoolId, PoolManager, router, quoter, Permit2 and companion bindings passed.
+- The fixed 1-billion supply and all 16 deployed gate thresholds matched source/UI constants. Trading was active; tier 1 / 25% was stored even though the current valid FDV was below its earned $100K gate, consistent with no relocking.
+- `50.187586664686516961` IMD had accrued and been redeemed; all remained claimable in the vault. Withdrawn fee total and pending fee claims were zero at that block. No transaction was sent to obtain these observations.
+- New treasury IMD, UNLK and official NFT balances were zero. The official NFT name and runtime hash matched. Fresh Blockscout discovery returned an empty page with no next cursor (`update-inventory.json`). No ownership or fee-funded-purchase claim is inferred from the empty inventory.
+- The 2,000-block chart scan returned **13 actual Swap events**, with actual timestamps, signed deltas and post-swap prices. The evidence stores its coverage and last ten events, with the total count separately.
 
-The visual idea is a compact monospaced trading terminal whose staircase explains cumulative permanent rights. Desktop screenshots were compared at 1440×900; mobile at 390×844. The revised export restores the reference's diamond brand, local JetBrains Mono, near-black page/panels, fine dividers, amber dashed staircase, green earned path and cyan selection. The summary and aligned 70/30 panels replace the oversized hero. The additional mainnet statuses and all sixteen targets necessarily differ from the reference's old testnet rules. The original reference's initial 25%, final $5M, ETH swap currency and delayed gates were not carried over.
+These values are evidence at a particular block, not frontend constants. Public sources are named in the reports; contributor endpoint details are not delivered.
 
-Screenshots of the production export, visually inspected:
+`update-source-verification.json` is a separate **offline** comparison of retained compiler/source/runtime evidence for token, hook, vault, oracle and evidence. All matched; canonical token/hook ABI hashes match the deployment manifest. Fresh runtime checks then matched the same pins. Neither check is an Etherscan verification claim or an independent security audit.
 
-- [Desktop terminal](terminal-desktop.jpg)
-- [Mobile first screen](terminal-mobile.jpg)
-- [Mobile ladder, $50M selected while confirmed rights remain 20%](terminal-mobile-ladder.jpg)
+## Better Interface review
 
-Keep baseline commit `ffae6425390ebabad6dd89d83aae0c200d250e26` and prior hosted export `ipfs://bafybeib4cpjndxi4ipjrb3f5wdtanbv6jgo5yr3x4olm6hl7ocpd5dlxuu` for rollback. `dist/recovery.html` remains a read-only fallback. History was preserved; `.git` is protected in this workspace, so the delivery service must assign the new commit. No final hash is invented.
+Applied the supplied Better Interface workflow and core principles for all six domains during implementation. The existing terminal direction has priority; no new typography, branding or decorative design was introduced.
 
-## Implemented requirements
+| Domain | Coverage | Result / limits |
+| --- | --- | --- |
+| Accessibility | Checked native controls, labels, tab keyboard arrows, inspector range, focus trapping/return, errors/status, touch controls; automated axe on terminal/chart/whitepaper | Checked browser states have zero violations. Focus/keyboard behavior exercised. No screen-reader or physical-device session; native 200% zoom unperformed. |
+| Layout | Checked production export at 320/390/768/1000/1440, first phone screen, chart/whitepaper widths and static subpath navigation | Mobile header overflow reproduced and fixed. Swap first, full main CTA visible at 390. Named tables/rails contain their own horizontal scroll. |
+| Writing | Checked treasury vs beneficiary vocabulary, cash path, live/unknown/stale labels, chart units/coverage, whitepaper rules/risk/custody and action labels | No exact combined-2% fee claim, historical-USD repricing, fee-funded inventory claim or implied independent audit. Error states offer retry/refresh. |
+| Typography | Checked local fonts, six size tokens, two weights, tabular values, wrapping addresses, responsive axis gutter, reading measure and printed document | Fonts confirmed loaded; mono prose retained because explicitly requested. Scientific notation keeps small pool prices inside the SVG axis gutter. |
+| Colors | Reused original palette; probe measured resolved solid text pairs; inspected state cues | Measured text contrast passes. Current/future/selected and rising/falling states have labels/geometry. Arbitrary external NFT image contrast and every unvisited state remain unverified. |
+| UI | Checked component rest/selected/focus/disabled/loading/empty/error/retry, chart gesture controls, native dialog, print action and reduced-motion declarations | Flat existing borders/corners preserved; no new animation. Physical wallet apps/Coinbase passkey enrollment, reduced-motion OS settings and animation-panel slow playback were not exercised. |
 
-| Requirement | Implementation / evidence |
+### Findings, fixes and rechecks
+
+| Severity | Source | Finding → fix → recheck |
+| --- | --- | --- |
+| High | `web/src/mainnetReader.ts:431`, `:446`; `web/src/nftInventory.ts:46` | Old single custody/beneficiary identity could misattribute the requested inventory change. Added distinct constants and treasury snapshot; all balance/discovery/ownership reads use new treasury, immutable beneficiary validation stays old. Unit and live binding checks pass, including rejecting the wrong beneficiary. |
+| High | `web/src/poolHistory.ts:40`, `:52`, `:154`, `:265` | Previous history used evenly spaced event indices and had no OHLC/incremental refresh. Added real block timestamps, unit-aware observed OHLC, actual volumes, incremental cache/reorg protection and stale/error states. Unit cases and production browser refresh/failure/empty checks pass. |
+| High | `web/src/styles.css:1264` | Probe reproduced 442px page width at 390 after adding Whitepaper navigation. Allowed compact navigation to wrap. Rerun probe passes layout at 320/390/1440; production browser checks additional intermediate widths. |
+| Medium | `web/src/PriceChart.tsx:256`; `web/src/styles.css:1589` | A fixed large SVG viewBox would shrink chart labels on phones. Use rendered-width coordinates with 12px axes and compact numeric labels. Inspectors/tooltips remain outside the plot; 320/390/1440 chart checks pass. |
+| Medium | `web/src/PriceChart.tsx:97` | Rendered chart axis extended one interval beyond the scanned block. Ended it at the actual block timestamp and labeled boundary buckets partial. Browser now asserts the axis endpoint matches the snapshot clock. |
+| Medium | `web/src/NftGallery.tsx:126` | A fresh request timestamp alone could hide an old RPC head. Reject stale NFT blocks before verifying ownership. Empty/indexer error/recovery checks and ownership safety tests pass. |
+| Medium | `web/src/App.tsx:56`; `web/public/whitepaper/index.html` | Prior inline “Whitepaper” section was not a standalone readable page. Added physical English page, contents, source links, version/date and matching print view. Subpath navigation, local fonts, print call/PDF and mobile reflow pass. |
+
+The final pinned taste@1 probe passed **14/16**. Its remaining candidates were reviewed: `type-faces` flags mono prose, which the brief explicitly preserves; `eyebrows` treats functional status strips, tabs, ledger fields and links as kickers. They are functional data/navigation, so deleting them would remove useful information. No marketing kicker or generic redesign was added. All render/layout/target/contrast/tracking/size/copy/share/motion checks pass. Full result: `web/evidence/update-design-probe.json`.
+
+## Commands and actual outcomes
+
+Commands below used the unchanged package/lockfile in an external temporary build workspace to respect the assignment's path restrictions. Raw output is in `web/evidence/update-{typecheck,unit-tests,build}.txt`.
+
+| Command | Outcome |
 | --- | --- |
-| Original compact presentation | `styles.css`, `App.tsx`, `NextRelease.tsx`; screenshots above; local regular/semibold fonts, exact requested palette, 6px corners, 14px root body and tabular figures |
-| Desktop terminal / mobile action | Four live cells, 7fr/3fr workspace, aligned tops; stacked swap first at 900px; no horizontal page overflow at 320,390,768,900,1000,1440 |
-| All gates | Initial20; $100K25, $250K30, $500K35, $1M40, $2M45, $3.5M50, $5M55, $7.5M60, $10M65, $15M70, $20M75, $25M80, $30M85, $35M90, $40M95, $50M100. Native select/list exposes each; actual tier and next state remain separate from selection/FDV estimates |
-| Real history | Actual official PoolManager/pool Swap events; 2,000/10,000-block bounded options, complete coverage label, freshness/reorg checks, honest empty/error/retry; local actual buy event displayed in connected test |
-| Mainnet bindings and signing | Chain1/launch2071; all 13 runtime roles and companion/factory/PoolKey bindings verified; existing router, Quoter, Permit2, exact approvals, fee/quota/expiry and final simulation code unchanged |
-| Activation | Live inactive state explained with unavailable FDV; connected swaps disabled. Local owner activation appears through polling without page reload or release. No mainnet activation |
-| Wallet accounting | Mature and pending one-block credits, sold counter, quota and min(balance,quota); full-unlock balance behavior retained; independent claim/attestation/reward sync/payer sync; no transfer-created rights or reset counters |
-| Treasury/NFTs | Existing accrued/pending/redeemed/withdrawn/claimable/donation accounting preserved. Verified official collection and `ownerOf` custody, compact image/ID rail; real live cards and injected indexer/image failures checked |
-| English rules | Whitepaper covers fixed supply, cumulative example, instant observed permanent gates, pricing, fee bases/effective costs, manual NFT purpose and manipulation/shared-executor risks |
-| Static/share delivery | Relative assets, hash navigation, refresh at `#milestones`, local fonts/favicon/share image, title/description/og:title/og:image; build and export checks |
-| Requested hostname | Existing working HTTPS hostname retained. Preferred `unlock` is not mapped; no naming/publishing/Explorer writer exposed. Hosting limitation reported below |
+| `npm ci` | Passed; dependencies installed outside the repository |
+| `npm run typecheck` | Passed |
+| `npm test` | **45 passed, 0 failed**, including treasury/beneficiary, NFT ownership, units, timestamped OHLC/gaps, deduplication, incremental/deep reorg, stale/error/range/cancellation cases and existing swap/claim math/proof regressions |
+| `npm run build` | Passed; Vite production export, no source maps |
+| `node web/scripts/verify-mainnet-source.mjs` | Passed retained compiled/source/runtime/ABI comparisons; offline evidence explicitly labeled |
+| `tsx web/scripts/verify-update.ts` with contributor RPC | Passed fresh read-only chain checks and official-pool log scan; public source names retained |
+| `node web/scripts/check-update.mjs` with external Playwright/axe modules | Passed production Chromium interaction checks; reports checks/states and zero write count in `update-browser.json` |
+| `node .imd/reads/skills/design-critic/scripts/taste.mjs --out test/scratch/taste` | Ran on final export; 14/16 with two documented brief/heuristic exceptions |
+| `node web/scripts/check-export.mjs` | Passed relative/runtime assets, required evidence, protected paths, no submodule/cache checks; exact file hashes in `export-manifest.json` |
+| `python3 web/scripts/check-bundle.py` | Passed complete current-tree snapshot budget with reserve; actual final byte count in `submission-check.json` |
 
-Contract sources, tests, ABIs, network pins, reader, router builder, wallet/signing implementation, dependency manifests/lockfiles and Foundry settings remain unchanged. The only ignore change overrides the checkout’s local artifact exclusion for exactly five deliverables: this report, HTTPS results and the three named screenshots. No other artifact or cache path is admitted. `git diff --exit-code` on these paths passed. New runtime logic is confined to the presentation and read-only bounded pool history. Build/share and browser-check scripts were updated; no dependency was added.
+Browser checks use real mainnet RPC reads routed through the contributor's service, with a test-only read-only EIP-6963 provider and controlled log/indexer failures. NFT UI discovery responses are mocked empty; actual ownership discovery is separately recorded. No funds, signing request, transaction or wallet secret was used. Quote rendering/simulation does not establish that an actual signed swap/claim would settle. New contract/fork tests were not required for unchanged contracts and were not run.
 
-## Actual commands and results
+The MCP browser could inspect the public HTTPS site but could not reach the worker's loopback preview. Local Playwright therefore owned and inspected the production preview under `/preview/` in one bounded process. Screenshots were inspected directly, not inferred from source. Delivered images: `artifacts/terminal-mobile.jpg`, `terminal-mobile-ladder.jpg`, `terminal-desktop.jpg`; chart screenshots and generated print PDF were inspected in disposable scratch.
 
-Node/npm dependencies were installed outside the repository from its existing manifest/lockfile. The final build used that source copy and wrote directly to root `dist/`. Browser dependencies/runtimes were also outside the repository. Foundry output/cache used `/tmp`. No installation/cache directory is submitted. The final export contains26 files /1,359,522 bytes. The current-tree Git snapshot (including all five named artifacts) is below8,388,608 bytes with an additional16KiB report reserve; the exact measurement is in `web/evidence/submission-check.json`. This temporary snapshot measurement excludes source history; delivery preserves the existing parent history.
+## Publication and remaining limitations
 
-| Check | Actual result | Record |
-| --- | --- | --- |
-| `npm run typecheck` | Exit0 | `web/evidence/typecheck.txt` |
-| `npm test` | Exit0, 38 passed; includes wrong-chain/stale/reorg/incomplete/cancelled history reads and real signed v4 deltas | `web/evidence/unit-tests.txt` |
-| `npm run build -- --outDir <repo>/dist --emptyOutDir` | Exit0, TypeScript and production Vite build | `web/evidence/build.txt` |
-| `forge test --match-path 'test/mainnet/*.t.sol' --out /tmp/unlock-forge-out --cache-path /tmp/unlock-forge-cache -vv` | Exit0, 215 passed, 2 skipped across42 suites | `web/evidence/contract-unit-tests.txt` |
-| `UNLK_FORK_RPC=https://eth.drpc.org forge test --match-path 'test/website/MainnetWebsiteFork.t.sol' --out /tmp/unlock-forge-out --cache-path /tmp/unlock-forge-cache -vv` | Exit0, 3 passed | `web/evidence/fork-tests.txt` |
-| `node scripts/verify-mainnet-source.mjs` and `--live` | Exit0; source hashes, five compiled runtimes (immutable slots excluded), ABI matches including token/hook attestations | `web/evidence/source-verification*.{json,txt}` |
-| `node scripts/verify-native-distributor.mjs` and `--live` | Exit0; factory/initcode/deployed template match | `web/evidence/native-distributor-verification*.{json,txt}` |
-| Fresh `verifyMainnetBindings` / `readMainnetCandidate` | Read-only; 13 runtime pins and all bindings matched | `web/evidence/live-verification.{json,txt}` |
-| `node scripts/check-mainnet-browser.mjs <preview> <loopback-fork> --chromium-only` | Exit0, 19 checks | `web/evidence/browser-interactions.{json,txt}` |
-| `node scripts/check-quote-expiry.mjs <preview> <loopback-fork>` | Exit0, 5 scenarios | `web/evidence/quote-expiry-after.{json,txt}` |
-| `node scripts/check-site.mjs <preview> --chromium-only` with axe | Exit0, 14 checks; no page errors/local asset failures; 0 axe violations/51 passes | `web/evidence/site-review.{json,txt}` |
-| `node .imd/reads/skills/design-critic/scripts/taste.mjs --out test/scratch/taste` | Exit0 for runner; 14/16 individual checks passed | `web/evidence/design-probe.{json,txt}` |
-| `node web/scripts/check-export.mjs` / `python3 web/scripts/check-bundle.py` | Final integrity/size results in the named records | `web/evidence/export-check.txt`, `bundle-check.txt`, `submission-check.json` |
+Fresh HTTPS results are in `artifacts/https-results.json` and `web/evidence/publication-status.json`. The same hostname and canonical URLs are retained. The current public root is reachable over HTTPS; the whitepaper update is not yet live. No publication is claimed from a local build or screenshot.
 
-The two setup skips are `RecordedLaunchBoundaryTest` and `RecordedLaunchBoundaryReverseOrderTest`; they were not counted as passes. They are separate from the three actually executed website mainnet-fork tests. Historical-state reads from the contributor provider failed, and PublicNode refused archive state; the successful fork used dRPC. No endpoint failure is represented as a successful test.
+WebKit installation completed but launching failed for missing system libraries. Safari/iPhone, physical pinch/scroll behavior, real wallet apps/signatures, assistive technology and native 200% zoom remain unverified. Public data is bounded, recent history may reorganize, and no time-aligned historical USD series is available. These are explicit limits, not synthetic fallback data.
 
-### Local/fork results
-
-The fork pins block **26212727**, hash `0xc9b35b7491a98046f97b3704cce6845afab12b04e79501591acd5052a2865405`. Actual deployed router/Quoter/Permit2/contracts execute locally. Solidity tests cover inactive rejection, activation, actual buys/sells, quota rejection, maturity, fee accounting and independent native claim/attestation/sync. Local fixtures impersonate named owners/claimants, fund test gas and change fork state only.
-
-The EIP-6963 test provider checks network/account changes, final-estimate invalidation, rejection, claim before activation, activation polling, separate attestation/credit and payer sync, active oracle failure, exact approvals, treasury receipt events, buy/sell, expiry, precision, duplicate confirmation, retained timeout hash, manual receipt check, replacement and mined revert. Every recorded router write has value0. The new history browser test displays the actual local buy. Anvil's mixed historic/local log forwarding hit an upstream range error; the adapter now fetches the actual historical prefix from PublicNode and concatenates actual post-fork Anvil logs. The result records0 historical events and1 local event; no event is fabricated.
-
-Slow gas, slow final reads, excessive block drift and expired deadline each produce **zero** wallet send requests. The fresh control makes **one** request to a reject-only wallet, with no broadcast. All fork snapshots are restored. After these connected checks, only explanatory Whitepaper copy changed; the export was rebuilt and the final site/probe checks rerun. Transaction/signing code did not change.
-
-### Live read-only results
-
-At block **26213689**, hash `0x888aada5978a14c69112b0a7c1333d1446f0ab2c5825906955762c3bf3a51ba7`, chain1 bindings were valid, activation was false, tier0/20%, native round0 certified and FDV unavailable pending oracle binding. This is a timestamped observation, not a promise about future activation. Public source: `https://ethereum-rpc.publicnode.com`; dRPC is the configured fallback. No wallet signing occurred on mainnet.
-
-The production site check read an actually empty official-pool range and stated its successful block coverage. Two verified NFT IDs/images were observed from the custody wallet; that count is not hard-coded. Mock RPC failure removed confirmed rights rather than inventing a tier; mock NFT indexer failure showed retry/error without cards, and image failure kept the verified ID. Public services can fail or lag; one transient PublicNode403 during inspection recovered through fallback.
-
-## Better Interface coverage and fixes
-
-Applied the pinned workflow and the core principles of all six domains during implementation, using the requested terminal as design authority. Supporting keyboard/dialog, form, contrast, wrapping, responsive and design-documentation guidance was consulted. `DESIGN.md` describes the final source, not a proposal.
-
-| Domain | Coverage and result | Remaining limitation |
-| --- | --- | --- |
-| Accessibility | Native fields/select/dialogs, tab roles and keyboard navigation, focus return and visible2px ring, announcements, full gate selection, reduced motion; axe0 violations | No screen-reader or switch-control session; automated scan is not compliance certification |
-| Layout | Desktop/mobile screenshots; 320–1440 representative widths, intermediate breakpoints, mobile action above fold, aligned panels, contained rail/table scroll, hash refresh | Native200% zoom and physical devices unperformed |
-| Writing | Explicit pay/receive/gas labels, activation vs failure, verified empty vs unavailable, fees/estimates/coverage, recoverable errors and plain English risks | English only; no localization required |
-| Typography | Local400/600 fonts, six tokens, mono/tabular numbers, wrapping addresses and bounded prose; restored reference density | Mono prose is an explicit brief choice and a probe exception |
-| Colors | Exact requested semantic palette, text/pattern/ring state cues; all probe-measured text meets4.5:1 or3:1 large | SVG artwork excluded; no claim about every NFT image or unexercised dynamic pair |
-| UI | Thin flat panels, compact6px shapes, buy/sell variants, loading/empty/error/pending/replacement states, native phone bottom sheet, restrained motion | WebKit could not launch; emulated phone is Chromium, not Safari/native device |
-
-Applicable findings were corrected:
-
-| Finding / source | Reproduction and impact | Fix and recheck |
-| --- | --- | --- |
-| High layout: oversized hero, `web/src/NextRelease.tsx:866`, `web/src/styles.css:366` | Baseline presentation separated market and action with excess space, contrary to compact reference | Compact heading/summary and aligned workspace; screenshots and first-screen CTA assertion pass |
-| Medium semantics: invalid summary definition-list children, `web/src/NextRelease.tsx:875` | Initial revised markup used a non-definition child; axe flagged `definition-list` | Metric notes are now proper `dd` elements; final axe0 violations |
-| High responsive UI: mobile wallet sheet anchoring, `web/src/styles.css:1468` | CSS rewrite initially lost the bottom-anchored mobile dialog behavior | Restored fixed bottom sheet and safe-area padding; browser asserts its base aligns with viewport, Tab/Escape/focus return pass |
-| Medium writing/state: hidden oracle failure explanation, `web/src/NextRelease.tsx:949` | Active-feed failure explanation was only inside collapsed gate details | Added visible status notice; connected mock feed failure retains active trading/stored rights and shows unavailable FDV |
-| Medium density: redundant gate controls, `web/src/MarketTerminal.tsx:414` | Range plus select and a separate readout made the ladder unnecessarily tall | One compact inspector with native selector, readout, pointer interaction and complete list; all17 options and keyboard Home/End pass |
-
-Two probe candidates remain deliberately accepted:
-
-- **`type-faces`**: `web/src/styles.css:36` applies JetBrains Mono to prose. The task explicitly requests locally hosted JetBrains Mono throughout, overriding the generic mono-prose preference. One family/two real weights are loaded.
-- **`eyebrows`**: the heuristic flags functional activation status (`NextRelease.tsx:850`), tab controls (`MarketTerminal.tsx:251`), summary/ledger labels and adjacent section text as kickers. These are required controls/data/status, not promotional labels. Viewed screenshots show no slogan/kicker stack. Removing them would hide useful information.
-
-All other probe checks passed, including render, overflow/overlap/clipping, targets, measured contrast, casing/tracking, type scale, copy budget, share metadata, surfaces and motion. The first-screen prose budget was below60 words. The retained probe JSON includes all checks/thresholds; repetitive DOM geometry dumps were omitted as unnecessary packaging data.
-
-## HTTPS, naming and delivery limitations
-
-[HTTPS evidence](https-results.json), captured2026-10-17T17:17:54Z, is read-only and refers to the existing hosted version:
-
-- `unlk-b35c.sites.imd.fun`: DNS resolves, HTTPS200, TLS1.3, authorized certificate chain/hostname for `*.sites.imd.fun`, issuer Let's Encrypt YR1; valid Oct2–Dec31 2026. HTTP301 redirects to HTTPS. Existing main JS/CSS/favicon return200.
-- `unlock.sites.imd.fun`: DNS/TLS valid but HTTP404 “No such site”. A page-title change cannot map this name. No supported authenticated naming/publishing control is exposed.
-- `unlk.sites.imd.fun`: reference remains HTTPS200 with verified hostname/chain; no unrelated-site change or redirect attempted.
-- PublicNode and dRPC chainId reads returned chain1 and CORS `*`. The export uses HTTPS remote services and local relative assets; no mixed-content or certificate bypass was introduced. The failed `.eth.limo` alias is unused.
-
-Canonical/og:url retain the verified existing URL **https://unlk-b35c.sites.imd.fun/**. The Explorer token page returns200 and its actual site anchor links to the existing hostname (`web/evidence/explorer-links.json`); no metadata write was needed. IMD delivery must publish this export, map `unlock` if supported, preserve old access/redirect if authorized and then verify new assets, wallet access and Explorer backlink on the final hosted version. That new-host verification cannot be claimed before publication. Clean alternatives are retaining the current HTTPS hostname or mapping the preferred IMD hostname and verifying it before metadata changes; no domain purchase is necessary.
-
-WebKit runtime installation was attempted, but launch failed for missing system libraries (see `web/evidence/webkit-attempt.txt`). Physical iOS/Android, real browser-wallet/Smart Wallet signing, native zoom and screen-reader tests were unperformed. All writes in the supplied evidence are loopback fork fixtures. The verifier's none profile checks paths/bytes only; it does not certify these behavior claims.
+The complete submission includes source, existing lockfile, local fonts, reviewed ABIs, native proofs, static runtime assets, tests and documentation. No generated dependency/cache directories, unnecessary npm archives or submodules were added. Existing historical evidence is retained separately from the `update-*` records.
