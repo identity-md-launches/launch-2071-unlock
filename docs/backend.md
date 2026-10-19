@@ -1,6 +1,6 @@
 # Separately operated UNLOCK Labs service
 
-This assignment publishes **only `dist/` through IMD/IPFS**. The API, database and indexers below are complete source for the operator to deploy separately. Nothing here was publicly hosted or run as a persistent worker. The current site name remains `https://unlk-b35c.sites.imd.fun/`.
+This assignment publishes **only `dist/` through IMD/IPFS**. The API, database and indexers below are operator source. Current data/provider limitations are recorded in [the repair validation](../artifacts/repair/validation.md). Nothing here was publicly hosted or run as a persistent worker. The current site name remains `https://unlk-b35c.sites.imd.fun/`.
 
 ## Local setup
 
@@ -33,7 +33,7 @@ These are operator setup commands, not actions run by this job. Copy `services/l
 
 Use the included Caddyfile with `LABS_API_HOST` set to the actual API hostname, or an existing HTTPS reverse proxy forwarding `/api/` and Authorization. The service's Docker health check calls `/api/health`; health checks SQLite and reports schema version 2. No wildcard CORS: `LABS_SITE_ORIGIN` must equal the exact frontend origin. The API does not trust forwarded IP headers; a reverse proxy therefore shares the conservative per-socket quota. Provision edge rate limits as needed.
 
-Docker was unavailable in the worker environment. The actual Node entry point, migrations, HTTP health, disconnected settings and unauthorized quote refusal were exercised directly. Docker build, DNS, certificates and production storage operation await the operator.
+Docker build was not run in this repair. A minimal copy containing exactly the service/runtime files used by the Dockerfile passed Node startup, HTTP health, disconnected settings and Markets warming checks without npm. DNS, certificates and production storage operation await the operator.
 
 ## Configuration
 
@@ -44,17 +44,18 @@ Docker was unavailable in the worker environment. The actual Node entry point, m
 | `LABS_HOST`, `LABS_PORT` | Listener; loopback / 8787 by default, container binds 0.0.0.0. Expose through HTTPS. |
 | `ETHEREUM_RPC_URL` | Read-only chain-1 provider supporting historical calls and filtered logs. Default publicnode. Provider refusal leaves affected checks unavailable. |
 | `LABS_OPERATOR_OWNER` | Real operator wallet controlling tariff/refund settings and moderation. Blank disables owner actions and checkout. This is independent of treasury/beneficiary authority. |
-| `LABS_MARKET_CONFIG` | Optional path to operator JSON. Start from `market-config.example.json`; empty configuration publishes no simulated sell checks. |
+| `LABS_MARKET_CONFIG` | Optional path to operator JSON. Defaults to `production-config.json` with evidenced seeds. An override must be an operator-reviewed JSON file. |
 | `LABS_API_HOST` | Actual hostname for the optional Caddy configuration. |
 
 The market JSON supports:
 
 - `extraLaunchIds`: up to 30 authoritative IMD launch UUIDs for bounded discovery/ownership resolution. No symbol-based identity shortcut.
-- `simulationPlans`: keyed by exact lowercase token address. Each value needs a real existing `account`, positive atomic `amountRaw`, and positive atomic `minimumQuoteRaw`. Select a representative account/size from evidenced real trades, document that source, and use a meaningful minimum quote return. The service executes a full Universal Router `eth_call` at the checked block with the account's **actual** balances, allowances and quota, without state overrides. It never sends that transaction. Configure no test keys or dummy sellers.
-- `poolStartBlocks`: exact v4 PoolId → evidenced Initialize start block. For registry tokens the deployment block is used automatically. A later/incorrect start cannot qualify: the Initialize event, position history and active-liquidity reconciliation must all succeed. IMD's older pool needs its verified start configured before its liquidity can qualify.
+- `editorialSelections`: optional symbol → exact evidenced address for reviewed INFER/OG choices. Empty means no ambiguous badge. Addresses must match `editorial-identities.json`; listing rules still apply and sponsorship cannot set this field.
+- `simulationPlans` (optional legacy account hints): keyed by exact lowercase token address. An account must already appear in a successful exact-pool swap receipt. Amount and positive minimum return are recomputed at the checked block; stale configured amounts are not used. Automatic discovery walks successful swaps incrementally, checks real balances, ERC20/Permit2 allowances and expiry, and the reviewed UNLK `remainingQuota` interface. The full router/hook `eth_call` enforces all remaining rights. Account failures try other candidates fairly; they never prove token-wide unsellability. No approvals, writes or state overrides are performed.
+- `poolStartBlocks`: exact v4 PoolId → evidenced Initialize start block. For registry tokens the deployment block is used automatically. A later/incorrect start cannot qualify: the Initialize event, position history and active-liquidity reconciliation must all succeed. The supplied production configuration pins IMD pool initialization at block 25640607 and UNLK at 26211921, evidenced by zero/nonzero historical pool state. Initialize log replay and active inventory reconciliation still must succeed.
 - `indexStartBlock`: verified positive global Radar start block, or `null` for the recent bounded scan. Each discovered token/PoolId separately backfills from its authoritative token deployment block, in bounded pages. A pool initialization override never replaces that token deployment evidence. Only complete opening inventory and reconciled wallet flows can support P&L.
-- `attributions`: optional Vitalik/CZ/Asem records with exact `address`, `label`, reliable public `sourceUrl`, a written `evidence` explanation, `custody: "personal"` and `reviewed: true`. The operator must actually verify the primary attribution. No entries are supplied or guessed. Exchange/custody addresses must never be entered as personal wallets.
-- `marketplaces`: optional Seaport listing venues with exact `address`, verified `runtimeCodeHash` and authoritative `sourceUrl`. Only a matching runtime, single NFT listing fulfillment, native consideration and exact NFT Transfer evidence creates a sale record. Unsupported venues, bids and bundles remain transfers.
+- `attributions`: optional Vitalik/CZ/Asem records with exact `address`, `label`, reliable public `sourceUrl`, a written `evidence` explanation, `custody: "personal"` and `reviewed: true`. The operator must actually verify the primary attribution. A sourced vitalik.eth account is supplied; CZ and Asem are deliberately unpublished. See `public-attributions.json` for research/custody decisions. Exchange/custody addresses must never be entered as personal wallets.
+- `marketplaces`: runtime-pinned Seaport listing venues (Seaport 1.6 is supplied from OpenSea documentation and a checked code hash) with exact `address`, verified `runtimeCodeHash` and authoritative `sourceUrl`. Only a matching runtime, single NFT listing fulfillment, native consideration and exact NFT Transfer evidence creates a sale record. Unsupported venues, bids and bundles remain transfers.
 
 The service currently discovers static-fee IMD v4 pools quoting IMD or native ETH. Other pool versions/quotes are unindexed and remain unpublished. Provider quotas, archives, representative account selection, missing identity records and operator price/refund choices are deployment work; they are not guessed in the source.
 
@@ -78,9 +79,11 @@ The attribution revision requires no database migration or paid-order reset. Ret
 
 `POST /api/auth/nonce` binds a random one-use nonce to address, Ethereum, exact origin, issue time and five-minute expiry. `/auth/verify` verifies the signature and returns a hashed-at-rest one-hour bearer session. Logout, expiry and origin changes invalidate it. Current UNLK balance is rechecked for holder endpoints; zero-balance authenticated customers can still order audits and verified representatives can submit profiles. Deployed ERC-1271 login is supported; unsupported counterfactual login is refused.
 
-Profile rights require a live chain-1 IMD project artifact matching the **exact token**, successful deployment receipt/block, existing code and a successful current nonzero `owner()` read. RPC failures, reverts, empty/undecodable results and renounced ownership grant no rights; an outage never substitutes the original requester. A new submission and each moderation/payment check repeat rights verification. A payment recipient is never inferred to be the project owner. Treasury inventory does not change the immutable vault beneficiary.
+Profile rights always require a signed, origin-bound wallet session and an exact live chain-1 IMD artifact, deployment receipt/block and current code. Mutable/unreviewed implementations additionally require a successful current nonzero `owner()` read. A timeout, revert, malformed result or renunciation grants no rights and cannot select an immutable policy.
 
-**Ownership policy:** requester evidence alone is not edit authority. There is currently no reviewed policy for tokens without an owner interface, including the immutable UNLK token. Their profile editing remains unavailable until an explicit source/runtime-bound authority policy is implemented and reviewed; neither a generic revert nor a cached former owner can establish that policy. Existing trading and claims do not depend on profile rights.
+`authority-policy.json` explicitly reviews exact source commit, address, launch UUID, requester and runtime hash for immutable UNLK, OG, EMBEO, FREE1376 and ZTO. Policies are selected **before** an owner read, by exact reviewed implementation, never because a call failed. UNLK additionally requires `initialRecipient()` and the deployed hook's immutable `setupAuthority()` to match the reviewed registry requester. A new submission and each moderation/payment check repeat authorization. The treasury inventory wallet gains no editing or withdrawal rights through payment receipt.
+
+The read-only mainnet authority check succeeded for UNLK/OG and refused the three older records whose receipt/block evidence did not reconcile on the supplied providers; see `artifacts/repair/authority.json`. Those failures remain closed, even with a policy present. Operators must investigate registry/provider discrepancies instead of weakening verification. Trading and claims do not depend on profile rights.
 
 ## UNLK-paid content sequence
 
@@ -92,7 +95,7 @@ Profile rights require a live chain-1 IMD project artifact matching the **exact 
 6. Submit the existing hash to `/verify`. The backend checks mainnet, transaction sender/target/value/**exact calldata**, canonical successful receipt, exact Transfer recipient/amount, transfer block within the quote window and 12-block confirmation depth. Late recovery is allowed for a transfer made within the original window. A SQLite transaction and unique transaction/order constraints prevent reused payments or duplicate fulfillment. Concurrent retries share the saved order.
 7. Publication requires current eligibility and approved content on every public read. Sponsorship is labeled and separate from organic ranks. Loss of eligibility withholds content without inventing a refund; the exact saved refund terms govern operator handling. A failed/expired/uncertain order never authorizes another automatic payment.
 
-Public settings: `GET /api/profiles/settings`. Authenticated representative routes: `/profiles/rights`, `/profiles/submissions`, `/profiles/mine`, `/profiles/quote`, `/profiles/orders/:id`, `/recheck`, `/verify`. Owner-only routes: `PUT /profiles/settings`, `GET /profiles/moderation`, `POST /profiles/moderation/:id`. PNG cache routes are `/media/1/:token/logo.png`, `/banner.png`, `/sponsor-banner.png`.
+Public settings: `GET /api/profiles/settings`. Authenticated representative routes: `/profiles/rights`, `/profiles/submissions`, `/profiles/mine`, `/profiles/quote`, `/profiles/orders/:id`, `/recheck`, `/verify`. Owner-only routes: `PUT /profiles/settings`, `GET /profiles/moderation`, `POST /profiles/moderation/:id`. Cache routes use validated PNG or restricted SVG for registry logos (`/media/1/:token/logo.svg`); moderated uploads remain PNG. PNG routes are `/media/1/:token/logo.png`, `/banner.png`, `/sponsor-banner.png`.
 
 ## Audit integration retained
 
@@ -101,6 +104,33 @@ The documented [IMD request protocol](https://imd.fun/docs/) and [OpenAPI](https
 Payment remains exact IMD x402/Permit2 plus quote-bound EIP-712 approval; exact-amount IMD approval and verified ETH→IMD conversion are separate explicit wallet actions. Unsupported USDC conversion is disabled. No founder advance, markup, paid worker test or mainnet spending occurs automatically.
 
 Order bearer credentials and the exact signed bytes are persisted before dispatch. Retry/reload/restart reconciles the same order; it never creates replacement signatures or charges from a timer. Expired unpaid renewal requires authoritative upstream final status. Pending, refused, blocked, failed and incomplete outcomes are explicit. Only accepted judge evidence contributes findings. HTML/PDF reports preserve job/commit/scope; PDF embeds the exact UTF-8 report. Core PDF fonts escape unsupported characters visibly rather than silently deleting them.
+
+## Bootstrap and doctor
+
+Run one bounded read-only cycle, or a small number of immediate cycles (no timer waits):
+
+```sh
+node services/labs/doctor.mjs --db /tmp/unlock-labs/labs.sqlite --cycles 1 --output /tmp/unlock-labs/doctor.json
+node services/labs/doctor.mjs --db /tmp/unlock-labs/labs.sqlite --cycles 3 --output /tmp/unlock-labs/doctor.json
+```
+
+The same database resumes discovery, liquidity, per-asset history, attribution, ownership and seller cursors across process restarts. `--rpc` or `ETHEREUM_RPC_URL` can name the operator's real archive provider. No provider token is supplied or needed to build; a capable archive/log service is required to finish historical reconstruction. Provider quota/access refusals are reported with actions and retained progress. Do not cycle to bypass quotas; 429 Retry-After cooldowns are honored and persisted across restarts; custom private RPC URLs are redacted from public provenance. The doctor never sends a transaction or opens a paid job.
+
+It checks both supplied provider chain/head/archive/log capabilities, then independent markets/history/NFT/IMD queues. The JSON records per-address exclusions/actions, identity decisions, block/provider provenance, liquidity/seller status, recent trades/candles, NFT indexed/total coverage and whale flows. A successful health response or completed doctor process is not a listing/coverage guarantee: inspect its failed checks and per-asset errors.
+
+`production-seeds.json` retains slim authoritative IMD records, source commits, transaction/block evidence, archive code deployment boundaries and pool-start evidence. Registry catalog discovery is paginated with a persistent `before` cursor, then periodic sweeps. The 12-asset budget limits **work per cycle**, never catalog size. Up to four pending extra launch IDs are fetched each cycle; no extra identity is truncated out of the catalog.
+
+The scheduler runs independent queues every minute with independent request budgets: market 600, per-asset history 600, NFT 300, IMD whales 300. Each has an in-flight guard; a failure cannot prevent another queue running. Per-pool history and seller candidate cursors are fair across restarts. Historical ownership replays four 500-block pages per cycle with durable full ID/balance maps, and rotates 16 ownerOf / 12 balance checks. An independent recent interval keeps available current flows moving while archive access is blocked. Its own canonical time interval is independent of old archive progress. Recent candles use separate coverage proofs; neither lane bridges a missing archive gap or certifies P&L. An ownerOf/balance/total-supply mismatch durably taints reconstruction until a reviewed reindex/reorg rebuild.
+
+For the real integration preview without changing shipped API configuration:
+
+```sh
+node web/scripts/serve-repair.mjs /tmp/unlock-labs/labs.sqlite
+# Open http://127.0.0.1:4173/preview/#labs-markets
+# Stop this temporary preview after checking; background jobs are disabled.
+```
+
+This serves the production export and real local API, overriding only its local `labs-config.json` response. The committed export keeps `apiBase` empty. Production needs your HTTPS API, origin, durable volume, capable RPC and an actual owner-configured tariff/refund policy before checkout.
 
 ## Operational checks
 

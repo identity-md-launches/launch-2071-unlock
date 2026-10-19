@@ -7,7 +7,8 @@ export const CACHE_POLICIES = Object.freeze([
   { prefix: 'launchmeta:', maxEntries: 64, retentionMs: 3600000 },
   { prefix: 'logo:', maxEntries: 100, retentionMs: 604800000 },
   { prefix: 'identity:', maxEntries: 100, retentionMs: 86400000 },
-  { prefix: 'liquidity:', maxEntries: 64, retentionMs: 2592000000 },
+  // Liquidity/ownership replay is durable state, not an expiring cache.
+
   { prefix: 'usd-reference:', maxEntries: 3000, retentionMs: 604800000 },
   { prefix: 'holders:', maxEntries: 64, retentionMs: 600000 },
   { prefix: 'upstream:tree:', maxEntries: 40, retentionMs: 3600000 },

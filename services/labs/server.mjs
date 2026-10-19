@@ -4,6 +4,7 @@ import { createStore } from './store.mjs';
 import { createRpc, createAuth, HttpError, assert, address, PUBLIC_RPC } from './security.mjs';
 import { createUpstream } from './upstream.mjs';
 import { createAudits } from './audits.mjs';
+import { createRpc as createReadPool } from './rpc.mjs';
 import { createMarketServices } from './markets.mjs';
 import { createProfiles } from './profiles.mjs';
 import { createIdentityResolver } from './identities.mjs';
@@ -78,7 +79,7 @@ export function createLabsServer({
   const identities=createIdentityResolver({store,io:readIo,now,extraLaunchIds:marketSettings.extraLaunchIds});
   const profiles=profileServices||createProfiles({store,io:readIo,identities,marketServices:markets,owner:operatorOwner,now});
   const tokenData=createTokenData({store,markets,io:readIo,now});
-  const radarExtra=createRadarExtensions({store,io:readIo,now,attributions:marketSettings.attributions,marketplaces:marketSettings.marketplaces});
+  const radarExtra=createRadarExtensions({store,io:createReadPool({url:rpcUrl,fetchImpl,budget:300,cooldownStore:store}),whaleIo:createReadPool({url:rpcUrl,fetchImpl,budget:300,cooldownStore:store}),now,attributions:marketSettings.attributions,marketplaces:marketSettings.marketplaces});
   const callers = new Map();
   const server = createServer(async (req, res) => {
     res.setHeader('x-content-type-options', 'nosniff');
@@ -102,13 +103,13 @@ export function createLabsServer({
         store.db.prepare('SELECT 1').get();
         json(res, 200, { schemaVersion:2, ok: true, service: 'UNLOCK Labs', version: 1, running: true, siteOrigin, chainId: 1, persistentStore: 'SQLite; requires a persistent LABS_DB_PATH mount across host replacement', noCustody: true,
           limits: { requestPerMinute: 120, upstreamReadPerMinute: 120, upstreamWritePerMinute: 20, githubTreesPerHour: 40, ordersPerWalletPerDay: 30 },
-          coverage: 'Markets and Radar have bounded caches. Read their coverage and missing-history metadata.' }); return;
+          coverage: 'Independent market, history, NFT and IMD whale queues; all partial coverage is reported.', queues:Object.fromEntries(['markets','history','nft','whales'].map(k=>[k,{progress:store.get(`queue:${k}`)||null,error:store.get(`queue-error:${k}`)||null}])) }); return;
       }
       if (method === 'POST' && path === '/api/audits/tree') { const b=await body(req);assert(b.source&&typeof b.source==='object',422,'source_required','Pin a repository and commit first.');json(res,200,{tree:await upstream.githubTree(b.source.repoUrl,b.source.baseCommit)});return; }
       if (method === 'GET' && path === '/api/profiles/settings') {json(res,200,profiles.settings());return;}
       if (method === 'GET' && path === '/api/profiles/publications') {json(res,200,{publications:await profiles.publications()});return;}
-      const media=/^\/api\/media\/1\/(0x[\da-f]{40})\/(logo|banner|sponsor-banner)\.png$/i.exec(path);
-      if(method==='GET'&&media){const publications=await profiles.publications();const p=publications.find(p=>p.address===media[1].toLowerCase()&&p.kind===(media[2]==='sponsor-banner'?'sponsor':'profile'));const value=p?.[media[2]==='sponsor-banner'?'banner':media[2]];const bytes=value?Buffer.from(value.slice(22),'base64'):media[2]==='logo'?markets.media?.get(media[1]):null;assert(bytes,404,'image_unavailable','Logo unavailable; use the local fallback.');res.writeHead(200,{'content-type':'image/png','cache-control':'public,max-age=300','cross-origin-resource-policy':'cross-origin'});res.end(bytes);return;}
+      const media=/^\/api\/media\/1\/(0x[\da-f]{40})\/(logo|banner|sponsor-banner)\.(png|svg)$/i.exec(path);
+      if(method==='GET'&&media){const publications=await profiles.publications();const p=publications.find(p=>p.address===media[1].toLowerCase()&&p.kind===(media[2]==='sponsor-banner'?'sponsor':'profile'));const value=p?.[media[2]==='sponsor-banner'?'banner':media[2]];const bytes=value?Buffer.from(value.slice(22),'base64'):media[2]==='logo'?markets.media?.get(media[1]):null;assert(bytes,404,'image_unavailable','Logo unavailable; use the local fallback.');res.writeHead(200,{'content-type':value?'image/png':markets.media.type(media[1]),'content-security-policy':"default-src 'none'; style-src 'none'; sandbox",'cache-control':'public,max-age=300','cross-origin-resource-policy':'cross-origin'});res.end(bytes);return;}
       const token=/^\/api\/tokens\/(0x[\da-f]{40})$/i.exec(path);
       if(method==='GET'&&token){const detail=await tokenData.detail(token[1],url.searchParams);if(detail.market)detail.market=decorateMarket(detail.market,await profiles.publications());json(res,200,detail);return;}
       if(path.startsWith('/api/profiles/')){
@@ -160,7 +161,7 @@ export function createLabsServer({
         const period = url.searchParams.get('period') || '24h'; const cursor = url.searchParams.get('cursor');
         assert(['1h', '24h', '7d'].includes(period), 400, 'unsupported_period', 'Supported Radar periods are 1h, 24h, and 7d, clipped to indexed history.');
         assert(cursor === null || /^\d{1,5}$/.test(cursor), 400, 'invalid_cursor', 'Use the bounded cursor from the previous Radar response.');
-        json(res, 200, radarExtra.merge(await markets.radar({ period, cursor }))); return;
+        json(res, 200, radarExtra.merge(await markets.radar({ period, cursor }),{cursor})); return;
       }
       if (path.startsWith('/api/holder/')) {
         const session = await auth.requireSession(req, { holder: true });
@@ -197,14 +198,14 @@ export function createLabsServer({
       json(res, status, { error: error instanceof HttpError ? error.code : 'internal_error', message: error instanceof HttpError ? error.message : 'The service could not complete this request. Existing orders remain saved.', ...(error instanceof HttpError && error.details ? { details: error.details } : {}) });
     }
   });
-  let timer;
+  let timer;const runningQueues=new Set();
   function startJobs() {
     if (timer) return;
-    const run = async () => { try { store.prune(); await markets.refresh(); await radarExtra.refresh(); } catch { /* Failed refresh retains marked stale cache. */ } };
+    const run = async () => { store.prune();const work={markets:()=>markets.refresh(),history:()=>markets.refreshHistory?.(),nft:()=>radarExtra.refresh(),whales:()=>radarExtra.refreshWhales()};await Promise.allSettled(Object.entries(work).map(async([name,fn])=>{if(runningQueues.has(name))return;runningQueues.add(name);try{await fn();store.set(`queue-error:${name}`,null);}catch(e){store.set(`queue-error:${name}`,{error:e.message,at:new Date(now()).toISOString()});}finally{runningQueues.delete(name);}})); };
     void run(); timer = setInterval(run, 60000); timer.unref();
   }
   function close() { clearInterval(timer); server.close(); if (!injectedStore) store.close(); }
-  return { server, store, auth, audits, upstream, markets, profiles, identities, tokenData, startJobs, close };
+  return { server, store, auth, audits, upstream, markets, profiles, identities, tokenData, radarExtra, startJobs, close };
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

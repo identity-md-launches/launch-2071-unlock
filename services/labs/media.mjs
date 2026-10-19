@@ -29,9 +29,34 @@ export function imageData(value,kind='logo') {
 export function createMediaCache({store,fetchImpl=fetch,now=()=>Date.now()}) {
  async function cacheLogo(token,sourceUrl) {
   if(!token.identity?.verified||!/^0x[\da-f]{40}$/i.test(token.address))return null;
-  const key=`logo:${token.address.toLowerCase()}`,old=store.get(key);if(old&&now()-old.at<86400000)return `/media/1/${token.address.toLowerCase()}/logo.png`;
+  const key=`logo:${token.address.toLowerCase()}`,old=store.get(key);if(old&&now()-old.at<86400000)return `/media/1/${token.address.toLowerCase()}/logo.${old.ext||'png'}`;
   const u=new URL(sourceUrl);assert(u.protocol==='https:'&&!u.port&&!u.username&&!u.password&&['api.imd.fun','imd.fun','explorer.imd.fun'].includes(u.hostname),422,'unsafe_image_source','Only verified official IMD image sources are fetched.');
-  const r=await fetchImpl(u,{redirect:'error',signal:AbortSignal.timeout(12000)});assert(r.ok,422,'image_unavailable','IMD logo is unavailable.');let bytes=0;const chunks=[];for await(const c of r.body){bytes+=c.length;assert(bytes<=300000,422,'image_too_large','Logo exceeds 300 KB.');chunks.push(c);}const png=sanitizePng(Buffer.concat(chunks),{width:512,height:512});store.set(key,{at:now(),png:png.toString('base64'),hash:createHash('sha256').update(png).digest('hex')});return `/media/1/${token.address.toLowerCase()}/logo.png`;
+  const r=await fetchImpl(u,{redirect:'error',signal:AbortSignal.timeout(12000)});assert(r.ok,422,'image_unavailable','IMD logo is unavailable.');let bytes=0;const chunks=[];for await(const c of r.body){bytes+=c.length;assert(bytes<=300000,422,'image_too_large','Logo exceeds 300 KB.');chunks.push(c);}const logo=sanitizeLogo(Buffer.concat(chunks));store.set(key,{at:now(),sourceUrl:u.href,mime:logo.mime,ext:logo.ext,png:logo.bytes.toString('base64'),hash:createHash('sha256').update(logo.bytes).digest('hex')});return `/media/1/${token.address.toLowerCase()}/logo.${logo.ext}`;
  }
- return {cacheLogo,get:token=>{const x=store.get(`logo:${token.toLowerCase()}`);return x?Buffer.from(x.png,'base64'):null;}};
+ return {cacheLogo,type:token=>store.get(`logo:${token.toLowerCase()}`)?.mime||'image/png',get:token=>{const x=store.get(`logo:${token.toLowerCase()}`);return x?Buffer.from(x.png,'base64'):null;}};
 }
+
+/** A deliberately small SVG drawing grammar. No CSS, links, scripts, XML entities,
+ * text, embedded images, use/foreignObject, filters or network-bearing attributes. */
+export function sanitizeSvg(input){
+ const svg=Buffer.from(input).toString('utf8').replace(/^\s*<\?xml[^?]*\?>/,'').trim();
+ assert(Buffer.byteLength(svg)<=300000&&!/[\u0000-\u0008]/.test(svg)&&!/[&]|<!|<\?/.test(svg),422,'invalid_image','SVG contains unsupported XML features.');
+ const tags=new Set(['svg','g','path','circle','ellipse','rect','line','polyline','polygon','defs','linearGradient','radialGradient','stop','clipPath']);
+ const attrs=new Set(['xmlns','viewBox','width','height','x','y','x1','y1','x2','y2','cx','cy','r','rx','ry','d','points','fill','stroke','stroke-width','stroke-linecap','stroke-linejoin','fill-rule','clip-rule','opacity','fill-opacity','stroke-opacity','transform','id','offset','stop-color','stop-opacity','gradientUnits','gradientTransform','fx','fy','clip-path']);
+ let at=0,root=false;const stack=[];
+ for(const m of svg.matchAll(/<([^>]+)>/g)){
+  assert(!svg.slice(at,m.index).trim(),422,'invalid_image','SVG text is unsupported.');at=m.index+m[0].length;
+  const close=m[1].startsWith('/'),self=/\/$/.test(m[1]),body=m[1].replace(/^\//,'').replace(/\/$/,'').trim(),name=/^[A-Za-z]+/.exec(body)?.[0];
+  assert(tags.has(name),422,'invalid_image','Unsupported SVG element.');
+  if(close){assert(body===name&&stack.pop()===name,422,'invalid_image','SVG structure is invalid.');continue;}
+  if(!root){assert(name==='svg',422,'invalid_image','SVG root is required.');root=true;}else assert(stack.length,422,'invalid_image','Multiple SVG roots are invalid.');
+  let rest=body.slice(name.length),seen=new Set();while(rest.trim()){
+   const a=/^\s+([A-Za-z][A-Za-z0-9-]*)\s*=\s*(["'])(.*?)\2/s.exec(rest);assert(a&&attrs.has(a[1])&&!seen.has(a[1]),422,'invalid_image','Unsupported SVG attribute.');seen.add(a[1]);const v=a[3];
+   assert(!/[<>\\]|javascript|data:|https?:|\/\//i.test(v)||(a[1]==='xmlns'&&v==='http://www.w3.org/2000/svg'),422,'invalid_image','External SVG references are forbidden.');
+   if(/url\s*\(/i.test(v))assert(/^url\(#[A-Za-z][\w-]*\)$/.test(v),422,'invalid_image','Only local SVG paint references are allowed.');
+   assert(!/expression|@import|onload/i.test(v),422,'invalid_image','Active SVG content is forbidden.');rest=rest.slice(a[0].length);
+  }if(!self)stack.push(name);
+ }
+ assert(root&&!stack.length&&!svg.slice(at).trim(),422,'invalid_image','Incomplete SVG.');return Buffer.from(svg);
+}
+export function sanitizeLogo(input){const b=Buffer.from(input);if(b.subarray(0,8).equals(signature))return {bytes:sanitizePng(b,{width:512,height:512}),mime:'image/png',ext:'png'};if(/^\s*(<\?xml[^>]*>\s*)?<svg[\s>]/.test(b.toString('utf8')))return {bytes:sanitizeSvg(b),mime:'image/svg+xml',ext:'svg'};throw Object.assign(Error('Unsupported logo format. Supported: validated PNG or restricted SVG.'),{code:'unsupported_image'});}

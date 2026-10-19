@@ -1,6 +1,6 @@
 # UNLOCK · Trade & Labs
 
-Upgrade of the latest accepted source, `bf3b76251ac03dd93204a16f5a9807cab97287fe`, for **https://unlk-b35c.sites.imd.fun/**. The static delivery is `dist/`. It uses relative assets and hash navigation for IPFS/gateway subpaths. This job prepares that export; the IMD publisher retains the existing website name. No contracts, deployments, pools or economics are changed.
+Upgrade of the latest accepted source, `cd95d08507d635239da996518ed0a7df4dc78338`, for **https://unlk-b35c.sites.imd.fun/**. The static delivery is `dist/`. It uses relative assets and hash navigation for IPFS/gateway subpaths. This job prepares that export; the IMD publisher retains the existing website name. No contracts, deployments, pools or economics are changed.
 
 The existing Ethereum swap, quota ladder, claims, treasury/NFT inventory, wallet connectors and standalone English whitepaper remain. Labs is the default entry; Trade remains in the primary navigation.
 
@@ -29,37 +29,44 @@ Vite writes root `dist/`. Deliver its entire contents. `npm run dev` serves sour
 
 ## Connect your separately operated backend
 
-**Only the static frontend is submitted for IMD/IPFS hosting.** Backend/indexer source, Docker, SQLite migration, health check and a configuration template are in `services/labs/`. No external service, bot, account or persistent server was deployed by this job.
+**Only the static frontend is submitted for IMD/IPFS hosting.** Backend/indexer source, Docker, SQLite migration, health check, doctor CLI and evidenced production seeds/configuration are in `services/labs/`. No external service, bot, account or persistent server was deployed by this job.
 
 The shipped `web/public/labs-config.json` has an empty `apiBase`. A successful health check is required before enabling backend features. Static mode provides local browsing, previews, GitHub file selection and labeled historical Radar observations. **No stale market listings are published.** Current charts, persistent sessions/orders, moderation, checkout, server exports and live indexing await your operated API.
 
-See [service setup and connection](docs/backend.md), [eligibility, identities and data coverage](docs/labs-data.md), [implemented design](DESIGN.md), and [actual validation and limitations](artifacts/validation.md).
+See [service setup and connection](docs/backend.md), [eligibility, identities and data coverage](docs/labs-data.md), [implemented design](DESIGN.md), and [current validation and limitations](artifacts/repair/validation.md).
 
-## Checks recorded for this upgrade
+## Repair and operator verification
 
-This revision reproduced and fixed the trader attribution-quota defect. Raw log coverage and wallet attribution now have separate persisted proofs; skipped/failed transactions retry beyond the scan overlap, and incomplete attribution withholds numerical P&L without removing real candles. The reported fixture returns partial/null totals, then two buys/two sells and realized 14 after reconciliation. Production typecheck/build, 60 frontend tests and 62 backend/browser cases passed. Chromium also passed the retained 14 interaction/reflow groups and four axe scans. The frontend rebuild is byte-identical to `dist/`. Fixtures never enter the export or establish a live service. See `.imd-responses.json` and `artifacts/validation.md`.
+Markets now retains a paginated catalog independently of per-cycle work, resumes fair queues, discovers representative sellers from successful swap receipts, checks actual allowances/quota and reports per-asset exclusions/recovery. Market cap is explicitly provider-reported and sourced, never FDV. Required editorial identities and INFER/OG ambiguities are documented. Official IMD SVG logos are supported securely.
 
-Reproduce service checks from the repository root after frontend dependencies are installed:
+NFT Radar replaces the 32-ID sample with durable deployment-to-head ownership reconstruction, canonical checkpoints and rotating owner/balance verification. IMD balances/flows have an independent queue and recent lane. Coverage stays visibly partial until reconstruction is complete; custody accounts are separated from individual whales. Immutable-token profile authority has an explicit source/runtime/registry policy; owner() failures never grant rights. The Audit file wizard retains selections across searchable file pages and keeps paid actions/order recovery guarded.
 
-```sh
-node --test services/labs/tests.mjs services/labs/data.test.mjs services/labs/upgrade.test.mjs services/labs/revision.test.mjs
-```
-
-The suite includes 61 service cases and an opt-in production-export attribution test. Set `IMD_PLAYWRIGHT` to an externally installed Playwright `index.mjs` (and `PLAYWRIGHT_BROWSERS_PATH` if needed) to run the latter at 390 and 1440px. Without Playwright it is explicitly skipped. It renders production API fixture responses before/after reconciliation and stores fixture screenshots only in `/tmp`.
-
-Browser checks use externally installed Playwright and `@axe-core/playwright`:
+Reproduce bounded read-only mainnet diagnostics from the repository root:
 
 ```sh
-IMD_PLAYWRIGHT=/absolute/path/to/playwright/index.mjs \
-IMD_AXE=/absolute/path/to/@axe-core/playwright/dist/index.mjs \
-node web/scripts/check-upgrade.mjs
+node services/labs/doctor.mjs --db /tmp/unlock-labs/labs.sqlite --cycles 3 --output /tmp/unlock-labs/doctor.json
+node web/scripts/serve-repair.mjs /tmp/unlock-labs/labs.sqlite
+# Open http://127.0.0.1:4173/preview/#labs-markets, then stop the temporary preview.
 ```
 
-WebKit could not launch because system libraries are missing; physical wallets/devices, screen readers, real payments and production hosting were not exercised. The bounded Playwright script served and closed its own local preview. Backend regressions used isolated fixtures; no new live market eligibility was established in this revision. The earlier upgrade recorded failed position-log/sell checks, which establish **no** current eligibility. No funds, approvals, signed paid audit jobs or broadcasts were made.
+This preview connects the REAL backend to the production export without changing the shipped empty API URL. See [operator setup](docs/backend.md) for persistence, HTTPS, provider configuration, migration/recovery and Docker commands. Source completion is not external hosting or ongoing indexing.
 
-Profile edit rights now require a verified current nonzero `owner()`. Non-Ownable tokens, including UNLK, remain unavailable for profile edits until a reviewed source/runtime-bound authority policy is added. An original requester or cached former owner never becomes authorized during an outage.
+The fresh default database reproduced zero listings. Read-only repair diagnostics discovered 292 catalog assets and real recent IMD trades/candles/flows, but **zero tokens were admitted**: historical position-log access and representative seller allowances remain blocking. NFT evidence is **10 discovered / 2000 total**, with 0 IDs reconstructed from deployment history and archive backfill pending; it is not a global ranking. The supplied providers returned explicit archive/plan refusals, preserved in [doctor evidence](artifacts/repair/doctor.json). More code cannot grant provider access or create somebody else's approvals. No paid job, approval or mainnet write occurred.
 
-Historical reports under `web/evidence/` and other documentation are retained history, not results of this upgrade. The current run is identified in `artifacts/validation.md`.
+Production Vite build, TypeScript check, existing frontend/service regressions, new repair tests and actual local API/browser interactions were run. Exact commands, results, screenshots, six-domain design review and limitations are in [repair validation](artifacts/repair/validation.md). The browser regression uses explicit isolated fixtures for partial/recovered P&L; real-mainnet diagnostics and integration checks are recorded separately. Report/PDF equivalence and simulated order/payment recovery pass without opening paid jobs.
+
+After frontend dependencies are installed:
+
+```sh
+node --test services/labs/tests.mjs services/labs/*.test.mjs
+IMD_PLAYWRIGHT=/absolute/path/to/playwright/index.mjs node web/scripts/check-repair.mjs
+```
+
+The service suite defaults to `web/node_modules/viem` for test-only signing; `LABS_TEST_ACCOUNTS_MODULE` can point to an external viem accounts module when installs must remain outside the repository. `IMD_PLAYWRIGHT` enables the retained production-export attribution regression. The integration script expects the temporary real preview above. WebKit and physical wallets/devices were not validated: this worker lacks WebKit system libraries; Chromium was exercised at 320, 390, 768 and 1440 widths.
+
+Packaging retains source, required runtime assets, fonts, ABIs, claims, static export and lockfile. Only the optional 2.3 MB esbuild WASM compiler archive was removed; normal locked Vite builds and an externally installed native esbuild are supported. The backend still verifies offline without npm. Historical evidence archives are preserved. See [vendor inventory](web/vendor/README.md).
+
+Older reports under `web/evidence/` and `artifacts/validation.md` are retained history. The current run is `artifacts/repair/validation.md`.
 
 ## Treasury authority
 

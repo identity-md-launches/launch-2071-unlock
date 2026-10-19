@@ -20,3 +20,8 @@ __pycache__/
 
 # Explicit revision-response path budget: this root JSON only, at most 4096 bytes.
 !/.imd-responses.json
+
+# Explicit repair evidence path budget: artifacts/repair/ <= 2 MiB total.
+# Validation reports, read-only chain evidence, compressed screenshots, and one incremental Git commit bundle.
+!/artifacts/repair/
+!/artifacts/repair/**

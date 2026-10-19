@@ -1,0 +1,40 @@
+{
+  "extraLaunchIds": [
+    "0528a007-5ec6-4acd-b9cc-b3ded6fe2929",
+    "3b82f412-3bdc-49d9-9cb7-c47adf9febcf",
+    "ae638bfb-851b-4f3f-a340-c0c748f225ad",
+    "63f6d974-f5b8-4a84-b296-2219f5ab2c95",
+    "816d52d7-82d6-4605-8746-422c7e4ebfef",
+    "2f733a59-df90-4eaa-b27b-a0e2a33ba35f",
+    "b2554377-536a-4903-af35-be2fdd674770",
+    "b81f8d6e-ebc0-4eb0-9307-d22cf765bea4",
+    "d6efcda2-d35b-40c0-aef0-6c089a180773",
+    "030c609a-ae99-4a2b-9950-2941535ab63d"
+  ],
+  "simulationPlans": {},
+  "poolStartBlocks": {
+    "0xb07d640fd9e2eb9dc81b953c8e4fd006bdfeaf276010fb5418eb763ca15abfb3": 25640607,
+    "0x860a127e8f4b069ce93e280efda34db2b3cb21e7d73f164248f38f4220ec8d32": 26211921
+  },
+  "indexStartBlock": null,
+  "attributions": [
+    {
+      "label": "Vitalik",
+      "address": "0xd8da6bf26964af9d7eed9e03e53415d37aa96045",
+      "custody": "personal",
+      "reviewed": true,
+      "sourceUrl": "https://etherscan.io/address/vitalik.eth",
+      "evidence": "Etherscan resolves vitalik.eth to this exact Ethereum address; public attribution, not a complete portfolio or proof of sole custody."
+    }
+  ],
+  "marketplaces": [
+    {
+      "address": "0x0000000000000068f116a894984e2db1123eb395",
+      "runtimeCodeHash": "0x74499ac0cce14428e4b41541d5e44f28f5a6882a1051d0118867c2a93cd5aec0",
+      "sourceUrl": "https://docs.opensea.io/docs/collection-offers-and-advanced-trading",
+      "block": 26226472,
+      "evidence": "Seaport 1.6 exact deployment address from OpenSea documentation; runtime hash read at the recorded Ethereum block. Decoder supports single ERC721 native-currency listing fills only."
+    }
+  ],
+  "editorialSelections": {}
+}

@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "policies": [
+    {
+      "address": "0x99fa82b022be4575891a43b757bc770691e18fda",
+      "launchId": "0528a007-5ec6-4acd-b9cc-b3ded6fe2929",
+      "sourceCommit": "40d70b7bd0853aedf84eac839a40a5f12e6ac341",
+      "sourceUrl": "https://github.com/identity-md-launches/launch-2071-unlock/blob/40d70b7bd0853aedf84eac839a40a5f12e6ac341/src/UnlkToken.sol",
+      "runtimeCodeHash": "0x0a818174841af8609b3376ba003b1369d762b65541ddcdaef6b3e97aa32b3add",
+      "requester": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9",
+      "kind": "unlk-initial-recipient",
+      "review": "Pinned fixed-supply ERC20 source has no owner, upgrade or arbitrary mint interface; editing is offchain metadata only. Exact runtime hash and deployment receipt are rechecked."
+    },
+    {
+      "address": "0xce7eb1ad9e2e1c784ea05f7ea4a0fe625923d10a",
+      "launchId": "b2554377-536a-4903-af35-be2fdd674770",
+      "sourceCommit": "2b618def940c6686b92f10261a03eaca29e8f8ce",
+      "sourceUrl": "https://github.com/identity-md-launches/launch-1040-og-symbol-og-the-launch-s-standard-token/blob/2b618def940c6686b92f10261a03eaca29e8f8ce/src/OG.sol",
+      "runtimeCodeHash": "0xccfd3bb49d8eed557d4d642c3f6a098d51b845c4d95165cf15375512d0f33226",
+      "requester": "0x90738abe9b04622dc0b3d015a3964cc7d1fd1859",
+      "kind": "immutable-registry-requester",
+      "review": "Pinned fixed-supply ERC20 source has no owner, upgrade or arbitrary mint interface; editing is offchain metadata only. Exact runtime hash and deployment receipt are rechecked."
+    },
+    {
+      "address": "0x2b82cdeb8477415d541799abb0cc48044c8ea5f3",
+      "launchId": "b81f8d6e-ebc0-4eb0-9307-d22cf765bea4",
+      "sourceCommit": "cecf25b92d44568f8a0f81c34f4b634df905d1e5",
+      "sourceUrl": "https://github.com/identity-md-launches/launch-944-emberevo-token-symbol-embeo/blob/cecf25b92d44568f8a0f81c34f4b634df905d1e5/src/LaunchToken.sol",
+      "runtimeCodeHash": "0x01fb92b21a7414fcac4480618142f8968a5d2bae8071370fb5e9369b97fc55bc",
+      "requester": "0x1c651928150daddda9c2c040a9d4901d862f8ec4",
+      "kind": "immutable-registry-requester",
+      "review": "Pinned fixed-supply ERC20 source has no owner, upgrade or arbitrary mint interface; editing is offchain metadata only. Exact runtime hash and deployment receipt are rechecked."
+    },
+    {
+      "address": "0x4543e6b511a9a7a75b56607e27997c987ea05878",
+      "launchId": "d6efcda2-d35b-40c0-aef0-6c089a180773",
+      "sourceCommit": "9b4ebbe17121c00adad9286e2674c04e99b97b8d",
+      "sourceUrl": "https://github.com/identity-md-launches/launch-775-ransom-for-seat-1376/blob/9b4ebbe17121c00adad9286e2674c04e99b97b8d/src/ManumissionToken.sol",
+      "runtimeCodeHash": "0x25b4f49f18df7ae0d001f8cba7e78dfd3ae6c2b7ebd228c0e0f2e561a8d4b67a",
+      "requester": "0x2abd05bd596729193f8d52a0b6220a66ce10ffdc",
+      "kind": "immutable-registry-requester",
+      "review": "Pinned fixed-supply ERC20 source has no owner, upgrade or arbitrary mint interface; editing is offchain metadata only. Exact runtime hash and deployment receipt are rechecked."
+    },
+    {
+      "address": "0xd782bdea4ef02a0bd391eb9089470c8080f0a68e",
+      "launchId": "030c609a-ae99-4a2b-9950-2941535ab63d",
+      "sourceCommit": "620116f866163753e58ba57dde3f12b2dddb3c24",
+      "sourceUrl": "https://github.com/identity-md-launches/launch-737-zero-to-one/blob/620116f866163753e58ba57dde3f12b2dddb3c24/src/ZeroToOne.sol",
+      "runtimeCodeHash": "0x24e03ed7d7d3d6dc010b9a9836e419a3eb4215383b463f4e6685b4816435f16d",
+      "requester": "0x7b8c742f2e1eeb3fb2c10d72967fa6d4a22f0479",
+      "kind": "immutable-registry-requester",
+      "review": "Reviewed entire self-contained fixed-supply ZeroToOne implementation: only transfer, approve, transferFrom; no owner, external call, proxy, mint or rule mutation after constructor. Metadata authority requires exact registry requester and runtime/receipt matches."
+    }
+  ]
+}

@@ -1,0 +1,121 @@
+{
+  "observedAt": "2026-10-19T13:15:30.554Z",
+  "records": [
+    {
+      "symbol": "UNLK",
+      "address": "0x99fa82b022be4575891a43b757bc770691e18fda",
+      "launchId": "0528a007-5ec6-4acd-b9cc-b3ded6fe2929",
+      "launchNumber": 2071,
+      "chainId": 1,
+      "sourceUrl": "https://api.imd.fun/launches/0528a007-5ec6-4acd-b9cc-b3ded6fe2929",
+      "block": 26226450,
+      "sourceCommit": "40d70b7bd0853aedf84eac839a40a5f12e6ac341"
+    },
+    {
+      "symbol": "SCOOP",
+      "address": "0x7094b1ba79e7eb3fab7caa8aa9b45976cd120807",
+      "launchId": "3b82f412-3bdc-49d9-9cb7-c47adf9febcf",
+      "launchNumber": 1376,
+      "chainId": 1,
+      "sourceUrl": "https://api.imd.fun/launches/3b82f412-3bdc-49d9-9cb7-c47adf9febcf",
+      "block": 26226450,
+      "sourceCommit": "387e2fe049a33d3c33318ef0b6ef86bb5d65506a"
+    },
+    {
+      "symbol": "INFER",
+      "address": "0x7d0b936d5c32daeac84da80e7706930ffd716332",
+      "launchId": "ae638bfb-851b-4f3f-a340-c0c748f225ad",
+      "launchNumber": 1286,
+      "chainId": 1,
+      "sourceUrl": "https://api.imd.fun/launches/ae638bfb-851b-4f3f-a340-c0c748f225ad",
+      "block": 26226450,
+      "sourceCommit": "87de919cdf86882492b6abe5c55593ca3bc5487b"
+    },
+    {
+      "symbol": "INFER",
+      "address": "0x53d0ea0a685220718dc6a0a6e4617194c6f37921",
+      "launchId": "63f6d974-f5b8-4a84-b296-2219f5ab2c95",
+      "launchNumber": 1282,
+      "chainId": 1,
+      "sourceUrl": "https://api.imd.fun/launches/63f6d974-f5b8-4a84-b296-2219f5ab2c95",
+      "block": 26226450,
+      "sourceCommit": "9b6cdbd4b3b3c8dfc3868310c72f1fda5cfa9d5f"
+    },
+    {
+      "symbol": "INFER",
+      "address": "0x1b9c1f26f591ccccef7762edfefad39bf107da4c",
+      "launchId": "816d52d7-82d6-4605-8746-422c7e4ebfef",
+      "launchNumber": 1257,
+      "chainId": 1,
+      "sourceUrl": "https://api.imd.fun/launches/816d52d7-82d6-4605-8746-422c7e4ebfef",
+      "block": 26226450,
+      "sourceCommit": "6cde0cd62fa6a6db1e819d2dced6bc047a932ca2"
+    },
+    {
+      "symbol": "INFER",
+      "address": "0x6bf2954376b7ce1d5e0e77e2155fc0e9fac64ec2",
+      "launchId": "2f733a59-df90-4eaa-b27b-a0e2a33ba35f",
+      "launchNumber": 1042,
+      "chainId": 1,
+      "sourceUrl": "https://api.imd.fun/launches/2f733a59-df90-4eaa-b27b-a0e2a33ba35f",
+      "block": 26226450,
+      "sourceCommit": "cd70aacf7614a50c5fd9951c0463c678417c839d"
+    },
+    {
+      "symbol": "OG",
+      "address": "0xce7eb1ad9e2e1c784ea05f7ea4a0fe625923d10a",
+      "launchId": "b2554377-536a-4903-af35-be2fdd674770",
+      "launchNumber": 1040,
+      "chainId": 1,
+      "sourceUrl": "https://api.imd.fun/launches/b2554377-536a-4903-af35-be2fdd674770",
+      "block": 26226450,
+      "sourceCommit": "2b618def940c6686b92f10261a03eaca29e8f8ce"
+    },
+    {
+      "symbol": "EMBEO",
+      "address": "0x2b82cdeb8477415d541799abb0cc48044c8ea5f3",
+      "launchId": "b81f8d6e-ebc0-4eb0-9307-d22cf765bea4",
+      "launchNumber": 944,
+      "chainId": 1,
+      "sourceUrl": "https://api.imd.fun/launches/b81f8d6e-ebc0-4eb0-9307-d22cf765bea4",
+      "block": 26226450,
+      "sourceCommit": "cecf25b92d44568f8a0f81c34f4b634df905d1e5"
+    },
+    {
+      "symbol": "FREE1376",
+      "address": "0x4543e6b511a9a7a75b56607e27997c987ea05878",
+      "launchId": "d6efcda2-d35b-40c0-aef0-6c089a180773",
+      "launchNumber": 775,
+      "chainId": 1,
+      "sourceUrl": "https://api.imd.fun/launches/d6efcda2-d35b-40c0-aef0-6c089a180773",
+      "block": 26226450,
+      "sourceCommit": "9b4ebbe17121c00adad9286e2674c04e99b97b8d"
+    },
+    {
+      "symbol": "ZTO",
+      "address": "0xd782bdea4ef02a0bd391eb9089470c8080f0a68e",
+      "launchId": "030c609a-ae99-4a2b-9950-2941535ab63d",
+      "launchNumber": 737,
+      "chainId": 1,
+      "sourceUrl": "https://api.imd.fun/launches/030c609a-ae99-4a2b-9950-2941535ab63d",
+      "block": 26226450,
+      "sourceCommit": "620116f866163753e58ba57dde3f12b2dddb3c24"
+    },
+    {
+      "symbol": "OG",
+      "name": "Og Club",
+      "address": "0xf58a132967ef5eb52947031c86663df5779ee2c6",
+      "launchId": "02b4a3ff-154b-4eb2-b8d9-5da7569fc837",
+      "launchNumber": 2160,
+      "chainId": 1,
+      "sourceUrl": "https://api.imd.fun/launches/02b4a3ff-154b-4eb2-b8d9-5da7569fc837",
+      "block": 26226843,
+      "sourceCommit": "585a4ab9c0854477553a5316415a9674fa1c54d8"
+    }
+  ],
+  "decisions": {
+    "INFER": "Ambiguous: multiple authoritative mainnet deployments use INFER. No INFER badge until an exact address is selected.",
+    "OG": "Ambiguous ticker: launch 1040 is OG, while launch 2160 is Og Club and also returns OG. No OG editorial badge is selected without an operator-reviewed exact address.",
+    "IMUSD": "Supplied exact address is verified onchain but absent from the paginated IMD launch registry; preserve identity and exclude until a verified supported pool is resolved."
+  }
+}

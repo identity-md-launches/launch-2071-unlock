@@ -1,0 +1,166 @@
+{
+  "sourceCommit": "cd95d08507d635239da996518ed0a7df4dc78338",
+  "mode": "Read-only mainnet run of the supplied default createMarketServices against a fresh SQLite database before repair",
+  "observedAt": "2026-10-19T11:52:18.023Z",
+  "block": 26226425,
+  "admitted": [],
+  "excluded": [
+    {
+      "address": "0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7",
+      "symbol": "IMD",
+      "reasons": [
+        "Verified current USD liquidity of at least $20,000 and active liquidity are required.",
+        "Liquidity evidence is missing, stale or outside the verified block window.",
+        "A representative account and size need a successful full-route sell simulation without state overrides.",
+        "Sell simulation is missing, stale or does not match the liquidity check block.",
+        "Verified pool deployment start block is unavailable",
+        "Configure a real representative seller, amount and positive minimum quote output"
+      ]
+    },
+    {
+      "address": "0xfc8e40e0db2e8cd04de0400c8ec1ce96f84a2e61",
+      "symbol": "CABAL",
+      "reasons": [
+        "Verified current USD liquidity of at least $20,000 and active liquidity are required.",
+        "Liquidity evidence is missing, stale or outside the verified block window.",
+        "A representative account and size need a successful full-route sell simulation without state overrides.",
+        "Sell simulation is missing, stale or does not match the liquidity check block.",
+        "Provider returned HTTP 403",
+        "Configure a real representative seller, amount and positive minimum quote output"
+      ]
+    },
+    {
+      "address": "0xbd0b472a75f3cb282f5d1ba59834ef95a0a7a4e8",
+      "symbol": "SQK",
+      "reasons": [
+        "Verified current USD liquidity of at least $20,000 and active liquidity are required.",
+        "A representative account and size need a successful full-route sell simulation without state overrides.",
+        "Sell simulation is missing, stale or does not match the liquidity check block.",
+        "Configure a real representative seller, amount and positive minimum quote output"
+      ]
+    },
+    {
+      "address": "0x0accb67d4e2ffd0fa18af968b306d150e6c80398",
+      "symbol": "LING",
+      "reasons": [
+        "Verified current USD liquidity of at least $20,000 and active liquidity are required.",
+        "Liquidity evidence is missing, stale or outside the verified block window.",
+        "A representative account and size need a successful full-route sell simulation without state overrides.",
+        "Sell simulation is missing, stale or does not match the liquidity check block.",
+        "Provider returned HTTP 403",
+        "Configure a real representative seller, amount and positive minimum quote output"
+      ]
+    },
+    {
+      "address": "0x0b41c8ad1427927e80784640b22ed6e6022965db",
+      "symbol": "WORLD",
+      "reasons": [
+        "Verified current USD liquidity of at least $20,000 and active liquidity are required.",
+        "Liquidity evidence is missing, stale or outside the verified block window.",
+        "A representative account and size need a successful full-route sell simulation without state overrides.",
+        "Sell simulation is missing, stale or does not match the liquidity check block.",
+        "Liquidity inventory warming: through block 26225214; requires initialized pool through 26226425",
+        "Configure a real representative seller, amount and positive minimum quote output"
+      ]
+    },
+    {
+      "address": "0x41a1457f1e9cffaf19047216759ac4ef76c8b988",
+      "symbol": "PAPERBIR",
+      "reasons": [
+        "Verified current USD liquidity of at least $20,000 and active liquidity are required.",
+        "Liquidity evidence is missing, stale or outside the verified block window.",
+        "A representative account and size need a successful full-route sell simulation without state overrides.",
+        "Sell simulation is missing, stale or does not match the liquidity check block.",
+        "Liquidity inventory warming: through block 26224940; requires initialized pool through 26226425",
+        "Configure a real representative seller, amount and positive minimum quote output"
+      ]
+    },
+    {
+      "address": "0xf58a132967ef5eb52947031c86663df5779ee2c6",
+      "symbol": "OG",
+      "reasons": [
+        "Verified current USD liquidity of at least $20,000 and active liquidity are required.",
+        "Liquidity evidence is missing, stale or outside the verified block window.",
+        "A representative account and size need a successful full-route sell simulation without state overrides.",
+        "Sell simulation is missing, stale or does not match the liquidity check block.",
+        "Provider returned HTTP 403",
+        "Configure a real representative seller, amount and positive minimum quote output"
+      ]
+    },
+    {
+      "address": "0xa778dddc559303b8f9c3bdf54f1034683b9188b5",
+      "symbol": "HAMSTER",
+      "reasons": [
+        "Verified current USD liquidity of at least $20,000 and active liquidity are required.",
+        "Liquidity evidence is missing, stale or outside the verified block window.",
+        "A representative account and size need a successful full-route sell simulation without state overrides.",
+        "Sell simulation is missing, stale or does not match the liquidity check block.",
+        "Provider returned HTTP 403",
+        "Configure a real representative seller, amount and positive minimum quote output"
+      ]
+    },
+    {
+      "address": "0x1d60094204ddc52ef1bd35df43c16fb38afcee7c",
+      "symbol": "MNEMO",
+      "reasons": [
+        "Verified current USD liquidity of at least $20,000 and active liquidity are required.",
+        "Liquidity evidence is missing, stale or outside the verified block window.",
+        "A representative account and size need a successful full-route sell simulation without state overrides.",
+        "Sell simulation is missing, stale or does not match the liquidity check block.",
+        "Liquidity inventory warming: through block 26222886; requires initialized pool through 26226425",
+        "Configure a real representative seller, amount and positive minimum quote output"
+      ]
+    },
+    {
+      "address": "0x690f0751ed202eb9bd065cdcfea5effa1ef1dc96",
+      "symbol": "SQK",
+      "reasons": [
+        "Verified current USD liquidity of at least $20,000 and active liquidity are required.",
+        "Liquidity evidence is missing, stale or outside the verified block window.",
+        "A representative account and size need a successful full-route sell simulation without state overrides.",
+        "Sell simulation is missing, stale or does not match the liquidity check block.",
+        "Liquidity inventory warming: through block 26222512; requires initialized pool through 26226425",
+        "Configure a real representative seller, amount and positive minimum quote output"
+      ]
+    },
+    {
+      "address": "0x2363aeb2f3b137ccd0e46605092053ba1e69f662",
+      "symbol": "1MD",
+      "reasons": [
+        "Verified current USD liquidity of at least $20,000 and active liquidity are required.",
+        "Liquidity evidence is missing, stale or outside the verified block window.",
+        "A representative account and size need a successful full-route sell simulation without state overrides.",
+        "Sell simulation is missing, stale or does not match the liquidity check block.",
+        "Provider returned HTTP 403",
+        "Configure a real representative seller, amount and positive minimum quote output"
+      ]
+    },
+    {
+      "address": "0x99fa82b022be4575891a43b757bc770691e18fda",
+      "symbol": "UNLK",
+      "reasons": [
+        "Verified current USD liquidity of at least $20,000 and active liquidity are required.",
+        "Liquidity evidence is missing, stale or outside the verified block window.",
+        "A representative account and size need a successful full-route sell simulation without state overrides.",
+        "Sell simulation is missing, stale or does not match the liquidity check block.",
+        "Provider returned HTTP 403",
+        "Configure a real representative seller, amount and positive minimum quote output"
+      ]
+    }
+  ],
+  "coverage": {
+    "registryPages": 3,
+    "registryLimit": 300,
+    "registryReadAt": "2026-10-19T11:51:40.867Z",
+    "source": "https://api.imd.fun/launches",
+    "rpcSource": "https://ethereum-rpc.publicnode.com",
+    "notes": [
+      "Ethereum only. Bounded recent launch registry; this is not a complete launch catalog.",
+      "All rows, editorial picks and placements pass the same current USD-liquidity and full-route sell gate. Unresolved identities remain unpublished.",
+      "Onchain fallback supplies spot/FDV only; unavailable DEX volume, change and USD liquidity remain unavailable.",
+      "FDV uses onchain total supply or provider FDV. Circulating supply is unverified; market cap is unavailable.",
+      "Sparklines contain observed USD points only. OHLCV uses indexed swaps and event-block USD references. Liquidity is per-position principal, active liquidity is reconciled to StateView; shared PoolManager balances and FDV are never liquidity."
+    ]
+  },
+  "errors": []
+}

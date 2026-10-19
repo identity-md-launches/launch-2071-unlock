@@ -1,26 +1,19 @@
-# Offline frontend dependency inventory
+# Retained runtime and type inventory
 
-The candidate build uses ordinary repository files and never installs into node_modules. The historical package manifests remain as provenance; `npm install` is not the reproducible path for this assignment.
+Production uses the existing locked Vite/React/TypeScript toolchain: run `npm ci` and `npm run build` in `web/`. Package manifests and lockfiles are unchanged. The standalone backend requires no package install: its pinned viem runtime remains in `runtime/`, with all required local imports and licenses.
 
-Run from the root:
+`runtime/lock.json` records upstream URLs and SHA-256 before/after the original relative-import rewrites. The React 19.1.1, React DOM 19.1.1, viem 2.37.13, Coinbase SDK 4.3.7 and buffer bundles remain complete. The optional source-preview/test bundler verifies this inventory before building; it needs native esbuild from the locked frontend install or an external `UNLK_ESBUILD_MODULE` path. It never downloads code while bundling.
 
 ```sh
 node web/scripts/typecheck-offline.mjs
-node web/scripts/build-offline.mjs
 node web/scripts/build-offline.mjs --test
 (cd web && node --test ../test/scratch/frontend/*.test.mjs)
 ```
 
-`esbuild-wasm/` contains the Node build portion of the published npm esbuild-wasm 0.25.10 package, its WebAssembly compiler and MIT license. TypeScript 5.9.2 retains its CLI compiler, every standard library declaration and upstream licenses. Unused editor/language-server files, the duplicate TypeScript API bundle, translated diagnostics, and esbuild browser/ESM entrypoints are omitted. No application declaration or runtime dependency was removed.
+`build-offline.mjs` without `--test` writes only `test/scratch/offline-export/`, a source preview. The deliverable production export is the normal Vite `dist/`. The native esbuild tool may be installed outside the repository when local dependency directories are forbidden.
 
-The exact upstream `esbuild.wasm` and `_tsc.js` payloads are stored as Brotli `.br` files to fit the 8 MiB source upload limit. `toolchain.json` records both compressed and original SHA-256 hashes and original lengths. `scripts/prepare-toolchain.mjs` uses Node's built-in decompressor, verifies both hashes, and restores the unchanged compiler bytes and retained helpers into `test/scratch/toolchain/` on each run. The typecheck/build entrypoints prepare their own tools automatically, including after scratch has been deleted. Nothing is downloaded or installed; no pre-existing scratch file is required. `types/typescript/lib/tsc.js` is upstream provenance and is invoked from the prepared directory through `scripts/typecheck-offline.mjs`.
+The optional 2,324,258-byte compressed **esbuild WASM compiler archive** was removed in the repair to keep the complete submission below 8 MiB. It is not an application/runtime asset or a dependency of the configured production Vite build. The former WASM process also failed on this worker with `RangeError: Invalid array length`; native Vite/esbuild builds and tests passed. Existing package metadata/licenses and the historical esbuild entry in `toolchain.json` are retained as provenance, rather than modifying protected manifests. No npm registry, dependency archive, node_modules or cache is needed by the service.
 
-These are project dependencies; Solidity remains version-pinned in foundry.toml and is supplied by the Foundry runtime. For a dependency refresh, use the exact package URLs/hashes below, reproduce the documented subsets, compress those two payloads with Node `brotliCompressSync` at quality 11, and regenerate `toolchain.json` plus the dependency inventory. Retained helpers and declarations remain byte-for-byte upstream files.
+The TypeScript compiler/archive, standard declarations and upstream licenses remain. `prepare-toolchain.mjs` verifies/restores TypeScript into disposable `test/scratch/toolchain/`; the typecheck needs no network or previous scratch files. `types/lock.json` records original npm URLs/hashes and retained declaration versions. Application and test types are checked with the inherited `skipLibCheck` setting.
 
-`runtime/lock.json` records exact public origin URLs, raw download SHA-256, local file SHA-256 and entry aliases. React 19.1.1, React DOM 19.1.1, viem 2.37.13 and Coinbase Wallet SDK 4.3.7 bundles were downloaded from esm.sh. Absolute module imports in two bundles were rewritten to local relative files, with both pre/post hashes recorded. The node buffer shim is included locally. Runtime vendor integrity is checked on every build. The output has no runtime CDN module dependency; normal wallet/RPC/indexer requests remain network operations at application runtime.
-
-`types/lock.json` records npm tarball URLs and SHA-256 for the TypeScript/type declarations: TypeScript5.9.2, React19.1.13, React DOM19.1.9, Node24.5.2, viem2.37.13, Coinbase4.3.7, abitype1.1.0 and csstype3.1.3. Only declarations, required TypeScript compiler files, package metadata and licenses were retained where possible. skipLibCheck follows the inherited project configuration; application and test types are checked.
-
-Upstream copyright and bundled legal comments are retained; package licenses remain alongside the packages. Additional runtime license texts are in `licenses/`. `docs/candidate/DEPENDENCIES.json` pins every vendored file and can be checked with `python3 scripts/candidate/dependencies.py --check`. Solidity dependencies under `lib/` were already vendored in the pinned source export, with original source/licenses preserved. The same checker pins their ordinary files as well. There are no git submodules.
-
-The build writes **dist-candidate/** and leaves historical dist/ unchanged. No publication command is included. The build defines the literal production-mode constant only; it does not read host environment variables or secrets.
+`docs/candidate/DEPENDENCIES.json` records hashes of the retained ordinary vendor files and unchanged Solidity libraries. Check it with `python3 scripts/candidate/dependencies.py --check`. Solidity `lib/`, configuration, manifests and lockfiles remain untouched. Runtime legal comments and package licenses remain. There are no submodules.

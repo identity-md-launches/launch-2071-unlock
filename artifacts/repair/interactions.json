@@ -1,0 +1,40 @@
+{
+  "at": "2026-10-19T13:21:13.941Z",
+  "scope": "Committed production export under a gateway subpath connected to REAL local backend and SQLite mainnet observations; no mocked network data, signatures, approvals, paid jobs or transactions.",
+  "checks": [
+    "390px first screen shows UNLOCK LABS, Ethereum markets and Refresh checks",
+    "Wallet sheet opens before signing, contains keyboard focus and dismisses with Escape",
+    "Markets + recovery: no page overflow at 320/390/768/1440",
+    "Real exclusion pages advance",
+    "Search, gainers, sort direction and market tabs respond with truthful zero eligible rows",
+    "Refresh reads actual local API",
+    "UNLK token hash deep link, retry and reload preserve exclusion evidence",
+    "Token exclusion: no page overflow at 320/390/768/1440",
+    "NFT Radar: no page overflow at 320/390/768/1440",
+    "NFT Radar shows actual discovered/2000 coverage, separate deployment replay progress and archive backlog, without a global-ranking claim",
+    "IMD Radar shows actual indexed mainnet transfer events and current balances",
+    "Radar period and refresh work",
+    "Real Radar API next/previous pagination reaches additional mainnet records",
+    "Profile authorization requires signed session; no anonymous edit rights",
+    "Profiles: no page overflow at 320/390/768/1440",
+    "Audit wizard: no page overflow at 320/390/768/1440",
+    "REAL IMD/GitHub import pins commit; file filter searches tree, no-match recovery retains selection",
+    "Preserved Trade: no page overflow at 320/390/768/1440",
+    "Preserved UNLK trade surface loads without wallet signing",
+    "Whitepaper static subpath loads"
+  ],
+  "pageErrors": [],
+  "localFailures": [],
+  "limitations": [],
+  "failures": [],
+  "screenshots": [
+    "markets-390.jpg",
+    "markets-1440.jpg",
+    "radar-390.jpg",
+    "flows-390.jpg",
+    "flows-events-390.jpg",
+    "audit-390.jpg",
+    "audit-files-390.jpg"
+  ],
+  "completed": true
+}

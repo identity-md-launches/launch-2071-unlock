@@ -1,0 +1,9 @@
+{
+  "reviewedAt": "2026-10-19",
+  "sources": [
+    {"subject":"Vitalik","address":"0xd8da6bf26964af9d7eed9e03e53415d37aa96045","custody":"publicly attributed personal account; sole control not established","sourceUrl":"https://etherscan.io/address/vitalik.eth","decision":"Publish with source; address is resolved and labeled vitalik.eth, not a complete portfolio."},
+    {"subject":"CZ","address":null,"sourceUrl":"https://www.binance.com/en/proof-of-reserves","supportingUrl":"https://www.binance.com/en-IN/blog/community/2895840147147652626","decision":"Binance explicitly describes these as custody for users. Reserve/hot-wallet addresses are not evidence of CZ personal ownership. No personal address published."},
+    {"subject":"Asem","address":null,"sourceUrl":"https://imd.fun/docs/","decision":"Reviewed official IMD documentation and public explorer search for Asem/address attribution; no authoritative signed/public personal-wallet binding found. A first name, launch requester or treasury account alone cannot identify Asem. No address published."}
+  ],
+  "limitations":"Public labels can be stale; none proves sole control. No purchased address labels, private API or guessed address was used. New labels require explicit custody classification and review."
+}

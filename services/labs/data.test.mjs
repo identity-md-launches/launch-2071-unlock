@@ -7,7 +7,7 @@ const A='0x1111111111111111111111111111111111111111',B='0x2222222222222222222222
 const transfer=parseAbiItem('event Transfer(address indexed from,address indexed to,uint256 value)');
 function transferLog(from,to,value,token=IMD){return {address:token,topics:encodeEventTopics({abi:[transfer],eventName:'Transfer',args:{from,to}}),data:encodeAbiParameters([{type:'uint256'}],[value])};}
 test('known IMD v4 PoolId exactly matches canonical key; rejects unsorted or unsafe keys',()=>{assert.equal(poolId(IMD_KEY),IMD_ETH_POOL);assert.throws(()=>poolId({...IMD_KEY,currency0:IMD,currency1:IMD_KEY.currency0}));assert.throws(()=>poolId({...IMD_KEY,hooks:'https://bad.test'}));});
-test('absent metrics remain unavailable and circulating supply is not invented',()=>{assert.deepEqual(mapDex(),{priceUsd:null,priceChange24h:null,volume24h:null,liquidityUsd:null,fdv:null,marketCap:null});assert.equal(mapDex({priceUsd:'0',marketCap:123}).priceUsd,0);assert.equal(mapDex({marketCap:123}).marketCap,null);});
+test('absent metrics remain unavailable and circulating supply is not invented',()=>{assert.deepEqual(mapDex(),{priceUsd:null,priceChange24h:null,volume24h:null,liquidityUsd:null,fdv:null,marketCap:null,marketCapEvidence:null});assert.equal(mapDex({priceUsd:'0',marketCap:123}).priceUsd,0);assert.equal(mapDex({marketCap:123}).marketCap,123);assert.match(mapDex({marketCap:123}).marketCapEvidence,/provider-reported/);assert.equal(mapDex({fdv:123}).marketCap,null);});
 test('registry discovery accepts actual live mainnet token pools and excludes ambiguous IMUSD',()=>{
  const row={id:'a',chainId:1,status:'live',launchNumber:1,artifacts:[{role:'token',name:'Token',address:UNLK}],seeded:{pools:[{...IMD_KEY,currency0:UNLK,currency1:IMD}]}};
  assert.equal(selectLaunches([row]).length,1);assert.equal(selectLaunches([{...row,chainId:4663}]).length,0);assert.equal(selectLaunches([{...row,artifacts:[{role:'token',name:'IMUSD',address:UNLK}]}]).length,0);
@@ -29,7 +29,7 @@ test('cached period pagination computes transfer net flow without treating trans
  const index=createIndexer({store:{get:k=>k==='radar.snapshot'?snapshot:undefined,set(){}},io:{},now:()=>now});const value=await index.radar({period:'1h'});assert.equal(value.events.length,2);assert.equal(value.wallets[0].netFlow[0].amount,'-0.000000000000000007');assert.equal(value.coverage.periodComplete,false);await assert.rejects(index.radar({cursor:'-1'}),/Invalid bounded/);
 });
 test('RPC attempt quota includes retries and never requests a different provider implicitly',async()=>{
- let requests=0;const io=createRpc({url:'https://rpc.example',budget:2,fetchImpl:async url=>{assert.equal(url,'https://rpc.example');requests++;return {ok:false,status:503};}});
+ let requests=0;const io=createRpc({url:'https://rpc.example',budget:2,fetchImpl:async url=>{assert.equal(url,'https://rpc.example');requests++;return new Response("unavailable",{status:503});}});
  await assert.rejects(io.rpc('eth_blockNumber'),/quota reached/);assert.equal(requests,2);assert.equal(io.used,2);
  await assert.rejects(io.rpc('eth_blockNumber'),/quota reached/);assert.equal(requests,2);
 });

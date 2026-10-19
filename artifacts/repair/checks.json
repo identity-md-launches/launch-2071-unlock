@@ -1,0 +1,86 @@
+{
+  "frontendTests": {
+    "passed": 60,
+    "failed": 0
+  },
+  "serviceTests": {
+    "passed": 82,
+    "failed": 0,
+    "skipped": 0,
+    "includesChromiumAttributionRegression": true
+  },
+  "typecheck": {
+    "result": "pass",
+    "compiler": "TypeScript 5.9.2",
+    "scope": "Full web tsconfig source/scripts/tests with identical options and external paths to npm-ci locked dependencies"
+  },
+  "productionBuild": {
+    "result": "pass",
+    "tool": "Vite 7.1.7 / React 19.1.1; unchanged repository build options, external dependency resolution only",
+    "files": 32,
+    "bytes": 3241508,
+    "exportDigest": "4063339f0d6cf913f5a2d605ead06670f41f7eb6640afa77381e2bf5bc688838"
+  },
+  "interactions": {
+    "completed": true,
+    "checks": 20,
+    "pageErrors": [],
+    "localFailures": []
+  },
+  "taste": {
+    "passed": 13,
+    "total": 16,
+    "exceptions": [
+      "preserved UNLOCK LABS branding capitals",
+      "navigation/status labels reported as eyebrows",
+      "prescribed JetBrains Mono prose"
+    ]
+  },
+  "minimalServiceCopy": {
+    "result": "pass",
+    "npmRequired": false,
+    "healthStatus": 200,
+    "settingsConfigured": false,
+    "marketsMode": "warming"
+  },
+  "protectedPaths": "unchanged; check-export and git diff verified",
+  "mainnet": {
+    "at": "2026-10-19T12:48:44.044Z",
+    "block": 26226709,
+    "admitted": 0,
+    "excluded": 292,
+    "catalogSize": 292,
+    "catalogWalkComplete": true,
+    "exclusionCategoriesOverlap": {
+      "provider": 158,
+      "seller": 158,
+      "unsupported pool": 4,
+      "pricing": 126,
+      "indexing": 131,
+      "liquidity": 3
+    },
+    "nftDiscovered": 10,
+    "nftReplayed": 0,
+    "nftTotal": "2000",
+    "recentImdEvents": 203,
+    "indexedTrades": 10,
+    "usdTradeBuckets": 6
+  },
+  "notVerified": [
+    "WebKit (missing host libraries)",
+    "physical wallets/devices and screen readers",
+    "Docker build",
+    "external hosting/TLS/persistent production operation",
+    "paid audit job/mainnet payments",
+    "unchanged Solidity contracts were not retested in this frontend/backend repair"
+  ],
+  "editorialIdentityReview": {
+    "at": "2026-10-19T13:15:30.554Z",
+    "source": "services/labs/editorial-identities.json",
+    "ambiguous": [
+      "INFER",
+      "OG"
+    ],
+    "defaultBadgeSelection": null
+  }
+}

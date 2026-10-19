@@ -1,0 +1,127 @@
+{
+  "observedAt": "2026-10-19T12:05:48.737Z",
+  "sourceUrl": "https://api.dexscreener.com/tokens/v1/ethereum/0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7,0x99fa82b022be4575891a43b757bc770691e18fda,0x7094b1ba79e7eb3fab7caa8aa9b45976cd120807,0x7d0b936d5c32daeac84da80e7706930ffd716332,0x53d0ea0a685220718dc6a0a6e4617194c6f37921,0x1b9c1f26f591ccccef7762edfefad39bf107da4c,0x6bf2954376b7ce1d5e0e77e2155fc0e9fac64ec2,0xce7eb1ad9e2e1c784ea05f7ea4a0fe625923d10a,0x2b82cdeb8477415d541799abb0cc48044c8ea5f3,0x4543e6b511a9a7a75b56607e27997c987ea05878,0xd782bdea4ef02a0bd391eb9089470c8080f0a68e",
+  "observations": [
+    {
+      "address": "0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7",
+      "poolId": "0xb07d640fd9e2eb9dc81b953c8e4fd006bdfeaf276010fb5418eb763ca15abfb3",
+      "priceUsd": 5.18,
+      "priceChange24h": -11.13,
+      "volume24h": 403760.37,
+      "liquidityUsd": 1907205.66,
+      "fdv": 21647786,
+      "marketCap": 21618163,
+      "marketCapEvidence": "DEX Screener provider-reported market cap; circulating supply not independently verified"
+    },
+    {
+      "address": "0x99fa82b022be4575891a43b757bc770691e18fda",
+      "poolId": "0x860a127e8f4b069ce93e280efda34db2b3cb21e7d73f164248f38f4220ec8d32",
+      "priceUsd": 0.00008261,
+      "priceChange24h": -11.07,
+      "volume24h": 667.69,
+      "liquidityUsd": 46536.79,
+      "fdv": 82619,
+      "marketCap": 82619,
+      "marketCapEvidence": "DEX Screener provider-reported market cap; circulating supply not independently verified"
+    },
+    {
+      "address": "0x7094b1ba79e7eb3fab7caa8aa9b45976cd120807",
+      "poolId": "0x74013d446f8183b12997fe4bd86b94fff9c92e4d93acb40ed9711ceadf08fe04",
+      "priceUsd": null,
+      "priceChange24h": null,
+      "volume24h": null,
+      "liquidityUsd": null,
+      "fdv": null,
+      "marketCap": null,
+      "marketCapEvidence": null
+    },
+    {
+      "address": "0x7d0b936d5c32daeac84da80e7706930ffd716332",
+      "poolId": "0x93614e445ce5fc2aa7e16e6193600865813c7b5795a3992789220c6010ac27dd",
+      "priceUsd": null,
+      "priceChange24h": null,
+      "volume24h": null,
+      "liquidityUsd": null,
+      "fdv": null,
+      "marketCap": null,
+      "marketCapEvidence": null
+    },
+    {
+      "address": "0x53d0ea0a685220718dc6a0a6e4617194c6f37921",
+      "poolId": "0x1f03dd2c202cf17b58305b73ae2f8b3143e9c056ed9c9e8dbd4924b350431e95",
+      "priceUsd": 0.002141,
+      "priceChange24h": 37.37,
+      "volume24h": 48792.51,
+      "liquidityUsd": 145231.17,
+      "fdv": 2141052,
+      "marketCap": 1750403,
+      "marketCapEvidence": "DEX Screener provider-reported market cap; circulating supply not independently verified"
+    },
+    {
+      "address": "0x1b9c1f26f591ccccef7762edfefad39bf107da4c",
+      "poolId": "0xf27520c31b3a14bb174a9d151544570e190353ac58e94a8fb4753ebf5e3c6eae",
+      "priceUsd": null,
+      "priceChange24h": null,
+      "volume24h": null,
+      "liquidityUsd": null,
+      "fdv": null,
+      "marketCap": null,
+      "marketCapEvidence": null
+    },
+    {
+      "address": "0x6bf2954376b7ce1d5e0e77e2155fc0e9fac64ec2",
+      "poolId": "0xc13fd1299d166df62a6c14a1cb51a46abd23b8c0693c8975394a16f449970d01",
+      "priceUsd": null,
+      "priceChange24h": null,
+      "volume24h": null,
+      "liquidityUsd": null,
+      "fdv": null,
+      "marketCap": null,
+      "marketCapEvidence": null
+    },
+    {
+      "address": "0xce7eb1ad9e2e1c784ea05f7ea4a0fe625923d10a",
+      "poolId": "0x5f95e64cf8e8f4e4376c1d97b5959dc479abf7b191ba0b286faeb2ec4180a2f9",
+      "priceUsd": 0.00004302,
+      "priceChange24h": -2.57,
+      "volume24h": 685.46,
+      "liquidityUsd": 36326.88,
+      "fdv": 40642,
+      "marketCap": 40670,
+      "marketCapEvidence": "DEX Screener provider-reported market cap; circulating supply not independently verified"
+    },
+    {
+      "address": "0x2b82cdeb8477415d541799abb0cc48044c8ea5f3",
+      "poolId": "0x616f6877a3fa74f550155002388df37e5b19861270420ac48fcf4b58c8f9f30a",
+      "priceUsd": null,
+      "priceChange24h": null,
+      "volume24h": null,
+      "liquidityUsd": null,
+      "fdv": null,
+      "marketCap": null,
+      "marketCapEvidence": null
+    },
+    {
+      "address": "0x4543e6b511a9a7a75b56607e27997c987ea05878",
+      "poolId": "0xfad820f2088b3a1c0e775e430ae6ccaa75012cbffb9d96d13a824096f2cdb284",
+      "priceUsd": 0.0000459,
+      "priceChange24h": 1.72,
+      "volume24h": 191.1,
+      "liquidityUsd": 38285.45,
+      "fdv": 37216,
+      "marketCap": 37216,
+      "marketCapEvidence": "DEX Screener provider-reported market cap; circulating supply not independently verified"
+    },
+    {
+      "address": "0xd782bdea4ef02a0bd391eb9089470c8080f0a68e",
+      "poolId": "0x888b07bd282f587d3c6b0fcb23e7fc55bbb33abe8910dd7492db815dc8dc5592",
+      "priceUsd": 0.00006578,
+      "priceChange24h": -6.71,
+      "volume24h": 222.22,
+      "liquidityUsd": 40678.55,
+      "fdv": 64672,
+      "marketCap": 64669,
+      "marketCapEvidence": "DEX Screener provider-reported market cap; circulating supply not independently verified"
+    }
+  ]
+}

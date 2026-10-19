@@ -11,6 +11,11 @@
     "artifacts/terminal-mobile.jpg",
     "artifacts/terminal-mobile-ladder.jpg"
   ],
+  "repairEvidencePathBudget": {
+    "path": "artifacts/repair/",
+    "bytes": 1905288,
+    "limit": 2097152
+  },
   "inheritedDependencyExclusion": "**/node_modules/",
   "distIncluded": true,
   "relativeAssetUrls": true,
@@ -34,16 +39,9 @@
     "quote-expiry-after.json",
     "revision-responses.json"
   ],
-  "exportFiles": 34,
-  "exportBytes": 1996343,
-  "exportDigest": "a3de5c7fae5a045311f9023c9f563abd260f3e642a934a3e034ba722a458de65",
+  "exportFiles": 32,
+  "exportBytes": 3241508,
+  "exportDigest": "4063339f0d6cf913f5a2d605ead06670f41f7eb6640afa77381e2bf5bc688838",
   "compressedTreeBytes": null,
-  "byteBudget": 8388608,
-  "snapshotBundleBytes": 8337214,
-  "reportUpdateReserveBytes": 16384,
-  "bundleBudgetUpperBoundBytes": 8353598,
-  "bundleWithinBudget": true,
-  "submissionFiles": 2894,
-  "measurementCommand": "python3 web/scripts/check-bundle.py",
-  "measurementScope": "Standalone Git bundle of all current submitted files, including source, dependencies already tracked in lib, runtime assets and evidence; temporary metadata in /tmp only. No build/install caches or source history in this snapshot bundle."
+  "byteBudget": 8388608
 }

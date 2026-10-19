@@ -1,0 +1,172 @@
+{
+  "at": "2026-10-19T12:16:16.721Z",
+  "scope": "Read-only policy evaluation against authoritative registry and mainnet; no signatures or offchain profile changes submitted. HTTP mutations still require the authenticated wallet proof tested in the service suite.",
+  "records": [
+    {
+      "token": "0x99fa82b022be4575891a43b757bc770691e18fda",
+      "source": "https://github.com/identity-md-launches/launch-2071-unlock/blob/40d70b7bd0853aedf84eac839a40a5f12e6ac341/src/UnlkToken.sol",
+      "result": {
+        "authorized": true,
+        "address": "0x99fa82b022be4575891a43b757bc770691e18fda",
+        "representative": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9",
+        "owner": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9",
+        "sourceUrl": "https://api.imd.fun/launches/0528a007-5ec6-4acd-b9cc-b3ded6fe2929",
+        "deploymentTransaction": "0xa1b4e9ecc19fdc6cd663bc088ee636a3fbb2186b2bc6a51e37f8b48664fc301a",
+        "basis": "Reviewed immutable token policy v1: pinned source/runtime, verified launch requester, deployment receipt and signed wallet session",
+        "policySource": "https://github.com/identity-md-launches/launch-2071-unlock/blob/40d70b7bd0853aedf84eac839a40a5f12e6ac341/src/UnlkToken.sol",
+        "checkedAt": "2026-10-19T12:16:15.067Z"
+      },
+      "otherWallet": false
+    },
+    {
+      "token": "0xce7eb1ad9e2e1c784ea05f7ea4a0fe625923d10a",
+      "source": "https://github.com/identity-md-launches/launch-1040-og-symbol-og-the-launch-s-standard-token/blob/2b618def940c6686b92f10261a03eaca29e8f8ce/src/OG.sol",
+      "result": {
+        "authorized": true,
+        "address": "0xce7eb1ad9e2e1c784ea05f7ea4a0fe625923d10a",
+        "representative": "0x90738abe9b04622dc0b3d015a3964cc7d1fd1859",
+        "owner": "0x90738abe9b04622dc0b3d015a3964cc7d1fd1859",
+        "sourceUrl": "https://api.imd.fun/launches/b2554377-536a-4903-af35-be2fdd674770",
+        "deploymentTransaction": "0x091cf7f8c7452403bba49c9e7922a51dc86537020a2f5da456b705c23cdfb946",
+        "basis": "Reviewed immutable token policy v1: pinned source/runtime, verified launch requester, deployment receipt and signed wallet session",
+        "policySource": "https://github.com/identity-md-launches/launch-1040-og-symbol-og-the-launch-s-standard-token/blob/2b618def940c6686b92f10261a03eaca29e8f8ce/src/OG.sol",
+        "checkedAt": "2026-10-19T12:16:15.690Z"
+      },
+      "otherWallet": false
+    },
+    {
+      "token": "0x2b82cdeb8477415d541799abb0cc48044c8ea5f3",
+      "error": "Deployment receipt/code does not match the authoritative project record."
+    },
+    {
+      "token": "0x4543e6b511a9a7a75b56607e27997c987ea05878",
+      "error": "Deployment receipt/code does not match the authoritative project record."
+    },
+    {
+      "token": "0xd782bdea4ef02a0bd391eb9089470c8080f0a68e",
+      "error": "Deployment receipt/code does not match the authoritative project record."
+    }
+  ],
+  "provenance": [
+    {
+      "method": "eth_getCode",
+      "provider": "https://ethereum-rpc.publicnode.com",
+      "block": "latest",
+      "ok": true
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "provider": "https://ethereum-rpc.publicnode.com",
+      "block": "0xa1b4e9ecc19fdc6cd663bc088ee636a3fbb2186b2bc6a51e37f8b48664fc301a",
+      "ok": true
+    },
+    {
+      "method": "eth_call",
+      "provider": "https://ethereum-rpc.publicnode.com",
+      "block": "latest",
+      "ok": true
+    },
+    {
+      "method": "eth_call",
+      "provider": "https://ethereum-rpc.publicnode.com",
+      "block": "latest",
+      "ok": true
+    },
+    {
+      "method": "eth_getCode",
+      "provider": "https://ethereum-rpc.publicnode.com",
+      "block": "latest",
+      "ok": true
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "provider": "https://ethereum-rpc.publicnode.com",
+      "block": "0xa1b4e9ecc19fdc6cd663bc088ee636a3fbb2186b2bc6a51e37f8b48664fc301a",
+      "ok": true
+    },
+    {
+      "method": "eth_call",
+      "provider": "https://ethereum-rpc.publicnode.com",
+      "block": "latest",
+      "ok": true
+    },
+    {
+      "method": "eth_call",
+      "provider": "https://ethereum-rpc.publicnode.com",
+      "block": "latest",
+      "ok": true
+    },
+    {
+      "method": "eth_getCode",
+      "provider": "https://ethereum-rpc.publicnode.com",
+      "block": "latest",
+      "ok": true
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "provider": "https://ethereum-rpc.publicnode.com",
+      "block": "0x091cf7f8c7452403bba49c9e7922a51dc86537020a2f5da456b705c23cdfb946",
+      "ok": true
+    },
+    {
+      "method": "eth_getCode",
+      "provider": "https://ethereum-rpc.publicnode.com",
+      "block": "latest",
+      "ok": true
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "provider": "https://ethereum-rpc.publicnode.com",
+      "block": "0x091cf7f8c7452403bba49c9e7922a51dc86537020a2f5da456b705c23cdfb946",
+      "ok": true
+    },
+    {
+      "method": "eth_getCode",
+      "provider": "https://ethereum-rpc.publicnode.com",
+      "block": "latest",
+      "ok": true
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "provider": "https://ethereum-rpc.publicnode.com",
+      "block": "0xd926c03bafe9e92252b37f44a0ea7bf1116f5c8a8cefb2aee7a3d28363d6aa09",
+      "ok": true
+    },
+    {
+      "method": "eth_getCode",
+      "provider": "https://ethereum-rpc.publicnode.com",
+      "block": "latest",
+      "ok": true
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "provider": "https://ethereum-rpc.publicnode.com",
+      "block": "0x9eeabe6776c0747c37a4d3646083abd04d21a023fdfdbe325d33c52aa5011ad2",
+      "ok": true
+    },
+    {
+      "method": "eth_getCode",
+      "provider": "https://ethereum-rpc.publicnode.com",
+      "block": "latest",
+      "ok": true
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "provider": "https://ethereum-rpc.publicnode.com",
+      "block": "0x39c8e5c567e295c1eace7243a2d6eca7a64f1bfcc05a4d51b5f3192671427630",
+      "ok": true
+    },
+    {
+      "method": "eth_getCode",
+      "provider": "https://ethereum-rpc.publicnode.com",
+      "block": "latest",
+      "ok": true
+    },
+    {
+      "method": "eth_getTransactionReceipt",
+      "provider": "https://ethereum-rpc.publicnode.com",
+      "block": "0x39c8e5c567e295c1eace7243a2d6eca7a64f1bfcc05a4d51b5f3192671427630",
+      "ok": true
+    }
+  ]
+}

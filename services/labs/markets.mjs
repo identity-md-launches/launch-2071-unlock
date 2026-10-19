@@ -1,10 +1,14 @@
 /** UNLOCK LABS public market cache. No keys, custody or paid providers. */
-import { encodeAbiParameters, decodeAbiParameters, keccak256, stringToHex, encodeFunctionData, decodeFunctionResult, parseAbi } from '../../web/vendor/runtime/c5e656ecf7fbe34e412c.mjs';
+import { encodeAbiParameters, keccak256, parseAbi } from '../../web/vendor/runtime/c5e656ecf7fbe34e412c.mjs';
 import { createIndexer } from './indexer.mjs';
+import { deploymentStart } from './ownership.mjs';
+import { createHistoryQueue } from './history-queue.mjs';
 import { eligibility } from '../../web/src/labs/domain.mjs';
 import { createLiquidityVerifier } from './liquidity.mjs';
-import { simulateSell } from './simulation.mjs';
-import { PINNED_PICKS } from './identities.mjs';
+import { automaticSell } from './simulation.mjs';
+import { createRpc, takeWork } from './rpc.mjs';
+import { createCatalog, seedCatalog, SEEDS } from './catalog.mjs';
+import { PINNED_PICKS, EDITORIAL_IDENTITIES } from './identities.mjs';
 import { historicalReferences } from './references.mjs';
 import { createMediaCache } from './media.mjs';
 
@@ -22,7 +26,7 @@ const STATE_VIEW='0x7ffe42c4a5deea5b0fec41c94c136cf115597227';
 const LIQUIDITY_ABI=parseAbi(['function getLiquidity(bytes32) view returns (uint128)']);
 const MANAGER = parseAbi(['function extsload(bytes32) view returns (bytes32)']);
 const FEED = parseAbi(['function latestRoundData() view returns (uint80,int256,uint256,uint256,uint80)','function decimals() view returns (uint8)']);
-export const quota = Object.freeze({registryPages:3,registryPageSize:100,registryRefreshSeconds:3600,marketTokens:12,marketRefreshSeconds:300,indexRefreshSeconds:300,rpcRequestsPerRefresh:600,logPageBlocks:500,maxBlocksPerRefresh:1800,confirmations:12,watchWallets:10,candidateWallets:24,retentionDays:7,maxEvents:10000,eventPageSize:100,dexRequestsPerRefresh:1,retries:2});
+export const quota = Object.freeze({registryPages:3,registryPageSize:100,registryRefreshSeconds:3600,marketTokens:12,marketRefreshSeconds:60,indexRefreshSeconds:300,rpcRequestsPerRefresh:600,logPageBlocks:500,maxBlocksPerRefresh:1800,confirmations:12,watchWallets:10,candidateWallets:24,retentionDays:7,maxEvents:10000,eventPageSize:100,dexRequestsPerRefresh:1,retries:2});
 export const address = v => typeof v === 'string' && /^0x[0-9a-fA-F]{40}$/.test(v) ? v.toLowerCase() : null;
 const finite = v => v == null || v === '' || !Number.isFinite(Number(v)) ? null : Number(v);
 const text = (v,max=80) => typeof v === 'string' ? v.replace(/[\u0000-\u001f\u007f]/g,'').slice(0,max) : '';
@@ -39,34 +43,9 @@ export function decodeSlot(word) {
 export const IMD_KEY = {currency0:NATIVE,currency1:IMD,fee:10000,tickSpacing:200,hooks:NATIVE};
 const UNLK_KEY = {currency0:UNLK,currency1:IMD,fee:12500,tickSpacing:60,hooks:'0x932eba7e96b9e54efe6f8cdf98cb092164a57fcc'};
 
-export function createRpc({url=PUBLIC_RPC,fetchImpl=fetch,budget=quota.rpcRequestsPerRefresh}={}) {
-  let used=0;
-  async function json(url,options={},beforeAttempt) {
-    let error;
-    for(let attempt=0;attempt<=quota.retries;attempt++) {
-      try {
-        beforeAttempt?.();
-        const response=await fetchImpl(url,{...options,signal:AbortSignal.timeout(12000)});
-        if(!response.ok) {const e=new Error(`Provider returned HTTP ${response.status}`); e.retry=response.status===429||response.status>=500; throw e;}
-        const body=await response.text(); if(body.length>3_000_000) throw Error('Provider response exceeds 3 MB'); return JSON.parse(body);
-      } catch(e) {error=e;if(attempt===quota.retries||e.retry===false) break;await new Promise(r=>setTimeout(r,Math.min(1500,250*2**attempt)));}
-    }
-    throw Error(error?.message||'Provider unavailable');
-  }
-  async function rpc(method,params=[]) {
-    const result=await json(url,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:used+1,method,params})},()=>{
-      if(used>=budget){const e=Error('Bounded RPC request quota reached; next refresh resumes');e.retry=false;throw e;}used++;
-    });
-    if(result.error) throw Error(`RPC ${method}: ${text(result.error.message,160)}`);if(result.result===undefined) throw Error(`RPC ${method} returned no result`);return result.result;
-  }
-  async function read(contract,abi,fn,args=[],block='latest') {
-    const data=await rpc('eth_call',[{to:contract,data:encodeFunctionData({abi,functionName:fn,args})},block]);
-    return decodeFunctionResult({abi,functionName:fn,data});
-  }
-  return {rpc,read,json,get used(){return used;},reset(){used=0;}};
-}
+export { createRpc };
 
-export function selectLaunches(rows,max=quota.marketTokens-1) {
+export function selectLaunches(rows,max=Infinity) {
   const found=new Map();
   for(const launch of rows) {
     if(launch.chainId!==1||launch.status!=='live') continue;
@@ -89,50 +68,33 @@ export function verifiedDexPair(pairs,token) {
 }
 
 export function mapDex(pair) {
-  // DEX marketCap is deliberately omitted: circulating supply is not verified here.
-  return {priceUsd:finite(pair?.priceUsd),priceChange24h:finite(pair?.priceChange?.h24),volume24h:finite(pair?.volume?.h24),liquidityUsd:finite(pair?.liquidity?.usd),fdv:finite(pair?.fdv),marketCap:null};
+  // Provider-reported market cap is explicitly labeled; never substitute FDV or total supply.
+  return {priceUsd:finite(pair?.priceUsd),priceChange24h:finite(pair?.priceChange?.h24),volume24h:finite(pair?.volume?.h24),liquidityUsd:finite(pair?.liquidity?.usd),fdv:finite(pair?.fdv),marketCap:finite(pair?.marketCap),marketCapEvidence:finite(pair?.marketCap)>0?'DEX Screener provider-reported market cap; circulating supply not independently verified':null};
 }
 
-export function createMarketServices({store,rpcUrl=PUBLIC_RPC,fetchImpl=fetch,now=()=>Date.now(),simulationPlans={},extraLaunchIds=[],poolStartBlocks={},indexStartBlock=null}={}) {
+export function createMarketServices({store,rpcUrl=PUBLIC_RPC,fetchImpl=fetch,now=()=>Date.now(),simulationPlans={},editorialSelections={},extraLaunchIds=[],poolStartBlocks=Object.fromEntries((SEEDS.poolEvidence||[]).filter(p=>p.block).map(p=>[p.poolId,p.block])),indexStartBlock=null}={}) {
   const memory=new Map();const cache=store||{get:k=>memory.get(k),set:(k,v)=>memory.set(k,v)};
-  const io=createRpc({url:rpcUrl,fetchImpl}); let inFlight=null,lastAttempt=0;
-  const indexer=createIndexer({store:cache,io,now,historyStartBlock:indexStartBlock});
+  seedCatalog(cache);
+  const pickFor=token=>PINNED_PICKS[token]||Object.entries(editorialSelections).map(([symbol,selected])=>EDITORIAL_IDENTITIES.records.find(r=>r.chainId===1&&r.symbol===symbol&&r.address===selected&&r.address===token)).filter(Boolean).map(r=>({label:'UNLOCK Pick',sourceUrl:r.sourceUrl,basis:'Operator-selected exact identity; common listing gate still required'}))[0]||null;
+  const io=createRpc({url:rpcUrl,fetchImpl,cooldownStore:cache}); let inFlight=null,lastAttempt=0;
+  const historyIo=createRpc({url:rpcUrl,fetchImpl,budget:600,cooldownStore:cache});const historyReferences=historicalReferences(historyIo,cache);const history=createHistoryQueue({store:cache,io:historyIo,now,indexStartBlock});const indexer=createIndexer({store:cache,io:historyIo,now,historyStartBlock:indexStartBlock});
   const verifyLiquidity=createLiquidityVerifier({store:cache,io,now});
   const media=createMediaCache({store:cache,fetchImpl,now});
-  const references=historicalReferences(io,cache);
-  async function discover(errors) {
-    const old=cache.get('markets.registry');if(old&&now()-old.readAt<quota.registryRefreshSeconds*1000)return old;
-    const rows=[];let before=null,pages=0;
-    for(let i=0;i<quota.registryPages;i++) {
-      const data=await io.json(`${API}/launches?limit=${quota.registryPageSize}${before?`&before=${before}`:''}`);pages++;
-      if(!Array.isArray(data.launches)) throw Error('IMD registry returned malformed launch list');rows.push(...data.launches);
-      const oldest=data.launches.at(-1)?.launchNumber;if(data.launches.length<quota.registryPageSize||!oldest||oldest===before)break;before=oldest;
-    }
-    let tokens=selectLaunches(rows);
-    if(!tokens.some(t=>t.address===UNLK)) {
-      const d=await io.json(`${API}/launches/0528a007-5ec6-4acd-b9cc-b3ded6fe2929`);
-      const launch=d.launch||d;tokens=[...tokens.slice(0,quota.marketTokens-2),...selectLaunches([launch],1)];
-    }
-    for(const id of extraLaunchIds.slice(0,30)){if(!/^[a-f0-9-]{36}$/i.test(id))continue;try{const data=await io.json(`${API}/launches/${id}`);for(const t of selectLaunches([data.launch||data],1))if(!tokens.some(x=>x.address===t.address))tokens.push(t);}catch(e){errors.push(`Additional launch unavailable: ${id}`);}}
-    // The accepted mainnet site pins this PoolKey. Keep official UNLK available during registry pagination gaps.
-    if(!tokens.some(t=>t.address===UNLK)) {tokens.push({address:UNLK,name:'UNLOCK',launchNumber:2071,launchId:'0528a007-5ec6-4acd-b9cc-b3ded6fe2929',createdAt:null,sourceCommit:null,sourceUrl:`${API}/launches/0528a007-5ec6-4acd-b9cc-b3ded6fe2929`,projectUrl:'https://explorer.imd.fun/launch/0528a007-5ec6-4acd-b9cc-b3ded6fe2929',deploymentBlock:26211921,key:UNLK_KEY,poolId:UNLK_POOL});errors.push('UNLK uses accepted deployment record while launch registry detail is unavailable.');}
-    tokens=tokens.slice(0,quota.marketTokens-1);
-    for(const token of tokens){try{let full=cache.get(`launchmeta:${token.launchId}`);if(!full){const data=await io.json(`${API}/launches/${token.launchId}`);full=data.launch||data;cache.set(`launchmeta:${token.launchId}`,full);}const a=full.artifacts?.find(a=>a.role==='token'&&address(a.address)===token.address);if(full.chainId!==1||full.status!=='live'||!a)throw Error('Metadata identity mismatch');token.logoSource=full.logo?.link||null;token.deploymentBlock=a.blockNumber;token.deploymentTx=a.txHash;}catch(e){errors.push(`Metadata unavailable for exact address ${token.address}`);}}
-    const registry={tokens,pages,readAt:now(),before};cache.set('markets.registry',registry);return registry;
-  }
+  const discover=createCatalog({store:cache,io,extraLaunchIds,now});
   async function refresh() {
     if(inFlight)return inFlight;
     if(lastAttempt&&now()-lastAttempt<quota.marketRefreshSeconds*1000)return markets();
-    lastAttempt=now();io.reset();references.reset();
+    lastAttempt=now();io.reset();
     inFlight=(async()=>{
       const errors=[];
       try {
         if(BigInt(await io.rpc('eth_chainId'))!==1n)throw Error('RPC is not Ethereum mainnet');
         const head=BigInt(await io.rpc('eth_blockNumber'));const block=head-BigInt(quota.confirmations);const blockTag=hex(block);
         const blockData=await io.rpc('eth_getBlockByNumber',[blockTag,false]);const observedAt=new Date(Number(BigInt(blockData.timestamp))*1000).toISOString();if(now()-Date.parse(observedAt)>600000||Date.parse(observedAt)>now()+30000)throw Error('Confirmed market block is stale or from the future');
+        try{await deploymentStart(io,cache,IMD,block);}catch(e){errors.push(`IMD deployment discovery: ${e.message}`);}
         let registry;try{registry=await discover(errors);}catch(e){registry=cache.get('markets.registry');if(!registry)throw e;errors.push(`Registry stale: ${e.message}`);}
-        const featuredToken={address:IMD,symbol:'IMD',name:'Identity.md',launchId:null,launchNumber:null,createdAt:null,key:IMD_KEY,poolId:IMD_ETH_POOL,projectUrl:'https://imd.fun',sourceUrl:'https://imd.fun/docs/'};
-        const tokens=[featuredToken,...registry.tokens];const tokenRows=[];
+        const featuredToken={address:IMD,symbol:'IMD',name:'Identity.md',logoSource:'https://imd.fun/icon.svg',launchId:null,launchNumber:null,createdAt:null,key:IMD_KEY,poolId:IMD_ETH_POOL,projectUrl:'https://imd.fun',sourceUrl:'https://imd.fun/docs/'};
+        const catalog=[{...featuredToken,deploymentBlock:poolStartBlocks[IMD_ETH_POOL]||cache.get('deployment:'+IMD)?.block},...registry.tokens];const tokens=takeWork(cache,'markets',catalog,quota.marketTokens);const previousSnapshot=cache.get('markets.snapshot');const tokenRows=[previousSnapshot?.featured,...(previousSnapshot?.markets||[])].filter(t=>t&&!tokens.some(n=>n.address===t.address));
         let imdUsd=null,ethUsd=null;
         try {
           const [round,feedDecimals,word,activeReference]=await Promise.all([io.read(ETH_USD,FEED,'latestRoundData',[],blockTag),io.read(ETH_USD,FEED,'decimals',[],blockTag),io.read(POOL_MANAGER,MANAGER,'extsload',[poolSlot(IMD_ETH_POOL)],blockTag),io.read(STATE_VIEW,LIQUIDITY_ABI,'getLiquidity',[IMD_ETH_POOL],blockTag)]);
@@ -142,8 +104,10 @@ export function createMarketServices({store,rpcUrl=PUBLIC_RPC,fetchImpl=fetch,no
         }catch(e){errors.push(`USD fallback unavailable: ${e.message}`);}
         let dexPairs=[];try{dexPairs=await io.json(`https://api.dexscreener.com/tokens/v1/ethereum/${tokens.map(t=>t.address).join(',')}`);}catch(e){errors.push(`DEX Screener unavailable: ${e.message}`);}
         for(const token of tokens) {
-          let record={...token,key:token.key,chainId:1,symbol:token.symbol||null,decimals:null,totalSupply:null,priceUsd:null,priceChange24h:null,volume24h:null,liquidityUsd:null,fdv:null,marketCap:null,chart:[],chartCurrency:'USD',observedAt,source:'Ethereum RPC',status:'unavailable',poolUrl:`https://app.uniswap.org/explore/pools/ethereum/${token.poolId}`,chartUrl:`https://dexscreener.com/ethereum/${token.poolId}`,verified:false,identity:{verified:false,sourceUrl:token.sourceUrl},pool:{id:token.poolId,dex:'uniswap',version:'v4',verified:false,quoteSymbol:token.address===IMD?'ETH':token.key.currency0.toLowerCase()===IMD||token.key.currency1.toLowerCase()===IMD?'IMD':'ETH'}};
+          let record={...token,key:token.key,chainId:1,symbol:token.symbol||null,decimals:null,totalSupply:null,priceUsd:null,priceChange24h:null,volume24h:null,liquidityUsd:null,fdv:null,marketCap:null,chart:[],chartCurrency:'USD',observedAt,source:'Ethereum RPC',status:'unavailable',poolUrl:token.poolId?`https://app.uniswap.org/explore/pools/ethereum/${token.poolId}`:null,chartUrl:token.poolId?`https://dexscreener.com/ethereum/${token.poolId}`:null,verified:false,identity:{verified:false,sourceUrl:token.sourceUrl},pool:{id:token.poolId,dex:'uniswap',version:'v4',verified:false,quoteSymbol:token.address===IMD?'ETH':token.key?.currency0.toLowerCase()===IMD||token.key?.currency1.toLowerCase()===IMD?'IMD':'ETH'}};
           try {
+            if(token.unsupportedPool||!token.key)throw Object.assign(Error('Unsupported or unverified registry pool; liquidity is unknown, not zero'),{category:'unsupported pool'});
+            if(!record.deploymentBlock){const meta=cache.get(`launchmeta:${token.launchId}`);if(meta){const a=meta.artifacts?.find(a=>a.role==='token'&&address(a.address)===token.address);record.deploymentBlock=a?.blockNumber;record.logoSource=meta.logo?.link;}else if(token.launchId){try{const d=await io.json(`${API}/launches/${token.launchId}`),l=d.launch||d;cache.set(`launchmeta:${token.launchId}`,l);record.logoSource=l.logo?.link;}catch(e){errors.push(`Metadata ${token.address}: ${e.message}`);}}}
             const [code,decimals,symbol,chainName,supply,word]=await Promise.all([io.rpc('eth_getCode',[token.address,blockTag]),io.read(token.address,ERC20,'decimals',[],blockTag),io.read(token.address,ERC20,'symbol',[],blockTag),io.read(token.address,ERC20,'name',[],blockTag),io.read(token.address,ERC20,'totalSupply',[],blockTag),io.read(POOL_MANAGER,MANAGER,'extsload',[poolSlot(token.poolId)],blockTag)]);
             const state=decodeSlot(word);if(code==='0x'||Number(decimals)>30||state.sqrtPriceX96===0n||state.lpFee!==token.key.fee)throw Error('Token code or registry PoolKey state verification failed');
             const counterpart=token.key.currency0.toLowerCase()===token.address?token.key.currency1.toLowerCase():token.key.currency0.toLowerCase();
@@ -154,29 +118,25 @@ export function createMarketServices({store,rpcUrl=PUBLIC_RPC,fetchImpl=fetch,no
             const onchainPrice=quoteUsd===null?null:quotePerToken*quoteUsd;
             const dex=verifiedDexPair(dexPairs,token);const values=mapDex(dex);
             record={...record,decimals:Number(decimals),symbol:text(symbol,24),name:text(chainName,80),totalSupply:supply.toString(),priceUsd:Number.isFinite(onchainPrice)&&onchainPrice>0?onchainPrice:null,fdv:onchainPrice===null?null:onchainPrice*Number(supply)/10**Number(decimals),status:'available',verified:true,activeLiquidity:null,source:'Ethereum v4 spot + Chainlink ETH/USD',sqrtPriceX96:state.sqrtPriceX96.toString(),poolTick:state.tick};
-            if(dex&&values.priceUsd!==null)record={...record,priceChange1h:finite(dex.priceChange?.h1),priceChange24h:values.priceChange24h,priceChange7d:null,volume24h:values.volume24h,liquidityUsd:null,source:'Ethereum v4 spot + Chainlink; DEX Screener changes/volume for exact PoolId',dexUpdatedAt:new Date(now()).toISOString()};
+            if(dex&&values.priceUsd!==null)record={...record,marketCap:values.marketCap,marketCapEvidence:values.marketCapEvidence,marketCapSource:{url:`https://api.dexscreener.com/tokens/v1/ethereum/${token.address}`,poolId:token.poolId,reportedAt:new Date(now()).toISOString(),kind:'provider-reported'},priceChange1h:finite(dex.priceChange?.h1),priceChange24h:values.priceChange24h,priceChange7d:null,volume24h:values.volume24h,liquidityUsd:null,source:'Ethereum v4 spot + Chainlink; DEX Screener changes/volume for exact PoolId',dexUpdatedAt:new Date(now()).toISOString()};
             record.identity={verified:true,sourceUrl:token.sourceUrl,launchId:token.launchId};record.pool={...record.pool,verified:true};
-            record.pick=PINNED_PICKS[token.address]||null;
+            record.pick=pickFor(token.address);
             try { const prices={ [NATIVE]:ethUsd,[IMD]:imdUsd,[token.address]:record.priceUsd };record.liquidityCheck=await verifyLiquidity({...record,deploymentBlock:poolStartBlocks[token.poolId]??record.deploymentBlock},block,prices,blockData);record.liquidityUsd=record.liquidityCheck.usd; }catch(e){record.liquidityError=text(e.message,220);}
-            try {record.sellCheck=await simulateSell(io,record,simulationPlans[token.address],block,blockData,now());}catch(e){record.simulationError=text(e.message,220);}
+            try {record.sellCheck=await automaticSell({io,store:cache,token:record,plan:simulationPlans[token.address],block,blockData,now:now()});}catch(e){record.simulationError=text(e.message,220);}
             record.listedAt=cache.get(`listed:${token.address}`)||null;
             if(eligibility(record,now(),Number(block)).eligible&&!record.listedAt){record.listedAt=new Date(now()).toISOString();cache.set(`listed:${token.address}`,record.listedAt);}
             if(record.liquidityCheck?.initializedBlock){const launchBlock=record.liquidityCheck.initializedBlock;let launchTime=cache.get(`launchTime:${token.address}`);if(!launchTime){const b=await io.rpc('eth_getBlockByNumber',[hex(launchBlock),false]);launchTime=new Date(Number(BigInt(b.timestamp))*1000).toISOString();cache.set(`launchTime:${token.address}`,launchTime);}record.launchedAt=launchTime;}
-            if(token.logoSource){try{record.logo=await media.cacheLogo(record,token.logoSource);}catch{/* untrusted/unsupported image uses the local vector fallback */}}
+            if(record.logoSource){try{record.logo=await media.cacheLogo(record,record.logoSource);}catch(e){record.logoError=e.message;}}
             // Only observed points are plotted. No fabricated candles or carry-forward history.
             const old=cache.get('markets.snapshot');const previous=old?.featured?.address===token.address?old.featured:old?.markets?.find(t=>t.address===token.address);
             record.chart=(previous?.chart||[]).filter(p=>p.time>=now()/1000-7*86400).slice(-119);
             if(record.priceUsd!==null)record.chart.push({time:Number(BigInt(blockData.timestamp)),price:record.priceUsd});
             record.sparkline=record.chart.map(p=>p.price);
-          }catch(e){record.unavailableReason=text(e.message,180);}
+          }catch(e){record.unavailableReason=text(e.message,180);record.failureCategory=e.category||(/quota|RPC|Provider|fetch|timeout/i.test(e.message)?'provider':'indexing');}
           tokenRows.push(record);
         }
-        const snapshot={version:1,mode:'cached',chainId:1,updatedAt:new Date(now()).toISOString(),block:Number(block),blockTime:observedAt,featured:tokenRows.find(t=>t.address===IMD)||null,markets:tokenRows.filter(t=>t.address!==IMD),coverage:{registryPages:registry.pages,registryLimit:quota.registryPages*quota.registryPageSize,registryReadAt:new Date(registry.readAt).toISOString(),source:`${API}/launches`,rpcSource:PUBLIC_RPC,notes:['Ethereum only. Bounded recent launch registry; this is not a complete launch catalog.','All rows, editorial picks and placements pass the same current USD-liquidity and full-route sell gate. Unresolved identities remain unpublished.','Onchain fallback supplies spot/FDV only; unavailable DEX volume, change and USD liquidity remain unavailable.','FDV uses onchain total supply or provider FDV. Circulating supply is unverified; market cap is unavailable.','Sparklines contain observed USD points only. OHLCV uses indexed swaps and event-block USD references. Liquidity is per-position principal, active liquidity is reconciled to StateView; shared PoolManager balances and FDV are never liquidity.']},quotas:quota,errors};
+        const snapshot={version:1,mode:'cached',chainId:1,updatedAt:new Date(now()).toISOString(),block:Number(block),blockTime:observedAt,featured:tokenRows.find(t=>t.address===IMD)||null,markets:tokenRows.filter(t=>t.address!==IMD),coverage:{registryPages:registry.pages,catalogSize:catalog.length,registryComplete:registry.complete,registryCursor:registry.before,cycle:cache.get('queue:markets'),registryReadAt:new Date(registry.readAt).toISOString(),source:`${API}/launches`,rpcSource:io.providers,provenance:io.provenance,notes:['Ethereum catalog walks registry pages with a persistent cursor. Catalog size is independent of per-cycle work. Unchecked or expired rows remain excluded.','All rows, editorial picks and placements pass the same current USD-liquidity and full-route sell gate. Unresolved identities remain unpublished.','Onchain fallback supplies spot/FDV only; unavailable DEX volume, change and USD liquidity remain unavailable.','FDV uses onchain total supply or provider FDV. Circulating supply is unverified. Available market cap is explicitly provider-reported, with exact pool and source provenance; it is never FDV.','Sparklines contain observed USD points only. OHLCV uses indexed swaps and event-block USD references. Liquidity is per-position principal, active liquidity is reconciled to StateView; shared PoolManager balances and FDV are never liquidity.']},quotas:quota,errors};
         cache.set('markets.snapshot',snapshot);
-        try{await indexer.refresh({pools:tokenRows.filter(t=>t.verified).map(t=>({poolId:t.poolId,key:t.key,address:t.address,symbol:t.symbol,decimals:t.decimals,deploymentBlock:t.deploymentBlock})),block,blockData,usdPrices:Object.fromEntries(tokenRows.map(t=>[t.address,t.priceUsd])),quoteUsdAt:references.at});}catch(e){
-          const prior=cache.get('radar.snapshot')||{version:1,mode:'warming',chainId:1,updatedAt:null,coverage:{fromBlock:null,toBlock:null,fromTime:null,toTime:null,missingHistory:true,notes:['Indexer has not completed its first scan. Provider failure is shown below; no rows are fabricated.']},pools:[],events:[],wallets:[],nextCursor:null,quotas:quota};
-          cache.set('radar.snapshot',{...prior,errors:[...(prior.errors||[]),`Refresh failed: ${text(e.message,180)}`].slice(-4)});
-        }
         return snapshot;
       }catch(e){const old=cache.get('markets.snapshot');if(old){const stale={...old,eligibilityUnknown:true,errors:[...old.errors,`Refresh failed: ${text(e.message,180)}`].slice(-4)};cache.set('markets.snapshot',stale);return stale;}const failure={version:2,mode:'warming',chainId:1,eligibilityUnknown:true,updatedAt:null,featured:null,markets:[],coverage:{notes:['Data cache is warming. Provider data is unavailable until the first successful refresh.']},errors:[text(e.message,180)],quotas:quota};cache.set('markets.snapshot',failure);return failure;}
     })().finally(()=>{inFlight=null;});return inFlight;
@@ -184,10 +144,11 @@ export function createMarketServices({store,rpcUrl=PUBLIC_RPC,fetchImpl=fetch,no
   async function markets() {
     const value=cache.get('markets.snapshot');
     if(!value)return {version:2,mode:'warming',chainId:1,updatedAt:null,featured:null,markets:[],excluded:[],coverage:{notes:['No current verified listings until indexing and sell simulations succeed.']},quotas:quota,errors:[]};
-    const rows=[...(value.markets||[]),...(value.featured?[value.featured]:[])],admitted=value.eligibilityUnknown?[]:rows.filter(m=>eligibility(m,now(),value.block??null).eligible);
-    return {...value,featured:null,markets:admitted,excluded:rows.filter(m=>value.eligibilityUnknown||!eligibility(m,now(),value.block??null).eligible).map(m=>({address:m.address,checkedAt:m.sellCheck?.checkedAt||m.liquidityCheck?.checkedAt||null,reasons:[...(value.eligibilityUnknown?['Latest refresh failed; current eligibility is unknown.']:[]),...eligibility(m,now(),value.block??null).reasons,...[m.liquidityError,m.simulationError].filter(Boolean)]})),stale:now()-Date.parse(value.updatedAt)>600000};
+    const observed=[...(value.markets||[]),...(value.featured?[value.featured]:[])];const catalog=cache.get('markets.registry')?.tokens||seedCatalog(cache);const rows=[...observed,...catalog.filter(t=>!observed.some(m=>m.address===t.address)).map(t=>({...t,chainId:1,failureCategory:t.unsupportedPool?'unsupported pool':'indexing',unavailableReason:'Queued for current identity, liquidity and seller checks'}))],admitted=value.eligibilityUnknown?[]:rows.filter(m=>eligibility(m,now(),value.block??null).eligible).map(m=>({...m,pick:pickFor(m.address)}));
+    return {...value,featured:null,markets:admitted,excluded:rows.filter(m=>value.eligibilityUnknown||!eligibility(m,now(),value.block??null).eligible).map(m=>({address:m.address,name:m.name,symbol:m.symbol,categories:exclusionCategories(m),progress:{liquidity:cache.get(`liquidity:${m.poolId}`)?.lastBlock||null,head:value.block},checkedAt:m.sellCheck?.checkedAt||m.liquidityCheck?.checkedAt||null,reasons:[...(value.eligibilityUnknown?['Latest refresh failed; current eligibility is unknown.']:[]),...eligibility(m,now(),value.block??null).reasons,...[m.unavailableReason,m.liquidityError,m.simulationError].filter(Boolean)]})),stale:now()-Date.parse(value.updatedAt)>600000};
   }
-  return {markets,radar:indexer.radar,refresh,quota,rawToken:address=>{const d=cache.get('markets.snapshot');return [d?.featured,...(d?.markets||[])].find(t=>t?.address===address)||null;},io,media};
+  return {markets,radar:indexer.radar,refresh,refreshHistory:async()=>{historyIo.reset();historyReferences.reset();if(BigInt(await historyIo.rpc('eth_chainId'))!==1n)throw Error('History RPC is not Ethereum');const block=BigInt(await historyIo.rpc('eth_blockNumber'))-12n,blockData=await historyIo.rpc('eth_getBlockByNumber',[hex(block),false]);const s=cache.get('markets.snapshot');const known=[s?.featured,...(s?.markets||[])].filter(t=>t?.verified);const pools=[{address:IMD,symbol:'IMD',decimals:18,key:IMD_KEY,poolId:IMD_ETH_POOL,deploymentBlock:poolStartBlocks[IMD_ETH_POOL]||cache.get('deployment:'+IMD)?.block},...known.filter(t=>t.address!==IMD),...(cache.get('markets.registry')?.tokens||seedCatalog(cache)).filter(t=>t.key&&!known.some(k=>k.address===t.address))];return history.refresh({pools,block,blockData,quoteUsdAt:historyReferences.at});},quota,rawToken:address=>{const d=cache.get('markets.snapshot');return [d?.featured,...(d?.markets||[])].find(t=>t?.address===address)||null;},io,media};
 }
 
+export function exclusionCategories(m){const c=new Set();if(m.failureCategory)c.add(m.failureCategory);if(m.unsupportedPool)c.add('unsupported pool');if(m.priceUsd==null)c.add('pricing');if(m.liquidityError)c.add(/warming|history|start block/i.test(m.liquidityError)?'indexing':/RPC|quota|provider|timeout/i.test(m.liquidityError)?'provider':'liquidity');if(m.liquidityCheck?.usd<20000)c.add('liquidity');if(m.simulationError)c.add(/RPC|provider|quota reached|timeout/i.test(m.simulationError)?'provider':'seller');if(!m.verified)c.add('indexing');return [...c];}
 export { ERC20 };

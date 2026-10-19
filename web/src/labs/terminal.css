@@ -7,3 +7,14 @@
 @media(max-width:700px){.terminal-heading{flex-wrap:nowrap;align-items:center;gap:12px}.terminal-heading>.button{flex-shrink:0;font-size:var(--small);padding-inline:10px}.terminal-heading p{font-size:var(--small)}.gainers-ticker{flex-wrap:nowrap}.gainers-ticker>span{flex-basis:auto}.labs-intro p{margin-block-start:4px}.market-health{padding-block:8px}}
 
 .sponsor-placement{display:grid;gap:8px;max-width:400px;min-width:0}.sponsor-placement img{max-width:100%;height:auto;object-fit:contain}.sponsor-placement p{overflow-wrap:anywhere}
+
+.market-recovery,.ownership-progress { border:1px solid var(--control);padding:12px;margin:12px 0;background:var(--surface);overflow-wrap:anywhere; }
+.market-recovery>summary {cursor:pointer;font-size:14px;min-height:24px;}
+.recovery-content {padding-top:12px;}
+.recovery-reasons {display:flex;flex-wrap:wrap;gap:8px 20px;list-style:none;padding:0;margin:8px 0;font-size:12px;}
+.asset-exclusion {border-top:1px solid var(--line);padding:8px 0;}
+.asset-exclusion summary {cursor:pointer;min-height:24px;}
+.asset-exclusion ul {padding-left:20px;}
+.audit-steps [aria-current="step"] {font-weight:600;text-decoration:underline;text-underline-offset:5px;}
+.market-table td small {display:block;}
+@media(max-width:600px){.market-recovery,.ownership-progress{padding:10px;}.recovery-reasons{gap:8px 12px;}.recovery-content .lab-pagination{flex-wrap:wrap;}}

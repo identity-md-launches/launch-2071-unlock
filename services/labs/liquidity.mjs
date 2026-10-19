@@ -36,8 +36,8 @@ export function applyPositionLogs(positions,logs,poolId) {
 export function createLiquidityVerifier({store,io,now=()=>Date.now(),pageBlocks=1000,maxPages=6}) {
  return async function check(token,block,prices,blockData) {
   if(!Number.isSafeInteger(token.deploymentBlock)||token.deploymentBlock<=0)throw Error('Verified pool deployment start block is unavailable');
-  const key=`liquidity:${token.poolId}`,old=store.get(key);let state=old||{lastBlock:token.deploymentBlock-1,positions:{},init:false,startBlock:token.deploymentBlock};
-  if(old?.lastHash){const b=await io.rpc('eth_getBlockByNumber',[tag(old.lastBlock),false]);if(b?.hash!==old.lastHash)state={lastBlock:token.deploymentBlock-1,positions:{},init:false,startBlock:token.deploymentBlock};}
+  const key=`liquidity:${token.poolId}`,old=store.get(key);let state=(old?.startBlock===token.deploymentBlock?old:null)||{lastBlock:token.deploymentBlock-1,positions:{},init:false,startBlock:token.deploymentBlock};
+  if(state.lastHash){const b=await io.rpc('eth_getBlockByNumber',[tag(state.lastBlock),false]);if(b?.hash!==state.lastHash)state={lastBlock:token.deploymentBlock-1,positions:{},init:false,startBlock:token.deploymentBlock};}
   let pages=0;
   for(let start=state.lastBlock+1;start<=Number(block)&&pages<maxPages;start+=pageBlocks,pages++){
    const end=Math.min(Number(block),start+pageBlocks-1);

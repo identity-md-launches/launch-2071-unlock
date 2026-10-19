@@ -53,34 +53,24 @@
       "sha256": "d8aa3c2ee30aacb9d86a9ef1b73dd59911e835a0ac7faaf56b424ee95384d1ad"
     },
     {
-      "path": "assets/ccip-CiqlTfZX.js",
+      "path": "assets/ccip-Dp8EK8tM.js",
       "bytes": 2610,
-      "sha256": "3e4418690596ac64240e9944d9945a743e11be8bfcc24a13173c238e9bc2c4ac"
+      "sha256": "242e85798755c3d2a024638781b638edc267d0794d0989cc4f4d8e4b567231c8"
     },
     {
-      "path": "assets/index-BJFpsHf0.css",
-      "bytes": 23713,
-      "sha256": "fc1c6d6957da665788b61a989ce6dafc004b4b8c76289a5cd726aa14b987cdcf"
-    },
-    {
-      "path": "assets/index-C-ftbB7E.js",
+      "path": "assets/index-CXu8RN3a.js",
       "bytes": 113087,
-      "sha256": "895d11fa51f2ff140b152e44cfa14aad6e8cc80670ade365ba738abf8d3be712"
+      "sha256": "d975a6dab75d0bb5c7995f3c3a1a8676701fb5a6efce05ab18bd4e2d3948d6a2"
     },
     {
-      "path": "assets/index-DcWhniZh.js",
-      "bytes": 571199,
-      "sha256": "189980f18c58f8a03aebecd88017ccfeb096e39e7f2db6d9d0d417f942391345"
+      "path": "assets/index-DAUyq9yq.css",
+      "bytes": 46061,
+      "sha256": "796e7c74153527cf6bd0a3826a7809704162401d3b93517ca16f066fd80648cd"
     },
     {
-      "path": "assets/jetbrains-mono-regular-CA-Os4ii.woff2",
-      "bytes": 92380,
-      "sha256": "f1a7a03672cdd494ce0d5543fac6e4360fe22403c6de297fdc2e55a815f7baff"
-    },
-    {
-      "path": "assets/jetbrains-mono-semibold-BjwzTi7v.woff2",
-      "bytes": 94484,
-      "sha256": "8f20245500c375a63879b47c12560a07bcaf7a88672d272f4d8e79b68f9186ae"
+      "path": "assets/index-DXBXG0Lm.js",
+      "bytes": 688925,
+      "sha256": "f9769fe76d6e3bc91d6de9520f00ce92047048d88f4e8175ba5cbce20c79c675"
     },
     {
       "path": "claims/round-0.json",
@@ -109,8 +99,23 @@
     },
     {
       "path": "index.html",
-      "bytes": 1649,
-      "sha256": "dfa89a2522eb461f14a020a74fd6df9694ef3729588871129029a85e2f091e3d"
+      "bytes": 1665,
+      "sha256": "a419e0f6fdf61558afc35da9d94c74d675c6d580a2063bad76dbe08d7730ca61"
+    },
+    {
+      "path": "labs-config.json",
+      "bytes": 190,
+      "sha256": "a5166ca1376443b7ef37d53ce38c58135ba4b0cc024628dfa800200bbfca9a39"
+    },
+    {
+      "path": "labs/markets.json",
+      "bytes": 297733,
+      "sha256": "bc3bded5fdec3005ee137ac97dc7e8c32d9e0bc4eefbbd55ac2a6091b9c14e5b"
+    },
+    {
+      "path": "labs/radar.json",
+      "bytes": 1400092,
+      "sha256": "b1e10093ef8935334f33951f8d2ee604db7954afefbf50e37364b4c81446f343"
     },
     {
       "path": "recovery.html",
@@ -158,6 +163,6 @@
       "sha256": "f0ffe7a6e7e39e58385d1debb2fa874ae736335fda960a6173ebefc5c1beecab"
     }
   ],
-  "totalBytes": 1590267,
-  "exportDigest": "90b6d87d8c684b349e3667623c945795d49ff7883f165741655751b85b6d6d93"
+  "totalBytes": 3241508,
+  "exportDigest": "4063339f0d6cf913f5a2d605ead06670f41f7eb6640afa77381e2bf5bc688838"
 }

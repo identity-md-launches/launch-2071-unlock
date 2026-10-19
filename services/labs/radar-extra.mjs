@@ -1,5 +1,7 @@
 import { parseAbi,parseAbiItem,decodeEventLog,keccak256,stringToHex } from '../../web/vendor/runtime/c5e656ecf7fbe34e412c.mjs';
 import { amountString } from './indexer.mjs';
+import { CUSTODY } from './custody.mjs';
+import { createOwnershipIndex } from './ownership.mjs';
 import { assert } from './security.mjs';
 export const IDENTITY_NFT='0x0000ec93127baa929e58e97dd0095a2bfb38ec1d';
 const IMD='0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7',ZERO='0x0000000000000000000000000000000000000000';
@@ -20,28 +22,26 @@ export async function evidencedNftSale(receipt,nft,marketplaces,io,blockTag) {
  }
  return null;
 }
-export function createRadarExtensions({store,io,attributions=[],marketplaces=[],now=()=>Date.now()}) {
- let active=null;
- async function refresh() {
-  if(active)return active;active=(async()=>{
-   if(BigInt(await io.rpc('eth_chainId'))!==1n)throw Error('NFT/public wallet reads require Ethereum');const head=BigInt(await io.rpc('eth_blockNumber')),block=head-12n,tag='0x'+block.toString(16),b=await io.rpc('eth_getBlockByNumber',[tag,false]);
-   let state=store.get('nft.index')||{lastBlock:null,lastHash:null,events:[],ids:[]};let from=state.lastBlock===null?Math.max(0,Number(block)-1799):Math.max(0,state.lastBlock-11);
-   if(state.lastHash){const prior=await io.rpc('eth_getBlockByNumber',['0x'+BigInt(state.lastBlock).toString(16),false]);if(prior.hash!==state.lastHash){state={lastBlock:null,lastHash:null,events:[],ids:[]};from=Math.max(0,Number(block)-1799);}}
-   const to=Math.min(Number(block),from+1799),logs=[];for(let n=from;n<=to;n+=500)logs.push(...await io.rpc('eth_getLogs',[{address:IDENTITY_NFT,fromBlock:'0x'+BigInt(n).toString(16),toBlock:'0x'+BigInt(Math.min(to,n+499)).toString(16),topics:[TOPIC]}]));
-   assert(logs.length<10000,503,'nft_page_incomplete','NFT log page may be truncated. Retry with a smaller range.');
-   const events=[],blocks=new Map(),receipts=new Map();for(const l of logs.filter(l=>!l.removed).slice(-100)){
-    const n=Number(BigInt(l.blockNumber));if(!blocks.has(n)){if(blocks.size>=20)continue;blocks.set(n,await io.rpc('eth_getBlockByNumber',[l.blockNumber,false]));}
-    const args=decodeEventLog({abi:[TRANSFER],topics:l.topics,data:l.data,strict:true}).args;const e={id:`${l.transactionHash}:${Number(BigInt(l.logIndex))}`,hash:l.transactionHash,block:n,time:Number(BigInt(blocks.get(n).timestamp)),token:IDENTITY_NFT,symbol:'identity.md NFT',tokenId:args.tokenId.toString(),type:'transfer',category:'nft',amount:'1',amountUsd:null,wallet:null,from:args.from.toLowerCase(),to:args.to.toLowerCase(),attribution:'ERC721 transfer; no purchase/sale is inferred',relatedActivity:'nft-transfer'};
-    if(marketplaces.length&&receipts.size<10){if(!receipts.has(e.hash))receipts.set(e.hash,await io.rpc('eth_getTransactionReceipt',[e.hash]));try{const sale=await evidencedNftSale(receipts.get(e.hash),e,marketplaces,io,l.blockNumber);if(sale){e.sale= sale;e.attribution= sale.basis;}}catch{/* retain transfer classification */}}
-    events.push(e);
-   }
-   const cutoff=now()/1000-604800,combined=[...new Map([...state.events.filter(e=>e.block<from&&e.time>=cutoff),...events].map(e=>[e.id,e])).values()].sort((a,b)=>b.time-a.time).slice(0,2000),ids=[...new Set([...events.map(e=>e.tokenId),...state.ids])].slice(0,32),owners=new Map();
-   for(const id of ids){try{const owner=(await io.read(IDENTITY_NFT,ABI,'ownerOf',[BigInt(id)],tag)).toLowerCase();if(owner===ZERO)continue;const a=owners.get(owner)||[];a.push(id);owners.set(owner,a);}catch{/* burned/unreadable NFT omitted */}}
-   const wallets=[];for(const [owner,owned] of [...owners].slice(0,12)){try{const balance=await io.read(IDENTITY_NFT,ABI,'balanceOf',[owner],tag);wallets.push({address:owner,category:'nft',label:null,holdings:[{address:IDENTITY_NFT,symbol:'identity.md NFTs',balance:balance.toString(),usd:null}],netFlow:[],nfts:owned.map(id=>({collection:IDENTITY_NFT,tokenId:id,name:`identity.md #${id}`,evidenceUrl:`https://etherscan.io/nft/${IDENTITY_NFT}/${id}`})),source:`Current balanceOf at block ${block}; verified ownerOf for sampled IDs. Observed NFT holders, not a global whale ranking.`});}catch{/* unavailable balances are omitted */}}
-   for(const a of attributions.slice(0,10)){try{const wallet=a.address.toLowerCase(),[eth,imd,nfts]=await Promise.all([io.rpc('eth_getBalance',[wallet,tag]),io.read(IMD,ABI,'balanceOf',[wallet],tag),io.read(IDENTITY_NFT,ABI,'balanceOf',[wallet],tag)]);wallets.push({address:wallet,label:a.label,category:'public',attributionUrl:a.sourceUrl,holdings:[{address:ZERO,symbol:'ETH',balance:amountString(BigInt(eth)),usd:null},{address:IMD,symbol:'IMD',balance:amountString(imd),usd:null},{address:IDENTITY_NFT,symbol:'identity.md NFTs',balance:nfts.toString(),usd:null}],netFlow:[],source:`Public personal-wallet attribution: ${a.evidence}. This is not a complete portfolio.`});}catch{/* failed public balance read stays unpublished */}}
-   const end=to===Number(block)?b:await io.rpc('eth_getBlockByNumber',['0x'+BigInt(to).toString(16),false]);store.set('nft.index',{lastBlock:to,lastHash:end.hash,events:combined,ids});const snapshot={updatedAt:new Date(now()).toISOString(),block:Number(block),events:combined,wallets:wallets.sort((a,b)=>Number(b.holdings[0].balance)-Number(a.holdings[0].balance)),notes:['NFT scan covers at most 1,800 confirmed blocks per refresh; 32 sampled token IDs and 12 holder wallets. Not a global ranking.','NFT purchases/sales require a configured runtime-pinned Seaport venue and matching fulfillment/transfer. Bids, bundles and unsupported venues stay transfers.','Vitalik, CZ and Asem remain unpublished until a reliable reviewed public personal-wallet attribution is configured. Exchange custody is not personal wealth.']};store.set('radar.extra',snapshot);return snapshot;
-  })().finally(()=>{active=null;});return active;
+export function createRadarExtensions({store,io,whaleIo=io,attributions=[],marketplaces=[],now=()=>Date.now()}) {
+ const nftIndex=createOwnershipIndex({store,io,contract:IDENTITY_NFT,nft:true,now});
+ const whaleIndex=createOwnershipIndex({store,io:whaleIo,contract:IMD,nft:false,now});
+ async function confirmed(client){client.reset?.();if(BigInt(await client.rpc('eth_chainId'))!==1n)throw Error('Radar requires Ethereum');const block=BigInt(await client.rpc('eth_blockNumber'))-12n,blockData=await client.rpc('eth_getBlockByNumber',['0x'+block.toString(16),false]);const age=now()-Number(BigInt(blockData.timestamp))*1000;if(age>600000||age< -30000)throw Error('Radar confirmed block is stale or from the future');return {block,blockData};}
+ async function refresh(){
+  try{const result=await nftIndex.refresh(await confirmed(io));
+   for(const event of result.events.slice(0,10)){if(!marketplaces.length)break;try{const receipt=await io.rpc('eth_getTransactionReceipt',[event.hash]);const sale=await evidencedNftSale(receipt,event,marketplaces,io,'0x'+BigInt(event.block).toString(16));if(sale)event.sale=sale;}catch{/* a decoding failure never implies a sale */}}
+   const publicWallets=[];for(const a of attributions){try{const tag='0x'+BigInt(result.block).toString(16),[eth,imd,nfts]=await Promise.all([io.rpc('eth_getBalance',[a.address,tag]),io.read(IMD,ABI,'balanceOf',[a.address],tag),io.read(IDENTITY_NFT,ABI,'balanceOf',[a.address],tag)]);publicWallets.push({address:a.address,label:a.label,category:'public',attributionUrl:a.sourceUrl,holdings:[{address:ZERO,symbol:'ETH',balance:amountString(BigInt(eth)),usd:null},{address:IMD,symbol:'IMD',balance:amountString(imd),usd:null},{address:IDENTITY_NFT,symbol:'identity.md NFTs',balance:nfts.toString(),usd:null}],netFlow:[],source:`${a.custody}: ${a.evidence}. Attribution is public evidence, not proof of sole control.`});}catch(e){result.coverage.errors.push(`Public balance: ${e.message}`);}}
+   store.set('radar.extra',{...result,wallets:[...result.wallets,...publicWallets]});return result;
+  }catch(e){store.set('queue-error:nft',{error:e.message,at:new Date(now()).toISOString()});throw e;}
  }
- function merge(base){const extra=store.get('radar.extra');return {...base,wallets:[...(base.wallets||[]).map(w=>({...w,category:'imd'})),...(extra?.wallets||[])],nftEvents:extra?.events||[],extraUpdatedAt:extra?.updatedAt||null,coverage:{...base.coverage,notes:[...base.coverage.notes,...(extra?.notes||['NFT and public wallet indexes are not connected; no identities or holdings are invented.'])]},publicIdentityStatus:attributions.map(a=>({label:a.label,sourceUrl:a.sourceUrl})),unresolvedPublicIdentities:['Vitalik','CZ','Asem'].filter(label=>!attributions.some(a=>a.label===label))};}
- return {refresh,merge};
+ async function refreshWhales(){try{const result=await whaleIndex.refresh(await confirmed(whaleIo));store.set('radar.whales',result);return result;}catch(e){store.set('queue-error:whales',{error:e.message,at:new Date(now()).toISOString()});throw e;}}
+ function merge(base,{cursor=null}={}){
+  const extra=store.get('radar.extra'),whales=store.get('radar.whales'),end=now()/1000,seconds={'1h':3600,'24h':86400,'7d':604800}[base.period]||86400;
+  const whaleEvents=(whales?.events||[]).filter(e=>e.time>=end-seconds);
+  const indexed=(store.get('radar.snapshot')?.events||base.events||[]).filter(e=>e.time>=end-seconds);const merged=[...new Map([...whaleEvents,...indexed].map(e=>[e.id,e])).values()].sort((a,b)=>b.time-a.time||(b.logIndex||0)-(a.logIndex||0)).slice(0,10000),offset=Number(cursor||0),pageSize=100;
+  const wallets=[...(whales?.wallets||[]),...(extra?.wallets||[])].map(w=>({...w,netFlow:w.category==='imd'?[{address:IMD,chainId:1,symbol:'IMD',amount:amountString(whaleEvents.reduce((n,e)=>n+(e.to===w.address?BigInt(e.amountRaw):0n)-(e.from===w.address?BigInt(e.amountRaw):0n),0n))}]:[],netFlowBasis:'Indexed transfers in covered period; incomplete periods are not total flows'}));
+  const latestEvidence=Math.max(Number(base.coverage?.toTime)||0,whales?.blockTime||0,extra?.blockTime||0,...(whales?.events||[]).map(e=>Number(e.time)||0));
+  const pending=['nft','whales','history','markets'].map(k=>store.get(`queue-error:${k}`)).filter(Boolean);
+  return {...base,wallets:wallets.filter(w=>!CUSTODY[w.address]),custodyWallets:wallets.filter(w=>CUSTODY[w.address]),events:merged.slice(offset,offset+pageSize),nextCursor:offset+pageSize<merged.length?String(offset+pageSize):null,totalEvents:merged.length,nftEvents:extra?.events||[],extraUpdatedAt:extra?.updatedAt||null,nftCoverage:extra?.coverage||null,whaleCoverage:whales?.coverage||null,errors:[...(base.errors||[]),...pending.map(e=>`${e.at}: ${e.error}`)],coverage:{...base.coverage,toTime:latestEvidence||null,toBlock:Math.max(base.coverage?.toBlock||0,whales?.coverage?.recent?.toBlock||0)||null,intervals:{history:base.coverage?.recentIntervals||[],imdRecent:whales?.coverage?.recent||null},notes:[...(base.coverage?.notes||[]),'NFT ownership and IMD whale transfer reconstruction use independent persistent queues and budgets. Rankings remain partial until full coverage and balance verification.','Transfers are not NFT sales. Only verified runtime-pinned Seaport native listing fills are decoded; other fills remain transfers.']},publicIdentityStatus:attributions.map(a=>({label:a.label,custody:a.custody,sourceUrl:a.sourceUrl})),unresolvedPublicIdentities:['Vitalik','CZ','Asem'].filter(label=>!attributions.some(a=>a.label===label&&a.custody==='personal'))};
+ }
+ return {refresh,refreshWhales,merge};
 }

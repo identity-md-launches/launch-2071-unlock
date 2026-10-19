@@ -1,12 +1,13 @@
-// No npm install, network, environment variables, or node_modules required.
+// Bundles the pinned runtime without network access. Requires an installed native esbuild toolchain.
 import fs from "node:fs";
 import path from "node:path";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import { createHash } from "node:crypto";
-import { prepareToolchain } from "./prepare-toolchain.mjs";
 const require = createRequire(import.meta.url);
-const esbuild = require(path.join(prepareToolchain("esbuild"), "lib/main.js"));
+let esbuild;
+try { esbuild = require(process.env.UNLK_ESBUILD_MODULE || "esbuild"); }
+catch { throw Error("Install the locked frontend toolchain with npm ci in web/, or set UNLK_ESBUILD_MODULE to an externally installed esbuild/lib/main.js. The optional WASM compiler archive is no longer bundled."); }
 const web = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const root = path.dirname(web);
 const runtime = path.join(web,"vendor/runtime");
@@ -25,8 +26,8 @@ if (process.argv.includes("--test")) {
   }
   console.log("Tests compiled into test/scratch/frontend. Run node --test from web/.");
 } else {
-  const out = path.join(root,"dist-candidate");
-  // Existing historical dist/ is preserved as delivered. This is a separate source preview export.
+  const out = path.join(root,"test/scratch/offline-export");
+  // Source preview only; npm run build remains the production Vite export.
   fs.mkdirSync(out,{recursive:true});
   fs.cpSync(path.join(web,"public"),out,{recursive:true});
   esbuild.buildSync({...common,platform:"browser",entryPoints:[path.join(web,"src/main.tsx")],outfile:path.join(out,"assets/app.js"),
@@ -34,5 +35,5 @@ if (process.argv.includes("--test")) {
   const html = fs.readFileSync(path.join(web,"index.html"),"utf8").replace('src="/src/main.tsx"','src="./assets/app.js"')
     .replace("</head>",'<link rel="stylesheet" href="./assets/app.css" /></head>');
   fs.writeFileSync(path.join(out,"index.html"),html);
-  console.log("Built dist-candidate/ offline; publication is not authorized.");
+  console.log("Built test/scratch/offline-export/ from pinned runtime. Production uses npm run build.");
 }

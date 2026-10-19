@@ -56,10 +56,14 @@ export type MarketsData = {
   block?: number;
   eligibilityUnknown?: boolean;
   stale?: boolean;
-  excluded?: Array<{ address: string; reasons: string[]; checkedAt?: string | null }>;
+  excluded?: Array<{ address: string; name?: string; symbol?: string; categories?: string[]; progress?: {liquidity:number|null;head:number|null}; reasons: string[]; checkedAt?: string | null }>;
   featured: Market | null;
   markets: Market[];
   coverage: {
+    catalogSize?: number;
+    registryComplete?: boolean;
+    registryCursor?: number | null;
+    cycle?: {cursor:number;catalogSize:number;cycleLimit:number};
     registryPages?: number;
     registryLimit?: number;
     notes: string[];
@@ -104,7 +108,11 @@ export type RadarWallet = {
 
 export type RadarPeriod = "1h" | "24h" | "7d";
 
+export type OwnershipCoverage = {startBlock:number;toBlock:number;headBlock:number;backlogBlocks:number;complete:boolean;indexedIds:number|null;replayedIds?:number|null;totalSupply:string|null;verifiedIds:number|null;indexedHolders:number;verifiedHolders:number;totalHolders:number|null;ranking:string;errors:string[]};
+
 export type RadarData = {
+  nftCoverage?: OwnershipCoverage | null;
+  whaleCoverage?: OwnershipCoverage | null;
   updatedAt: string | null;
   mode: "cached" | "snapshot" | "warming";
   period: RadarPeriod;
@@ -127,6 +135,7 @@ export type RadarData = {
   }>;
   events: RadarEvent[];
   nftEvents?: RadarEvent[];
+  custodyWallets?: RadarWallet[];
   extraUpdatedAt?: string;
   unresolvedPublicIdentities?: string[];
   wallets: RadarWallet[];

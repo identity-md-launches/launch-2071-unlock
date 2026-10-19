@@ -1,0 +1,10 @@
+{
+  "sourceUrl": "https://imd.fun/icon.svg",
+  "observedFormat": "image/svg+xml",
+  "serviceCacheStatus": 200,
+  "serviceCacheContentType": "image/svg+xml",
+  "csp": "default-src 'none'; style-src 'none'; sandbox",
+  "nosniff": "nosniff",
+  "byteLength": 323,
+  "limitations": "Generated launch records checked have logo.link null; no undocumented image endpoint is invented. PNG and restricted SVG are supported; other formats remain explicit fallbacks."
+}

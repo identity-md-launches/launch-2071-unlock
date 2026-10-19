@@ -123,6 +123,13 @@ for (const file of deliveryPaths)
     current.includes(file),
     `Missing or excluded delivery artifact: ${file}`,
   );
+const repairEvidence = current.filter((p) => p.startsWith("artifacts/repair/"));
+const repairEvidenceBytes = repairEvidence.reduce(
+  (sum, p) => sum + fs.statSync(path.join(root, p)).size,
+  0,
+);
+assert(repairEvidence.includes("artifacts/repair/validation.md"));
+assert(repairEvidenceBytes <= 2097152, "Repair evidence exceeds its 2 MiB path budget");
 for (const file of files(path.join(root, "web/evidence")))
   assert(
     current.includes(path.relative(root, file)),
@@ -154,6 +161,11 @@ fs.writeFileSync(
       submodules: 0,
       dependencyOrCacheFilesInSubmission: 0,
       ignorePathBudget: deliveryPaths,
+      repairEvidencePathBudget: {
+        path: "artifacts/repair/",
+        bytes: repairEvidenceBytes,
+        limit: 2097152,
+      },
       inheritedDependencyExclusion: "**/node_modules/",
       distIncluded: true,
       relativeAssetUrls: true,

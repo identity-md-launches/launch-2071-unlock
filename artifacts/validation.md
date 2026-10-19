@@ -1,3 +1,5 @@
+> Historical validation from the accepted predecessor. Current repair results, mainnet limitations and screenshots are in [repair/validation.md](repair/validation.md).
+
 # Attribution-quota revision · 2026-10-19
 
 Current worker-recorded validation for finding `bdf5d73ecc9709eb3aa9a0547564c0b9c6cad73809c8979f3077c467200e6ffb`. The accepted frontend and its design are retained. Changes are limited to attribution persistence/retry, P&L certification, regression tests and documentation. The separately operated service was not deployed; no paid job, signature, approval or chain write was made. Earlier sections below are prior-run evidence.

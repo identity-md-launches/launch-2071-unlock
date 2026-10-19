@@ -108,7 +108,7 @@ export function createIndexer({store,io,now=()=>Date.now(),historyStartBlock=nul
             let priceUsd=null,amountUsd=null;
             if(detail.type!=='liquidity'&&quoteUsdAt){
               try{
-                const refs=await quoteUsdAt(n,timestamp),q=refs[detail.quoteCurrency.toLowerCase()];
+                const refs=await quoteUsdAt(n,timestamp,state.blocks[n].hash),q=refs[detail.quoteCurrency.toLowerCase()];
                 if(q>0&&detail.priceQuote>0){priceUsd=detail.priceQuote*q;amountUsd=Number(detail.quoteAmount)*q;}
               }catch{/* archive/valuation gaps remain unavailable */}
             }
