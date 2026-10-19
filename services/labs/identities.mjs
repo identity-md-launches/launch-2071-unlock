@@ -28,8 +28,12 @@ export function createIdentityResolver({store,io,now=()=>Date.now(),extraLaunchI
   const {record,identity}=await recordFor(token),tag='latest';
   const [receipt,code]=await Promise.all([io.rpc('eth_getTransactionReceipt',[identity.txHash]),io.rpc('eth_getCode',[identity.address,tag])]);
   assert(receipt?.status==='0x1'&&Number(BigInt(receipt.blockNumber))===identity.block&&code!=='0x',422,'deployment_unverified','Deployment receipt/code does not match the authoritative project record.');
-  let owner=identity.requester,basis='Authoritative IMD project requester and successful deployment receipt';
-  try{owner=address(await io.read(identity.address,OWNER,'owner',[],tag));basis='Current token owner() plus matching IMD deployment record';}catch{/* non-Ownable tokens use evidenced project requester, never transaction.from factory custody */}
+  // A revert/empty response is not proof that an owner interface never existed.
+  // There is no reviewed non-Ownable authority policy: requester evidence alone grants no rights.
+  let owner;
+  try{owner=address(await io.read(identity.address,OWNER,'owner',[],tag));}
+  catch{assert(false,503,'owner_unavailable','Current project owner could not be verified. Retry when ownership reads are available; requester evidence alone cannot authorize edits.');}
+  const basis='Current token owner() plus matching IMD deployment record';
   assert(owner&&BigInt(owner)!==0n,403,'owner_unresolved','Current edit authority is unresolved or ownership was renounced.');
   return {authorized:owner===address(representative),address:identity.address,representative:address(representative),owner,sourceUrl:identity.sourceUrl,deploymentTransaction:identity.txHash,basis,checkedAt:new Date(now()).toISOString()};
  }

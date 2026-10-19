@@ -157,7 +157,7 @@ export function createMarketServices({store,rpcUrl=PUBLIC_RPC,fetchImpl=fetch,no
             if(dex&&values.priceUsd!==null)record={...record,priceChange1h:finite(dex.priceChange?.h1),priceChange24h:values.priceChange24h,priceChange7d:null,volume24h:values.volume24h,liquidityUsd:null,source:'Ethereum v4 spot + Chainlink; DEX Screener changes/volume for exact PoolId',dexUpdatedAt:new Date(now()).toISOString()};
             record.identity={verified:true,sourceUrl:token.sourceUrl,launchId:token.launchId};record.pool={...record.pool,verified:true};
             record.pick=PINNED_PICKS[token.address]||null;
-            try { if(poolStartBlocks[token.poolId])record.deploymentBlock=poolStartBlocks[token.poolId];const prices={ [NATIVE]:ethUsd,[IMD]:imdUsd,[token.address]:record.priceUsd };record.liquidityCheck=await verifyLiquidity(record,block,prices,blockData);record.liquidityUsd=record.liquidityCheck.usd; }catch(e){record.liquidityError=text(e.message,220);}
+            try { const prices={ [NATIVE]:ethUsd,[IMD]:imdUsd,[token.address]:record.priceUsd };record.liquidityCheck=await verifyLiquidity({...record,deploymentBlock:poolStartBlocks[token.poolId]??record.deploymentBlock},block,prices,blockData);record.liquidityUsd=record.liquidityCheck.usd; }catch(e){record.liquidityError=text(e.message,220);}
             try {record.sellCheck=await simulateSell(io,record,simulationPlans[token.address],block,blockData,now());}catch(e){record.simulationError=text(e.message,220);}
             record.listedAt=cache.get(`listed:${token.address}`)||null;
             if(eligibility(record,now(),Number(block)).eligible&&!record.listedAt){record.listedAt=new Date(now()).toISOString();cache.set(`listed:${token.address}`,record.listedAt);}

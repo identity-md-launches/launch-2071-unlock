@@ -61,7 +61,7 @@ function WalletCard({ wallet, period, netFlowSupported, watched, canUseHolder, b
     <dl className="lab-wallet-balances">
       {wallet.holdings.map((holding) => <div key={holding.address}><dt>{holding.symbol} holdings</dt><dd>{amountLabel(holding.balance)}<span className="small muted lab-block">{holding.usd == null ? "USD value unavailable" : usd(holding.usd)}</span></dd></div>)}
       {(!wallet.holdings || wallet.holdings.length === 0) && <div><dt>Current holdings</dt><dd>Unavailable</dd></div>}
-      {netFlowSupported ? wallet.netFlow.map((flow, index) => <div key={`${flow.symbol}-${index}`}><dt>{flow.symbol} indexed transfer flow · {period}</dt><dd>{flow.amount != null && Number(flow.amount) > 0 ? "+" : ""}{amountLabel(flow.amount)}</dd></div>) : <div><dt>Indexed transfer flow · {period}</dt><dd>Unavailable for this snapshot period</dd></div>}
+      {netFlowSupported ? wallet.netFlow.map((flow, index) => <div key={`${flow.chainId}-${flow.address||index}`}><dt>{flow.symbol} indexed transfer flow · {period}{flow.address&&<><br/><a href={`https://etherscan.io/token/${flow.address}`} title={flow.address}>{shortAddress(flow.address)}</a></>}</dt><dd>{flow.amount != null && Number(flow.amount) > 0 ? "+" : ""}{amountLabel(flow.amount)}</dd></div>) : <div><dt>Indexed transfer flow · {period}</dt><dd>Unavailable for this snapshot period</dd></div>}
     </dl>
     {wallet.attributionUrl&&<p className="small"><a href={wallet.attributionUrl} target="_blank" rel="noreferrer">Public attribution evidence ↗</a></p>}
     {wallet.nfts&&wallet.nfts.length>0&&<div><h4>Verified sampled NFT holdings</h4>{wallet.nfts.map(n=><a className="button" href={n.evidenceUrl} key={n.tokenId} target="_blank" rel="noreferrer">{n.name} ↗</a>)}</div>}

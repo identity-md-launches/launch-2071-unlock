@@ -1,5 +1,5 @@
 import { parseAbi } from '../../web/vendor/runtime/c5e656ecf7fbe34e412c.mjs';
-import { amountString } from './indexer.mjs';
+import { amountString, assetCoverageKey } from './indexer.mjs';
 import { eligibility, traderPnl } from '../../web/src/labs/domain.mjs';
 import { address, assert } from './security.mjs';
 const ERC20=parseAbi(['function balanceOf(address) view returns (uint256)','function totalSupply() view returns (uint256)']);
@@ -28,7 +28,10 @@ export function aggregateCandles(events,timeframe='1h') {
 }
 export function createTokenData({store,markets,io,now=()=>Date.now()}) {
  async function detail(token,search=new URLSearchParams()) {
-  token=address(token);const all=await markets.markets(),market=(all.markets||[]).find(m=>m.address===token),raw=markets.rawToken?.(token);const gate=eligibility(market,now(),all.block??null),coverage=store.get('radar.snapshot')?.coverage||{notes:['No indexed history.'],fromBlock:null,toBlock:null};
+  token=address(token);const all=await markets.markets(),market=(all.markets||[]).find(m=>m.address===token);const gate=eligibility(market,now(),all.block??null),globalCoverage=store.get('radar.snapshot')?.coverage||{notes:['No indexed history.'],fromBlock:null,toBlock:null};
+  const asset=market&&store.get('radar.index')?.assetCoverage?.[assetCoverageKey(token,market.poolId)];
+  const completeHistory=!!(asset&&asset.hasOmissions===false&&Number.isSafeInteger(market.deploymentBlock)&&asset.deploymentBlock===market.deploymentBlock&&asset.fromBlock!==null&&asset.fromBlock<=market.deploymentBlock&&asset.toBlock===all.block);
+  const coverage={...(asset||{chainId:1,address:token,poolId:market?.poolId||null,fromBlock:null,toBlock:null,fromTime:null,toTime:null,hasOmissions:true}),completeHistory,headBlock:all.block??null,notes:[...globalCoverage.notes,asset?`Token/PoolId coverage: blocks ${asset.fromBlock}–${asset.toBlock}; deployment ${asset.deploymentBlock??'unverified'}. ${completeHistory?'Contiguous indexed history reaches the checked head.':'Opening history is incomplete, omitted or still backfilling; numerical P&L totals are unavailable.'}`:'No per-token/PoolId coverage proof. Global Radar coverage cannot certify this token’s history.']};
   if(!gate.eligible)return {market:null,reasons:all.excluded?.find(m=>m.address===token)?.reasons||gate.reasons,pools:[],candles:[],events:[],holders:[],traders:[],nextCursor:null,coverage};
   const interval=search.get('timeframe')||'1h',pool=search.get('pool')||market.poolId;assert(pool===market.poolId,422,'pool_unverified','Select a verified pool from this token’s pool list.');
   const offset=Number(search.get('cursor')||0);assert(Number.isInteger(offset)&&offset>=0&&offset<=10000,422,'invalid_cursor','Use a cursor returned by this token response.');
@@ -43,7 +46,7 @@ export function createTokenData({store,markets,io,now=()=>Date.now()}) {
   }
   holders=old.values.sort((a,b)=>Number(BigInt(b.balanceRaw)-BigInt(a.balanceRaw)));
   const actors=[...new Set(allEvents.filter(e=>['buy','sell'].includes(e.type)&&e.wallet&&!e.ambiguousRouting).map(e=>e.wallet))].slice(0,50);
-  const traders=actors.map(wallet=>{const events=allEvents.filter(e=>e.wallet===wallet||(e.type==='transfer'&&!e.relatedActivity&&(e.from===wallet||e.to===wallet))).map(e=>({...e,direction:e.to===wallet?'in':'out'}));const balance=holders.find(h=>h.address===wallet)?.balance;return {address:wallet,buys:events.filter(e=>e.type==='buy').length,sells:events.filter(e=>e.type==='sell').length,pnl:traderPnl(events,balance===undefined?null:Number(balance),market.priceUsd,coverage.hasOmissions===false&&Number.isSafeInteger(market.deploymentBlock)&&coverage.fromBlock<=market.deploymentBlock&&coverage.toBlock>=all.block)};});
+  const traders=actors.map(wallet=>{const events=allEvents.filter(e=>e.wallet===wallet||(e.type==='transfer'&&!e.relatedActivity&&(e.from===wallet||e.to===wallet))).map(e=>({...e,direction:e.to===wallet?'in':'out'}));const balance=holders.find(h=>h.address===wallet)?.balance;return {address:wallet,buys:events.filter(e=>e.type==='buy').length,sells:events.filter(e=>e.type==='sell').length,pnl:traderPnl(events,balance===undefined?null:Number(balance),market.priceUsd,completeHistory)};});
   const selected=allEvents.filter(e=>view==='Transfers'?e.type==='transfer'&&e.relatedActivity!=='swap'&&e.relatedActivity!=='liquidity':view==='Liquidity'?e.type==='liquidity':['buy','sell'].includes(e.type));
   const total=view==='Holders'?holders.filter(h=>h.classification==='ordinary').length:view==='Traders'?traders.length:selected.length;
   const ordinary=holders.filter(h=>h.classification==='ordinary'),other=holders.filter(h=>h.classification!=='ordinary');

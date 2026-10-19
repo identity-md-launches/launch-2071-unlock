@@ -1,4 +1,77 @@
-# UNLOCK Labs upgrade validation · 2026-10-19
+# UNLOCK Labs revision validation · 2026-10-19
+
+Worker-recorded results for the bounded revision. All four findings reproduced against the accepted source/export and were fixed. `.imd-responses.json` contains one response per finding. Existing contracts, economics, wallet transaction flows, build configuration, dependencies and hosting identity are unchanged. Only the static export is delivered for publication; no external service, persistent bot, paid job or chain transaction was run.
+
+## Current results
+
+| Check | Actual result |
+| --- | --- |
+| Baseline reproduction | Owner A denied with owner B available, then incorrectly authorized on timeout. Late token discovery first scanned block 289 but claimed global 100–310 and supported realized 4. Six-decimal transfer displayed -0.000000000001. Chromium at 390×844 rendered no chart after panning then selecting five daily candles |
+| Typecheck / production | `npm run typecheck` and `npm run build` passed using unchanged manifests in a disposable `/tmp` build copy; Vite 7.1.7, 523 modules. Complete output copied to `dist/` and byte-compared |
+| Frontend tests | `npm test`: 60/60 passed |
+| Backend tests | 52/52 passed across `tests.mjs`, `data.test.mjs`, `upgrade.test.mjs` and the 14 new `revision.test.mjs` cases |
+| Chromium | 14 interaction/reflow groups passed at 320/390/768/1440; four axe scans had zero violations; no uncaught script errors or failed local static resources |
+| Chart regressions | Three Earlier actions on 120 hourly candles, then five daily candles: five remain visible and Reset enabled. Shorter quote series clears the crosshair and remains visible. Empty history disables Reset and a subsequent valid series recovers |
+| Radar regression | Two SAME-symbol flows render separately as -1 and -2, with distinct token-address links, at 390 and 1440 |
+| P&L regressions | New token backfill begins at evidenced deployment 120. Complete four-trade history returns realized 14 / unrealized 12. Bounded incomplete history returns partial with null totals, resumes after SQLite restart, and never inherits global coverage. Decode/event/timestamp/storage/retention omissions withhold certification |
+| Owner regressions | Timeouts, reverts, undecodable/empty owner results and renunciation grant no rights. Current/former owner checks and profile submission/moderation/quote/pre-payment outage checks pass |
+| taste@1 | 13/16 passed: render, layout, targets, contrast, tracking, sizes, glyphs, slogans, repetition, copy budget, surfaces, motion and metadata. Preserved brand capitals/monospace and functional nav/status labels explain the same three advisory flags as the accepted version |
+| First screen / assets | Inspected actual 390px screenshot: product, Refresh checks and search visible. No page overflow. Title, description, favicon, og:title, og:image and relative assets remain present |
+| Scope / packaging | No protected manifest/lockfile, contract, dependency, environment, Git/GitHub or ignore changes; no submodule or added dependency/cache/archive. The complete export remains about 1.61 MB; complete current source/export gzip tree measured below 8,388,608 bytes (about 8.30 MB), with over 80 KB remaining |
+
+Commands run after installing tools outside the repository:
+
+```sh
+npm run typecheck --prefix /tmp/unlock-revision-web
+npm test --prefix /tmp/unlock-revision-web
+npm run build --prefix /tmp/unlock-revision-web
+LABS_TEST_ACCOUNTS_MODULE=/tmp/unlock-revision-web/node_modules/viem/_esm/accounts/index.js \
+  node --test services/labs/tests.mjs services/labs/data.test.mjs services/labs/upgrade.test.mjs services/labs/revision.test.mjs
+PLAYWRIGHT_BROWSERS_PATH=/tmp/unlock-revision-browsers \
+  IMD_PLAYWRIGHT=/tmp/unlock-revision-browser/node_modules/playwright/index.mjs \
+  IMD_AXE=/tmp/unlock-revision-browser/node_modules/@axe-core/playwright/dist/index.mjs \
+  node web/scripts/check-upgrade.mjs
+PLAYWRIGHT_BROWSERS_PATH=/tmp/unlock-revision-browsers \
+  IMD_PLAYWRIGHT=/tmp/unlock-revision-browser/node_modules/playwright/index.mjs \
+  node .imd/reads/skills/design-critic/scripts/taste.mjs --out test/scratch/taste
+git diff --check
+```
+
+The initial five targeted backend tests failed against the original implementation; the original export also failed the new daily-chart browser assertion. An isolated copy of unchanged `HEAD` backend modules reproduced the exact incorrect supported P&L (4 instead of 14). These are artificial fixture accounts/logs, never claimed live identities or site data. All temporary tooling, baseline copies and logs are outside the repository or in disposable `test/scratch/`.
+
+## Review of the affected interface
+
+Applied the pinned Better Interface workflow and all six core domains while retaining the accepted compact dark/emerald monospace system. No visual redesign was justified.
+
+| Domain | Checked | Not verified / limits |
+| --- | --- | --- |
+| Accessibility | Native chart buttons/select labels; pointer and keyboard chart controls, disabled and empty states; wallet dialog Escape/focus return; four axe scans, target probe | Screen reader, physical device, forced colors |
+| Layout | 320/390/768/1440 route reflow, first-screen product/action, five-candle chart and distinct flow rows, no page overflow; mobile/desktop screenshots inspected | Browser-native 200% zoom, RTL, exhaustive content lengths |
+| Writing | Owner failure includes retry guidance and denies requester fallback; actual token range/partial P&L notes; flow labels remain transfer movements; existing snapshot and sponsored disclosures retained | Operator content and wallet-provider copy |
+| Typography | Existing local JetBrains Mono 400/600, six-size scale, loaded fonts, chart dates/values and flow links wrapping; size probe passed | Native text zoom and physical print |
+| Colors | Existing tokens retained; rendered contrast probe and four axe states passed; no new color encoding | Every possible expanded/third-party-image state |
+| UI | Reset remains usable for shorter series, pan/crosshair reset, empty-to-valid recovery, distinct asset links; existing flat surfaces and reduced-motion behavior checked | Real wallet payment success, Safari rendering, motion-panel slow replay (no new animation) |
+
+| Finding / source | Cause, correction and recheck |
+| --- | --- |
+| High · `services/labs/identities.mjs:31` | Catch-all requester fallback replaced by required live owner evidence. Outage/decoder failures now return unavailable. Production caller regressions pass |
+| High · `services/labs/indexer.mjs:57`, `token-data.mjs:32`, `markets.mjs:160` | Added asset-specific contiguous coverage/backfill and omission persistence; pool-initialization settings no longer replace token inception. Legacy/global-only ranges cannot certify P&L. Backfill, omissions and restart regressions pass |
+| Medium · `services/labs/indexer.mjs:170`, `web/src/labs/Radar.tsx:64` | Symbol aggregation/default decimals replaced by chain/address and exact decimals/raw amounts; frontend adds distinct token links. API and rendered regressions pass |
+| Medium · `web/src/labs/Candles.tsx:11` | Old offset/crosshair reset on series/currency replacement; immediate visible offset clamped and Reset keyed to underlying candles. Shorter-series and recovery browser checks pass |
+
+Current scratch evidence: `test/scratch/upgrade-browser/{results.json,static-390.png,timeframe-regression-390.png,radar-flows-390.png,radar-flows-1440.png}` and `test/scratch/taste/`. These are intentionally removed before submission. Existing delivered mobile/desktop screenshots were regenerated by the bounded browser script; fixture screenshots remain scratch only. `DESIGN.md` records the final chart and asset-link behavior.
+
+## Limitations and completion
+
+WebKit was installed outside the repository but could not launch because required GTK/GStreamer and related system libraries are absent. Safari behavior is unperformed, not passed. Physical wallets, real payments/audits, screen readers, external hosting, Docker operation and production backend connection were not exercised in this revision. No live market eligibility or wallet attribution is asserted.
+
+The static API URL remains empty and backend-dependent features remain disabled until the operator supplies and operates the documented service. Non-Ownable tokens, including UNLK, cannot edit profiles until a reviewed source/runtime-bound authority policy is added; current requester evidence alone is deliberately insufficient. Per-asset omissions remain fail closed across restarts; the seven-day retained history cannot certify lifetime P&L once earlier events have been removed. These limitations are disclosed in `docs/backend.md` and `docs/labs-data.md`.
+
+**Complete for this revision's static frontend and separately operated service-source scope.** All four finding responses are fixed; no publishing or onchain operation is claimed.
+
+---
+
+# Accepted upgrade validation (retained prior-run evidence)
 
 Worker-recorded checks; these are not independent network certification. Scope: static `dist/`, retained trade/claims/treasury/whitepaper, upgraded Markets/Radar/Audit/Profiles, and separately deployable API/migrations/indexer source. No contract/economic change, service deployment, private key, paid test audit or mainnet broadcast occurred.
 

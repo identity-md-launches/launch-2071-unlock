@@ -95,7 +95,7 @@ export type RadarWallet = {
   address: string;
   label: string | null;
   holdings: Array<{ address: string; symbol: string; balance: string | null; usd: number | null }>;
-  netFlow: Array<{ symbol: string; amount: string | null }>;
+  netFlow: Array<{ chainId?: number; address?: string; symbol: string; decimals?: number | null; amountRaw?: string; amount: string | null }>;
   source: string;
   category?: "imd" | "nft" | "public";
   attributionUrl?: string;

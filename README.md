@@ -37,12 +37,12 @@ See [service setup and connection](docs/backend.md), [eligibility, identities an
 
 ## Checks recorded for this upgrade
 
-Production TypeScript/build, 60 retained frontend tests, 38 backend/data/security tests and production Chromium interaction checks passed. Chromium exercised the export under `/preview/` at 320, 390, 768 and 1440 widths, including isolated connected-API fixtures for charts and rankings. Four axe scans returned no violations in scanned states. Fixtures never enter `dist/` and do not establish a live service.
+This revision reproduced and fixed all four reported defects: owner-read outages, per-token history certification, Radar decimal/identity handling and chart pan recovery. Production typecheck/build, 60 retained frontend tests and 52 backend/data/security tests passed. Chromium passed 14 interaction/reflow groups under `/preview/` at 320, 390, 768 and 1440 widths, including shorter chart series and separate same-symbol flows. Four axe scans found no violations in scanned states. Fixtures never enter `dist/` and do not establish a live service. See `.imd-responses.json` and `artifacts/validation.md` for finding outcomes and limitations.
 
 Reproduce service checks from the repository root after frontend dependencies are installed:
 
 ```sh
-node --test services/labs/tests.mjs services/labs/data.test.mjs services/labs/upgrade.test.mjs
+node --test services/labs/tests.mjs services/labs/data.test.mjs services/labs/upgrade.test.mjs services/labs/revision.test.mjs
 ```
 
 Browser checks use externally installed Playwright and `@axe-core/playwright`:
@@ -53,7 +53,9 @@ IMD_AXE=/absolute/path/to/@axe-core/playwright/dist/index.mjs \
 node web/scripts/check-upgrade.mjs
 ```
 
-WebKit could not launch because system libraries are missing; physical wallets/devices, screen readers, real payments and production hosting were not exercised. The MCP browser launcher also lacked Chrome; a bounded Playwright script served and closed its own local preview. Live read-only Ethereum calls succeeded, but the attempted UNLK position-log scan returned HTTP 403 and its representative sell call reverted. These failures establish **no** eligibility. No funds, approvals, signed paid audit jobs or broadcasts were made.
+WebKit could not launch because system libraries are missing; physical wallets/devices, screen readers, real payments and production hosting were not exercised. The bounded Playwright script served and closed its own local preview. Backend regressions used isolated fixtures; no new live market eligibility was established in this revision. The earlier upgrade recorded failed position-log/sell checks, which establish **no** current eligibility. No funds, approvals, signed paid audit jobs or broadcasts were made.
+
+Profile edit rights now require a verified current nonzero `owner()`. Non-Ownable tokens, including UNLK, remain unavailable for profile edits until a reviewed source/runtime-bound authority policy is added. An original requester or cached former owner never becomes authorized during an outage.
 
 Historical reports under `web/evidence/` and other documentation are retained history, not results of this upgrade. The current run is identified in `artifacts/validation.md`.
 
