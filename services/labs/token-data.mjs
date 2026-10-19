@@ -29,15 +29,17 @@ export function aggregateCandles(events,timeframe='1h') {
 export function createTokenData({store,markets,io,now=()=>Date.now()}) {
  async function detail(token,search=new URLSearchParams()) {
   token=address(token);const all=await markets.markets(),market=(all.markets||[]).find(m=>m.address===token);const gate=eligibility(market,now(),all.block??null),globalCoverage=store.get('radar.snapshot')?.coverage||{notes:['No indexed history.'],fromBlock:null,toBlock:null};
-  const asset=market&&store.get('radar.index')?.assetCoverage?.[assetCoverageKey(token,market.poolId)];
-  const recentIntervals=(globalCoverage.recentIntervals||[]).filter(c=>c.address===token&&c.poolId===market?.poolId&&c.hasOmissions===false&&c.fromBlock!==null&&c.toBlock!==null);
+  // Per-pool indexes keep each asset's complete retained history; the merged Radar feed is capped.
+  const own=market&&store.get(`history:${market.poolId}:radar.index`),ownRecent=market&&store.get(`recent-history:${market.poolId}:radar.index`),source=own||store.get('radar.index');
+  const asset=market&&source?.assetCoverage?.[assetCoverageKey(token,market.poolId)];
+  const recentIntervals=(own?Object.values(ownRecent?.assetCoverage||{}):globalCoverage.recentIntervals||[]).filter(c=>c.address===token&&c.poolId===market?.poolId&&c.hasOmissions===false&&c.fromBlock!==null&&c.toBlock!==null);
   const completeHistory=!!(asset&&asset.hasOmissions===false&&Number.isSafeInteger(market.deploymentBlock)&&asset.deploymentBlock===market.deploymentBlock&&asset.fromBlock!==null&&asset.fromBlock<=market.deploymentBlock&&asset.toBlock===all.block);
   const coverage={...(asset||{chainId:1,address:token,poolId:market?.poolId||null,fromBlock:null,toBlock:null,fromTime:null,toTime:null,hasOmissions:true}),completeHistory,headBlock:all.block??null,notes:[...globalCoverage.notes,asset?`Token/PoolId coverage: blocks ${asset.fromBlock}–${asset.toBlock}; deployment ${asset.deploymentBlock??'unverified'}. ${completeHistory?'Contiguous indexed history reaches the checked head.':'Opening history is incomplete, omitted or still backfilling; numerical P&L totals are unavailable.'}`:'No per-token/PoolId coverage proof. Global Radar coverage cannot certify this token’s history.']};
   if(!gate.eligible)return {market:null,reasons:all.excluded?.find(m=>m.address===token)?.reasons||gate.reasons,pools:[],candles:[],events:[],holders:[],traders:[],nextCursor:null,coverage};
   const interval=search.get('timeframe')||'1h',pool=search.get('pool')||market.poolId;assert(pool===market.poolId,422,'pool_unverified','Select a verified pool from this token’s pool list.');
   const offset=Number(search.get('cursor')||0);assert(Number.isInteger(offset)&&offset>=0&&offset<=10000,422,'invalid_cursor','Use a cursor returned by this token response.');
   const view=search.get('view')||'Swaps';assert(['Swaps','Transfers','Liquidity','Holders','Traders'].includes(view),422,'invalid_view','Choose swaps, transfers, liquidity, holders or traders.');
-  const indexed=store.get('radar.index')?.events||[];const allEvents=indexed.filter(e=>e.token===token&&(e.type==='transfer'||e.poolId===pool));
+  const indexed=own?[...new Map([...own.events,...(ownRecent?.events||[])].map(e=>[e.id,e])).values()]:source?.events||[];const allEvents=indexed.filter(e=>e.token===token&&(e.type==='transfer'||e.poolId===pool));
   // Raw log coverage cannot certify wallet history. Old caches without an attribution
   // proof and any retained pending/unresolved swap remain fail closed for P&L only.
   const attribution=attributionCoverage(allEvents),completeAttribution=asset?.attribution?.version===1&&asset.attribution.complete===true&&attribution.complete;

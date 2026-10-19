@@ -3,6 +3,7 @@ import { amountString } from './indexer.mjs';
 import { CUSTODY } from './custody.mjs';
 import { createOwnershipIndex } from './ownership.mjs';
 import { assert } from './security.mjs';
+import { takeWork } from './rpc.mjs';
 export const IDENTITY_NFT='0x0000ec93127baa929e58e97dd0095a2bfb38ec1d';
 const IMD='0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7',ZERO='0x0000000000000000000000000000000000000000';
 const ABI=parseAbi(['function balanceOf(address) view returns (uint256)','function ownerOf(uint256) view returns (address)']);
@@ -22,13 +23,27 @@ export async function evidencedNftSale(receipt,nft,marketplaces,io,blockTag) {
  }
  return null;
 }
+/** Decoded receipts persist by event ID and block hash. Each cycle decodes at most ten
+ * undecoded events (least-failed, newest first) and re-checks two stored sales for reorgs. */
+export async function decodeNftSales({store,io,marketplaces,now=()=>Date.now()},result){
+ const key=`nft-sales:${IDENTITY_NFT}`,venues=marketplaces.map(m=>`${m.address.toLowerCase()}:${m.runtimeCodeHash}`).join(),old=store.get(key);
+ const state=old?.venues===venues?old:{venues,decoded:{},failures:{}},byId=new Map(result.events.map(e=>[e.id,e]));
+ for(const [id,d] of Object.entries(state.decoded))if(byId.get(id)?.block!==d.block)delete state.decoded[id];
+ for(const id of Object.keys(state.failures))if(!byId.has(id)||state.decoded[id])delete state.failures[id];
+ for(const id of takeWork(store,`nft-sale-recheck:${IDENTITY_NFT}`,Object.keys(state.decoded).filter(id=>state.decoded[id].sale),2)){try{const b=await io.rpc('eth_getBlockByNumber',['0x'+BigInt(state.decoded[id].block).toString(16),false]);if(b?.hash!==state.decoded[id].blockHash)delete state.decoded[id];}catch{/* unverified this cycle; retained evidence keeps its block hash */}}
+ const pending=result.events.filter(e=>!state.decoded[e.id]).sort((a,b)=>(state.failures[a.id]||0)-(state.failures[b.id]||0)||b.block-a.block).slice(0,10);
+ for(const event of pending){try{const receipt=await io.rpc('eth_getTransactionReceipt',[event.hash]);if(!receipt?.blockHash||Number(BigInt(receipt.blockNumber))!==event.block)throw Error('Receipt is not in the indexed block');const sale=await evidencedNftSale(receipt,event,marketplaces,io,'0x'+BigInt(event.block).toString(16));state.decoded[event.id]={block:event.block,blockHash:receipt.blockHash,sale,at:new Date(now()).toISOString()};}catch{state.failures[event.id]=(state.failures[event.id]||0)+1;/* a decoding failure never implies a sale; retried later */}}
+ for(const event of result.events){const sale=state.decoded[event.id]?.sale;if(sale)event.sale=sale;}
+ result.coverage={...result.coverage,saleDecoding:{decoded:Object.keys(state.decoded).length,pending:result.events.filter(e=>!state.decoded[e.id]).length,sales:Object.values(state.decoded).filter(d=>d.sale).length}};
+ store.set(key,state);
+}
 export function createRadarExtensions({store,io,whaleIo=io,attributions=[],marketplaces=[],now=()=>Date.now()}) {
  const nftIndex=createOwnershipIndex({store,io,contract:IDENTITY_NFT,nft:true,now});
  const whaleIndex=createOwnershipIndex({store,io:whaleIo,contract:IMD,nft:false,now});
  async function confirmed(client){client.reset?.();if(BigInt(await client.rpc('eth_chainId'))!==1n)throw Error('Radar requires Ethereum');const block=BigInt(await client.rpc('eth_blockNumber'))-12n,blockData=await client.rpc('eth_getBlockByNumber',['0x'+block.toString(16),false]);const age=now()-Number(BigInt(blockData.timestamp))*1000;if(age>600000||age< -30000)throw Error('Radar confirmed block is stale or from the future');return {block,blockData};}
  async function refresh(){
   try{const result=await nftIndex.refresh(await confirmed(io));
-   for(const event of result.events.slice(0,10)){if(!marketplaces.length)break;try{const receipt=await io.rpc('eth_getTransactionReceipt',[event.hash]);const sale=await evidencedNftSale(receipt,event,marketplaces,io,'0x'+BigInt(event.block).toString(16));if(sale)event.sale=sale;}catch{/* a decoding failure never implies a sale */}}
+   if(marketplaces.length)await decodeNftSales({store,io,marketplaces,now},result);
    const publicWallets=[];for(const a of attributions){try{const tag='0x'+BigInt(result.block).toString(16),[eth,imd,nfts]=await Promise.all([io.rpc('eth_getBalance',[a.address,tag]),io.read(IMD,ABI,'balanceOf',[a.address],tag),io.read(IDENTITY_NFT,ABI,'balanceOf',[a.address],tag)]);publicWallets.push({address:a.address,label:a.label,category:'public',attributionUrl:a.sourceUrl,holdings:[{address:ZERO,symbol:'ETH',balance:amountString(BigInt(eth)),usd:null},{address:IMD,symbol:'IMD',balance:amountString(imd),usd:null},{address:IDENTITY_NFT,symbol:'identity.md NFTs',balance:nfts.toString(),usd:null}],netFlow:[],source:`${a.custody}: ${a.evidence}. Attribution is public evidence, not proof of sole control.`});}catch(e){result.coverage.errors.push(`Public balance: ${e.message}`);}}
    store.set('radar.extra',{...result,wallets:[...result.wallets,...publicWallets]});return result;
   }catch(e){store.set('queue-error:nft',{error:e.message,at:new Date(now()).toISOString()});throw e;}

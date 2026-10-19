@@ -1,18 +1,24 @@
 {
-  "commit": "4aee20859d75159fa935f16886792ce49a56d58f",
-  "tree": "e00487ac23532cc9716d65f73464ae13a754a8a5",
-  "parent": "cd95d08507d635239da996518ed0a7df4dc78338",
+  "commit": "9fa32936ef09ed102260b6dcb277263232f738c6",
+  "tree": "f16f92b0bc9b7dfcaa613e2692ca580d254aa31d",
+  "parent": "4aee20859d75159fa935f16886792ce49a56d58f",
   "bundle": "artifacts/repair/change.bundle",
-  "bundleBytes": 831972,
+  "bundleBytes": 845295,
   "verified": true,
   "originalGitMetadataUnchanged": true,
-  "notes": "Incremental source/dist/evidence commit with the supplied base prerequisite. The bundle and final packaging metadata are outside their own commit to avoid self-reference.",
+  "notes": "Incremental source/dist/evidence commits (previous repair plus reviewer-revision fixes) with the supplied base prerequisite. The bundle and final packaging metadata are outside their own commit to avoid self-reference.",
   "exportBytes": 3241508,
   "exportDigest": "4063339f0d6cf913f5a2d605ead06670f41f7eb6640afa77381e2bf5bc688838",
   "submissionBudgetBytes": 8388608,
   "repairEvidenceBudgetBytes": 2097152,
   "originalMetadataPolicy": "The original .git directory was not changed; use this incremental bundle with the provided base repository.",
-  "completeTreeGzipBytes": 7527241,
-  "repairEvidenceBytes": 1906098,
-  "submissionFileCount": 2947
+  "completeTreeGzipBytes": 7467837,
+  "repairEvidenceBytes": 1922492,
+  "submissionFileCount": 2948,
+  "base": "cd95d08507d635239da996518ed0a7df4dc78338",
+  "commits": [
+    "4aee20859d75159fa935f16886792ce49a56d58f",
+    "9fa32936ef09ed102260b6dcb277263232f738c6"
+  ],
+  "completeTreeGzipMethod": "tar of tracked plus new non-ignored files, gzip -9"
 }

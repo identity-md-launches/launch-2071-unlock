@@ -70,6 +70,18 @@ The pinned workflow, core principles in all six domains, relevant form/focus/dat
 
 Taste's casing finding is the required `UNLOCK LABS` brand. The eyebrow findings are navigation/status elements near headings, retained as functional terminal navigation. Its monospace-prose finding conflicts with the explicit preserved typography. These three are recorded exceptions, not silently marked passes. No applicable high finding remains from the rendered checks. Screenshots include Markets at 390/1440, NFT progress, actual flow records and Audit file selection. `DESIGN.md` documents the final tokens/components/responsive behavior.
 
+## Revision: reviewer findings (2026-10-19)
+
+Three reported defects were reproduced and fixed. New regressions are at the end of `services/labs/revision.test.mjs`.
+
+- **Merged history cap (high).** Reproduced: with the previous `history-queue.mjs`/`token-data.mjs`, the new test fails (`false !== true`) because the capped merged feed kept `hasOmissions:false`. Fix: an asset that loses events in the merged cap is marked `hasOmissions`/`mergeTruncated`, and token details read that pool's own index (`history:<poolId>:radar.index` plus its recent lane). Result: details keep the full FIFO history ($14 realized in the fixture). With only the capped feed, P&L is `partial` with null totals.
+- **Market budget starvation (high).** Reproduced: 12 items costing 100 reads each against the 600 budget, over 3 cycles: the old `takeWork` finished 6 items; the new `resumableWork` finished 12. Fix: `resumableWork` in `rpc.mjs` with an `exhausted` flag. The cursor advances only past finished assets, persists after each one and survives a SQLite restart. An asset that starts two consecutive cycles without finishing is passed over once. Unstarted assets keep their previous row; eligibility freshness still applies.
+- **NFT sales lost after ten newer transfers (medium).** Fix: `decodeNftSales` persists decoded receipts by event ID and block hash, carries sales into every later snapshot, decodes up to 10 undecoded events per cycle (least-failed, newest first) so older fills are eventually reached, invalidates entries whose block changes, and rechecks 2 stored sales per cycle against the canonical block hash.
+
+Commands (all passed): `node --test services/labs/tests.mjs services/labs/*.test.mjs` 84 pass / 1 skipped (Playwright opt-in); `cd web && npm test` 60 pass; `npm run typecheck` passed; `vite build` to a scratch directory produced byte-identical output to the committed `dist/`. The frontend is unchanged.
+
+Read-only mainnet doctor, 3 cycles, fresh database, local operator RPC: all four queues succeeded every cycle. Catalog: 295 assets. Market cursor 0→12→24→36 with 12 finished per cycle and no budget stall. 0 admitted / 295 excluded (indexing 290, pricing 260, seller 35, liquidity 5, unsupported pool 4; categories overlap). This matches the earlier finding that liquidity history must finish warming before anything is admitted. NFT index: transfer replay from deployment reached block 25,096,084 (1,130,941 blocks behind the head of 26,227,025). It has 2000 replayed IDs against a total supply of 2000, and 32 IDs verified by `ownerOf` at head. Coverage is incomplete, so the ranking is labelled partial. Sale decoding: 30 receipts decoded, 617 pending, 18 decoded as verified Seaport sales. This run was a local check only, not a hosted service.
+
 ## Remaining blockers and packaging
 
 - **Provider/data:** Historical logs and some deployment receipt/block reads need an operator provider/authoritative-record investigation. Global NFT/IMD backfill remains unfinished. More capable RPC access must not weaken admission or mismatch checks.

@@ -8,6 +8,10 @@ import {createTokenData} from './token-data.mjs';
 import {IMD,POOL_MANAGER,poolId,quota,hex} from './markets.mjs';
 import {createStore} from './store.mjs';
 import {createProfiles} from './profiles.mjs';
+import {createHistoryQueue} from './history-queue.mjs';
+import {createRpc,resumableWork} from './rpc.mjs';
+import {decodeNftSales,IDENTITY_NFT} from './radar-extra.mjs';
+import {parseAbiParameters,keccak256} from '../../web/vendor/runtime/c5e656ecf7fbe34e412c.mjs';
 import {mkdtempSync,rmSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
@@ -257,4 +261,56 @@ test('production export renders partial attribution and recovered P&L on mobile 
    }finally{await browser.close();}
   }
  }finally{await new Promise(r=>server.close(r));t.diagnostic(`Fixture screenshots: ${out}`);}
+});
+
+test('merged history cap cannot certify a truncated token history or its P&L',async()=>{
+ const f=historyFixture();await f.refresh([f.pool]);const own=f.store.get('radar.index');
+ f.store.set(`history:${ID}:radar.index`,own);f.store.set(`history:${ID}:radar.snapshot`,f.store.get('radar.snapshot'));
+ const otherKey={...key,currency0:U},other=poolId(otherKey),events=Array.from({length:quota.maxEvents-own.events.filter(e=>e.block>155).length},(_,i)=>({id:`other:${i}`,hash:HASH,block:155,logIndex:i,time:NOW/1000,token:U,poolId:other,type:'transfer',from:A,to:B,amount:'1'}));
+ f.store.set(`history:${other}:radar.index`,{version:2,events,assetCoverage:{[assetCoverageKey(U,other)]:{chainId:1,address:U,poolId:other,deploymentBlock:300,fromBlock:300,toBlock:310,hasOmissions:false}}});
+ const down={rpc:async()=>{throw Error('RPC timeout');},read:async()=>{throw Error('RPC timeout');}};
+ const block=n=>({number:hex(n),hash:'0x'+BigInt(n).toString(16).padStart(64,'0'),timestamp:hex(Math.floor(NOW/1000))});
+ await createHistoryQueue({store:f.store,io:down,now:()=>NOW}).refresh({pools:[f.pool,{poolId:other,address:U,decimals:18,key:otherKey,deploymentBlock:300}],block:310n,blockData:block(310),quoteUsdAt:async()=>({[IMD]:1})});
+ const merged=f.store.get('radar.index');assert.equal(merged.events.length,quota.maxEvents);assert(!merged.events.some(e=>e.block===150));
+ const c=merged.assetCoverage[assetCoverageKey(T,ID)];assert.equal(c.hasOmissions,true);assert.equal(c.mergeTruncated,true);assert.equal(merged.assetCoverage[assetCoverageKey(U,other)].hasOmissions,false);
+ // Details read the asset's own complete index: the full FIFO history, not the capped feed.
+ let d=await f.detail.detail(T,new URLSearchParams('view=Traders'));assert.equal(d.coverage.completeHistory,true);assert.equal(d.traders[0].pnl.realized,14);
+ // Without the per-pool index the capped feed is all that remains: P&L is withheld, never partial-as-complete.
+ f.store.set(`history:${ID}:radar.index`,undefined);d=await f.detail.detail(T,new URLSearchParams('view=Traders'));
+ assert.equal(d.coverage.completeHistory,false);assert.equal(d.traders[0].pnl.status,'partial');assert.equal(d.traders[0].pnl.realized,null);
+});
+test('an exhausted RPC budget resumes at the first unfinished asset across restarts',async()=>{
+ const dir=mkdtempSync(join(tmpdir(),'labs-fair-'));let store=createStore(join(dir,'db'));
+ try{
+  const items=Array.from({length:12},(_,i)=>({address:`0x${String(i+1).padStart(40,'0')}`})),reached=new Set(),cost=100;
+  const io=createRpc({urls:['https://rpc.invalid'],fetchImpl:async(_,o)=>({ok:true,text:async()=>JSON.stringify({jsonrpc:'2.0',id:JSON.parse(o.body).id,result:'0x1'})})});
+  for(let cycle=0;cycle<3;cycle++){
+   io.reset();const work=resumableWork(store,'markets',items,12);
+   for(const item of work.items){if(io.exhausted)continue;reached.add(item.address);try{for(let n=0;n<cost;n++)await io.rpc('eth_chainId');}catch{/* budget stop */}if(!io.exhausted)work.done(item);}
+   store.close();store=createStore(join(dir,'db'));
+  }
+  assert.equal(reached.size,12);
+  // One asset that alone exceeds the budget gets a bounded share, then rotation passes it.
+  const order=[];
+  for(let cycle=0;cycle<3;cycle++){const work=resumableWork(store,'heavy',items,12);order.push(work.items[0].address);for(const item of work.items.slice(1))work.done(item);}
+  assert.deepEqual(order,[items[0].address,items[0].address,items[1].address]);
+ }finally{store.close();rmSync(dir,{recursive:true,force:true});}
+});
+test('verified NFT sales persist beyond the per-cycle decode window and older fills are reached',async()=>{
+ const venue='0x5555555555555555555555555555555555555555',code='0x60006000',store=memory();
+ const event=parseAbiItem('event OrderFulfilled(bytes32 orderHash,address indexed offerer,address indexed zone,address recipient,(uint8 itemType,address token,uint256 identifier,uint256 amount)[] offer,(uint8 itemType,address token,uint256 identifier,uint256 amount,address recipient)[] consideration)');
+ const fill=(id,from,to)=>({address:venue,topics:encodeEventTopics({abi:[event],eventName:'OrderFulfilled',args:{offerer:from,zone:U}}),data:encodeAbiParameters(parseAbiParameters('bytes32,address,(uint8,address,uint256,uint256)[],(uint8,address,uint256,uint256,address)[]'),[HASH,to,[[2,IDENTITY_NFT,BigInt(id),1n]],[[0,'0x0000000000000000000000000000000000000000',0n,10n**18n,from]]])});
+ const tx=n=>'0x'+BigInt(n).toString(16).padStart(64,'0'),blockHash=n=>'0x'+(BigInt(n)+7n).toString(16).padStart(64,'0'),receipts=[];
+ const transfer=(n,id=n)=>({id:`${tx(n)}:0`,hash:tx(n),block:n,tokenId:String(id),from:A,to:B,type:'transfer'});
+ const io={rpc:async(m,[x])=>{if(m==='eth_getCode')return code;if(m==='eth_getBlockByNumber')return {hash:blockHash(Number(BigInt(x)))};receipts.push(x);const n=Number(BigInt(x));return {blockNumber:hex(n),blockHash:blockHash(n),logs:n===100||n===50?[fill(n,A,B)]:[]};}};
+ const marketplaces=[{address:venue,runtimeCodeHash:keccak256(code),sourceUrl:'https://example.org/test-only-seaport'}],ctx={store,io,marketplaces,now:()=>NOW};
+ const history=[50,...Array.from({length:12},(_,i)=>60+i),100,...Array.from({length:9},(_,i)=>101+i)];
+ const snapshot=extra=>({coverage:{},events:[...history,...extra].map(n=>transfer(n)).sort((a,b)=>b.block-a.block)});
+ let r=snapshot([]);await decodeNftSales(ctx,r);assert.equal(r.events.find(e=>e.block===100).sale.amountEth,'1');
+ r=snapshot([200]);receipts.length=0;await decodeNftSales(ctx,r);assert.equal(r.events.find(e=>e.block===100).sale.amountEth,'1');assert(!receipts.includes(tx(100)));
+ for(let i=0;i<3;i++){r=snapshot([200]);await decodeNftSales(ctx,r);}
+ assert.equal(r.events.find(e=>e.block===50).sale.amountEth,'1');assert.equal(r.coverage.saleDecoding.pending,0);assert.equal(r.coverage.saleDecoding.sales,2);
+ // A reorged block hash invalidates the stored sale so it is decoded again.
+ const s=store.get(`nft-sales:${IDENTITY_NFT}`);s.decoded[`${tx(100)}:0`].blockHash=HASH;s.decoded[`${tx(50)}:0`].blockHash=HASH;store.set(`nft-sales:${IDENTITY_NFT}`,s);
+ r=snapshot([200]);await decodeNftSales(ctx,r);assert.equal(store.get(`nft-sales:${IDENTITY_NFT}`).decoded[`${tx(100)}:0`].blockHash,blockHash(100));assert.equal(r.events.find(e=>e.block===100).sale.amountEth,'1');
 });

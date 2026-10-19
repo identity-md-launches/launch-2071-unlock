@@ -6,7 +6,7 @@ import { createHistoryQueue } from './history-queue.mjs';
 import { eligibility } from '../../web/src/labs/domain.mjs';
 import { createLiquidityVerifier } from './liquidity.mjs';
 import { automaticSell } from './simulation.mjs';
-import { createRpc, takeWork } from './rpc.mjs';
+import { createRpc, resumableWork } from './rpc.mjs';
 import { createCatalog, seedCatalog, SEEDS } from './catalog.mjs';
 import { PINNED_PICKS, EDITORIAL_IDENTITIES } from './identities.mjs';
 import { historicalReferences } from './references.mjs';
@@ -94,7 +94,7 @@ export function createMarketServices({store,rpcUrl=PUBLIC_RPC,fetchImpl=fetch,no
         try{await deploymentStart(io,cache,IMD,block);}catch(e){errors.push(`IMD deployment discovery: ${e.message}`);}
         let registry;try{registry=await discover(errors);}catch(e){registry=cache.get('markets.registry');if(!registry)throw e;errors.push(`Registry stale: ${e.message}`);}
         const featuredToken={address:IMD,symbol:'IMD',name:'Identity.md',logoSource:'https://imd.fun/icon.svg',launchId:null,launchNumber:null,createdAt:null,key:IMD_KEY,poolId:IMD_ETH_POOL,projectUrl:'https://imd.fun',sourceUrl:'https://imd.fun/docs/'};
-        const catalog=[{...featuredToken,deploymentBlock:poolStartBlocks[IMD_ETH_POOL]||cache.get('deployment:'+IMD)?.block},...registry.tokens];const tokens=takeWork(cache,'markets',catalog,quota.marketTokens);const previousSnapshot=cache.get('markets.snapshot');const tokenRows=[previousSnapshot?.featured,...(previousSnapshot?.markets||[])].filter(t=>t&&!tokens.some(n=>n.address===t.address));
+        const catalog=[{...featuredToken,deploymentBlock:poolStartBlocks[IMD_ETH_POOL]||cache.get('deployment:'+IMD)?.block},...registry.tokens];const work=resumableWork(cache,'markets',catalog,quota.marketTokens),tokens=work.items;const previousSnapshot=cache.get('markets.snapshot'),previousRows=[previousSnapshot?.featured,...(previousSnapshot?.markets||[])].filter(Boolean);const tokenRows=previousRows.filter(t=>!tokens.some(n=>n.address===t.address));
         let imdUsd=null,ethUsd=null;
         try {
           const [round,feedDecimals,word,activeReference]=await Promise.all([io.read(ETH_USD,FEED,'latestRoundData',[],blockTag),io.read(ETH_USD,FEED,'decimals',[],blockTag),io.read(POOL_MANAGER,MANAGER,'extsload',[poolSlot(IMD_ETH_POOL)],blockTag),io.read(STATE_VIEW,LIQUIDITY_ABI,'getLiquidity',[IMD_ETH_POOL],blockTag)]);
@@ -104,6 +104,8 @@ export function createMarketServices({store,rpcUrl=PUBLIC_RPC,fetchImpl=fetch,no
         }catch(e){errors.push(`USD fallback unavailable: ${e.message}`);}
         let dexPairs=[];try{dexPairs=await io.json(`https://api.dexscreener.com/tokens/v1/ethereum/${tokens.map(t=>t.address).join(',')}`);}catch(e){errors.push(`DEX Screener unavailable: ${e.message}`);}
         for(const token of tokens) {
+          // Budget exhausted: unstarted assets keep their prior row and the durable cursor stays on the first unfinished asset.
+          if(io.exhausted){const prior=previousRows.find(t=>t.address===token.address);if(prior)tokenRows.push(prior);continue;}
           let record={...token,key:token.key,chainId:1,symbol:token.symbol||null,decimals:null,totalSupply:null,priceUsd:null,priceChange24h:null,volume24h:null,liquidityUsd:null,fdv:null,marketCap:null,chart:[],chartCurrency:'USD',observedAt,source:'Ethereum RPC',status:'unavailable',poolUrl:token.poolId?`https://app.uniswap.org/explore/pools/ethereum/${token.poolId}`:null,chartUrl:token.poolId?`https://dexscreener.com/ethereum/${token.poolId}`:null,verified:false,identity:{verified:false,sourceUrl:token.sourceUrl},pool:{id:token.poolId,dex:'uniswap',version:'v4',verified:false,quoteSymbol:token.address===IMD?'ETH':token.key?.currency0.toLowerCase()===IMD||token.key?.currency1.toLowerCase()===IMD?'IMD':'ETH'}};
           try {
             if(token.unsupportedPool||!token.key)throw Object.assign(Error('Unsupported or unverified registry pool; liquidity is unknown, not zero'),{category:'unsupported pool'});
@@ -133,7 +135,7 @@ export function createMarketServices({store,rpcUrl=PUBLIC_RPC,fetchImpl=fetch,no
             if(record.priceUsd!==null)record.chart.push({time:Number(BigInt(blockData.timestamp)),price:record.priceUsd});
             record.sparkline=record.chart.map(p=>p.price);
           }catch(e){record.unavailableReason=text(e.message,180);record.failureCategory=e.category||(/quota|RPC|Provider|fetch|timeout/i.test(e.message)?'provider':'indexing');}
-          tokenRows.push(record);
+          tokenRows.push(record);if(!io.exhausted)work.done(token);
         }
         const snapshot={version:1,mode:'cached',chainId:1,updatedAt:new Date(now()).toISOString(),block:Number(block),blockTime:observedAt,featured:tokenRows.find(t=>t.address===IMD)||null,markets:tokenRows.filter(t=>t.address!==IMD),coverage:{registryPages:registry.pages,catalogSize:catalog.length,registryComplete:registry.complete,registryCursor:registry.before,cycle:cache.get('queue:markets'),registryReadAt:new Date(registry.readAt).toISOString(),source:`${API}/launches`,rpcSource:io.providers,provenance:io.provenance,notes:['Ethereum catalog walks registry pages with a persistent cursor. Catalog size is independent of per-cycle work. Unchecked or expired rows remain excluded.','All rows, editorial picks and placements pass the same current USD-liquidity and full-route sell gate. Unresolved identities remain unpublished.','Onchain fallback supplies spot/FDV only; unavailable DEX volume, change and USD liquidity remain unavailable.','FDV uses onchain total supply or provider FDV. Circulating supply is unverified. Available market cap is explicitly provider-reported, with exact pool and source provenance; it is never FDV.','Sparklines contain observed USD points only. OHLCV uses indexed swaps and event-block USD references. Liquidity is per-position principal, active liquidity is reconciled to StateView; shared PoolManager balances and FDV are never liquidity.']},quotas:quota,errors};
         cache.set('markets.snapshot',snapshot);
