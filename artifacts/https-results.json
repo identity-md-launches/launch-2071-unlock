@@ -1,22 +1,308 @@
 {
-  "capturedAt": "2026-10-18T08:20:02.227154+00:00",
-  "scope": "Fresh read-only check of the existing hostname. This local update has not been published. HTTPS requests succeeded with default TLS/hostname verification; no insecure TLS option.",
-  "url": "https://unlk-b35c.sites.imd.fun/",
-  "httpStatus": 200,
-  "liveCid": "bafybeiazwsqazwv7mjt6lpa5hu53opwld4btx5on3z62fb4rko7ow7ige4",
-  "title": "UNLOCK \u00b7 UNLK / IMD on Ethereum",
-  "scriptAndStyleAssets": [
-    "./assets/index-BZmKVt6F.js",
-    "./assets/index-DmAz4gqf.css"
+  "recordedAt": "2026-10-19",
+  "scope": "Worker validation of static frontend and separately deployable service source; no external deployment or broadcasts.",
+  "typecheck": {
+    "passed": true
+  },
+  "build": {
+    "passed": true,
+    "tool": "Vite 7.1.7",
+    "output": "dist/"
+  },
+  "tests": {
+    "frontend": {
+      "passed": 60,
+      "failed": 0
+    },
+    "backendDataSecurity": {
+      "passed": 38,
+      "failed": 0
+    }
+  },
+  "browser": [
+    {
+      "name": "static export at gateway subpath; 390px main action is on first screen",
+      "passed": true
+    },
+    {
+      "name": "search, filters, organic views and excluded token deep link",
+      "passed": true
+    },
+    {
+      "name": "local project preview and backend-dependent checkout stays disabled",
+      "passed": true
+    },
+    {
+      "name": "Audit repository example, selected file tree and scope confirmation without a backend",
+      "passed": true
+    },
+    {
+      "name": "Radar groups, event filters, device watchlist and configurable coincident flow window",
+      "passed": true
+    },
+    {
+      "name": "retained Trade, claims/quota, treasury, whitepaper and wallet sheet",
+      "passed": true
+    },
+    {
+      "name": "production routes reflow at 320px",
+      "passed": true
+    },
+    {
+      "name": "production routes reflow at 390px",
+      "passed": true
+    },
+    {
+      "name": "production routes reflow at 768px",
+      "passed": true
+    },
+    {
+      "name": "production routes reflow at 1440px",
+      "passed": true
+    },
+    {
+      "name": "connected fixture table: verified cap default, stale exclusion, sorting and local watchlist",
+      "passed": true
+    },
+    {
+      "name": "real candlestick component: volume, crosshair, zoom, pan, quote unit, timeframe and P&L gaps (fixture)",
+      "passed": true
+    },
+    {
+      "name": "axe markets",
+      "passed": true,
+      "violations": []
+    },
+    {
+      "name": "axe #labs-audit",
+      "passed": true,
+      "violations": []
+    },
+    {
+      "name": "axe #labs-radar",
+      "passed": true,
+      "violations": []
+    },
+    {
+      "name": "axe #labs-profiles",
+      "passed": true,
+      "violations": []
+    },
+    {
+      "name": "no uncaught script errors or failed static resources",
+      "passed": true
+    },
+    {
+      "name": "WebKit primary interaction",
+      "performed": false,
+      "limitation": "browserType.launch: \n\u2554\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2557\n\u2551 Host system is missing dependencies to run browsers. \u2551\n\u2551 Missing libraries:                                   \u2551\n\u2551     libgtk-4.so.1                                    \u2551\n\u2551     libpangocairo-1.0.so.0                           \u2551\n\u2551     libgdk_pixbuf-2.0.so.0                           \u2551\n\u2551     libcairo-gobject.so.2                            \u2551\n\u2551     libgraphene-1.0.so.0                             \u2551\n\u2551     liblcms2.so.2                                    \u2551\n\u2551     libevent-2.1.so.7                                \u2551\n\u2551     libopus.so.0                                     \u2551\n\u2551     libgstallocators-1.0.so.0                        \u2551\n\u2551     libgstapp-1.0.so.0                               \u2551\n\u2551     libgstpbutils-1.0.so.0                           \u2551\n\u2551     libgstaudio-1.0.so.0                             \u2551\n\u2551     libgsttag-1.0.so.0                               \u2551\n\u2551     libgstvideo-1.0.so.0                             \u2551\n\u2551     libg"
+    }
   ],
-  "whitepaper": {
-    "url": "https://unlk-b35c.sites.imd.fun/whitepaper/",
-    "status": 200,
-    "newVersionHeadingPresent": false
+  "taste": {
+    "checks": [
+      {
+        "name": "render",
+        "passed": true,
+        "exitCode": 0,
+        "durationMs": 8992,
+        "output": "renders, no script errors or missing local files"
+      },
+      {
+        "name": "layout",
+        "passed": true,
+        "exitCode": 0,
+        "durationMs": 1,
+        "output": "no horizontal scroll at 320, 390 or 1440\nno text box overlaps another\nno floating control covers text\nno text cut off by overflow: hidden"
+      },
+      {
+        "name": "targets",
+        "passed": true,
+        "exitCode": 0,
+        "durationMs": 0,
+        "output": "all 35 controls at least 24px or spaced at 390\n21 under the 44px comfortable size"
+      },
+      {
+        "name": "contrast",
+        "passed": true,
+        "exitCode": 0,
+        "durationMs": 0,
+        "output": "all measured text meets 4.5:1 (3:1 large)"
+      },
+      {
+        "name": "casing",
+        "passed": false,
+        "exitCode": 1,
+        "durationMs": 0,
+        "output": "1 all-caps text boxes in content:\n1440px: div.labs-root > div.labs-intro:nth-of-type(1) > div > h1 \"UNLOCK LABS\""
+      },
+      {
+        "name": "tracking",
+        "passed": true,
+        "exitCode": 0,
+        "durationMs": 0,
+        "output": "letter-spacing natural in content (display type may run tight)"
+      },
+      {
+        "name": "eyebrows",
+        "passed": false,
+        "exitCode": 1,
+        "durationMs": 0,
+        "output": "4 kicker labels above headings:\n390px: \"Treasury\" above \"UNLOCK LABS\" (#root > header.site-header > nav > a:nth-of-type(6))\n390px: \"Ethereum \u00b7 Backend disconnecte\" above \"Ethereum markets\" (#main > div.labs-root > nav.labs-tabs > span.small.muted)\n1440px: \"Labs\" above \"UNLOCK LABS\" (#root > header.site-header > nav > a:nth-of-type(1))\n1440px: \"Markets\" above \"Ethereum markets\" (#main > div.labs-root > nav.labs-tabs > a:nth-of-type(1))"
+      },
+      {
+        "name": "type-sizes",
+        "passed": true,
+        "exitCode": 0,
+        "durationMs": 1,
+        "output": "390: 3 sizes in use, 5 with one-offs (12px\u00d744, 14px\u00d77, 16px\u00d72, 20px\u00d71, 24px\u00d71)\n1440: 3 sizes in use, 5 with one-offs (12px\u00d753, 14px\u00d78, 16px\u00d71, 20px\u00d72, 28px\u00d71)\nbar: 6 sizes used more than once, 8 counting one-offs, per width"
+      },
+      {
+        "name": "type-faces",
+        "passed": false,
+        "exitCode": 1,
+        "durationMs": 0,
+        "output": "families (1): jetbrains mono\nweights (2): 400, 600\nmonospace prose: 2, e.g. div.labs-root > section.markets-terminal > div.market-empty:nth-of-type(8) > p.muted.small \"Liquidity and sellability checks must bo\""
+      },
+      {
+        "name": "glyphs",
+        "passed": true,
+        "exitCode": 0,
+        "durationMs": 0,
+        "output": "no em dashes or emoji in text"
+      },
+      {
+        "name": "slogans",
+        "passed": true,
+        "exitCode": 0,
+        "durationMs": 0,
+        "output": "no two-beat taglines"
+      },
+      {
+        "name": "repetition",
+        "passed": true,
+        "exitCode": 0,
+        "durationMs": 1,
+        "output": "no repeated lines"
+      },
+      {
+        "name": "copy-budget",
+        "passed": true,
+        "exitCode": 0,
+        "durationMs": 0,
+        "output": "prose on the first screen: 14 words at 390 (bar 60), 33 at 1440 (bar 90)\nall words on the first screen: 77 at 390, 121 at 1440\nwhole page: 171 words, 56 of them prose"
+      },
+      {
+        "name": "chrome",
+        "passed": true,
+        "exitCode": 0,
+        "durationMs": 0,
+        "output": "border and shadow together: 0\ncards inside cards: 0\ngradient text: 0"
+      },
+      {
+        "name": "motion",
+        "passed": true,
+        "exitCode": 0,
+        "durationMs": 0,
+        "output": "transition: all on 0 elements\nendless animations: 0; still running with reduced motion: 0"
+      },
+      {
+        "name": "share",
+        "passed": true,
+        "exitCode": 0,
+        "durationMs": 0,
+        "output": "title \"UNLOCK \u00b7 Trade & Labs on Ethereum\", favicon, og:title, og:image, description"
+      }
+    ]
   },
-  "httpToHttps": {
-    "status": 301,
-    "location": "https://unlk-b35c.sites.imd.fun/"
+  "tasteAdjudication": {
+    "casing": "Requested preserved UNLOCK LABS brand.",
+    "type-faces": "Requested preserved monospace design.",
+    "eyebrows": "Working header/tool navigation and service status near headings, confirmed in screenshots."
   },
-  "localPublicationCompleted": false
+  "serviceSmoke": {
+    "healthStatus": 200,
+    "chainId": 1,
+    "schemaVersion": 2,
+    "settingsConfigured": false,
+    "marketsMode": "warming",
+    "marketRows": 0,
+    "unauthenticatedProfileQuoteStatus": 401
+  },
+  "liveReadOnlyObservation": {
+    "mode": "live-read-only",
+    "checkedAt": "2026-10-19T09:10:13.441Z",
+    "block": 26225624,
+    "blockHash": "0x4b778757a01bef3d1ae79f87d15d518606a2d6850c5387c9c4556bb2a796b050",
+    "token": "0x99fa82b022be4575891a43b757bc770691e18fda",
+    "poolId": "0x860a127e8f4b069ce93e280efda34db2b3cb21e7d73f164248f38f4220ec8d32",
+    "priceUsd": 8.26623584001271e-05,
+    "liquidity": null,
+    "sell": null,
+    "errors": [
+      "liquidity: Provider returned HTTP 403",
+      "sell: RPC eth_call: execution reverted"
+    ],
+    "broadcasts": 0,
+    "representativeEvidence": {
+      "transaction": "0x2e1d6e4b54a11d33f5fa2cd86f657c8ff43cd802b39e040e25ab9d115a8333b9",
+      "block": 26225048,
+      "amount": "2823298.761542774845707053",
+      "minimumBasis": "Current pool spot less 5%; full router call is read-only, no state overrides.",
+      "account": "0x78ee2203cdd7eaacd321aa893b4e7b6d5fe18e19"
+    },
+    "rpcRequests": 11,
+    "eligibilityEstablished": false
+  },
+  "limitations": [
+    "MCP browser could not find Chrome at its expected path; bounded Playwright Chromium supplied the rendered checks.",
+    "WebKit could not launch because required system libraries are absent.",
+    "Docker is not installed; Docker build, public hosting and HTTPS operation were not exercised.",
+    "No real wallet payment, paid audit admission, physical-device/AT/native-zoom or production disaster recovery test."
+  ],
+  "sourceIntegrity": {
+    "protectedPathChanges": [],
+    "contractOrEconomicChanges": false,
+    "submodules": [],
+    "trackedNodeModules": [],
+    "ignoredFileChanges": false
+  },
+  "packaging": {
+    "limitBytes": 8388608,
+    "method": "gzip tar of current tracked/unignored repository files excluding pinned inputs and scratch; archive created outside repository",
+    "measuredBytes": 8324505
+  },
+  "exportSha256": {
+    "dist/abi/ERC20.json": "f0f544e5a6f65ef0f35979838dc95ccdcb7090771f408914bf79b8c88ce55adb",
+    "dist/abi/IV4Quoter.json": "7f7fc4ea986a47c4fa51210389fe1d8799df5c506433644676d1b34e29256653",
+    "dist/abi/ImdFeeVault.json": "c59147a73ea87225e1a8d6b7459b9e2cbebd571fc51c97e8567a29bd4e81963d",
+    "dist/abi/MerkleClaimEvidence.json": "608cee018c3c6b99b24a7236d1c1d08a51507932b99dbe186bfc55bd8f8c2240",
+    "dist/abi/MerkleDistributor.json": "4edd5f8230c1b33123934fa35529863e3ff889ac61de86a318216410e54a8a84",
+    "dist/abi/Permit2.json": "a4a3d8535e29d8c2a460f71c95200197b9e3c010cd063f1be41c36fe327a195b",
+    "dist/abi/UniversalRouter.json": "4ec33b6dcbc1bd759416ad9350e63ad29f8f0b50d21b29ec368aa4159586a1fd",
+    "dist/abi/UnlkImdHook.json": "8540f21d219ecc81a57b38f26e7ae1aeaa356a3b51ced2f3fb779ebdb22d6c8b",
+    "dist/abi/UnlkImdOracle.json": "7ad8aebc9580c7ed90fcff6996f7e7159541a4e09d223d7eaeeeb3fb2d155e97",
+    "dist/abi/UnlkToken.json": "d8aa3c2ee30aacb9d86a9ef1b73dd59911e835a0ac7faaf56b424ee95384d1ad",
+    "dist/assets/ccip-16C8Mb3B.js": "1f0528edf896f0963ef6b102c58cc9d66017853850852125482d03832fc31a1c",
+    "dist/assets/index-BYzWdqe7.js": "c1c51f9505c78cbb6cbab23690c3c1ee4483e9b2556eb46e7e2bddebf836ed4c",
+    "dist/assets/index-C78PZ_Gr.js": "3a15dcae03acc74c3414406671404639d25b9ec0f8a39f9206943ccd9975bb14",
+    "dist/assets/index-uqpMN38D.css": "624e5d6a701142aae0a9c3af7801de4d224c08238287de0aa5921c9ce1f4045c",
+    "dist/claims/round-0.json": "b53acf03d14b8d71e52484efce14d94b700a3111ffb1e560dac2676106a96725",
+    "dist/favicon.svg": "981c8045393dc4c2b54336ee16ec192b0ab154abc6078fb6929dd217ba2ebf11",
+    "dist/fonts/JetBrains-Mono-OFL.txt": "a76abf002c49097d146e86740a3105a5d00450b1592e820a1109a8c5680cd697",
+    "dist/fonts/jetbrains-mono-regular.woff2": "f1a7a03672cdd494ce0d5543fac6e4360fe22403c6de297fdc2e55a815f7baff",
+    "dist/fonts/jetbrains-mono-semibold.woff2": "8f20245500c375a63879b47c12560a07bcaf7a88672d272f4d8e79b68f9186ae",
+    "dist/index.html": "6537cf9f68c287af12af7ecd5c8566e5501cd1f6ca784857b065cde5111f8006",
+    "dist/labs/markets.json": "dbb0ba4e5371dbfdb5ad904c336230efafe83a61847399eb55c778127e0354c9",
+    "dist/labs/radar.json": "8b284a0525bc4a349e8c94a80afc5d08c6b069785e5853e3419ac08c0dd42739",
+    "dist/labs-config.json": "a5166ca1376443b7ef37d53ce38c58135ba4b0cc024628dfa800200bbfca9a39",
+    "dist/recovery.html": "7e5cb321dc50fa47d8d2f905f1e1bfb5ec96b141e48a6eb941df96193add9f05",
+    "dist/share.png": "4891d981b3e7b3076a85e64bcfb66e89da4b0920e20ea71c1680d7c227fd4798",
+    "dist/share.svg": "d0754cf2ba95c23394a2220a8c61240a69382b9de088f98ec27a495c6ed2d3b7",
+    "dist/wallets/metamask.svg": "d5558cd419c8d46bdc958064cb97f963d1ea793866414c025906ec15033512ed",
+    "dist/wallets/phantom.svg": "f841f8112e131259a2e5123177950099c79487e61e77971f4e193e6c374419eb",
+    "dist/wallets/rabby.svg": "dcae4de88ebfa10cffa1fe28df13d7c8c0b40736ef2b704f1f2fc348e777e443",
+    "dist/whitepaper/index.html": "f7ef96101a28eef2e0fdff18be693440b155d1eed83da067ce4ec8dbe1f04983",
+    "dist/whitepaper/print.js": "1b69852eb706147b8ce102c1e62c556d8b0ed37d26bdb22ba3601310cbe15f04",
+    "dist/whitepaper/whitepaper.css": "f0ffe7a6e7e39e58385d1debb2fa874ae736335fda960a6173ebefc5c1beecab"
+  }
 }

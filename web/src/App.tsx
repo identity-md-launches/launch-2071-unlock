@@ -3,9 +3,9 @@ import { ConnectButton } from "./wallet";
 import { NextRelease } from "./NextRelease";
 import { Labs } from "./labs/Labs";
 export function App() {
-  const [section, setSection] = useState(location.hash.slice(1) || "trade");
+  const [section, setSection] = useState(location.hash.slice(1) && location.hash !== "#main" ? location.hash.slice(1) : "labs-markets");
   useEffect(() => {
-    const update = () => setSection(location.hash.slice(1) || "trade");
+    const update = () => { if (location.hash === "#main") { document.getElementById("main")?.focus(); return; } setSection(location.hash.slice(1) || "labs-markets"); };
     addEventListener("hashchange", update);
     return () => removeEventListener("hashchange", update);
   }, []);
@@ -35,8 +35,8 @@ export function App() {
         </a>
         <nav aria-label="Primary navigation">
           {[
-            ["trade", "Trade"],
             ["labs", "Labs"],
+            ["trade", "Trade"],
             ["rights", "My Unlock"],
             ["milestones", "Milestones"],
             ["activity", "Activity"],

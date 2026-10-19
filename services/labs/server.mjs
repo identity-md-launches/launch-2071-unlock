@@ -5,6 +5,12 @@ import { createRpc, createAuth, HttpError, assert, address, PUBLIC_RPC } from '.
 import { createUpstream } from './upstream.mjs';
 import { createAudits } from './audits.mjs';
 import { createMarketServices } from './markets.mjs';
+import { createProfiles } from './profiles.mjs';
+import { createIdentityResolver } from './identities.mjs';
+import { createTokenData } from './token-data.mjs';
+import { createRadarExtensions } from './radar-extra.mjs';
+import { marketConfig } from './config.mjs';
+import { encodeFunctionData, decodeFunctionResult } from '../../web/vendor/runtime/c5e656ecf7fbe34e412c.mjs';
 
 function originSetting(value) {
   const url = new URL(value);
@@ -15,11 +21,11 @@ function originSetting(value) {
 function json(res, status, data) {
   res.writeHead(status, { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' }); res.end(JSON.stringify(data));
 }
-async function body(req) {
+async function body(req, limit = 32768) {
   const chunks = []; let bytes = 0;
   for await (const chunk of req) {
     bytes += chunk.length;
-    assert(bytes <= 32768, 413, 'body_too_large', 'Requests are limited to 32 KiB.'); chunks.push(chunk);
+    assert(bytes <= limit, 413, 'body_too_large', 'Request exceeds the allowed body limit.'); chunks.push(chunk);
   }
   if (!bytes) return {};
   assert((req.headers['content-type'] || '').startsWith('application/json'), 415, 'json_required', 'Use application/json.');
@@ -36,6 +42,10 @@ function csv(records, fields) {
     return `"${text.replace(/"/g, '""')}"`;
   };
   return [fields.map(cell).join(','), ...records.map(item => fields.map(field => cell(item[field])).join(','))].join('\r\n');
+}
+export function decorateMarket(m, paid) {
+  const profile=paid.find(p=>p.address===m.address&&p.kind==='profile'),sponsor=paid.find(p=>p.address===m.address&&p.kind==='sponsor');
+  return {...m,...(profile?{profile:{description:profile.description,website:profile.website,social:profile.social,socials:profile.socials||(profile.social?[profile.social]:[]),banner:!!profile.banner,label:profile.label},logo:profile.logo?`/media/1/${m.address}/logo.png`:m.logo}:{}),...(sponsor?{sponsored:{label:'Sponsored',expiresAt:sponsor.expiresAt,description:sponsor.description,banner:!!sponsor.banner,website:sponsor.website}}:{})};
 }
 function filterMarkets(data, search) {
   let rows = [...(data.markets || [])]; const addresses = search.get('addresses');
@@ -55,7 +65,7 @@ export function createLabsServer({
   filename = process.env.LABS_DB_PATH || '/tmp/unlock-labs/labs.sqlite',
   siteOrigin = process.env.LABS_SITE_ORIGIN || 'http://127.0.0.1:4173',
   rpcUrl = process.env.ETHEREUM_RPC_URL || PUBLIC_RPC,
-  fetchImpl = fetch, now = () => Date.now(), store: injectedStore, marketServices, authRpc,
+  fetchImpl = fetch, now = () => Date.now(), store: injectedStore, marketServices, authRpc, profileServices, operatorOwner = process.env.LABS_OPERATOR_OWNER || "", marketSettings = marketConfig(),
 } = {}) {
   siteOrigin = originSetting(siteOrigin);
   const store = injectedStore || createStore(filename);
@@ -63,7 +73,12 @@ export function createLabsServer({
   const rpc = authRpc || createRpc(rpcUrl, fetchImpl);
   const auth = createAuth({ store, siteOrigin, rpc, now });
   const audits = createAudits({ store, upstream, now });
-  const markets = marketServices || createMarketServices({ store, rpcUrl, fetchImpl, now });
+  const markets = marketServices || createMarketServices({ store, rpcUrl, fetchImpl, now, ...marketSettings });
+  const readIo={rpc,async read(contract,abi,fn,args=[],block='latest'){return decodeFunctionResult({abi,functionName:fn,data:await rpc('eth_call',[{to:contract,data:encodeFunctionData({abi,functionName:fn,args})},block])});},async json(url){const u=new URL(url);assert(u.origin==='https://api.imd.fun'&&u.pathname.startsWith('/launches/'),422,'unsafe_identity_source','Only the official IMD launch registry supplies edit evidence.');const r=await fetchImpl(u.href,{redirect:'error',signal:AbortSignal.timeout(15000)});assert(r.ok,503,'identity_unavailable','IMD identity records are unavailable.');return JSON.parse(await upstream.readResponse(r,3000000));}};
+  const identities=createIdentityResolver({store,io:readIo,now,extraLaunchIds:marketSettings.extraLaunchIds});
+  const profiles=profileServices||createProfiles({store,io:readIo,identities,marketServices:markets,owner:operatorOwner,now});
+  const tokenData=createTokenData({store,markets,io:readIo,now});
+  const radarExtra=createRadarExtensions({store,io:readIo,now,attributions:marketSettings.attributions,marketplaces:marketSettings.marketplaces});
   const callers = new Map();
   const server = createServer(async (req, res) => {
     res.setHeader('x-content-type-options', 'nosniff');
@@ -84,9 +99,30 @@ export function createLabsServer({
       }
       const url = new URL(req.url || '/', 'http://labs.local'); const path = url.pathname; const method = req.method;
       if (method === 'GET' && path === '/api/health') {
-        json(res, 200, { ok: true, service: 'UNLOCK Labs', version: 1, running: true, siteOrigin, chainId: 1, persistentStore: 'SQLite; requires a persistent LABS_DB_PATH mount across host replacement', noCustody: true,
+        store.db.prepare('SELECT 1').get();
+        json(res, 200, { schemaVersion:2, ok: true, service: 'UNLOCK Labs', version: 1, running: true, siteOrigin, chainId: 1, persistentStore: 'SQLite; requires a persistent LABS_DB_PATH mount across host replacement', noCustody: true,
           limits: { requestPerMinute: 120, upstreamReadPerMinute: 120, upstreamWritePerMinute: 20, githubTreesPerHour: 40, ordersPerWalletPerDay: 30 },
           coverage: 'Markets and Radar have bounded caches. Read their coverage and missing-history metadata.' }); return;
+      }
+      if (method === 'POST' && path === '/api/audits/tree') { const b=await body(req);assert(b.source&&typeof b.source==='object',422,'source_required','Pin a repository and commit first.');json(res,200,{tree:await upstream.githubTree(b.source.repoUrl,b.source.baseCommit)});return; }
+      if (method === 'GET' && path === '/api/profiles/settings') {json(res,200,profiles.settings());return;}
+      if (method === 'GET' && path === '/api/profiles/publications') {json(res,200,{publications:await profiles.publications()});return;}
+      const media=/^\/api\/media\/1\/(0x[\da-f]{40})\/(logo|banner|sponsor-banner)\.png$/i.exec(path);
+      if(method==='GET'&&media){const publications=await profiles.publications();const p=publications.find(p=>p.address===media[1].toLowerCase()&&p.kind===(media[2]==='sponsor-banner'?'sponsor':'profile'));const value=p?.[media[2]==='sponsor-banner'?'banner':media[2]];const bytes=value?Buffer.from(value.slice(22),'base64'):media[2]==='logo'?markets.media?.get(media[1]):null;assert(bytes,404,'image_unavailable','Logo unavailable; use the local fallback.');res.writeHead(200,{'content-type':'image/png','cache-control':'public,max-age=300','cross-origin-resource-policy':'cross-origin'});res.end(bytes);return;}
+      const token=/^\/api\/tokens\/(0x[\da-f]{40})$/i.exec(path);
+      if(method==='GET'&&token){const detail=await tokenData.detail(token[1],url.searchParams);if(detail.market)detail.market=decorateMarket(detail.market,await profiles.publications());json(res,200,detail);return;}
+      if(path.startsWith('/api/profiles/')){
+       const session=await auth.requireSession(req);
+       if(method==='PUT'&&path==='/api/profiles/settings'){json(res,200,profiles.configure(session.address,await body(req)));return;}
+       if(method==='POST'&&path==='/api/profiles/rights'){json(res,200,await identities.rights((await body(req)).address,session.address));return;}
+       if(method==='POST'&&path==='/api/profiles/submissions'){json(res,200,await profiles.submit(session.address,await body(req,900000)));return;}
+       if(method==='GET'&&path==='/api/profiles/mine'){json(res,200,profiles.mine(session.address));return;}
+       if(method==='GET'&&path==='/api/profiles/moderation'){json(res,200,{submissions:profiles.submissions(session.address,true)});return;}
+       const moderation=/^\/api\/profiles\/moderation\/([\da-f-]{36})$/.exec(path);
+       if(method==='POST'&&moderation){json(res,200,await profiles.moderate(session.address,moderation[1],(await body(req)).status));return;}
+       if(method==='POST'&&path==='/api/profiles/quote'){json(res,200,await profiles.quote(session.address,(await body(req)).submissionId));return;}
+       const profileOrder=/^\/api\/profiles\/orders\/([\da-f-]{36})(?:\/(recheck|verify))?$/.exec(path);
+       if(profileOrder){const [,id,action]=profileOrder;if(method==='GET'&&!action){json(res,200,profiles.order(id,session.address));return;}if(method==='POST'&&action==='recheck'){json(res,200,await profiles.recheck(id,session.address));return;}if(method==='POST'&&action==='verify'){json(res,200,await profiles.verify(id,session.address,(await body(req)).transactionHash));return;}}
       }
       if (method === 'GET' && path === '/api/capabilities') { json(res, 200, await upstream.capabilities()); return; }
       if (method === 'POST' && path === '/api/auth/nonce') { json(res, 200, auth.nonce((await body(req)).address)); return; }
@@ -119,12 +155,12 @@ export function createLabsServer({
           else json(res, 200, report); return;
         }
       }
-      if (method === 'GET' && path === '/api/markets') { json(res, 200, await markets.markets()); return; }
+      if (method === 'GET' && path === '/api/markets') {const data=await markets.markets(),paid=await profiles.publications();json(res,200,{...data,markets:data.markets.map(m=>decorateMarket(m,paid))});return; }
       if (method === 'GET' && path === '/api/radar') {
         const period = url.searchParams.get('period') || '24h'; const cursor = url.searchParams.get('cursor');
         assert(['1h', '24h', '7d'].includes(period), 400, 'unsupported_period', 'Supported Radar periods are 1h, 24h, and 7d, clipped to indexed history.');
         assert(cursor === null || /^\d{1,5}$/.test(cursor), 400, 'invalid_cursor', 'Use the bounded cursor from the previous Radar response.');
-        json(res, 200, await markets.radar({ period, cursor })); return;
+        json(res, 200, radarExtra.merge(await markets.radar({ period, cursor }))); return;
       }
       if (path.startsWith('/api/holder/')) {
         const session = await auth.requireSession(req, { holder: true });
@@ -164,11 +200,11 @@ export function createLabsServer({
   let timer;
   function startJobs() {
     if (timer) return;
-    const run = async () => { try { store.prune(); await markets.refresh(); } catch { /* Failed refresh retains marked stale cache. */ } };
+    const run = async () => { try { store.prune(); await markets.refresh(); await radarExtra.refresh(); } catch { /* Failed refresh retains marked stale cache. */ } };
     void run(); timer = setInterval(run, 60000); timer.unref();
   }
   function close() { clearInterval(timer); server.close(); if (!injectedStore) store.close(); }
-  return { server, store, auth, audits, upstream, markets, startJobs, close };
+  return { server, store, auth, audits, upstream, markets, profiles, identities, tokenData, startJobs, close };
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {

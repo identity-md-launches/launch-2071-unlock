@@ -1,66 +1,64 @@
-# LABS market data and Radar coverage
+# Market eligibility and data coverage
 
-Markets and Radar read real public registry/API data and Ethereum state. They do not create trades, transactions, user identities or profit estimates. The delivered static snapshots are recorded observations, **not a hosted or continuously running backend**. Run the service described in the repository README to obtain refreshes and protected APIs; static IPFS hosting cannot run the indexer.
+This document describes this upgrade's source, not a claim that its separate API is deployed. The static site ships no eligible market rows. Historical Radar data is labeled, timestamped and bounded to 60 retained real events from the accepted observation, plus its evidenced wallet sample. These are snapshots, never mocks or a current feed. Connected-API browser fixtures exist only in the validation script and never enter `dist/`.
 
-## Sources and identity checks
+## One gate for every market placement
 
-- Official IMD documentation: <https://imd.fun/docs/>; API schema: <https://api.imd.fun/openapi.json>.
-- Launch discovery: `GET https://api.imd.fun/launches?limit=100`, up to three pages using the documented launch-number `before` cursor. Only `status:live`, `chainId:1`, token artifacts with a supported seeded v4 PoolKey enter this initial catalog. The accepted UNLOCK launch is also explicitly retained by its deployment record. This bounded catalog is not the complete launch registry.
-- Ethereum RPC default/source: <https://ethereum-rpc.publicnode.com>. A service operator can set `ETHEREUM_RPC_URL` to another permitted Ethereum endpoint. No credential belongs in the static export.
-- IMD: `0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7`; UNLK: `0x99fa82b022be4575891a43b757bc770691e18fda`. UNLOCK's launch is `0528a007-5ec6-4acd-b9cc-b3ded6fe2929` / number 2071.
-- Each launch PoolId is calculated from the registry PoolKey using canonical ABI encoding and keccak256. Token bytecode, decimals, symbol, supply and initialized pool state are read at one confirmed block. Pool state must match the fixed registry LP fee. Missing/failed verification leaves the row unavailable.
-- IMD's known native ETH/v4 PoolId is `0xb07d640fd9e2eb9dc81b953c8e4fd006bdfeaf276010fb5418eb763ca15abfb3`. UNLK's official IMD/v4 PoolId is `0x860a127e8f4b069ce93e280efda34db2b3cb21e7d73f164248f38f4220ec8d32`. v4 PoolManager is `0x000000000004444c5dc75cb358380d2e3de08a90`.
-- [DEX Screener API](https://docs.dexscreener.com/api/reference) `/tokens/v1/ethereum/{addresses}` is queried once per market refresh. A result is accepted only when chain, DEX, full v4 PoolId, base token and quote token match the verified onchain pool. It is not enough to match a symbol. IMD is featured separately from launch rankings.
-- Uncovered pools use bounded onchain spot pricing: the v4 sqrt price, the IMD/ETH pool where needed, and Chainlink ETH/USD `0x5f4ec3df9cbd43714fe2740f5e3616155c5b8419` at the same block. Feed decimals, positive complete rounds, timestamp and a 90 minute freshness limit are checked. This is manipulable spot information, not an oracle guarantee.
-- Onchain FDV uses observed total supply, never an assumed circulating supply. DEX FDV is identified by its source. Market cap is unavailable because circulating supply is not independently supported. Missing volume, USD liquidity or change is `null`/Unavailable, not zero. Active concentrated liquidity is not mislabeled as total USD liquidity.
-- IMUSD is excluded: neither a matching name nor a symbol establishes its identity, and no verified official identity was established for this release. No address or dollar peg is assumed.
+`web/src/labs/domain.mjs` is shared by the API and browser. Tables, organic gainers, editorial picks, comparisons and sponsored placements all require:
 
-## Bounded service behavior
+1. Verified Ethereum chain/address deployment evidence and an exact verified Uniswap pool. A v4 PoolId is a bytes32 identity, never the shared manager address.
+2. At least **$20,000 current USD liquidity** and positive active USD liquidity. Evidence must come from complete position inventory/reserves, not FDV, raw v4 units, total supply, shared manager balances or a sum containing duplicate positions.
+3. A successful **full Universal Router sell `eth_call`** for a documented existing account, atomic amount and positive minimum output. Real balances, allowances and quota apply. No overrides, spoofed balances or quoter-only success.
+4. Both checks within ten minutes, within 64 blocks of the response's confirmed head and within two blocks of each other. The service also refuses stale/future confirmed blocks. Unknown, failed, warming or stale evidence excludes the token.
 
-`services/labs/markets.mjs` exports `createMarketServices({store,rpcUrl,fetchImpl})`. The store interface is synchronous `get(key)` / `set(key,value)` JSON persistence, supplied by the service's SQLite store. Returned methods are `markets()`, `radar({period,cursor})` and `refresh()`. The server calls refresh periodically; refresh is single-flight and enforces its own five minute cooldown. Requests read the shared cache rather than reindexing once per browser. Last successful data survives provider failures and is marked stale after ten minutes.
+The frontend repeats this check and expires rows on a timer. Direct token URLs explain every exclusion. Historical observations cannot grant current admission. A sell check is account/size/block/time specific, not a promise that another holder or larger order can sell. UNLK is quota based: acquisition maturity, past sales and transfer-only holdings can change available sell rights. Read the preserved rules and wallet allowance before trading.
 
-The public JSON includes the actual quotas and errors. Initial bounds are:
+## USD liquidity calculation
 
-| Resource | Bound |
-| --- | --- |
-| Registry discovery | 3 pages × 100 launches, once per hour |
-| Verified market tokens/pools | 12 including featured IMD and retained UNLK |
-| Market/index refresh | Once per 300 seconds; concurrent calls share one job |
-| RPC | At most 340 actual network attempts per refresh, retries included |
-| Provider retry | At most two retries; 250/500 ms backoff; 12 second request timeout |
-| DEX Screener | One batch of at most 12 token addresses per refresh |
-| Log pagination | 500 blocks per request; at most 1,800 blocks per refresh |
-| Finality buffer | 12 Ethereum blocks |
-| Attribution | At most 24 swap transaction lookups/receipts per refresh |
-| Canonical timestamps | At most 100 block timestamps per refresh |
-| New log rows | At most 1,000 per scan; omissions are explicitly disclosed |
-| History | At most 7 days and 10,000 rows persisted |
-| Watchlist | At most 24 candidate accounts checked; up to 10 accounts returned |
-| Event API | 100 rows per page with a bounded numeric cursor |
+`services/labs/liquidity.mjs` replays Initialize and ModifyLiquidity from an evidenced start block to the confirmed head. Owner/tick-lower/tick-upper/salt identifies each position. Overlap/log duplication is deduplicated and a changed checkpoint resets the inventory. A missing Initialize, negative reconstructed position, unavailable log range or lagging scan cannot qualify.
 
-The free providers can change availability and limits. IMD documents public reads at 120/minute per IP; these refresh bounds stay far below that during normal operation. DEX Screener documents the token endpoint at 300/minute; the service uses one request per five minutes. A shared host or RPC provider can impose stricter limits; no paid service is required or assumed. Refresh failures preserve cached observations, surface errors and respect the next cooldown.
+For each remaining position, token principal is calculated from its lower/upper sqrt prices, liquidity, current pool sqrt price and token decimals. Each position is counted once. The sum of active positions' raw liquidity must equal `StateView.getLiquidity(PoolId)` **exactly**. Total and active token principal are valued with verified current USD references; fee claims are excluded. The shared PoolManager token balance is never a pool reserve.
 
-## Radar semantics
+USD references use the accepted native ETH/IMD pool and a positive, complete, fresh Chainlink ETH/USD round at the same block. The current and historical paths check pool identity/fee, initialized state, active liquidity and feed freshness. Token spot prices remain manipulable spot information, not a safety or oracle guarantee. IMUSD always uses an observed quote; no $1 peg is assumed.
 
-The first start scans only the latest 1,800 confirmed blocks. Subsequent refreshes resume a persistent checkpoint, overlap 12 blocks and deduplicate by transaction hash/log index. If the stored confirmed checkpoint hash changes, all retained rows and timestamps are discarded and the latest bounded 1,800-block window is rebuilt; coverage start resets and earlier history is explicitly unavailable. A long outage catches up in bounded chunks rather than triggering a full-chain scan. Coverage exposes start/end block and canonical timestamp, backlog, refresh time and missing-history notes. This is a limited index, not an archive. Requests for `1h`, `24h` and `7d` are clipped to available history; absent events are not proof of inactivity.
+An incomplete archive/provider scan leaves the token excluded. The live worker check at block **26225624** (2026-10-19 09:10 UTC) could read chain/price state, but the position-log request returned **HTTP 403** and the representative UNLK sell call **reverted**. No qualifying result or successful trade is claimed. The checked account/amount came from the accepted actual sell transaction `0x2e1d6e4b54a11d33f5fa2cd86f657c8ff43cd802b39e040e25ab9d115a8333b9`; the call used current spot less 5% as minimum output and no overrides. No transaction was broadcast. This failed observation is evidence for withholding, not a production configuration entry.
 
-For configured PoolIds, Uniswap v4 `Swap` logs yield actual buys/sells using signed caller deltas for the token. `ModifyLiquidity` is a separate liquidity operation. IMD and UNLK `Transfer` logs remain transfer rows, including explicit swap/liquidity settlement annotations when the same transaction contains an indexed operation. Settlement transfers are not counted as additional trades. Volume from a transfer is never presented as DEX trade volume.
+## Prices, caps, ranking and history
 
-PoolManager and known router/factory balances are excluded from watch candidates. Contract custody is outside the initial watchlist; candidate accounts must be EOAs or EIP-7702 delegated EOAs. A swap wallet is shown only if the transaction sender's receipt has a matching positive/negative net transfer of that exact token. Otherwise the executor is left unattributed. This establishes a transaction relationship, not the identity or ultimate beneficial owner of a trader. No wallet is called smart money.
+Discovery is bounded to recent official IMD launch records and configured additional launch IDs. Currently supported indexing is static-fee v4 pools with IMD/native ETH quote currencies. Unsupported versions, pools and quotes remain unpublished rather than being misidentified. Source metadata is fetched by verified artifact chain/address; onchain symbol/name never establishes an editorial identity.
 
-The watchlist selects larger **current IMD balances among observed counterparties**, not the top holders on Ethereum. The declared UNLOCK treasury/NFT inventory wallet `0xfe44fc8f6c32f681a0ce443902a0b08bb5b3c736` is an explicit candidate; zero token inventory is an observed balance and does not assert anything about its NFTs or separate immutable beneficiary authority. Other zero-IMD/zero-UNLK accounts are omitted. Holdings are `balanceOf` at the indexed block, not estimates from transfer deltas. Net flow is signed IMD/UNLK ERC20 transfers within the selected covered period, including settlements; it is not profit or cost basis.
+Price is the verified pool spot. Exact-PoolId DEX Screener responses can supply reported 1h/24h change and volume. Missing 7d/history stays unavailable. Sparklines use only real timestamped observations. Default sorting uses verified market cap; unknown caps stay last in either direction. No circulating-supply evidence is currently available from this provider path, so those caps are explicitly unavailable. FDV is a separately labeled total-supply metric. FDV never substitutes for cap, liquidity or eligibility.
 
-## Charts and snapshots
+`launchedAt` comes from the verified pool Initialize block; a request's `createdAt` is not launch time. `listedAt` is the first successful Labs admission, persisted separately. Ranking/search/filtering uses only admitted rows. Payment changes neither comparator nor organic ticker inclusion.
 
-Charts contain only actual observed USD price points from successful refreshes. A new cache has one point, so no historical curve is invented. Every market row also links to its exact DEX Screener pool chart and Uniswap PoolId page. Unsupported historical provider data remains unavailable.
+## OHLCV, swaps and cost basis
 
-`web/public/labs/markets.json` and `radar.json` record the release's public observations with `mode:snapshot`, original timestamps, source links and explicit snapshot disclosure. Radar's static export includes the bounded indexed rows, so period filters can work locally. Its data never refreshes by itself. The default UI must retain this distinction until an operator deploys the service and sets its HTTPS URL. Authentication, paid audit submissions, protected watchlists and continually refreshed indexing require that backend.
+The confirmed-block index stores canonical block timestamps and ordered logs. Re-querying overlap replaces that range; changed checkpoints discard orphaned state. Transfer settlement, plain transfers, swaps and liquidity operations remain separate. Only reconciled transaction senders can be named as traders; pool/router balances do not identify a person. Multiple same-token routing swaps remain unattributed and are not coincident-flow signals.
 
-## Validation performed
+OHLCV is aggregated from actual signed swap amounts and quote amounts by UTC interval. USD values need a valid historical USD reference at the **event block**; today's FX is never backfilled into yesterday's trades. Unsupported historical USD conversion leaves a gap while valid quote history can remain available. Intervals without trades have no invented candles. Known log omissions withhold candles; a clipped first interval is excluded. The current candle includes only observations through the stated confirmed block. Crosshair/zoom/pan and a readable values table operate on these records; charts receive no fabricated seed points.
 
-Worker-side validation on 2026-10-19:
+Holder balances are exact onchain `balanceOf` reads over up to 24 observed addresses. Share uses onchain total supply, not guessed circulation. Pool, router, Permit2, factory, burn and unclassified contract addresses are separated from ordinary holder ranks. This is a bounded sample, not a global holder ranking.
 
-- Live read-only registry, DEX Screener and Ethereum checks succeeded. The snapshot contains 11 onchain-verified launch tokens plus separately featured IMD. Three launch pools had matching DEX Screener coverage; the others use verified onchain spot fallback with unsupported metrics left unavailable.
-- The first successful index scanned 1,800 confirmed blocks (approximately six hours) and retained 325 supported rows: 38 buys, 16 sells and 271 transfers. Twenty swaps were reconciled to transaction-sender token receipts. No liquidity event appeared in this bounded scan; liquidity parsing was separately tested with an ABI encoded fixture. A canonical timestamp quota omitted older rows, recorded in coverage notes. The final snapshot's own timestamps/block range are authoritative if later refreshes differ.
-- `node --test services/labs/data.test.mjs`: 11/11 passed. Checks cover exact PoolId identity and malformed keys, missing metrics, Ethereum-only registry selection and IMUSD exclusion, lossless atomic amounts, actual signed v4 buy direction, separate liquidity operations, token-specific receipt reconciliation, warming/unsupported periods, transfer net flow across period boundaries, actual-attempt quotas including retries, persistent overlap idempotency, checkpoint preservation after provider failure, and complete history invalidation/bounded rebuild when a confirmed checkpoint hash changes. These meaningful data tests ship with the services.
-- No mainnet funds were spent and no paid audit job was opened by these checks. Provider response correctness is not independently audited; the cache is bounded and incomplete. Full historical catch-up, multi-day retention and a production hosted refresh process were not live-tested in this workspace.
+P&L uses FIFO over evidenced lots. Full opening inventory is required before numerical realized/unrealized P&L is supported. A complete token backfill must reach its deployment, contain no known omissions and catch up to the checked head. Standard direct single-pool router swaps also need actual token **and quote** wallet flows reconciled to the receipt; their net quote amounts include token-level settlement fees. Unsupported routes/unknown quotes have unknown cost basis. Transfers in are never zero-cost purchases; transfers out are never sales. Missing history, unmatched balances, absent prices or unknown acquisition cost produce partial/unavailable P&L. Displayed partial known-lot totals are not total wallet profit. ETH gas is excluded.
+
+## Editorial identities and imagery
+
+Pinned by exact chain/address: UNLK `0x99fa82b022be4575891a43b757bc770691e18fda`, IMD `0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7`, and the supplied IMUSD `0x61aAF8a992A3143e2B0C9cB0030b9fE702854a25`. Badges appear only when those addresses pass the common gate. **UNLOCK Pick is editorial, not security certification.**
+
+INFER, ZTO, free1376, OG and EMBEO remain unresolved for editorial publication. Bounded authoritative record inspection did not establish a unique intended project identity for each requested name. In particular, similarly named launch/token records exist; no matching symbol or guessed address is promoted to a badge. `identities.mjs` retains this unresolved set explicitly. Resolve each using an authoritative project/launch record and exact deployed artifact before adding a pinned editorial mapping. Paying for a profile cannot perform that resolution.
+
+Logo sources must belong to the verified record. The service fetches only allowed official IMD HTTPS image origins without redirects, validates/strips PNG data and caches by chain/address. Unsupported, absent or unsafe images use a local geometric fallback. Moderated uploads use the same PNG sanitizer. Remote SVG/JPEG logos are currently not rasterized and fall back; no external image code is injected. Market JSON references cache paths rather than embedding large image payloads.
+
+## Radar coverage and identities
+
+IMD token counterparties, identity.md NFT holders, and publicly attributed personal wallets are separate views. Current balances are not a global whale ranking. NFT ownerOf/balanceOf checks bind collection `0x0000ec93127baa929e58e97dd0095a2bfb38ec1d` and the observed token IDs. NFT scanning is bounded to 1,800 blocks/refresh, 32 sampled IDs and 12 observed holders. Unsupported sale venues, bids and bundles stay transfers. A runtime-pinned single-item Seaport fulfillment plus matching exact NFT Transfer can support a separately labeled sale, including native consideration and buyer/seller evidence.
+
+No Vitalik, CZ or Asem address is guessed or shipped as an attribution. Public personal-wallet labels require reliable reviewed links and evidence in the operator configuration; exchange custody is not a personal portfolio. An empty attributed-wallet view states what remains unpublished. Public holdings are a covered sample of ETH/IMD/NFT balances, not the person's entire wealth.
+
+Coincident-flow detection requires at least two watched wallets, the same asset/direction and a configurable 1-minute to 1-hour window. Transaction/wallet/token duplicates, ambiguous multi-swap routing and transfer settlements are excluded. The timeline links individual amounts and transactions. **Coincidence is not proven coordination.** Signals cover the returned page/history only; missing rows do not prove no activity.
+
+## Limits and pending operation
+
+Market refresh is at most once per five minutes. The scheduler wakes each minute. Defaults: 3 × 100 registry records, 12 market tokens, 600 read-RPC attempts per refresh including retries, 500-block log pages, up to 1,800 activity blocks per refresh, 12 confirmations, seven-day/10,000-event retention, 100-row Radar pages. Position replay advances at most six 1,000-block pages per pool refresh. Historical USD reference reads are capped at 24 distinct event blocks per refresh; gaps remain explicit. Timestamp/event quotas can omit older rows and are recorded as incomplete coverage. Profile/auth HTTP and upstream limits are documented in the service source/setup guide.
+
+Operator API hosting, durable storage, capable archive/log providers, historical backfill, real representative sell plans, missing editorial/public identities, verified NFT venues, owner tariff/refund settings and moderation all await operator setup. No service or bot is deployed by the static export. Real payments and paid audits were not tested on mainnet.

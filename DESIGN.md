@@ -2,89 +2,73 @@
 
 ## Overview
 
-UNLOCK is a compact Ethereum UNLK/IMD trading terminal. Preserve its diamond wordmark, dense mono data, amber categorical unlock staircase and adjacent swap. UNLOCK Labs adds public market discovery, a bounded transaction Radar and scoped public-code audits while retaining the Price chart and readable English whitepaper. It does not replace the established brand or transaction components.
+UNLOCK is an Ethereum trading/research terminal: compact data, a geometric diamond brand, dark surfaces, emerald emphasis and locally hosted monospace type. This upgrade retains the swap, quota ladder, claims, treasury/NFT inventory and whitepaper while adding dense Labs markets, token research, project profiles and guided audit scope selection. Labs is the default entry; Trade remains immediately available.
 
-The source of truth is `web/src/styles.css`, `App.tsx`, `MarketTerminal.tsx`, `PriceChart.tsx` and `NextRelease.tsx`, plus `web/src/labs/{Labs,Audit,Markets,Radar}.tsx`. Labs reuses the same tokens in `labs.css` and `market-radar.css`. The physical whitepaper uses matching tokens in `web/public/whitepaper/whitepaper.css`. Mainnet execution remains behind the existing wallet review and validation path. A narrowly validated native-funding exception permits only the verified Labs exact-output ETH→IMD route; original UNLK swaps remain token-funded.
+The source of truth is `web/src/styles.css`, the retained trading components and `web/src/labs/{Labs,Markets,TokenDetails,Candles,Profiles,Radar,Audit}.tsx`. Labs styles are in `labs.css`, `market-radar.css` and `terminal.css`. The standalone whitepaper has its own matching public stylesheet. No marketing hero pushes the main action below the phone's first screen.
 
 ## Colors
 
-The existing single dark theme uses these exact tokens:
+Reuse the existing CSS custom properties; do not introduce an approximate second palette.
 
-| Token | Value | Role |
+| Token | Exact value | Implemented use |
 | --- | --- | --- |
-| `--ink` | `#09090b` | Page, fields, primary-button text |
-| `--surface` | `#111114` | Terminal panels, chart backgrounds and dialogs |
-| `--hover` | `#1c1c21` | Hover and selected neutral controls |
+| `--ink` | `#09090b` | Page, input background, primary-button text |
+| `--surface` | `#111114` | Panels, table headers, chart field, empty states |
+| `--hover` | `#1c1c21` | Neutral interaction/selection |
 | `--text` | `#f4f4f5` | Main text |
-| `--muted` | `#a1a1aa` | Secondary text, chart axes and timestamps |
-| `--line` | `#27272a` | Structural borders and chart grids |
-| `--control` | `#71717a` | Interactive boundaries |
-| `--accent` | `#34d399` | Buy action, earned rights, line chart and rising candles |
-| `--warning` | `#fbbf24` | Future gates and stale/unconfirmed status |
-| `--focus` | `#22d3ee` | Focus, selected scenario and crosshair |
-| `--sell` | `#f472b6` | Sell action and falling candles |
-| `--error` | `#fca5a5` | Errors |
+| `--muted` | `#a1a1aa` | Secondary text, axes, timestamps |
+| `--line` | `#27272a` | Structural/table/grid separators |
+| `--control` | `#71717a` | Form/control boundaries |
+| `--accent` | `#34d399` | Emerald action, active tabs, positive changes/buy candles |
+| `--warning` | `#fbbf24` | Snapshot/stale status, future quota gates |
+| `--focus` | `#22d3ee` | Keyboard focus, wallet control, crosshair |
+| `--sell` | `#f472b6` | Negative changes/sell candles |
+| `--error` | `#fca5a5` | Recoverable errors |
 
-Status always includes text or geometry. Rising candles are hollow; falling candles are filled. Color alone does not convey selection, freshness or direction. The design probe measured its resolved text pairs and passed contrast checks; its output is retained. Those measurements do not cover every SVG pixel, external image or untested dynamic state. On the rendered Labs audit view, computed solid pairs measured 18.100:1 for text/ink, 7.763:1 for muted/ink and 10.349:1 for primary-button ink/emerald; see `web/evidence/labs-contrast.json`.
+Statuses also have text/signs, not color alone. Editorial and sponsored labels state their meaning explicitly. The rendered taste probe passed its contrast check, and the scanned axe states returned no contrast violations; that is not a claim about every third-party image or wallet interface.
 
 ## Typography
 
-Use locally hosted **JetBrains Mono 400/600** throughout, including prose, as required by the brief. Files are `web/src/assets/fonts/jetbrains-mono-{regular,semibold}.woff2`; the static whitepaper uses identical files in `web/public/fonts/`. The OFL notice remains in that public directory. Fallbacks are UI monospace/Consolas/monospace. Production browser checks confirmed both whitepaper faces loaded.
+JetBrains Mono throughout, as requested, with `ui-monospace, SFMono-Regular, Consolas, monospace` fallbacks. The regular 400 and semibold 600 WOFF2 files are canonical in `web/public/fonts/`; `@font-face` in `styles.css` references those public assets and Vite emits relative CSS URLs. The app/whitepaper share them; duplicate source/imported copies are removed. The SIL license remains with the fonts. No synthetic font weights or new family were added.
 
-The terminal's six tokens are `--small:12px`, `--body:14px`, `--input:16px`, `--subhead:20px`, `--heading:24px` and `--large:28px`. Use 400 for body/data and 600 for emphasis/actions. Body line height is 1.5, headings 1.2; headings tighten tracking slightly. Tabular numerals stabilize live readings. Prose has a 75ch maximum measure. Addresses wrap and remain selectable. Chart axis labels are 12px in a responsive SVG coordinate system; small prices use scientific notation to fit the axis gutter.
-
-Whitepaper body is 14px with 1.65 line height and an 80ch outer content limit including padding. Its h1/h2/h3 use 28/20/16px; mobile h1 is 24px. Print switches to black on white with 10pt body and A4 margins; source URLs remain printable.
+The six-size scale is `--small:12px`, `--body:14px`, `--input:16px`, `--subhead:20px`, `--heading:24px`, `--large:28px`. Body line height is 1.5, headings 1.2; h1 tracking is -0.035em, h2 -0.025em. Dense tables/labels use 12px, controls 16px, smaller action labels 12–14px. Digits use tabular numerals. Paragraph measure is generally capped at 75ch. Long addresses/PoolIds wrap; full values remain in details/API data instead of being silently clipped. Chart axes use a width-responsive SVG viewBox to keep type readable on mobile, with an HTML value table as an alternative.
 
 ## Layout
 
-Header and terminal share a 1344px maximum width, 32px desktop side padding and alignment edges. Existing spacing steps are 8, 12, 16, 20, 24 and 32px. The desktop workspace uses `minmax(0,7fr) minmax(320px,3fr)` with a 16px gap. The mobile swap comes first so its main action remains on the initial screen.
+The main/header container is at most 1344px including 32px desktop insets; mobile insets are 16px. The primary brand sits left, utilities right, navigation wraps when needed. Labs intro is short, followed by tool navigation and the working surface. Typical gaps are 8/12px within groups and 16/20/24px between groups.
 
-| Breakpoint | Behavior |
-| --- | --- |
-| Above 1100px | Four live summary cells; chart/ladder beside swap |
-| 1100px | Two-by-two summary; header navigation takes its own wrapping row; fewer categorical tick labels |
-| 900px | Workspace stacks, swap first; navigation takes a separate row; 24px side padding |
-| 600px | 16px side padding; navigation wraps into rows; stacked accounting and docs; chart style controls fill a row; native wallet bottom sheet |
-| 360px | Compact heading and ledger spacing; all navigation remains reachable |
+Markets uses a compact summary, static horizontal gainers rail, search/filter toolbar, horizontally scrollable view buttons and a wide comparison table. The table scrolls **inside its labeled region**; the page reflows. Search spans both mobile columns below 700px. Unknown/stale markets leave an actionable empty state, never decorative invented rows. The first 390px screen includes the product and market search/refresh actions.
 
-The price plot is 300px tall and uses ResizeObserver to keep its coordinate width equal to the rendered width. Its controls wrap; tooltips sit below the plot without covering the swap. Time is linear and timestamp-based, ending at the scanned block timestamp; boundary candles are labeled partial. No-trade buckets remain blank and line segments break across gaps. History tables scroll inside named regions, never the page. NFT cards use a horizontal 144px rail with touch, keyboard and previous/next controls.
+Token detail places a large chart beside a 240–300px evidence column. Below 1100px the evidence moves underneath. At 700px the chart toolbar becomes two columns and pool selection spans both. SVG width follows its actual container; prices and volume bars remain legible. Crosshair data and zoom/pan controls wrap in normal document flow. Data tabs and table regions scroll locally.
 
-The standalone whitepaper has a compact header, contents links and one reading column. Tables and addresses wrap at 320px. Print hides navigation/print controls, preserves all substantive sections and adds source URLs. Terminal layout was checked at 320/390/768/1000/1440; whitepaper at 320/390/1440. Physical devices and native 200% zoom remain unverified.
+Profiles uses form plus preview at desktop and one column below 700px. Audit uses workspace plus recovery sidebar and becomes one column below 850px. The file tree has a bounded scroll region, literal paths, native checkboxes and persistent selection across search. Radar retains its event/wallet layout, adds group buttons and an evidence timeline, and stacks on mobile. The retained trading layout has its existing 1100/900/600/360px adaptations.
 
-Labs uses the same content edges. Its introduction has one 28px desktop / 24px mobile product heading and a compact tools nav. Offline login controls are omitted and the visible status names the unhosted backend. Markets puts search above two mobile liquidity/age controls; full coverage is in native details while snapshot/stale warnings stay visible. Radar similarly uses two period/type controls and visible incomplete-history warnings. At 390×844, actual featured IMD price or the first observed event appears on the first screen, alongside Refresh. Audit puts its repository input and Import action first; its 1.6fr/1fr desktop grid stacks at 850px, and accepted reports span both columns. Below 600px, its input/action row and metadata ledger stack. Addresses and source code wrap without clipping.
+Rendered production checks covered 320, 390, 768 and 1440px. Native 200% browser zoom, RTL and physical-device rendering remain unverified; the product is English only.
 
 ## Elevation & Depth
 
-The interface is intentionally flat. One-pixel borders communicate structure; no decorative shadow, gradient, glass or entrance animation is added. Dialog backdrops darken the background. Chart grids use the existing divider token; crosshair lines are cyan dashed strokes. Selected chart-style controls use a bottom inset mark plus `aria-pressed`, consistent with existing terminal tabs.
+Flat tonal layers and thin separators provide hierarchy. Labs adds no decorative shadow or gradient text. Borders identify controls, tables and coverage boundaries. The existing native wallet/review dialogs supply modal focus containment and backdrop separation. No floating Labs action covers content; important forms and recovery controls remain in flow.
 
 ## Shapes
 
-Existing panels use `--radius:6px`; small controls and chart-style groups use 4px. Chart dots/rings encode observations/selection. NFT images have an inset neutral 1px white outline at 10% opacity, preserving the existing image treatment. Avoid introducing a competing corner or icon system.
+Use the existing `--radius:6px` for controls/panels. Small badges use 3–4px corners and token logos are circular 28px images. The fallback is the authored geometric diamond, not a fabricated brand mark. Tables and chart frames stay rectilinear. Image cropping is limited to decorative previews; critical text uses wrapping/scrolling rather than clipping.
 
 ## Components
 
-- **`App.tsx`**: diamond UNLOCK_ wordmark, hash section navigation, visible Whitepaper link, skip link and wallet control. Preserve mobile wrapping when adding navigation.
-- **`MarketTerminal.tsx`**: keyboard-operated Unlock ladder / Price chart tabs with roving focus; pointer/native-select gate inspection; current, earned, future and selected states remain separate. Stored onchain rights are distinct from selected scenarios.
-- **`PriceChart.tsx`**: line/candlestick controls, interval/coverage selectors, current pool spot and last trade, explicit freshness, responsive SVG, crosshair, touch/drag/pinch, keyboard candle inspector, UTC OHLC/volume readout and accessible trade table. Loading, verified empty, failure, stale retention and retry are separate states. `poolHistory.ts` owns official-pool fetching, timestamped observations, candles, caching, deduplication and reorg checks.
-- **`NextRelease.tsx`**: summary, buy/sell, ledgers and native claim/attest/sync actions. Reuse `.button`, `.ledger`, `.section`, `.panel-heading` and existing account/network/signing guards. Treasury and beneficiary have distinct links and labels.
-- **`NftGallery.tsx` / `nftInventory.ts`**: the new treasury wallet is the fixed inventory identity. Official-collection filtering and onchain ownership precede cards; metadata is rendered as bounded inert image blobs. Keep ID/verification block even when an image fails. A stale snapshot never proves current ownership or fee-funded purchasing.
-- **`wallet.tsx`**: existing EIP-6963 discovery, wallet-browser links, Coinbase Smart Wallet and native modal review. Modals trap focus and restore it on Escape/close. No relay/project ID was introduced.
-- **`web/src/labs/Labs.tsx`**: hash tool navigation, domain-bound signed login, expiring session restoration, server eligibility status and service disclosure. A positive UNLK balance is the initial access rule; login never authorizes spending.
-- **`web/src/labs/Audit.tsx`**: staged commit import, path selection/check, disclosure, current quote, explicit conversion/approval/payment, persisted-order recovery and accepted report/PDF. Native labels, invalid-field focus, stable status/alert regions and disabled unsupported routes explain consequential states. The report prints complete findings as escaped text with native evidence/code disclosures.
-- **`web/src/labs/Markets.tsx`**: public search/liquidity/age filters, separately featured IMD, token metrics, source details and observed-point charts. Missing values read Unavailable; no circulating supply is inferred. Holder sorting, comparisons, watchlists and CSV call server-protected endpoints.
-- **`web/src/labs/Radar.tsx`**: observed swap/transfer/liquidity rows, receipt-supported wallet attribution, indexed transfer flows, coverage, supported periods and bounded pagination. Plain transfers and swap/liquidity settlement rows remain separate. Full addresses and atomic balances are available in details.
-- **`web/src/labs/data.ts`**: source/link formatting, bounded downloads, response validation and dated fallback/warming/stale behavior. Reuse its formatting so null never becomes zero.
-- **`services/labs/pdf.mjs`**: paginated black-on-white Courier 9.5pt report, 12pt leading, 40pt inset, repeated job/page footer and exact attached UTF-8 Markdown. Unsupported characters print as Unicode escapes. It evaluates no HTML or links.
-- **`web/public/whitepaper/`**: independent static HTML/CSS/print script, matching local fonts, version/date, full deployed rules, source/ABI links and print media. No wallet is mounted on the reading page.
-
-Buttons generally target 44px. Compact mobile navigation uses 32px rows; the probe passed its 24px-or-spacing minimum. Focus uses a 2px cyan perimeter with 3px offset. Loading/status and errors use status/alert semantics; tooltips also have a keyboard range control. Reduced motion disables existing smooth scrolling/transitions; the chart adds no autoplay animation.
-
-Chart RPC failures use the short “History unavailable. Retrying in {seconds}s.” alert and retain the existing Retry chart control and stale-snapshot explanation. `.price-chart .notice.error` uses `overflow-wrap: anywhere` so long values wrap without clipping or expanding the terminal. Raw provider diagnostics are not rendered in this alert.
+- **`App` / `Labs`:** shared header, one wallet control, hash routing, skip link, concise product title, tool links, status and nonce login. Skipping to main preserves the selected tool. API health must succeed before dependent controls open. A null/failed token response overrides cached eligibility.
+- **Buttons/fields:** existing `.button`, `.primary`, `.lab-field`, `.labs-checkbox` styles. Native controls, labels, 44px primary targets, visible 2px cyan focus with 3px offset. Disabled actions have an adjacent reason; failures have a recovery instruction/status region. Small mobile navigation remains spaced and at least 24px.
+- **`Markets`:** sortable accessible headers with `aria-sort`, public filters, pressed view buttons, local watchlist buttons, `TokenLogo`, observed-price sparkline, organic gainers and separate sponsored region. Eligibility filters precede every presentation path.
+- **`TokenDetails` / `Candles`:** exclusion state, pool/timeframe/unit controls, real OHLCV/volume, pointer/keyboard crosshair, plus/minus zoom, earlier/later pan and reset. Arrow keys move the crosshair; Page Up/Down pan. Exact chart values remain in a native disclosure table. Empty/unknown history has no seeded chart.
+- **Badges:** `UNLOCK Pick` is explicitly editorial; `Sponsored` is a paid placement. Neither denotes safety. No badge/placement bypasses eligibility.
+- **`Profiles`:** local unpublished preview, PNG upload, up to five social links, verified rights, immutable moderation state, owner tariff settings, saved order review and existing-transfer recovery. There is no default price or unlimited approval.
+- **`Radar`:** separate IMD/NFT/public-wallet groups, evidence links, transfer/trade filters, period/page controls, device/server watchlists and configurable coincident-flow timelines. Identity absence and incomplete coverage are explicit states.
+- **`Audit`:** six visible steps, pinned repository/commit, searchable existing-file selection, public scope disclosure, current quote, explicit funding/payment, saved progress/retry and accepted report downloads. Error text says which action to take next.
+- **Retained terminal/whitepaper:** continue using the existing trading, quota, claims, treasury and print components; transaction and economic logic remains intact.
 
 ## Do's and Don'ts
 
-Reuse the existing terminal section/ledger/button patterns. Place instructions beside the chart, swap or proof control they describe. Label estimates, provenance, coverage and stale data near the values. Add another reading page as a physical static directory with relative assets and the existing tokens.
+Start a Labs view inside the existing container and reuse type/color tokens, native controls and 12/16/24px grouping. Keep the task and its primary control high on mobile. Give a long table a labeled local scroll region; give a long identifier its full wrapped value. State snapshot/live coverage and unavailable values next to the data.
 
-Keep the new treasury separate from the immutable beneficiary and connected execution account. Preserve mono typography and the swap-first phone layout. Do not invent prices, candles, historical USD conversions, fee-funded provenance or unlock rights. Do not add a marketing hero, second font, decorative effects or a different transaction path.
+Never use FDV as a cap/liquidity fallback, seed invented candles, infer profit from transfers, infer identity from a symbol or wallet connection, or dress a paid placement as organic. Preserve the requested monospace/brand capitals even where a generic visual probe prefers another convention. Add a new page by reusing the Labs heading/nav, one focused working surface, explicit empty/error states and normal-flow controls; do not add a generic hero or a competing palette.
 
-Guidance attribution: Jakub Krehel's [Better Interface](https://github.com/jakubkrehel/skills/tree/267330e1adfc66a718fb65fa6918c1f06d0a689e/skills/better-interface), MIT; documentation method adapted from Paul Bakaus's [Impeccable](https://github.com/pbakaus/impeccable/blob/9d715cc4f5564a990ca8345abfdd5df6dc9b41c8/skill/reference/document.md), Apache-2.0. Existing notices remain in `web/NOTICE.md`. Current coverage and limitations are in `artifacts/validation.md`. Current Chromium Labs checks covered 320/390/768/1440, including waiting, empty, expired, refused, stale and missing data. The final source uses no new fonts or color tokens. Physical devices, screen readers and native 200% zoom remain unverified.
+Design guidance attribution: Jakub Krehel's Better Interface (MIT), commit `267330e1adfc66a718fb65fa6918c1f06d0a689e`; documentation method: Paul Bakaus's Impeccable (Apache-2.0), commit `9d715cc4f5564a990ca8345abfdd5df6dc9b41c8`. Notices/licenses remain in `web/NOTICE.md` and `web/licenses/design-guidance.txt`. Coverage and actual findings/fixes are in `artifacts/validation.md`.

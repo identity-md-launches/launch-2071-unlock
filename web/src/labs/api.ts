@@ -18,6 +18,7 @@ export async function api<T = any>(base: string, path: string, options: { token?
     body: options.body === undefined ? undefined : JSON.stringify(options.body),
     signal: options.signal ?? AbortSignal.timeout(25000),
     credentials: "omit",
+    redirect: "error",
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new LabsError(String(data.message || data.detail || data.error || `Request failed (${res.status}). Try again.`).slice(0, 600), res.status, data);

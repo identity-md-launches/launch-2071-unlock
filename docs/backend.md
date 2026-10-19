@@ -1,14 +1,10 @@
-# UNLOCK Labs service
+# Separately operated UNLOCK Labs service
 
-The service is implemented and locally tested. **It has not been deployed to a public host.** The current site remains at `https://unlk-b35c.sites.imd.fun/`; its IPFS export cannot execute a Node process, retain orders, or run an indexer. The delivered site labels its bundled market observations as dated snapshots and disables login, protected tools and payment while `labs-config.json` has an empty `apiBase`.
+This assignment publishes **only `dist/` through IMD/IPFS**. The API, database and indexers below are complete source for the operator to deploy separately. Nothing here was publicly hosted or run as a persistent worker. The current site name remains `https://unlk-b35c.sites.imd.fun/`.
 
-No authorized free backend hosting account, persistent disk, or HTTPS API hostname was supplied. The remaining hosting blocker is an operator-controlled, zero-cost Node 24 host with persistent storage and an HTTPS hostname. No paid plan, subscription, private key, founder advance or external account was created. Existing free infrastructure may be used; a host that sleeps or replaces its filesystem loses continuous coverage or database durability. Do not use an ephemeral free web-service disk for paid orders. This is an explicit operational dependency, not a claim that the unhosted API is live.
+## Local setup
 
-## Run locally
-
-The backend uses Node 24's built-in HTTP, crypto and SQLite modules plus the repository's existing pinned viem runtime. It requires no npm install, new dependency manifest, API key or wallet key.
-
-From the repository root:
+Use Node 24. The service needs no npm install, wallet key, relay or new contract. It uses built-in HTTP/crypto/SQLite and the retained pinned viem runtime. Run from the repository root:
 
 ```sh
 LABS_SITE_ORIGIN=http://127.0.0.1:4173 \
@@ -17,94 +13,91 @@ LABS_PORT=8787 \
 node services/labs/server.mjs
 ```
 
-Use the production frontend preview on `http://127.0.0.1:4173`. In the preview's `labs-config.json`, set `apiBase` to `http://127.0.0.1:8787/api`. The frontend permits HTTP only for loopback development. `/api/health` reports service availability and limits. On startup, the service refreshes its bounded data caches; its internal scheduler wakes every minute and the market provider enforces a five-minute minimum refresh interval. The first cache may take time to populate. Failed refreshes preserve prior observations and expose their age/errors.
+Run the frontend preview at `http://127.0.0.1:4173`. Set `web/public/labs-config.json`'s `apiBase` to `http://127.0.0.1:8787/api`, rebuild, and reload. HTTP is allowed only for loopback. Production requires the actual HTTPS API URL ending in `/api`. The frontend first checks `/api/health`, chain ID and health status. Connection failure keeps login/checkout and other dependent features disabled. A later API failure is surfaced rather than replaced by made-up current data.
 
-## Production setup
+The delivered configuration remains disconnected. Revert any local connection setting before publishing a snapshot-only export. Never put provider secrets, session tokens, order credentials or private keys in a public configuration file.
 
-1. Use an existing authorized free Node 24 host with a persistent filesystem. Keep a single service process: the SQLite write-ahead store and in-process dispatch locks are intended for one replica. Run behind HTTPS on a hostname the operator controls. DNS and host provisioning are still required.
-2. Place the repository's `services/labs/` source and `web/vendor/runtime/c5e656ecf7fbe34e412c.mjs` on that host, preserving their relative paths. Set the variables below. Start `node services/labs/server.mjs` under the host's process manager. The listener should remain private behind the HTTPS reverse proxy.
-3. Mount persistent storage at `LABS_DB_PATH`. Protect the directory and its backups: the database contains upstream order bearer credentials, signed payment payloads, expiring sessions, saved watchlists, and cached public reports. It contains no private wallet keys. Stop the process or use a SQLite-consistent backup method; preserve the database plus pending WAL state. Do not recreate an empty database for an existing installation.
-4. Verify `GET /api/health`, `GET /api/capabilities`, `GET /api/markets`, and `GET /api/radar`. Test public import/check, login and holder access with the production origin. An operator must finish the mocked payment checks before enabling user payments; a paid mainnet test still requires separate authorization.
-5. Set `web/public/labs-config.json` to `{"apiBase":"https://YOUR_OPERATOR_API_HOST/api"}`, replacing the host with the actual configured HTTPS API hostname. This is an operator-set deployment setting, not a supplied or invented service endpoint. Rebuild the frontend and deliver its relative-asset `dist/` under the **existing** website name. The hosting mechanism for the static site is unchanged. Repeat origin and expired-session checks from the real website.
-
-An optional container build is included:
+## Docker and HTTPS
 
 ```sh
-docker build -f services/labs/Dockerfile -t unlock-labs-service .
+docker build -f services/labs/Dockerfile -t unlock-labs-api .
 docker volume create unlock-labs-data
-docker run --detach --name unlock-labs-service --restart unless-stopped \
+docker run --name unlock-labs-api --restart unless-stopped \
   --publish 127.0.0.1:8787:8787 \
   --mount source=unlock-labs-data,target=/data \
-  --env LABS_SITE_ORIGIN=https://unlk-b35c.sites.imd.fun \
-  --env ETHEREUM_RPC_URL=https://ethereum-rpc.publicnode.com \
-  unlock-labs-service
+  --env-file /absolute/path/to/operator-labs.env \
+  unlock-labs-api
 ```
 
-These are setup instructions, not commands executed on a production host. An included `services/labs/Caddyfile` supplies a free Caddy HTTPS reverse proxy. Install Caddy on the operator host, point an API hostname at that host, open ports 80/443, set `LABS_API_HOST` to that actual hostname, then run `caddy run --config services/labs/Caddyfile`. The API remains on loopback port 8787. Caddy preserves the `Authorization` header and `/api/` path; the current static-site domain is unchanged. Automatic certificate issuance needs the configured hostname to resolve to this host. The backend does not trust forwarded IP headers. A single reverse-proxy IP therefore shares the conservative request quota; configure an upstream edge quota if further separation is needed. HTTPS hosting, DNS and certificate issuance have not been exercised here. The Docker image was not built in this run; the Node entry point and HTTP routes were exercised directly.
+These are operator setup commands, not actions run by this job. Copy `services/labs/.env.example` to an operator-controlled file **outside the static export and source control**. Set the actual origin and paths. The example contains no owner, tariff, seller account or API hostname stand-in. A blank setting disables its associated function.
 
-| Variable | Default | Purpose |
-| --- | --- | --- |
-| `LABS_SITE_ORIGIN` | `http://127.0.0.1:4173` | Exact allowed frontend origin and login domain. Production: `https://unlk-b35c.sites.imd.fun`. No wildcard CORS. |
-| `LABS_DB_PATH` | `/tmp/unlock-labs/labs.sqlite` | SQLite file; set to a persistent mount for production. `/tmp` is a local development default. |
-| `LABS_API_HOST` | No default | Actual operator-controlled API hostname for the optional Caddy HTTPS configuration; this does not change the static site domain. |
-| `LABS_HOST` | `127.0.0.1` | Listener address. Container sets `0.0.0.0`; only expose through the HTTPS proxy. |
-| `LABS_PORT` | `8787` (or host `PORT`) | Listener port. |
-| `ETHEREUM_RPC_URL` | `https://ethereum-rpc.publicnode.com` | Read-only Ethereum RPC. No paid API subscription is required. Public RPC outages and quotas affect refresh/eligibility. |
-| `LABS_TEST_ACCOUNTS_MODULE` | existing installed `web/node_modules/viem/_esm/accounts/index.js` | Test-only absolute module URL/path for viem's account signer. Tests generate ephemeral keys and never submit them to mainnet. The production service does not use this setting. |
+Use the included Caddyfile with `LABS_API_HOST` set to the actual API hostname, or an existing HTTPS reverse proxy forwarding `/api/` and Authorization. The service's Docker health check calls `/api/health`; health checks SQLite and reports schema version 2. No wildcard CORS: `LABS_SITE_ORIGIN` must equal the exact frontend origin. The API does not trust forwarded IP headers; a reverse proxy therefore shares the conservative per-socket quota. Provision edge rate limits as needed.
 
-The IMD upstream origin is fixed to `https://api.imd.fun`; it is not an operator-supplied proxy target. Never put RPC access tokens, wallet keys, order bearer credentials, or session tokens into `labs-config.json` or `dist/`.
+Docker was unavailable in the worker environment. The actual Node entry point, migrations, HTTP health, disconnected settings and unauthorized quote refusal were exercised directly. Docker build, DNS, certificates and production storage operation await the operator.
 
-## Authentication and access
+## Configuration
 
-`POST /api/auth/nonce {address}` returns `{nonce,message,expiresAt}`. The exact message binds the wallet, Ethereum chain 1, configured domain/origin, issue time, random 32-byte nonce and five-minute expiry. `POST /api/auth/verify {address,nonce,signature}` consumes the nonce once and returns `{token,address,authenticated,eligible,unlkBalance,expiresAt}`. Subsequent calls use `Authorization: Bearer <token>`. Tokens are hashed with the site origin in SQLite and expire after one hour. Logout invalidates the stored hash. Changing the configured origin invalidates old sessions/nonces.
+| Setting | Meaning |
+| --- | --- |
+| `LABS_SITE_ORIGIN` | Exact frontend origin; production is the retained UNLOCK hostname. Local default `http://127.0.0.1:4173`. |
+| `LABS_DB_PATH` | SQLite file on a durable mount. Docker default `/data/labs.sqlite`; development `/tmp` default is disposable. |
+| `LABS_HOST`, `LABS_PORT` | Listener; loopback / 8787 by default, container binds 0.0.0.0. Expose through HTTPS. |
+| `ETHEREUM_RPC_URL` | Read-only chain-1 provider supporting historical calls and filtered logs. Default publicnode. Provider refusal leaves affected checks unavailable. |
+| `LABS_OPERATOR_OWNER` | Real operator wallet controlling tariff/refund settings and moderation. Blank disables owner actions and checkout. This is independent of treasury/beneficiary authority. |
+| `LABS_MARKET_CONFIG` | Optional path to operator JSON. Start from `market-config.example.json`; empty configuration publishes no simulated sell checks. |
+| `LABS_API_HOST` | Actual hostname for the optional Caddy configuration. |
 
-Each session/protected request verifies the Ethereum RPC chain and current UNLK `balanceOf`. The initial holder requirement is **any positive UNLK balance**. A zero-balance wallet can still own, quote, pay for and recover its own audit; it cannot use `/api/holder/*`. Login is a message signature and asks for no spending approval. Deployed ERC-1271 wallets can log in using bounded variable-length signatures. Undeployed/counterfactual wallet login receives a precise refusal; the service does not deploy wallets. The upstream IMD payment protocol currently supports EOAs and EIP-7702 accounts, not ordinary contract wallets; the UI disables unsupported paid signing separately.
+The market JSON supports:
 
-Public routes are `/api/health`, `/api/capabilities`, `/api/markets`, `/api/radar`, `/api/audits/import`, `/api/audits/check`, and `/api/audits/reports/:jobId` (plus `/pdf`). Protected holder routes are `/api/holder/markets?sort=liquidity|volume|change&addresses=...`, `/api/holder/watchlist` (GET/PUT), and `/api/holder/export?kind=markets|radar`. Watchlists retain at most 20 addresses. Missing numeric values export as empty cells, with an explicit unavailable-data note; spreadsheet formula prefixes are escaped.
+- `extraLaunchIds`: up to 30 authoritative IMD launch UUIDs for bounded discovery/ownership resolution. No symbol-based identity shortcut.
+- `simulationPlans`: keyed by exact lowercase token address. Each value needs a real existing `account`, positive atomic `amountRaw`, and positive atomic `minimumQuoteRaw`. Select a representative account/size from evidenced real trades, document that source, and use a meaningful minimum quote return. The service executes a full Universal Router `eth_call` at the checked block with the account's **actual** balances, allowances and quota, without state overrides. It never sends that transaction. Configure no test keys or dummy sellers.
+- `poolStartBlocks`: exact v4 PoolId → evidenced Initialize start block. For registry tokens the deployment block is used automatically. A later/incorrect start cannot qualify: the Initialize event, position history and active-liquidity reconciliation must all succeed. IMD's older pool needs its verified start configured before its liquidity can qualify.
+- `indexStartBlock`: verified positive inception/backfill block, or `null` for the recent bounded scan. A full backfill progresses in bounded pages; do not call recent partial coverage complete. Only complete opening inventory and reconciled wallet flows can support P&L.
+- `attributions`: optional Vitalik/CZ/Asem records with exact `address`, `label`, reliable public `sourceUrl`, a written `evidence` explanation, `custody: "personal"` and `reviewed: true`. The operator must actually verify the primary attribution. No entries are supplied or guessed. Exchange/custody addresses must never be entered as personal wallets.
+- `marketplaces`: optional Seaport listing venues with exact `address`, verified `runtimeCodeHash` and authoritative `sourceUrl`. Only a matching runtime, single NFT listing fulfillment, native consideration and exact NFT Transfer evidence creates a sale record. Unsupported venues, bids and bundles remain transfers.
 
-## Paid audit sequence
+The service currently discovers static-fee IMD v4 pools quoting IMD or native ETH. Other pool versions/quotes are unindexed and remain unpublished. Provider quotas, archives, representative account selection, missing identity records and operator price/refund choices are deployment work; they are not guessed in the source.
 
-The implementation follows the public [IMD docs](https://imd.fun/docs/) and [paid request OpenAPI](https://api.imd.fun/openapi.json), inspected before implementation. No service markup is applied.
+## Database, persistence and recovery
 
-1. Import accepts only public HTTPS `github.com/owner/repo` URLs, including supported `/tree/ref` and `/commit/sha` forms. Credentials, arbitrary hosts, local addresses, queries and unsafe path forms are rejected. The IMD import resolves the full commit; it does not by itself reserve a quote.
-2. The user selects 1–16 literal repository files/directories. Paths are checked against the pinned GitHub tree before check/quote. Traversal, absolute paths, nonexistent selections, truncated trees, and trees exceeding 20,000 entries are refused. The selected scope is embedded in the audit objective. The backend sends `template:"audit"`, `repoUrl`, `baseCommit`, and `github:false` through `/requests/check`; blockers prevent a quote. The service asks for no code edits, deployment or paid transactions.
-3. An authenticated wallet creates a quote with a retained UUID request key. The server persists a random per-order upstream bearer credential **before** calling `/requests/quote`. Local ownership and the upstream order mapping survive reload/restart. Unresolved/lost quote responses reuse their original key and bearer. Identical active input recovers its existing order even if the browser supplies another key. Input changes with the same key are rejected.
-4. `/api/audits/orders/:id/challenge` retrieves the actual x402 challenge from the saved order. Its pinned input/commit/scope and Ethereum IMD terms must match. Recipient, price and expiry come from capabilities/the saved quote/challenge; they are not fixed application payment recipients. The frontend shows public-code/public-report disclosure, prepared input, itemized fee/gas and outcome limitations before signing. ETH/USDC conversions are separately disabled where a verified exact-output path cannot be established; a failed or unsupported conversion cannot submit a job.
-5. The visitor approves IMD to Permit2 if needed, then signs the exact Permit2 payment and the EIP-712 `QuoteApproval`. The backend checks session ownership, payer, token, amount, recipient witness, payment deadline, challenge/resource, and the recovered quote-approval signer. The IMD API performs the authoritative payment validation/settlement. No custody wallet or server private key exists.
-6. The exact signed payment bytes and quote signature are written before dispatch. `/submit {retry:true}` reads current status and reuses **only** those bytes. Concurrent submissions share a lock. A lost response, browser reload or process restart cannot replace the saved payment with a new one. Pending, admitted, failed and uncertain orders do not solicit a new payment. A new quote for identical input is allowed only with a new request key after authoritative status says expired, unpaid, with no pending/confirmed/settling payment or admitted job, and the original signature window has ended.
-7. The service maps admitted jobs to their owner, retrieves status without charging, and exposes blocked/incomplete work. Payment buys admission, not a guarantee of findings or completion. No unsupported refund promise is made. Orders that remain uncertain require status reconciliation rather than another payment.
+Use one API process/replica with a persistent SQLite volume. WAL, foreign keys and busy timeout are enabled. `store.mjs` bootstraps the accepted audit schema; `migrate.mjs` applies `migrations/002-profiles.sql` transactionally once using `schema_migrations`. Do not replace an existing paid-order database with an empty one.
 
-Audit ownership routes are `GET /api/audits/orders`, `GET /api/audits/orders/:id`, `POST .../challenge`, `POST .../submit`, `GET .../report`, and `GET .../report.pdf`. Quote responses expose a **local** `order.id` for these routes and `order.upstreamId` for reference. The returned `quote.id` is the upstream ID and is signed unchanged. Upstream bearer credentials are never returned to the browser. A saved-but-unreconciled payment displays `submission_saved` and `submissionSaved:true`, which is not a new payable quote.
+Retain the database and pending WAL consistently: stop the process for a filesystem backup or use SQLite's consistent backup API. Protect backups: saved audit bearer credentials, exact payment signatures and expiring sessions are sensitive even though no private wallet key is used. Monitor disk and back up before upgrading. A lost disk cannot be reconstructed solely from the static site. Profile submissions/orders have a 10,000-row ceiling; paid credentials/fulfillments are never silently pruned.
 
-## Reports and PDF fidelity
-
-Only an accepted, completed `audit_judge` submission contributes findings; unaccepted specialists are not presented as completed review. The service fetches the documented fixed-origin job, submissions and `report.md` routes. It never follows a URL supplied inside a repository, report, finding or artifact. Findings retain severity, code location, description, reproduction, proof, snippet and any supplied recommendation. Safe source links are constructed against the verified repository and immutable commit. Unavailable recommendations remain unavailable; they are not invented. Content is returned as text/data and the UI renders it without HTML execution.
-
-The PDF uses the same accepted Markdown and immutable commit, job ID, judge date, scope and SHA-256 as the report view. It paginates the full report rather than truncating findings. The original UTF-8 `report.md` is embedded as a PDF attachment. The portable Courier font supports Windows-1252; other codepoints are visibly represented as Unicode escapes in the printed pages and remain exact in the attachment. This limitation avoids silently dropping non-Latin code or evidence. An accepted report may exist while the overall job remains incomplete; the PDF and API label that distinction. Every report states the limits of AI review.
-
-## Bounds and operational limits
-
-- General HTTP: 120 requests/minute per socket IP; 32 KiB input bodies. Conservative shared proxy quotas may limit a public deployment until its free edge configuration is tuned.
-- IMD: 120 reads/minute and 20 combined import/check/quote/submit calls/minute across this process, below the documented upstream 300 requests/30 quotes limits. Quotes/challenges/payments are never automatically regenerated on a timer. A provider 429 retains order state and exposes retry information.
-- GitHub: 40 unauthenticated tree calls/hour, one-hour commit-tree cache, 20,000 entries and 4 MiB/tree. The upstream unauthenticated GitHub quota is shared by IP and may be lower after other usage.
-- Wallet verification: 120 RPC calls/minute for auth, 15-second call timeout, mainnet chain check. Market/Radar have separate bounded cached reads and backoff; see [labs-data.md](labs-data.md).
-- Audit store: 30 new orders/wallet/day, 10,000 total, 100 returned per list page. Paid credentials are retained for recovery. An operator must monitor disk usage and reconcile completed/expired records before reaching the cap; old paid records are never silently removed.
-- Ephemeral cache: pinned GitHub trees retain at most 40 entries for one hour; imports at most 100 for one hour; public reports at most 100 for 24 hours; public job details at most 100 for one hour; generic transient entries at most 200 for 24 hours. Each cache write immediately removes expired/oldest excess entries in its prefix. Startup and the existing one-minute scheduler also prune every ephemeral prefix, so unread stale entries cannot accumulate. Fixed market/Radar snapshot/index keys and all paid order credentials/signatures remain untouched. Evicted public data is refetched when needed; existing SQLite free pages may be retained for reuse instead of shrinking the file.
-- Provider response readers reject oversized content (2 MiB for IMD, 4 MiB for GitHub) explicitly rather than presenting partial findings. SQLite retains jobs/sessions/watchlists and bounded Radar data. Nonces and expired sessions are pruned by the scheduler.
-
-## Actual validation
-
-On 2026-10-19, the local production Node entry point and service factories passed **10/10 backend interaction tests**:
+Ephemeral caches have per-prefix entry/age bounds; market/index state and paid records are separate. Seven-day event retention and event/request limits can make cost basis incomplete. On a legacy index, unknown omission state is treated as incomplete. After changing the history start, stop the API and explicitly rebuild public caches:
 
 ```sh
-LABS_TEST_ACCOUNTS_MODULE=/tmp/unlock-labs-build/node_modules/viem/_esm/accounts/index.js \
-node --test services/labs/tests.mjs
+node services/labs/reindex.mjs --public-history-only /absolute/persistent/labs.sqlite
 ```
 
-The path above records this run's externally installed viem test signer. On another machine with the existing frontend dependencies installed, `node --test services/labs/tests.mjs` uses that installation. Production needs only the pinned runtime file already in the repository. Tests use random ephemeral accounts and mocked payment settlement; no test funds, paid mainnet submissions, account approvals or onchain writes occurred.
+This utility clears only public market/history cache keys, preserving audit/profile orders, verified payments, moderation, settings and sessions. Restart the API to backfill. During warming, old listings stay withheld.
 
-The tests cover nonce reuse, origin replay, expiry/logout, deployed ERC-1271 and unsupported counterfactual signatures, current positive/zero balance, ownership, unsafe repository URLs, path validation, scope/request-key conflicts, concurrent payment submissions, restart recovery, altered payload refusal, lost quote/payment responses, authoritative expired/unpaid renewal, payment failure, incomplete reports, safe source links, full PDF text/attachment, HTTP CORS, holder watchlists and CSV exports. A cache lifecycle test verifies hard per-write counts, hourly/daily expiry without cache reads, startup migration of older uncapped rows, and preservation of paid bearer/signature records plus fixed market/Radar state. `node --check` passed for the service modules.
+## Authentication and project rights
 
-Live **read-only** HTTP integration through the local server verified capabilities, import and check for the accepted UNLOCK repository (`c69ef33c084c608dea1a84b6ed050b43cd073336`), and an existing public completed audit `7db42bb7-5204-4805-894f-db1a2c11cd8e`. The check returned four specialists plus the judge and no blockers. The public report returned six accepted findings. Its generated PDF was independently parsed using PDF.js installed outside the repository: nine pages, 26,312 extracted characters, exact attached UTF-8 Markdown, and matching commit/job/date/evidence. No quote/payment was requested for that report. PDF pages 1, 2 and 9 were additionally rendered and visually inspected: metadata, wrapped source text, findings and footer remained readable; this was not a physical print test. The absence of `pdftotext`/Python pip was handled with the external PDF.js parser; no unperformed PDF visual review is claimed.
+`POST /api/auth/nonce` binds a random one-use nonce to address, Ethereum, exact origin, issue time and five-minute expiry. `/auth/verify` verifies the signature and returns a hashed-at-rest one-hour bearer session. Logout, expiry and origin changes invalidate it. Current UNLK balance is rechecked for holder endpoints; zero-balance authenticated customers can still order audits and verified representatives can submit profiles. Deployed ERC-1271 login is supported; unsupported counterfactual login is refused.
 
-Not live-tested: public backend hosting, DNS/HTTPS provisioning, deployed login by a real customer, real token approvals, paid settlement/admission, paid job completion, EIP-7702 payment, contract-wallet login against a real mainnet account, and recovery after permanent loss of the persistent disk. Paid paths were simulated as required. The shipped frontend build/browser/design checks are recorded separately in the main validation documentation.
+Profile rights require a live chain-1 IMD project artifact matching the **exact token**, successful deployment receipt/block and existing code. The current token owner, where callable, or the authoritative project requester provides project ownership evidence. A connected wallet or matching symbol grants no rights. A new submission and each moderation/payment check repeat rights verification. A payment recipient is never inferred to be the project owner. Treasury inventory does not change the immutable vault beneficiary.
+
+## UNLK-paid content sequence
+
+1. Sign in, enter the token address and verify project rights.
+2. Submit description/up to five HTTPS social links and PNG logo/banner. Server checks 300 KB limits, dimensions, RGB/RGBA pixel data and CRCs, strips ancillary chunks, and stores immutable content. Other formats use a fallback or an actionable upload error.
+3. The configured operator owner signs in and approves/rejects that exact revision. Pending/rejected content cannot be quoted. The owner separately configures atomic price, duration and written refund policy for each placement type. **No tariff is invented.**
+4. The approved representative requests a quote. The backend requires current market eligibility and binds an immutable order to payer, chain 1, UNLK, treasury, exact amount, content, duration, refund terms and ten-minute expiry. Existing active/fulfilled orders are recovered. Contract-wallet direct transfers are unsupported and disabled; existing EOAs/delegated EOAs can use this route.
+5. Before signing, `/profiles/orders/:id/recheck` repeats rights, approval, expiry and market eligibility. The wallet review shows exact terms and ETH gas. There is no token approval: an ERC20 `transfer` carries the random 32-byte order binding as trailing calldata, supported by the existing token ABI decoder. No new contract is deployed.
+6. Submit the existing hash to `/verify`. The backend checks mainnet, transaction sender/target/value/**exact calldata**, canonical successful receipt, exact Transfer recipient/amount, transfer block within the quote window and 12-block confirmation depth. Late recovery is allowed for a transfer made within the original window. A SQLite transaction and unique transaction/order constraints prevent reused payments or duplicate fulfillment. Concurrent retries share the saved order.
+7. Publication requires current eligibility and approved content on every public read. Sponsorship is labeled and separate from organic ranks. Loss of eligibility withholds content without inventing a refund; the exact saved refund terms govern operator handling. A failed/expired/uncertain order never authorizes another automatic payment.
+
+Public settings: `GET /api/profiles/settings`. Authenticated representative routes: `/profiles/rights`, `/profiles/submissions`, `/profiles/mine`, `/profiles/quote`, `/profiles/orders/:id`, `/recheck`, `/verify`. Owner-only routes: `PUT /profiles/settings`, `GET /profiles/moderation`, `POST /profiles/moderation/:id`. PNG cache routes are `/media/1/:token/logo.png`, `/banner.png`, `/sponsor-banner.png`.
+
+## Audit integration retained
+
+The documented [IMD request protocol](https://imd.fun/docs/) and [OpenAPI](https://api.imd.fun/openapi.json) remain fixed-origin. Public import/check creates no paid job. The selected existing files at the full commit enter the public objective. A customer reviews capabilities, current quote, public-code/report disclosure and funding costs before signing.
+
+Payment remains exact IMD x402/Permit2 plus quote-bound EIP-712 approval; exact-amount IMD approval and verified ETH→IMD conversion are separate explicit wallet actions. Unsupported USDC conversion is disabled. No founder advance, markup, paid worker test or mainnet spending occurs automatically.
+
+Order bearer credentials and the exact signed bytes are persisted before dispatch. Retry/reload/restart reconciles the same order; it never creates replacement signatures or charges from a timer. Expired unpaid renewal requires authoritative upstream final status. Pending, refused, blocked, failed and incomplete outcomes are explicit. Only accepted judge evidence contributes findings. HTML/PDF reports preserve job/commit/scope; PDF embeds the exact UTF-8 report. Core PDF fonts escape unsupported characters visibly rather than silently deleting them.
+
+## Operational checks
+
+Check `/api/health`, `/api/capabilities`, `/api/markets`, `/api/radar`, and an excluded `/api/tokens/:address` before connecting the site. Health is not a claim of full index coverage. Read each response's timestamps, block and errors. Exercise nonce/session/ownership and simulated payment recovery tests before enabling checkout. Production real-payment testing requires separate explicit authorization; this assignment made no paid test jobs or broadcasts.

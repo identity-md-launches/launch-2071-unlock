@@ -19,6 +19,8 @@ export function Audit({ apiBase, session, login }: Props) {
   const [url, setUrl] = useState("");
   const [ref, setRef] = useState("");
   const [scope, setScope] = useState("");
+  const [tree, setTree] = useState<Array<{path:string;type:string}>>([]);
+  const [fileFilter,setFileFilter] = useState("");
   const [source, setSource] = useState<Source | null>(null);
   const [check, setCheck] = useState<any>(null);
   const [capabilities, setCapabilities] = useState<any>(null);
@@ -40,7 +42,7 @@ export function Audit({ apiBase, session, login }: Props) {
   const [reportOrderId, setReportOrderId] = useState("");
   const [clock, setClock] = useState(Date.now());
   const sourceInput = useRef<HTMLInputElement>(null);
-  const scopeInput = useRef<HTMLTextAreaElement>(null);
+  const scopeInput = useRef<HTMLDivElement>(null);
   const quoteKey = useRef<{ input: string; key: string } | null>(null);
   const submitted = useRef(false);
   const identity = useRef("");
@@ -101,7 +103,7 @@ export function Audit({ apiBase, session, login }: Props) {
     try { normalized = githubRepository(url); setInvalid(null); }
     catch (e) { setInvalid("repo"); sourceInput.current?.focus(); throw e; }
     if (ref.length > 160 || /[\s\\?#]/.test(ref)) throw Error("Use a branch, tag or commit with no whitespace or URL delimiters.");
-    setSource(null); setCheck(null); setOrder(null); setDisclosure(false); quoteKey.current = null;
+    setSource(null); setTree([]); setScope(""); setCheck(null); setOrder(null); setDisclosure(false); quoteKey.current = null;
     let data;
     if (apiBase) data = await api(apiBase, "/audits/import", { body: { url: normalized, ...(ref ? { ref } : {}) } });
     else {
@@ -116,6 +118,11 @@ export function Audit({ apiBase, session, login }: Props) {
       data = { ok: true, source: { repoUrl: normalized, baseCommit: commit.sha, sizeKb: metadata.size } };
     }
     if (!data.ok || !/^[a-f0-9]{40}$/i.test(data.source?.baseCommit)) throw Error(data.problems?.map((x: any) => x.message || x.code || x).join("; ") || "The repository could not be pinned. Check that it is public.");
+    const repo = githubRepository(data.source.repoUrl).replace("https://github.com/", "");
+    let files;
+    if(apiBase) files = (await api(apiBase,"/audits/tree",{body:{source:data.source}})).tree;
+    else { const res=await fetch(`https://api.github.com/repos/${repo}/git/trees/${data.source.baseCommit}?recursive=1`,{signal:AbortSignal.timeout(20000)});if(!res.ok)throw Error("GitHub could not load the pinned file tree. Check its public API quota and retry.");const result=await res.json();if(result.truncated||!Array.isArray(result.tree)||result.tree.length>20000)throw Error("The file tree exceeds the supported limit. Choose a smaller public repository.");files=result.tree; }
+    setTree(files.filter((f:any)=>f.type==="blob"&&typeof f.path==="string"&&f.path.length<=180&&/^[A-Za-z0-9_./@+ -]+$/.test(f.path)).sort((a:any,b:any)=>a.path.localeCompare(b.path)));
     setSource(data.source); setStatus(apiBase ? "Repository pinned by IMD. Select the paths to review before requesting a quote." : "Commit pinned through GitHub. IMD import and admission checks require the Labs backend; select the scope to check its paths locally.");
   }
   async function checkScope() {
@@ -189,6 +196,12 @@ export function Audit({ apiBase, session, login }: Props) {
     const data = owned ? await api(apiBase, `/audits/orders/${orderId}/report`, { token: session.token }) : await api(apiBase, `/audits/reports/${id}`);
     setReport(data); setReportOrderId(owned ? orderId : ""); setReportId(id); setStatus("Accepted public report loaded. Review the coverage and evidence alongside every finding.");
   }
+  function downloadHtml() {
+    const escape=(v:unknown)=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]!));
+    const text=report?.markdown||report?.reportMarkdown||JSON.stringify(report,null,2);
+    const html=`<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>UNLOCK audit ${escape(report?.jobId)}</title><style>body{font:16px/1.6 monospace;max-width:90ch;margin:32px auto;padding:16px}pre{white-space:pre-wrap;overflow-wrap:anywhere}</style><h1>UNLOCK audit report</h1><p>Public AI review; not a security guarantee.</p><pre>${escape(text)}</pre></html>`;
+    const href=URL.createObjectURL(new Blob([html],{type:"text/html"})),a=document.createElement("a");a.href=href;a.download=`unlock-audit-${report?.jobId||"report"}.html`;a.click();setTimeout(()=>URL.revokeObjectURL(href),1000);
+  }
   async function downloadPdf() {
     const id = report?.jobId || reportId;
     const route = reportOrderId ? `/audits/orders/${reportOrderId}/report.pdf` : `/audits/reports/${id}/pdf`;
@@ -201,16 +214,20 @@ export function Audit({ apiBase, session, login }: Props) {
   return <div className="audit-layout">
     <section className="labs-section audit-work" aria-labelledby="audit-heading">
       <div className="labs-heading"><div><h2 id="audit-heading">Audit public code</h2><p className="muted">Pin a commit. Set the scope. Review before paying.</p></div><span className="tag">Ethereum · IMD</span></div>
+      <ol className="audit-steps" aria-label="Audit steps"><li>Repository</li><li>Commit & files</li><li>Scope & cost</li><li>Payment</li><li>Progress</li><li>Report</li></ol>
       <form className="labs-form" onSubmit={e => { e.preventDefault(); void run("Import repository", importRepo); }}>
         <label htmlFor="audit-repo">Public GitHub repository</label>
         <div className="labs-input-action"><input ref={sourceInput} id="audit-repo" aria-invalid={invalid === "repo"} aria-describedby="audit-error" type="url" autoComplete="url" placeholder="https://github.com/owner/repository" required value={url} onChange={e => { setUrl(e.target.value); setInvalid(null); setSource(null); setCheck(null); }} /><button className="button primary" disabled={!!busy}>{busy === "Import repository" ? "Importing…" : "Import repository"}</button></div>
         <details><summary>Choose a branch, tag or commit</summary><label htmlFor="audit-ref">Git ref (optional; default branch otherwise)</label><input id="audit-ref" value={ref} maxLength={160} onChange={e => { setRef(e.target.value); setSource(null); setCheck(null); }} /></details>
       </form>
+<button className="button" onClick={()=>{setUrl("https://github.com/identity-md-launches/launch-2071-unlock");setRef("");setSource(null);setTree([]);setCheck(null);}}>Use UNLK repository example</button>
       <p className="small muted labs-note">Public code and accepted reports are public. Four AI specialists and a judge review the pinned scope. A review can be incomplete and is never a security guarantee.</p>
       {source && <div className="audit-stage">
         <h3>1. Confirm the pinned scope</h3><dl className="labs-ledger"><dt>Repository</dt><dd>{source.repoUrl}</dd><dt>Commit</dt><dd><a href={`${githubRepository(source.repoUrl)}/tree/${source.baseCommit}`} target="_blank" rel="noreferrer">{source.baseCommit} ↗</a></dd></dl>
-        <label htmlFor="audit-scope">Files or directories to review</label><textarea ref={scopeInput} id="audit-scope" aria-invalid={invalid === "scope"} rows={3} placeholder="src/contracts/" value={scope} onChange={e => { setScope(e.target.value); setInvalid(null); setCheck(null); setDisclosure(false); }} aria-describedby="scope-hint audit-error" />
-        <p id="scope-hint" className="small muted">1–16 existing paths at this commit, one per line. Scope is included in the signed job objective.</p>
+        <label htmlFor="audit-file-filter">Find files at this commit</label><input id="audit-file-filter" type="search" placeholder="For example: src/ or .sol" value={fileFilter} onChange={e=>setFileFilter(e.target.value)}/>
+        <div ref={scopeInput} className="file-tree" tabIndex={-1} aria-label="Pinned repository file selection" aria-describedby="scope-hint audit-error">{tree.filter(f=>f.path.toLowerCase().includes(fileFilter.toLowerCase())).slice(0,300).map(f=><label key={f.path}><input type="checkbox" checked={scope.split("\n").includes(f.path)} onChange={e=>{const selected=scope.split("\n").filter(Boolean);if(e.target.checked&&selected.length>=16){setError("Select at most 16 files. Remove one before adding another.");return;}setScope((e.target.checked?[...selected,f.path]:selected.filter(p=>p!==f.path)).join("\n"));setInvalid(null);setCheck(null);setDisclosure(false);setOrder(null);}}/><span>{f.path}</span></label>)}{!tree.filter(f=>f.path.toLowerCase().includes(fileFilter.toLowerCase())).length&&<p className="muted small">No files match. Clear the filter or import another repository.</p>}</div>
+        <p id="scope-hint" className="small muted">Select 1–16 existing files. {scope.split("\n").filter(Boolean).length} selected. Filter narrows the first 300 shown; selection is retained. These exact paths enter the public signed scope.</p>
+        {!!scope&&<details><summary>Review selected public files</summary><pre>{scope}</pre></details>}
         <button className="button" disabled={!!busy} onClick={() => void run("Validate scope", checkScope)}>{busy === "Validate scope" ? "Validating…" : "Validate scope"}</button>
         {check && <div className="labs-note"><strong>{check.blockers?.length ? "Validation blockers" : check.localOnly ? "GitHub paths verified · IMD check pending" : "Scope passed the IMD check"}</strong>{check.blockers?.length ? <pre>{JSON.stringify(check.blockers, null, 2)}</pre> : <p className="small muted">{check.localOnly ? "The backend will repeat the documented IMD import and scope check before quoting. No paid work is available on static hosting alone." : "Audit specialists → judge → accepted public report. Validation does not hold a price or promise admission."}</p>}</div>}
       </div>}
@@ -250,7 +267,7 @@ export function Audit({ apiBase, session, login }: Props) {
     </aside>
       {report && <section className="audit-report labs-section" aria-labelledby="report-heading"><h2 id="report-heading">{report.complete ? "Completed review" : "Incomplete review"}</h2><dl className="labs-ledger"><dt>Job</dt><dd>{report.jobId}</dd><dt>Commit</dt><dd>{report.commit || "See report scope"}</dd><dt>Date</dt><dd>{time(report.date || report.updatedAt)}</dd><dt>Coverage</dt><dd>{Array.isArray(report.scope) ? report.scope.join(", ") || "See the original report" : report.scope || "See the original report"}</dd></dl>
         <p className="small warning">Accepted findings are AI review results, not a security guarantee. Reproduce the evidence and read scope limitations.</p>
-        <button className="button" onClick={() => void run("Download PDF", downloadPdf)}>Download matching PDF</button>
+        <button className="button" onClick={() => void run("Download PDF", downloadPdf)}>Download matching PDF</button><button className="button" onClick={downloadHtml}>Download HTML report</button>
         {(report.findings || []).map((f: any, i: number) => <article className="audit-finding" key={i}><span className="tag">{f.severity || "Unclassified"}</span><h3>{f.title}</h3><p className="address">{f.path || f.location}{f.line ? `:${f.line}` : ""}</p><p>{f.description}</p>{f.evidence && <><strong>Evidence / tests</strong><pre>{typeof f.evidence === "string" ? f.evidence : JSON.stringify(f.evidence, null, 2)}</pre></>}{f.reproduction && <pre>{typeof f.reproduction === "string" ? f.reproduction : JSON.stringify(f.reproduction, null, 2)}</pre>}{f.proof && <details><summary>Read reproduction proof / tests</summary><pre>{f.proof}</pre></details>}{f.snippet && <details><summary>Read affected code</summary><pre>{f.snippet}</pre></details>}<strong>Recommendation</strong><p>{f.recommendation || "Read the finding description and complete accepted report for the proposed correction and its limits."}</p>{safeExternal(f.sourceUrl || f.citation) && <a href={safeExternal(f.sourceUrl || f.citation)} target="_blank" rel="noreferrer">Affected source ↗</a>}</article>)}
         <details><summary>Read the complete accepted Markdown</summary><pre className="audit-markdown">{report.markdown}</pre></details>
       </section>}

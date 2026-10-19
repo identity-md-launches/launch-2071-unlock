@@ -1,8 +1,15 @@
+import { migrate } from './migrate.mjs';
 import { DatabaseSync } from 'node:sqlite';
 import { mkdirSync } from 'node:fs';
 import { dirname } from 'node:path';
 
 export const CACHE_POLICIES = Object.freeze([
+  { prefix: 'launchmeta:', maxEntries: 64, retentionMs: 3600000 },
+  { prefix: 'logo:', maxEntries: 100, retentionMs: 604800000 },
+  { prefix: 'identity:', maxEntries: 100, retentionMs: 86400000 },
+  { prefix: 'liquidity:', maxEntries: 64, retentionMs: 2592000000 },
+  { prefix: 'usd-reference:', maxEntries: 3000, retentionMs: 604800000 },
+  { prefix: 'holders:', maxEntries: 64, retentionMs: 600000 },
   { prefix: 'upstream:tree:', maxEntries: 40, retentionMs: 3600000 },
   { prefix: 'import:', maxEntries: 100, retentionMs: 3600000 },
   { prefix: 'upstream:report:', maxEntries: 100, retentionMs: 86400000 },
@@ -33,6 +40,7 @@ export function createStore(filename, { now = () => Date.now() } = {}) {
     CREATE INDEX IF NOT EXISTS audit_input ON audit_orders(owner,input_hash,created DESC);
     CREATE TABLE IF NOT EXISTS watchlists(owner TEXT PRIMARY KEY,addresses TEXT NOT NULL,updated INTEGER NOT NULL);
   `);
+  migrate(db);
   const removeExpired = db.prepare('DELETE FROM cache WHERE key LIKE ? AND updated<=?');
   const trimCount = db.prepare('DELETE FROM cache WHERE key IN (SELECT key FROM cache WHERE key LIKE ? ORDER BY updated DESC,rowid DESC LIMIT -1 OFFSET ?)');
   function prunePolicy(policy, timestamp = now()) {

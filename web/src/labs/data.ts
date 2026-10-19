@@ -10,6 +10,21 @@ export type LabsDataProps = { apiBase: string; session: LabsSession | null };
 
 export type Market = {
   address: string;
+  identity?: { verified: boolean; sourceUrl: string; owner?: string };
+  pool?: { id: string; dex: string; version: string; verified: boolean; quoteSymbol?: string };
+  liquidityCheck?: { verified: boolean; usd: number; activeUsd: number; method: string; complete: boolean; checkedAt: string; block: number };
+  sellCheck?: { success: boolean; chainId: number; account: string; amountRaw: string; amountUsd: number; token: string; poolId: string; method: string; stateOverrides: boolean; callHash: string; checkedAt: string; block: number };
+  listedAt?: string | null;
+  launchedAt?: string | null;
+  logo?: string | null;
+  pick?: { label: string; sourceUrl: string } | null;
+  priceChange1h?: number | null;
+  priceChange7d?: number | null;
+  marketCapEvidence?: string | null;
+  decimals?: number;
+  profile?: {description:string;website:string;social:string;socials?:string[];banner:boolean;label:string};
+  sparkline?: number[];
+  sponsored?: { label: string; expiresAt: string; description?: string; banner?: boolean; website?: string };
   symbol: string | null;
   name: string;
   chainId: number;
@@ -38,6 +53,10 @@ export type MarketsData = {
   updatedAt: string | null;
   mode: "cached" | "snapshot" | "warming";
   chainId: number;
+  block?: number;
+  eligibilityUnknown?: boolean;
+  stale?: boolean;
+  excluded?: Array<{ address: string; reasons: string[]; checkedAt?: string | null }>;
   featured: Market | null;
   markets: Market[];
   coverage: {
@@ -61,6 +80,11 @@ export type RadarEvent = {
   amountUsd: number | null;
   wallet: string | null;
   attribution: string;
+  priceUsd?: number | null;
+  priceQuote?: number | null;
+  quoteAmount?: string | null;
+  ambiguousRouting?: boolean;
+  sale?: { seller:string;buyer:string;amountEth:string;sourceUrl:string;basis:string };
   relatedActivity?: string | null;
   from?: string | null;
   to?: string | null;
@@ -73,6 +97,9 @@ export type RadarWallet = {
   holdings: Array<{ address: string; symbol: string; balance: string | null; usd: number | null }>;
   netFlow: Array<{ symbol: string; amount: string | null }>;
   source: string;
+  category?: "imd" | "nft" | "public";
+  attributionUrl?: string;
+  nfts?: Array<{ collection: string; tokenId: string; name: string; evidenceUrl: string }>;
 };
 
 export type RadarPeriod = "1h" | "24h" | "7d";
@@ -99,6 +126,9 @@ export type RadarData = {
     token?: string;
   }>;
   events: RadarEvent[];
+  nftEvents?: RadarEvent[];
+  extraUpdatedAt?: string;
+  unresolvedPublicIdentities?: string[];
   wallets: RadarWallet[];
   nextCursor: string | null;
   totalEvents?: number;

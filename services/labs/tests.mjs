@@ -251,7 +251,7 @@ test('ephemeral cache bounds hold on every write, expire without reads, and migr
     clock += 3600001; store.prune();
     for (const prefix of ['upstream:tree:', 'upstream:job:', 'import:']) assert.equal(store.db.prepare('SELECT count(*) AS n FROM cache WHERE key LIKE ?').get(`${prefix}%`).n, 0);
     assert.equal(store.db.prepare('SELECT count(*) AS n FROM cache WHERE key LIKE ?').get('upstream:report:%').n, 100, 'Reports retain a full day');
-    clock += 86400000; store.prune();
+    clock += Math.max(...CACHE_POLICIES.map(p=>p.retentionMs)) + 1; store.prune();
     for (const policy of CACHE_POLICIES) assert.equal(store.db.prepare('SELECT count(*) AS n FROM cache WHERE key LIKE ?').get(`${policy.prefix}%`).n, 0);
     assert.deepEqual(store.get('markets.snapshot'), { observed: 'fixed market snapshot' });
     assert.deepEqual(store.get('radar.index'), { lastBlock: 26211921, events: [{ id: 'persisted-index-event' }] });

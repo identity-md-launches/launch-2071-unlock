@@ -1,224 +1,51 @@
 import { useEffect, useMemo, useState } from "react";
-import {
-  dateLabel,
-  downloadHolderCsv,
-  holderRequest,
-  isAddress,
-  isMarketsData,
-  safeLink,
-  shortAddress,
-  timestamp,
-  usd,
-  useLabsResource,
-  type LabsDataProps,
-  type Market,
-} from "./data";
-import "./market-radar.css";
+import { admittedMarkets, compareNullable, eligibility } from "./domain.mjs";
+import { dateLabel, isAddress, isMarketsData, timestamp, usd, useLabsResource, type LabsDataProps, type Market } from "./data";
+import { TokenDetails } from "./TokenDetails";
+import { Profiles } from "./Profiles";
+import "./terminal.css";
 
-function ExternalLink({ href, children }: { href?: string | null; children: React.ReactNode }) {
-  const safe = safeLink(href);
-  return safe ? <a href={safe} target="_blank" rel="noopener noreferrer">{children}<span className="sr-only"> (opens in a new tab)</span></a> : null;
+export function Change({ value }: { value?: number | null }) { return value == null || !Number.isFinite(value) ? <span className="muted" title="Historical change unavailable">Unavailable</span> : <span className={value < 0 ? "sell-text" : "accent"}>{value > 0 ? "+" : ""}{value.toFixed(2)}%</span>; }
+export function TokenLogo({ market, apiBase }: { market: Market; apiBase: string }) {
+  const [failed, setFailed] = useState(false);
+  // Only the service's sanitized raster cache can supply market imagery.
+  const src = apiBase && market.logo === `/media/1/${market.address.toLowerCase()}/logo.png` ? `${apiBase}${market.logo}` : null;
+  return src && !failed ? <img className="token-logo" src={src} alt="" width={28} height={28} onError={() => setFailed(true)} loading="lazy" referrerPolicy="no-referrer" /> : <svg className="token-logo" width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="12" fill="var(--hover)" stroke="var(--control)"/><path d="m14 6 7 8-7 8-7-8 7-8Z" fill="none" stroke="var(--accent)"/></svg>;
 }
-
-function PriceHistory({ market }: { market: Market }) {
-  const points = (market.chart || []).filter((point) => Number.isFinite(point.price) && point.price > 0 && timestamp(point.time) != null).sort((a, b) => timestamp(a.time)! - timestamp(b.time)!).slice(-200);
-  if (points.length < 2) return <p className="muted small">Historical chart unavailable for this pool. A current quote alone is not a price history.</p>;
-  const low = Math.min(...points.map((point) => point.price));
-  const high = Math.max(...points.map((point) => point.price));
-  const start = timestamp(points[0].time)!;
-  const end = timestamp(points[points.length - 1].time)!;
-  const range = high - low || high * 0.02 || 1;
-  const coordinates = points.map((point) => `${12 + ((timestamp(point.time)! - start) / (end - start || 1)) * 576},${100 - ((point.price - low) / range) * 80}`).join(" ");
-  return <figure className="lab-price-chart">
-    <svg viewBox="0 0 600 116" role="img" aria-label={`${market.symbol} observed USD prices from ${dateLabel(points[0].time)} to ${dateLabel(points[points.length - 1].time)}. Lowest ${usd(low)}; highest ${usd(high)}.`}>
-      <line x1="12" x2="588" y1="100" y2="100" className="lab-chart-axis" />
-      <polyline points={coordinates} className="lab-chart-line" />
-    </svg>
-    <figcaption className="small muted">Observed prices · {dateLabel(points[0].time)} → {dateLabel(points[points.length - 1].time)} · {points.length} points</figcaption>
-    <details className="lab-chart-values"><summary>Read chart values</summary><div className="lab-chart-value-list">{points.map((point, index) => <p key={`${point.time}-${index}`}>{dateLabel(point.time)} · {usd(point.price)}</p>)}</div></details>
-  </figure>;
-}
-
-function Change({ value }: { value: number | null | undefined }) {
-  if (value == null || !Number.isFinite(value)) return <>Unavailable</>;
-  return <span className={value > 0 ? "accent" : value < 0 ? "sell-text" : ""}>{value > 0 ? "+" : ""}{value.toFixed(2)}%</span>;
-}
-
-function MarketCard({ market, featured, rank, canUseHolder, selected, watched, busy, onSelect, onWatch }: {
-  market: Market;
-  featured?: boolean;
-  rank?: number;
-  canUseHolder: boolean;
-  selected: boolean;
-  watched: boolean;
-  busy: boolean;
-  onSelect: (address: string) => void;
-  onWatch: (address: string) => void;
-}) {
-  const created = timestamp(market.createdAt);
-  const days = created == null ? null : Math.max(0, Math.floor((Date.now() - created) / 86_400_000));
-  return <article className={`lab-market-card${featured ? " lab-featured" : ""}`}>
-    <div className="lab-market-heading">
-      <div>
-        <h3>{rank != null && <span className="muted lab-rank">{rank.toString().padStart(2, "0")}</span>}{market.symbol || "Unknown token"} <span className="muted lab-market-name">{market.name}</span></h3>
-        <p className="small muted">Ethereum · chain {market.chainId} · {featured ? "Featured separately from launch rankings" : `Launch ${market.launchNumber ?? "number unavailable"}`} · {days == null ? "Age unavailable" : days === 0 ? "Less than 1 day old" : `${days} day${days === 1 ? "" : "s"} old`}</p>
-      </div>
-      <div className="lab-market-price"><strong>{usd(market.priceUsd)}</strong><span className="small">24h <Change value={market.priceChange24h} /></span></div>
-    </div>
-    <dl className="lab-market-metrics">
-      <div><dt>Volume · 24h</dt><dd>{usd(market.volume24h)}</dd></div>
-      <div><dt>Pool liquidity</dt><dd>{usd(market.liquidityUsd)}</dd></div>
-      <div><dt>FDV</dt><dd>{usd(market.fdv)}</dd></div>
-      {market.marketCap != null && <div><dt>Market cap</dt><dd>{usd(market.marketCap)}</dd></div>}
-    </dl>
-    <details className="lab-market-detail">
-      <summary>View {market.symbol || "token"} chart, contract and pool</summary>
-      <div className="lab-details-content">
-        <PriceHistory market={market} />
-        <dl className="lab-source-list">
-          <div><dt>Token contract</dt><dd><a className="address" href={`https://etherscan.io/token/${market.address}`} target="_blank" rel="noopener noreferrer">{market.address}</a></dd></div>
-          {market.poolId && <div><dt>PoolId</dt><dd><code>{market.poolId}</code></dd></div>}
-          <div><dt>Observed</dt><dd>{dateLabel(market.observedAt)}</dd></div>
-          <div><dt>Source</dt><dd>{market.source || "Unavailable"}</dd></div>
-          {market.status && <div><dt>Coverage</dt><dd>{market.status}</dd></div>}
-        </dl>
-        <div className="lab-link-row"><ExternalLink href={market.projectUrl}>{market.symbol || market.name || "Token"} project</ExternalLink><ExternalLink href={market.sourceUrl}>Launch record</ExternalLink><ExternalLink href={market.repoUrl}>Source repository</ExternalLink><ExternalLink href={market.poolUrl}>Open verified pool</ExternalLink><ExternalLink href={market.chartUrl}>Open source chart</ExternalLink></div>
-        <p className="small muted">FDV uses total supply. Market cap is shown only when circulating supply is supported. Liquidity does not establish safety.</p>
-        <div className="lab-card-actions">
-          <label className="lab-check"><input type="checkbox" checked={selected} disabled={!canUseHolder || busy} onChange={() => onSelect(market.address)} />Compare {market.symbol || "token"}</label>
-          <button className="button" type="button" disabled={!canUseHolder || busy} onClick={() => onWatch(market.address)}>{watched ? "Remove from watchlist" : "Add to watchlist"}</button>
-        </div>
-      </div>
-    </details>
-  </article>;
-}
-
+function Sparkline({ values }: { values?: number[] }) { const a = (values || []).filter(n => Number.isFinite(n) && n > 0); if (a.length < 2) return <span className="muted small">No history</span>; const lo = Math.min(...a), hi = Math.max(...a); return <svg viewBox="0 0 100 30" className="market-spark" role="img" aria-label={`${a.length} real observed prices; ${a.at(-1)! >= a[0] ? "rising" : "falling"}`}><polyline fill="none" stroke="currentColor" strokeWidth="1.5" points={a.map((v,i)=>`${i/(a.length-1)*100},${27-(v-lo)/(hi-lo||1)*24}`).join(" ")} /></svg>; }
+const tabs = ["Markets", "Top gainers", "Losers", "Newest launches", "Recently listed", "Volume", "Liquidity", "Watchlist"];
+const fields: Record<string, string> = { Markets: "marketCap", "Top gainers": "priceChange24h", Losers: "priceChange24h", "Newest launches": "launchedAt", "Recently listed": "listedAt", Volume: "volume24h", Liquidity: "liquidityUsd" };
 export function Markets({ apiBase, session }: LabsDataProps) {
   const resource = useLabsResource(apiBase, "markets", "./labs/markets.json", isMarketsData);
-  const [query, setQuery] = useState("");
-  const [liquidity, setLiquidity] = useState("0");
-  const [age, setAge] = useState("0");
-  const [sort, setSort] = useState("volume");
-  const [holderRows, setHolderRows] = useState<Market[] | null>(null);
-  const [selected, setSelected] = useState<string[]>([]);
-  const [comparison, setComparison] = useState<Market[] | null>(null);
-  const [watchlist, setWatchlist] = useState<string[]>([]);
-  const [busy, setBusy] = useState("");
-  const [holderError, setHolderError] = useState("");
-  const [message, setMessage] = useState("");
-  const canUseHolder = Boolean(apiBase && session?.eligible);
-  useEffect(() => {
-    let active = true;
-    setHolderRows(null);
-    setSelected([]);
-    setComparison(null);
-    setWatchlist([]);
-    setHolderError("");
-    setMessage("");
-    if (canUseHolder) {
-      void holderRequest<{ addresses: string[] }>(apiBase, "holder/watchlist", session).then((result) => {
-        if (active) setWatchlist(Array.isArray(result.addresses) ? result.addresses.filter(isAddress) : []);
-      }).catch((error) => { if (active) setHolderError(error instanceof Error ? error.message : "Unable to load watchlist. Try again."); });
-    }
-    return () => { active = false; };
-  }, [apiBase, session?.token, canUseHolder]);
-
-  const featured = resource.data?.featured;
-  const warming = resource.data?.mode === "warming";
-  const observed = timestamp(resource.data?.updatedAt);
-  const stale = observed != null && Date.now() - observed > 15 * 60_000;
-  const rows = holderRows || resource.data?.markets || [];
-  const filtered = useMemo(() => rows.filter((market) => {
-    if (featured && market.address.toLowerCase() === featured.address.toLowerCase()) return false;
-    if (query && !`${market.symbol} ${market.name} ${market.address}`.toLowerCase().includes(query.toLowerCase().trim())) return false;
-    if (Number(liquidity) > 0 && (market.liquidityUsd == null || market.liquidityUsd < Number(liquidity))) return false;
-    const created = timestamp(market.createdAt);
-    if (Number(age) > 0 && (created == null || Date.now() - created < Number(age) * 3_600_000)) return false;
-    return true;
-  }).slice(0, 60), [rows, featured, query, liquidity, age]);
-
-  async function perform(key: string, task: () => Promise<void>) {
-    setBusy(key);
-    setHolderError("");
-    setMessage("");
-    try { await task(); }
-    catch (error) { setHolderError(error instanceof Error ? error.message : "The action failed. Try again."); }
-    finally { setBusy(""); }
-  }
-
-  async function applySort() {
-    await perform("sort", async () => {
-      const result = await holderRequest<{ markets: Market[] }>(apiBase, `holder/markets?sort=${encodeURIComponent(sort)}`, session);
-      if (!Array.isArray(result.markets)) throw Error("The service returned an incomplete ranking. Refresh and try again.");
-      setHolderRows(result.markets);
-      setMessage("Holder ranking loaded after a server balance check.");
-    });
-  }
-
-  function select(address: string) {
-    setHolderError("");
-    if (selected.includes(address)) setSelected((current) => current.filter((item) => item !== address));
-    else if (selected.length < 4) setSelected((current) => [...current, address]);
-    else setHolderError("Choose up to four tokens to compare. Remove one selection to add another.");
-  }
-
-  async function compare() {
-    await perform("compare", async () => {
-      const result = await holderRequest<{ markets: Market[] }>(apiBase, `holder/markets?addresses=${encodeURIComponent(selected.join(","))}`, session);
-      if (!Array.isArray(result.markets)) throw Error("Comparison data is unavailable. Refresh and try again.");
-      setComparison(result.markets);
-      setMessage(`Loaded ${result.markets.length} comparison rows after a server balance check.`);
-    });
-  }
-
-  async function toggleWatch(address: string) {
-    await perform("watchlist", async () => {
-      const next = watchlist.includes(address) ? watchlist.filter((item) => item !== address) : [...watchlist, address];
-      const result = await holderRequest<{ addresses: string[] }>(apiBase, "holder/watchlist", session, { method: "PUT", body: JSON.stringify({ addresses: next }) });
-      if (!Array.isArray(result.addresses)) throw Error("The watchlist could not be saved. Try again.");
-      setWatchlist(result.addresses.filter(isAddress));
-      setMessage("Watchlist saved to your wallet session on the server.");
-    });
-  }
-
-  const unavailableReason = !apiBase ? "Holder tools require the deployed LABS service. This static snapshot supports public browsing." : !session ? "Sign in above with a wallet holding a positive UNLK balance to use holder tools." : !session.eligible ? "This wallet has no eligible balance. A positive UNLK balance on Ethereum unlocks holder tools." : "The server checks your session and current positive UNLK balance for every protected request.";
-  const cardProps = (market: Market) => ({ market, canUseHolder, selected: selected.includes(market.address), watched: watchlist.includes(market.address), busy: !!busy, onSelect: select, onWatch: toggleWatch });
-
-  return <section className="lab-data" aria-labelledby="labs-markets-title">
-    <div className="lab-data-heading"><div><h2 id="labs-markets-title">Markets</h2><p className="muted">IMD launches with verified pools.</p></div><button className="button" type="button" aria-label="Refresh markets" disabled={resource.loading} onClick={() => { setHolderRows(null); setComparison(null); resource.refresh(); }}>{resource.loading ? "Loading…" : "Refresh"}</button></div>
-    <div className="lab-filter-grid">
-      <label className="lab-field lab-search">Find a launch<input type="search" name="market-search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Symbol, name or 0x address" autoComplete="off" spellCheck={false} /></label>
-      <label className="lab-field">Minimum liquidity<select aria-label="Minimum liquidity" value={liquidity} onChange={(event) => setLiquidity(event.target.value)}><option value="0">Any</option><option value="1000">$1,000</option><option value="10000">$10,000</option><option value="100000">$100,000</option></select></label>
-      <label className="lab-field">Minimum age<select aria-label="Minimum age" value={age} onChange={(event) => setAge(event.target.value)}><option value="0">Any</option><option value="1">1 hour</option><option value="24">1 day</option><option value="168">7 days</option></select></label>
-    </div>
-    <div className="lab-coverage">
-      {warming && <p className="small warning" role="status">Indexer warming; no live readings are available yet.</p>}
-      {!apiBase && <p className="small warning">Live refresh requires the LABS service.</p>}
-      {stale && <p className="small warning">Stale observation · more than 15 minutes old.</p>}
-      {apiBase && resource.error && <p className="small warning" role="status">{resource.error}</p>}
-      <details><summary>{warming ? "Indexer warming" : resource.fallback || resource.data?.mode === "snapshot" ? <span className="warning">Snapshot</span> : "Cached index"} · {warming ? "No observation yet" : dateLabel(resource.data?.updatedAt)}<span className="muted"> · Coverage</span></summary><div className="lab-details-content">{resource.data?.coverage.notes.map((note, index) => <p className="small muted" key={index}>{note}</p>)}{resource.data?.errors.map((error, index) => <p className="small warning" key={index}>{error}</p>)}<p className="small muted">The Any filter includes unavailable values. Liquidity and age filters apply to discovered launches; featured IMD stays separate.</p></div></details>
-    </div>
-    {featured && <div className="lab-featured-wrap"><p className="lab-section-label">Featured · IMD ecosystem base token</p><MarketCard featured {...cardProps(featured)} /></div>}
-    <div className="lab-list-heading"><h3>{holderRows ? "Holder ranking" : "Discovered launches"}</h3><span className="small muted" role="status">{warming ? "Awaiting first index" : `${filtered.length} shown · bounded to 60`}</span></div>
-    <ol className="lab-market-list">{filtered.map((market, index) => <li key={market.address}><MarketCard rank={index + 1} {...cardProps(market)} /></li>)}</ol>
-    {!resource.loading && !filtered.length && <div className="lab-empty"><p>{warming ? "The service has not completed its first market refresh. Try refreshing after the first indexing scan." : query || liquidity !== "0" || age !== "0" ? "No launches match these filters." : "No launches are available in this registry response."}</p><button type="button" className="button" onClick={() => { setQuery(""); setLiquidity("0"); setAge("0"); resource.refresh(); }}>{warming ? "Refresh first observations" : "Clear filters and refresh"}</button></div>}
-    <section className="lab-holder-panel" aria-labelledby="markets-holder-title">
-      <h3 id="markets-holder-title">Holder tools</h3>
-      <p className="small muted">{unavailableReason} Eligibility is a positive UNLK balance; no staking or token transfer is required. Paid Audit jobs are separate.</p>
-      <div className="lab-holder-controls">
-        <label className="lab-field">Advanced ranking<select aria-label="Advanced ranking" value={sort} disabled={!canUseHolder || !!busy} onChange={(event) => setSort(event.target.value)}><option value="volume">24h volume · highest first</option><option value="liquidity">Liquidity · highest first</option><option value="change">24h change · highest first</option></select></label>
-        <button className="button" type="button" disabled={!canUseHolder || !!busy} onClick={applySort}>{busy === "sort" ? "Loading ranking…" : "Apply ranking"}</button>
-        <button className="button" type="button" disabled={!canUseHolder || !!busy || selected.length < 2} onClick={compare}>{busy === "compare" ? "Loading comparison…" : `Compare selected (${selected.length}/4)`}</button>
-        <button className="button" type="button" disabled={!canUseHolder || !!busy} onClick={() => perform("export", async () => { await downloadHolderCsv(apiBase, "markets", session); setMessage("Market CSV downloaded after a server balance check."); })}>{busy === "export" ? "Preparing CSV…" : "Export market CSV"}</button>
-      </div>
-      <p className="small muted">Open a token’s details to select it for comparison or save it to your watchlist.</p>
-      <p className="small lab-action-status" role="status">{message}</p>
-      {holderError && <p className="small error" role="alert">{holderError}</p>}
-      {comparison && <div className="lab-comparison"><h3>Selected comparison</h3><div className="lab-table-wrap" role="region" aria-label="Token comparison, scroll horizontally for more columns" tabIndex={0}><table><caption className="sr-only">Server checked comparison of selected IMD launches</caption><thead><tr><th scope="col">Token</th><th scope="col">USD price</th><th scope="col">24h change</th><th scope="col">24h volume</th><th scope="col">Liquidity</th><th scope="col">FDV</th></tr></thead><tbody>{comparison.map((market) => <tr key={market.address}><th scope="row"><a href={`https://etherscan.io/token/${market.address}`} target="_blank" rel="noopener noreferrer">{market.symbol}<span className="small muted lab-block">{shortAddress(market.address)}</span></a></th><td>{usd(market.priceUsd)}</td><td><Change value={market.priceChange24h} /></td><td>{usd(market.volume24h)}</td><td>{usd(market.liquidityUsd)}</td><td>{usd(market.fdv)}</td></tr>)}</tbody></table></div></div>}
-      {watchlist.length > 0 && <div className="lab-saved-list"><h3>Saved addresses</h3><ul>{watchlist.map((address) => <li key={address}><a className="address" href={`https://etherscan.io/address/${address}`} target="_blank" rel="noopener noreferrer">{address}</a><button className="button" type="button" disabled={!!busy} onClick={() => toggleWatch(address)}>Remove {shortAddress(address)}</button></li>)}</ul></div>}
-    </section>
-    <p className="small muted">Registry discovery is bounded; absent launches and prices remain unavailable. Price, volume and liquidity refer to the identified pool and their stated observation time. IMUSD is excluded until its identity and contract are independently verified.</p>
+  const [query,setQuery] = useState(""), [tab,setTab] = useState("Markets"), [minimum,setMinimum] = useState("20000"), [picks,setPicks] = useState(false);
+  const [sort,setSort] = useState("marketCap"), [direction,setDirection] = useState("desc"), [page,setPage] = useState(0), [clock,setClock] = useState(Date.now());
+  const [watched,setWatched] = useState<string[]>(()=>{ try { return JSON.parse(localStorage.getItem("unlk-market-watch-v2")||"[]").filter(isAddress).slice(0,50); } catch { return []; } });
+  const [notice,setNotice] = useState("");
+  useEffect(()=> { const timer=setInterval(()=>setClock(Date.now()),30000); return ()=>clearInterval(timer); },[]);
+  const detail = /^labs-token-(0x[\da-f]{40})$/i.exec(location.hash.slice(1))?.[1]?.toLowerCase();
+  const rows = admittedMarkets<Market>(resource.data, clock);
+  const watch = (address: string) => { const next=watched.includes(address)?watched.filter(a=>a!==address):[...watched,address].slice(0,50);setWatched(next);try{localStorage.setItem("unlk-market-watch-v2",JSON.stringify(next));setNotice("Watchlist saved on this device.");}catch{setNotice("Watchlist is available for this visit; browser storage is unavailable.");} };
+  const filtered = useMemo(()=>rows.filter(m=>`${m.name} ${m.symbol} ${m.address}`.toLowerCase().includes(query.trim().toLowerCase()) && (m.liquidityUsd ?? m.liquidityCheck?.usd ?? 0)>=Number(minimum) && (!picks||!!m.pick) && (tab!=="Watchlist"||watched.includes(m.address)) && (tab!=="Top gainers"||(m.priceChange24h!=null&&m.priceChange24h>0)) && (tab!=="Losers"||(m.priceChange24h!=null&&m.priceChange24h<0))).sort((a,b)=>{ const val=(m: Market):number|null=>{ const f=sort as keyof Market; if(sort==="marketCap"&&!m.marketCapEvidence)return null; return sort.endsWith("At")?timestamp(m[f] as string): typeof m[f]==="number"?m[f] as number:null; };return compareNullable(val(a),val(b),direction)||a.address.localeCompare(b.address); }),[rows,query,tab,minimum,picks,sort,direction,watched]);
+  const gainers=[...rows].filter(m=>m.priceChange24h!=null&&m.priceChange24h>0).sort((a,b)=>compareNullable(a.priceChange24h,b.priceChange24h)).slice(0,8);
+  const sponsored=rows.filter(m=>m.sponsored&&Date.parse(m.sponsored.expiresAt)>clock);
+  function chooseTab(value:string) {setTab(value);setSort(fields[value]||"marketCap");setDirection(value==="Losers"?"asc":"desc");setPage(0);}
+  function sortBy(value:string){setDirection(sort===value&&direction==="desc"?"asc":"desc");setSort(value);setPage(0);}
+  const existing = resource.data?.markets.find(m=>m.address.toLowerCase()===detail) || (resource.data?.featured?.address.toLowerCase()===detail?resource.data?.featured:null);
+  const exclusion = resource.data?.excluded?.find(m=>m.address.toLowerCase()===detail);
+  if(location.hash==="#labs-profiles")return <Profiles apiBase={apiBase} session={session}/>;
+  if(detail)return <TokenDetails key={detail} address={detail} market={existing||null} exclusion={exclusion?.reasons} apiBase={apiBase} session={session} />;
+  return <section className="markets-terminal" aria-labelledby="markets-heading">
+    <div className="terminal-heading"><div><h2 id="markets-heading">Ethereum markets</h2><p className="small muted">Liquidity and sellability checks.</p></div><button className="button" disabled={resource.loading} onClick={resource.refresh}>{resource.loading?"Checking…":"Refresh checks"}</button></div>
+    <div className="market-health"><span className="accent">{rows.length} eligible</span><span>$20k+ liquidity</span><span className="warning">{resource.fallback?"Snapshot · listings withheld":resource.data?.mode==="warming"?"Index warming":"Verified checks expire after 10 min"}</span><a href="#labs-profiles">Project profiles ↗</a></div>
+    <div className="gainers-ticker" aria-label="Organic daily gainers"><strong>Daily gainers</strong>{gainers.length?gainers.map(m=><a key={m.address} href={`#labs-token-${m.address}`}>{m.symbol} <Change value={m.priceChange24h}/></a>):<span className="muted">No current verified gainers.</span>}</div>
+    <div className="market-toolbar"><label className="lab-field">Search markets<input name="market-search" type="search" autoComplete="off" placeholder="Name, symbol or Ethereum address" value={query} onChange={e=>{setQuery(e.target.value);setPage(0);}} /></label><label className="lab-field">Liquidity<select aria-label="Liquidity" value={minimum} onChange={e=>{setMinimum(e.target.value);setPage(0);}}><option value="20000">$20k or more</option><option value="100000">$100k or more</option><option value="1000000">$1m or more</option></select></label><label className="market-pick-filter"><input type="checkbox" checked={picks} onChange={e=>{setPicks(e.target.checked);setPage(0);}}/>UNLOCK Picks</label></div>
+    <div className="market-view-tabs" aria-label="Market views">{tabs.map(t=><button key={t} aria-pressed={tab===t} onClick={()=>chooseTab(t)}>{t}</button>)}</div>
+    <div className="table-caption"><span role="status">{filtered.length} results · {tab==="Watchlist"?"Saved on this device":"Current eligible pools only"}</span><span>Unknown market caps sort last · FDV stays separate</span></div>
+    <div className="market-table-scroll" role="region" aria-label="Market table; scroll for all metrics" tabIndex={0}><table className="market-table"><caption className="sr-only">Eligible Ethereum tokens. Sort using column buttons. Missing values are unavailable.</caption><thead><tr><th scope="col">#</th><th scope="col">Token</th>{[["priceUsd","Price"],["priceChange1h","1h"],["priceChange24h","24h"],["priceChange7d","7d"],["marketCap","Market cap"],["fdv","FDV"],["volume24h","Volume · 24h"],["liquidityUsd","Liquidity"]].map(([f,label])=><th scope="col" key={f} aria-sort={sort===f?(direction==="desc"?"descending":"ascending"):"none"}><button onClick={()=>sortBy(f)}>{label}{sort===f?(direction==="desc"?" ↓":" ↑"):""}</button></th>)}<th scope="col">Observed trend</th></tr></thead><tbody>{filtered.slice(page*25,(page+1)*25).map((m,i)=><tr key={m.address}><td><button className="watch-star" aria-label={`${watched.includes(m.address)?"Remove":"Save"} ${m.symbol} ${watched.includes(m.address)?"from":"to"} watchlist`} aria-pressed={watched.includes(m.address)} onClick={()=>watch(m.address)}>{watched.includes(m.address)?"★":"☆"}</button><span className="muted">{page*25+i+1}</span></td><th scope="row"><a className="market-token-link" href={`#labs-token-${m.address}`}><TokenLogo market={m} apiBase={apiBase}/><span>{m.name}<small className="muted">{m.symbol}{m.pick&&<span className="pick-badge" title="Editorial selection, not a security certification">UNLOCK Pick</span>}</small></span></a></th><td>{usd(m.priceUsd)}</td><td><Change value={m.priceChange1h}/></td><td><Change value={m.priceChange24h}/></td><td><Change value={m.priceChange7d}/></td><td>{m.marketCapEvidence?usd(m.marketCap):<span className="muted">Unavailable</span>}</td><td>{usd(m.fdv)}</td><td>{usd(m.volume24h)}</td><td>{usd(m.liquidityCheck?.usd)}<small className="muted">Block {m.sellCheck?.block}</small></td><td><Sparkline values={m.sparkline}/></td></tr>)}</tbody></table></div>
+    {!filtered.length&&!resource.loading&&<div className="market-empty"><svg width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><path d="M5 30V10h30v20H5Zm6-6 6-8 6 5 6-9" fill="none" stroke="var(--accent)" strokeWidth="1.5"/></svg><h3>{query||picks||tab==="Watchlist"?"No matching eligible markets":"Waiting for verified markets"}</h3><p className="muted small">Liquidity and sellability checks must both be current. Unknown or failed checks keep a token out of every listing.</p>{isAddress(query.trim())?<a className="button" href={`#labs-token-${query.trim().toLowerCase()}`}>Inspect this token’s eligibility</a>:<button className="button" onClick={()=>{setQuery("");setPicks(false);setMinimum("20000");chooseTab("Markets");resource.refresh();}}>Reset filters and refresh</button>}<a className="small" href="#labs-token-0x99fa82b022be4575891a43b757bc770691e18fda">Inspect UNLK eligibility ↗</a></div>}
+    <nav className="lab-pagination" aria-label="Market pages"><button className="button" disabled={page===0} onClick={()=>setPage(page-1)}>Previous</button><span className="small muted">Page {page+1}</span><button className="button" disabled={(page+1)*25>=filtered.length} onClick={()=>setPage(page+1)}>Next</button></nav><p className="small" role="status">{notice}</p>
+    <details className="market-method"><summary>Eligibility, sources and quota tokens</summary><div><p>Every listing requires a verified Uniswap pool with at least $20,000 current USD liquidity, active liquidity and a successful representative sell simulation. Checks expire after 10 minutes or 64 blocks. V4 pools are identified by PoolId. Shared PoolManager balances, FDV and raw liquidity units are never used as USD liquidity.</p><p>A sell simulation applies only to the documented account, amount, block and time. It does not guarantee another holder can sell. Quota tokens such as UNLK can restrict transfer-only holders or large sales. Read the token’s quota rules before trading.</p><p>UNLOCK Pick is an editorial badge. It certifies no safety, liquidity or return. Payment cannot buy a badge, organic rank or eligibility. IMUSD prices are observed, never assumed to be $1. Launch date and Labs listing date are separate.</p><p>Response: {dateLabel(resource.data?.updatedAt)}. {resource.error}</p>{resource.data?.coverage.notes.map((n,i)=><p key={i}>{n}</p>)}</div></details>
+    <section className="sponsored-strip" aria-labelledby="sponsored-heading"><h3 id="sponsored-heading">Sponsored placements</h3>{sponsored.length?sponsored.map(m=><article key={m.address} className="sponsor-placement">{m.sponsored?.banner&&<img src={`${apiBase}/media/1/${m.address}/sponsor-banner.png`} alt={`${m.name} sponsored project banner`} width={240} height={80}/>}<a href={`#labs-token-${m.address}`}>Sponsored · {m.name}</a>{m.sponsored?.description&&<p className="small muted">{m.sponsored.description}</p>}</article>):<p className="small muted">No active eligible placements. Sponsorship never changes organic gainers or rankings.</p>}</section>
   </section>;
 }
-
 export default Markets;

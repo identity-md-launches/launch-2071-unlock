@@ -19,8 +19,8 @@ const keyOf=log=>`${log.transactionHash}:${Number(BigInt(log.logIndex))}`;
 export function classifyPoolLog(log,pool) {
   const event=decodeEventLog({abi:[SWAP,LIQUIDITY],data:log.data,topics:log.topics,strict:true});
   if(event.eventName==='ModifyLiquidity')return {type:'liquidity',amount:null,amountRaw:null,liquidityDelta:event.args.liquidityDelta.toString(),attribution:'Pool liquidity operation; sender is an executor, not an identified wallet'};
-  const tokenIs0=pool.key.currency0.toLowerCase()===pool.address;const delta=tokenIs0?event.args.amount0:event.args.amount1;
-  return {type:delta>0n?'buy':'sell',amount:amountString(delta<0n?-delta:delta,pool.decimals),amountRaw:(delta<0n?-delta:delta).toString(),tokenDelta:delta.toString(),sqrtPriceX96:event.args.sqrtPriceX96.toString(),attribution:'Unattributed v4 executor; wallet requires token receipt reconciliation'};
+  const tokenIs0=pool.key.currency0.toLowerCase()===pool.address;const delta=tokenIs0?event.args.amount0:event.args.amount1;const quoteDelta=tokenIs0?event.args.amount1:event.args.amount0;
+  return {type:delta>0n?'buy':'sell',amount:amountString(delta<0n?-delta:delta,pool.decimals),amountRaw:(delta<0n?-delta:delta).toString(),tokenDelta:delta.toString(),quoteAmount:amountString(quoteDelta<0n?-quoteDelta:quoteDelta),priceQuote:delta===0n?null:Math.abs(Number(amountString(quoteDelta))/Number(amountString(delta,pool.decimals))),quoteCurrency:tokenIs0?pool.key.currency1:pool.key.currency0,sqrtPriceX96:event.args.sqrtPriceX96.toString(),attribution:'Unattributed v4 executor; wallet requires token receipt reconciliation'};
 }
 function decodeTransfer(log) {const v=decodeEventLog({abi:[TRANSFER],data:log.data,topics:log.topics,strict:true}).args;return {from:address(v.from),to:address(v.to),raw:v.value};}
 export function receiptNet(receipt,token,wallet) {
@@ -30,14 +30,15 @@ export function receiptNet(receipt,token,wallet) {
   }return net;
 }
 
-export function createIndexer({store,io,now=()=>Date.now()}) {
+export function createIndexer({store,io,now=()=>Date.now(),historyStartBlock=null}) {
   let active=null;
-  async function refresh({pools,block,blockData,usdPrices={}}) {
+  async function refresh({pools,block,blockData,usdPrices={},quoteUsdAt=null}) {
     if(active)return active;
     active=(async()=>{
-      const errors=[],notes=[];let state=store.get('radar.index')||{events:[],startBlock:null,lastBlock:null,lastHash:null,blocks:{}};
+      const errors=[],notes=[];let state=store.get('radar.index')||{version:2,events:[],startBlock:null,lastBlock:null,lastHash:null,blocks:{}};
+      if(state.version!==2)state.omitted=true;
       const safePools=pools.slice(0,quota.marketTokens);const poolById=new Map(safePools.map(p=>[p.poolId.toLowerCase(),p]));
-      const requestedStart=state.lastBlock===null?block-BigInt(quota.maxBlocksPerRefresh)+1n:BigInt(state.lastBlock)-11n;
+      const requestedStart=state.lastBlock===null?(historyStartBlock===null?block-BigInt(quota.maxBlocksPerRefresh)+1n:BigInt(historyStartBlock)):BigInt(state.lastBlock)-11n;
       let from=requestedStart<0n?0n:requestedStart;
       if(state.lastBlock!==null&&state.lastHash) {
         const checkpoint=await io.rpc('eth_getBlockByNumber',[hex(state.lastBlock),false]);
@@ -45,7 +46,7 @@ export function createIndexer({store,io,now=()=>Date.now()}) {
           // The depth of a changed confirmed checkpoint is unknown. Keeping any older rows
           // could retain orphaned history, so restart within the same bounded scan budget.
           from=block-BigInt(quota.maxBlocksPerRefresh)+1n;if(from<0n)from=0n;
-          state={events:[],startBlock:null,lastBlock:null,lastHash:null,blocks:{}};
+          state={version:2,events:[],startBlock:null,lastBlock:null,lastHash:null,blocks:{}};
           notes.push('Confirmed checkpoint changed; all retained rows were discarded and the latest bounded 1,800-block history was rebuilt. Earlier history is unavailable.');
         }
       }
@@ -56,14 +57,14 @@ export function createIndexer({store,io,now=()=>Date.now()}) {
       for(let start=from;start<=to;start+=BigInt(quota.logPageBlocks)) {
         const end=start+BigInt(quota.logPageBlocks)-1n<to?start+BigInt(quota.logPageBlocks)-1n:to;
         if(safePools.length)logs.push(...await io.rpc('eth_getLogs',[{address:POOL_MANAGER,fromBlock:hex(start),toBlock:hex(end),topics:[[TOPICS.swap,TOPICS.liquidity],safePools.map(p=>p.poolId)]}]));
-        logs.push(...await io.rpc('eth_getLogs',[{address:[IMD,UNLK],fromBlock:hex(start),toBlock:hex(end),topics:[TOPICS.transfer]}]));
+        logs.push(...await io.rpc('eth_getLogs',[{address:[...new Set([IMD,UNLK,...safePools.map(p=>p.address)])],fromBlock:hex(start),toBlock:hex(end),topics:[TOPICS.transfer]}]));
       }
       const unique=[...new Map(logs.filter(l=>!l.removed).map(l=>[keyOf(l),l])).values()].sort((a,b)=>Number(BigInt(b.blockNumber)-BigInt(a.blockNumber))||Number(BigInt(b.logIndex)-BigInt(a.logIndex)));
-      let selected=unique.slice(0,1000);if(unique.length>selected.length)notes.push(`Event page quota retained ${selected.length} of ${unique.length} logs in this scan; history is incomplete.`);
+      let selected=unique.slice(0,1000);if(unique.length>selected.length){state.omitted=true;}if(unique.length>selected.length)notes.push(`Event page quota retained ${selected.length} of ${unique.length} logs in this scan; history is incomplete.`);
       // Each row uses its canonical block timestamp. Do not estimate timestamps from block height.
       const blockNumbers=[...new Set([Number(from),Number(to),...selected.map(l=>Number(BigInt(l.blockNumber)))])];
       const supported=new Set(blockNumbers.slice(0,100));
-      if(blockNumbers.length>100){notes.push('Block timestamp request quota reached; older rows in this scan are omitted.');selected=selected.filter(l=>supported.has(Number(BigInt(l.blockNumber))));}
+      if(blockNumbers.length>100){state.omitted=true;notes.push('Block timestamp request quota reached; older rows in this scan are omitted.');selected=selected.filter(l=>supported.has(Number(BigInt(l.blockNumber))));}
       for(const n of supported){if(state.blocks[n]?.hash&&n<Number(from)-12)continue;const b=n===Number(block)?blockData:await io.rpc('eth_getBlockByNumber',[hex(n),false]);if(!b)throw Error('Canonical block unavailable');state.blocks[n]={time:Number(BigInt(b.timestamp)),hash:b.hash};}
       const swapHashes=new Set(selected.filter(l=>l.topics[0]===TOPICS.swap).map(l=>l.transactionHash));
       const liqHashes=new Set(selected.filter(l=>l.topics[0]===TOPICS.liquidity).map(l=>l.transactionHash));
@@ -74,26 +75,31 @@ export function createIndexer({store,io,now=()=>Date.now()}) {
           if(!sender||EXCLUDED.has(sender)){transactionCache.set(hash,{sender:null});continue;}
           const code=await io.rpc('eth_getCode',[sender,hex(to)]);
           if(code!=='0x'&&!code.startsWith('0xef0100')){transactionCache.set(hash,{sender:null});continue;}
-          const receipt=await io.rpc('eth_getTransactionReceipt',[hash]);transactionCache.set(hash,{sender,receipt});
+          const receipt=await io.rpc('eth_getTransactionReceipt',[hash]);transactionCache.set(hash,{sender,receipt,to:address(tx.to)});
         }catch(e){errors.push(`Transaction attribution unavailable: ${e.message}`);break;}
       }
       const events=[],candidateVolumes=new Map();
       for(const log of selected) {
         const n=Number(BigInt(log.blockNumber)),timestamp=state.blocks[n]?.time;if(!timestamp)continue;
-        const base={id:keyOf(log),hash:log.transactionHash,block:n,time:timestamp,transactionUrl:`https://etherscan.io/tx/${log.transactionHash}`,wallet:null,amountUsd:null};
+        const base={id:keyOf(log),hash:log.transactionHash,block:n,transactionIndex:Number(BigInt(log.transactionIndex||0)),logIndex:Number(BigInt(log.logIndex)),time:timestamp,transactionUrl:`https://etherscan.io/tx/${log.transactionHash}`,wallet:null,amountUsd:null};
         try {
           if(address(log.address)===POOL_MANAGER) {
             const pool=poolById.get(log.topics[1]?.toLowerCase());if(!pool)continue;const detail=classifyPoolLog(log,pool);
             const tx=transactionCache.get(log.transactionHash);let wallet=null;
-            if(detail.type!=='liquidity'&&tx?.sender&&tx.receipt) {
+            const routeSwaps=selected.filter(l=>l.transactionHash===log.transactionHash&&l.topics[0]===TOPICS.swap&&poolById.get(l.topics[1]?.toLowerCase())?.address===pool.address).length;
+            const ambiguousRouting=routeSwaps!==1;
+            if(detail.type!=='liquidity'&&tx?.sender&&tx.receipt&&!ambiguousRouting) {
               const net=receiptNet(tx.receipt,pool.address,tx.sender);
               if((detail.type==='buy'&&net>0n)||(detail.type==='sell'&&net<0n))wallet=tx.sender;
             }
-            events.push({...base,...detail,token:pool.address,symbol:pool.symbol,poolId:pool.poolId,wallet,from:null,to:null,attribution:wallet?'Transaction sender reconciled with token transfers; recipient identity is unknown':detail.attribution});
+            let priceUsd=null,amountUsd=null,costBasisUsd=null,costBasisSupported=false;
+            if(detail.type!=='liquidity'&&quoteUsdAt){try{const refs=await quoteUsdAt(n,timestamp);const q=refs[detail.quoteCurrency.toLowerCase()];if(q>0&&detail.priceQuote>0){priceUsd=detail.priceQuote*q;amountUsd=Number(detail.quoteAmount)*q;
+                if(wallet&&tx?.to==='0x66a9893cc07d91d95644aedd05d03f95e1dba8af'&&tx.receipt.logs.filter(l=>address(l.address)===POOL_MANAGER&&l.topics[0]===TOPICS.swap).length===1){const net=receiptNet(tx.receipt,detail.quoteCurrency.toLowerCase(),wallet);const tokenNet=receiptNet(tx.receipt,pool.address,wallet);if(tokenNet.toString()===detail.tokenDelta&&((detail.type==='buy'&&net<0n)||(detail.type==='sell'&&net>0n))){costBasisUsd=Math.abs(Number(amountString(net)))*q;costBasisSupported=true;}}}}catch{/* archive/valuation gaps remain unavailable */}}
+            events.push({...base,...detail,priceUsd,amountUsd,costBasisUsd,costBasisSupported,logIndex:Number(BigInt(log.logIndex)),ambiguousRouting,token:pool.address,symbol:pool.symbol,poolId:pool.poolId,wallet,from:null,to:null,attribution:wallet?'Transaction sender reconciled with token transfers; recipient identity is unknown':detail.attribution});
           } else {
-            const transfer=decodeTransfer(log),token=address(log.address),symbol=token===IMD?'IMD':'UNLK';
+            const transfer=decodeTransfer(log),token=address(log.address),symbol=token===IMD?'IMD':token===UNLK?'UNLK':safePools.find(p=>p.address===token)?.symbol||'Unknown';
             const relatedActivity=liqHashes.has(log.transactionHash)?'liquidity':swapHashes.has(log.transactionHash)?'swap':'transfer';
-            events.push({...base,type:'transfer',relatedActivity,token,symbol,amount:amountString(transfer.raw),amountRaw:transfer.raw.toString(),from:transfer.from,to:transfer.to,poolId:null,attribution:relatedActivity==='transfer'?'ERC20 transfer; not classified as a trade':`Token settlement in a ${relatedActivity} transaction; not counted as an additional trade`});
+            events.push({...base,type:'transfer',relatedActivity:relatedActivity==='transfer'?null:relatedActivity,token,symbol,amount:amountString(transfer.raw,safePools.find(p=>p.address===token)?.decimals??18),amountRaw:transfer.raw.toString(),from:transfer.from,to:transfer.to,poolId:null,attribution:relatedActivity==='transfer'?'ERC20 transfer; not classified as a trade':`Token settlement in a ${relatedActivity} transaction; not counted as an additional trade`});
             if(token===IMD)for(const wallet of [transfer.from,transfer.to])if(wallet&&!EXCLUDED.has(wallet))candidateVolumes.set(wallet,(candidateVolumes.get(wallet)||0n)+transfer.raw);
           }
         }catch(e){errors.push(`Unrecognized log omitted at ${base.id}`);}
@@ -101,6 +107,7 @@ export function createIndexer({store,io,now=()=>Date.now()}) {
       const cutoff=now()/1000-quota.retentionDays*86400;
       // Re-query overlap replaces rows in the range, providing deterministic retry/reorg handling.
       const retained=state.events.filter(e=>e.block<Number(from)&&e.time>=cutoff);
+      if(retained.length+events.length>quota.maxEvents)state.omitted=true;
       const combined=[...new Map([...retained,...events].map(e=>[e.id,e])).values()].sort((a,b)=>b.block-a.block||b.id.localeCompare(a.id)).slice(0,quota.maxEvents);
       const priorWallets=(store.get('radar.snapshot')?.wallets||[]).map(w=>w.address);
       const candidates=[...new Set([TREASURY,...[...candidateVolumes].sort((a,b)=>a[1]>b[1]?-1:1).map(([w])=>w),...priorWallets])].slice(0,quota.candidateWallets);
@@ -120,7 +127,7 @@ export function createIndexer({store,io,now=()=>Date.now()}) {
       const retainedBlocks=Object.fromEntries(Object.entries(state.blocks).filter(([,b])=>b.time>=cutoff));
       const startBlock=Math.max(state.startBlock??Number(from),Math.min(...Object.keys(retainedBlocks).map(Number)));
       state={...state,events:combined,startBlock,lastBlock:Number(to),lastHash:state.blocks[Number(to)].hash,blocks:retainedBlocks};store.set('radar.index',state);
-      const snapshot={version:1,mode:'cached',chainId:1,updatedAt:new Date(now()).toISOString(),period:'24h',coverage:{fromBlock:state.startBlock,toBlock:Number(to),headBlock:Number(block),fromTime:state.blocks[state.startBlock]?.time||null,toTime:state.blocks[Number(to)]?.time||null,missingHistory:true,backlogBlocks:Number(block-to),rpcSource:PUBLIC_RPC,notes:['Only configured Ethereum v4 PoolIds plus IMD/UNLK transfers are indexed. Other pools/chains are outside coverage.','Startup begins with at most 1,800 confirmed blocks. Selectable periods are clipped to indexed history; absent rows are not proof of no activity.','Swaps, plain transfers and liquidity operations are separate. Router/PoolManager balances are never assigned to traders.','Wallet attribution requires a transaction sender and matching token transfer direction. Aggregators and unknown executors remain unattributed.','Watchlist: up to 10 larger IMD balances among at most 24 observed EOA counterparties, plus the declared treasury candidate; contract custody and global holder rankings are outside coverage.','No wallet identities, cost basis, profit or investment quality are inferred.',...notes]},pools:safePools.map(p=>({poolId:p.poolId,address:p.address,symbol:p.symbol,key:p.key})),events:combined,wallets:watchlist,nextCursor:null,quotas:quota,errors:[...new Set(errors)].slice(0,6)};store.set('radar.snapshot',snapshot);return snapshot;
+      const snapshot={version:1,mode:'cached',chainId:1,updatedAt:new Date(now()).toISOString(),period:'24h',coverage:{fromBlock:state.startBlock,toBlock:Number(to),headBlock:Number(block),fromTime:state.blocks[state.startBlock]?.time||null,toTime:state.blocks[Number(to)]?.time||null,missingHistory:true,hasOmissions:state.omitted===true,backlogBlocks:Number(block-to),rpcSource:PUBLIC_RPC,notes:['Only configured Ethereum v4 PoolIds and their token transfers plus IMD/UNLK are indexed. Other pools/chains are outside coverage.','Startup begins with at most 1,800 confirmed blocks. Selectable periods are clipped to indexed history; absent rows are not proof of no activity.','Swaps, plain transfers and liquidity operations are separate. Router/PoolManager balances are never assigned to traders.','Wallet attribution requires a transaction sender and matching token transfer direction. Aggregators and unknown executors remain unattributed.','Watchlist: up to 10 larger IMD balances among at most 24 observed EOA counterparties, plus the declared treasury candidate; contract custody and global holder rankings are outside coverage.','No wallet identities or investment quality are inferred. Transaction routes with multiple token swaps remain unattributed; missing historical USD prices stay unavailable.',...notes]},pools:safePools.map(p=>({poolId:p.poolId,address:p.address,symbol:p.symbol,key:p.key})),events:combined,wallets:watchlist,nextCursor:null,quotas:quota,errors:[...new Set(errors)].slice(0,6)};store.set('radar.snapshot',snapshot);return snapshot;
     })().finally(()=>{active=null;});return active;
   }
   async function radar({period='24h',cursor=null}={}) {

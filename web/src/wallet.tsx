@@ -40,6 +40,7 @@ export interface Action {
   functionName: string;
   args?: readonly unknown[];
   value?: bigint;
+  dataSuffix?: Hex;
   labsFunding?: NativeFunding;
   details?: [string, string][];
   validate?: () => Promise<void>;
@@ -437,6 +438,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         abi: action.abi,
         functionName: action.functionName,
         args: action.args ?? [],
+        ...(action.dataSuffix ? { dataSuffix: action.dataSuffix } : {}),
         account: address,
         value: action.value ?? 0n,
       };
@@ -496,6 +498,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
         abi: action.abi,
         functionName: action.functionName,
         args: action.args ?? [],
+        ...(action.dataSuffix ? { dataSuffix: action.dataSuffix } : {}),
         account,
         value: action.value ?? 0n,
       };
