@@ -1,4 +1,67 @@
-# UNLOCK Labs revision validation · 2026-10-19
+# Attribution-quota revision · 2026-10-19
+
+Current worker-recorded validation for finding `bdf5d73ecc9709eb3aa9a0547564c0b9c6cad73809c8979f3077c467200e6ffb`. The accepted frontend and its design are retained. Changes are limited to attribution persistence/retry, P&L certification, regression tests and documentation. The separately operated service was not deployed; no paid job, signature, approval or chain write was made. Earlier sections below are prior-run evidence.
+
+| Check | Actual result |
+| --- | --- |
+| Reproduction | An isolated copy of the original production indexer/token API with the reviewer's 26-transaction fixture retained 78 logs, raw blocks 120–310, no omissions and `completeHistory=true`, but returned one buy/one sell, supported realized 4 / unrealized 12. The new partial-status assertion failed against that baseline |
+| Correction | Versioned per-swap attribution states and separate asset/PoolId attribution coverage persist pending/unresolved gaps. The bounded queue retries old transactions beyond the 12-block overlap and preserves completed canonical work. Unexplained wallet settlements are unknown inventory. Raw log/candle coverage remains independent |
+| Exact regression | Initial corrected response: two pending transactions, partial P&L, both totals null. Next refresh: two buys/two sells, supported realized 14 / unrealized 12. All 78 logs and exact candle arrays are unchanged |
+| Other regressions | New traffic cannot starve older pending transactions; transaction/receipt outages and missing receipts retry; ambiguous routing stays unresolved; legacy caches fail closed; real SQLite restart resumes the old attribution backlog |
+| Service/browser suite | 62/62 cases passed: 61 service cases plus the opt-in production-export attribution case. The latter passed in Chromium at 390×844 and 1440×900 using production `createIndexer`/`createTokenData` responses, checked the actual partial/recovered trader cells and coverage text, retained real candles, and found no page overflow, uncaught errors or missing local resources |
+| Frontend | `npm run typecheck`, `npm test` (60/60), and `npm run build` passed in a disposable `/tmp` copy using unchanged manifest/lockfile. Vite 7.1.7 built 523 modules. `diff -qr dist /tmp/dist` returned no differences; the retained complete `dist/` is exactly the new production output |
+| Existing interactions | Retained `check-upgrade.mjs`: 14 Chromium interaction/reflow groups passed at 320/390/768/1440, plus four axe scans with zero violations and no uncaught script or local-resource errors. Covered search/filter/watchlist, excluded URLs, charts, P&L gaps, Radar, Audit scope/recovery controls, profiles, wallet sheet, Trade, Treasury and whitepaper |
+| Design probe | taste@1 passed 13/16: render, layout, targets, contrast, tracking, sizes, glyphs, slogans, repetition, copy budget, surfaces, motion and share metadata. The same three accepted flags remain: requested brand capitals/monospace and navigation/status text misidentified as kickers |
+| Mobile first screen | Inspected the actual 390px production screenshot: product, Refresh checks and market search are visible. Title, description, favicon, og:title, og:image and relative runtime assets remain present |
+
+Tools/dependencies were installed only under `/tmp`; no repository package/dependency/build configuration changed. The first disposable frontend test run lacked the existing `docs/candidate/network/nft-ownership.json` fixture and passed 59/60. Copying that unchanged fixture into the temporary build context restored 60/60; no application change was needed.
+
+Commands actually run:
+
+```sh
+npm ci --prefix /tmp/unlock-attribution-build --cache /tmp/unlock-attribution-npm-cache --no-audit --no-fund
+npm run typecheck --prefix /tmp/unlock-attribution-build
+npm test --prefix /tmp/unlock-attribution-build
+npm run build --prefix /tmp/unlock-attribution-build
+diff -qr dist /tmp/dist
+PLAYWRIGHT_BROWSERS_PATH=/tmp/unlock-attribution-browsers \
+  IMD_PLAYWRIGHT=/tmp/unlock-attribution-browser/node_modules/playwright/index.mjs \
+  LABS_TEST_ACCOUNTS_MODULE=/tmp/unlock-attribution-build/node_modules/viem/_esm/accounts/index.js \
+  node --test services/labs/tests.mjs services/labs/data.test.mjs services/labs/upgrade.test.mjs services/labs/revision.test.mjs
+PLAYWRIGHT_BROWSERS_PATH=/tmp/unlock-attribution-browsers \
+  IMD_PLAYWRIGHT=/tmp/unlock-attribution-browser/node_modules/playwright/index.mjs \
+  IMD_AXE=/tmp/unlock-attribution-browser/node_modules/@axe-core/playwright/dist/index.mjs \
+  node /tmp/unlock-attribution-smoke/web/scripts/check-upgrade.mjs
+PLAYWRIGHT_BROWSERS_PATH=/tmp/unlock-attribution-browsers \
+  IMD_PLAYWRIGHT=/tmp/unlock-attribution-browser/node_modules/playwright/index.mjs \
+  node .imd/reads/skills/design-critic/scripts/taste.mjs --out /tmp/unlock-attribution-taste --offline
+git diff --check
+```
+
+The smoke script was an unchanged copy of `web/scripts/check-upgrade.mjs`, with its temporary project pointing to the real production `dist/`; this kept its scratch/generated screenshots outside the repository. New fixture screenshots are also only in `/tmp` and never ship as token data. The exact attribution browser case is retained in `services/labs/revision.test.mjs`; set `IMD_PLAYWRIGHT` to enable it, otherwise it explicitly skips.
+
+Applied the pinned Better Interface guide across all six domains, scoped to the affected trader/coverage states and retained production surfaces:
+
+| Domain | Coverage | Limits |
+| --- | --- | --- |
+| Accessibility | Native trader-view/timeframe/disclosure controls, text status independent of color, reachable horizontal table, retained keyboard interactions, target probe and four axe states | No screen-reader, physical-device or forced-colors session |
+| Layout | Actual first screen at 390; partial/recovered rows at 390/1440; retained route reflow at 320/390/768/1440; tables scroll locally | Native 200% zoom, RTL and exhaustive content lengths unperformed |
+| Writing | `services/labs/token-data.mjs:44` names pending/unresolved counts and states totals are unavailable; existing row status explicitly says partial. No false complete-history claim is used as P&L certification | Operator-authored content and wallet-provider copy not reviewed |
+| Typography | Existing JetBrains Mono 400/600, six-size source scale, readable values/coverage text, retained loaded-font test and size probe | Native text zoom/print unperformed |
+| Colors | Existing source tokens retained; rendered contrast probe and four axe scans passed; no new color encoding | Every third-party image/expanded state not measured |
+| UI | Partial-to-supported transition, no invented totals, unchanged real chart history, retained loading/empty/error/recovery interactions and reduced-motion probe | No real wallet/payment/audit success or slow-motion animation replay |
+
+High finding fixed at `services/labs/indexer.mjs:140` and `services/labs/token-data.mjs:42`: raw-log completeness previously certified P&L despite dropped attribution. Separate persisted attribution proof and fair bounded retries now gate numerical totals. API tests, restart tests and the rendered production responses passed. No visual redesign or additional unrelated fix was justified. `DESIGN.md` documents the existing table/disclosure behavior for the final implementation.
+
+WebKit was installed but could not launch because required GTK/GStreamer and related system libraries are absent; Safari rendering remains **unperformed**, not passed. Physical wallets, mainnet spending, screen readers, Docker, external hosting and operator backend connection were not tested. No live token eligibility or real wallet attribution is asserted. The static API URL remains empty; backend-dependent live features await the operator. Attribution withholding is deliberately conservative for the whole token/PoolId, and unsupported routing or seven-day retention can keep P&L unavailable.
+
+Complete for the reported service-source defect and retained static export, with the browser/operation limits above. `.imd-responses.json` answers the finding as fixed.
+
+Final packaging: the complete current-tree Git snapshot bundle is below **8,380,000 bytes** (8,388,608-byte limit). The existing bundle probe was evaluated with temporary Git metadata entirely under `/tmp`, checkout report writes disabled, and an additional 8,192-byte reserve. The initial default snapshot exceeded the limit, so the two documentation screenshots `artifacts/terminal-{desktop,mobile}.jpg` were recompressed as progressive JPEGs at their original 1440×900 / 390×844 dimensions; all content is retained, and the final images were inspected. They are documentation images, not runtime assets. No source, dependency or required deliverable was dropped. The retained static export remains exactly the production build, including all runtime assets. Final `git diff --check`, protected-path, no-submodule and no-generated-dependency/cache checks passed; no ignore file changed.
+
+---
+
+# Prior revision validation · 2026-10-19
 
 Worker-recorded results for the bounded revision. All four findings reproduced against the accepted source/export and were fixed. `.imd-responses.json` contains one response per finding. Existing contracts, economics, wallet transaction flows, build configuration, dependencies and hosting identity are unchanged. Only the static export is delivered for publication; no external service, persistent bot, paid job or chain transaction was run.
 

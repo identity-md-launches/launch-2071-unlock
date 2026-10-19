@@ -33,6 +33,15 @@ export function receiptNet(receipt,token,wallet) {
     try {const t=decodeTransfer(log);if(t.to===wallet)net+=t.raw;if(t.from===wallet)net-=t.raw;}catch{/* unrecognized event is not attributed */}
   }return net;
 }
+const isSwap=e=>e.type==='buy'||e.type==='sell';
+export function attributionCoverage(events) {
+  const swaps=events.filter(isSwap),pending=new Set(),unresolved=new Set();
+  for(const e of swaps) {
+    if(e.attributionState?.version!==1||e.attributionState.status==='pending')pending.add(e.hash);
+    else if(e.attributionState.status!=='reconciled'||!e.wallet)unresolved.add(e.hash);
+  }
+  return {version:1,complete:pending.size===0&&unresolved.size===0,swapCount:swaps.length,pendingTransactions:pending.size,unresolvedTransactions:unresolved.size};
+}
 
 export function createIndexer({store,io,now=()=>Date.now(),historyStartBlock=null}) {
   let active=null;
@@ -86,34 +95,33 @@ export function createIndexer({store,io,now=()=>Date.now(),historyStartBlock=nul
       for(const n of supported){if(state.blocks[n]?.hash&&n<Number(from)-12)continue;const b=n===Number(block)?blockData:await io.rpc('eth_getBlockByNumber',[hex(n),false]);if(!b)throw Error('Canonical block unavailable');state.blocks[n]={time:Number(BigInt(b.timestamp)),hash:b.hash};}
       const swapHashes=new Set(selected.filter(l=>l.topics[0]===TOPICS.swap).map(l=>l.transactionHash));
       const liqHashes=new Set(selected.filter(l=>l.topics[0]===TOPICS.liquidity).map(l=>l.transactionHash));
-      const transactionCache=new Map();const attributionHashes=[...swapHashes].slice(0,24);
-      for(const hash of attributionHashes) {
-        try{
-          const tx=await io.rpc('eth_getTransactionByHash',[hash]);const sender=address(tx?.from);
-          if(!sender||EXCLUDED.has(sender)){transactionCache.set(hash,{sender:null});continue;}
-          const code=await io.rpc('eth_getCode',[sender,hex(to)]);
-          if(code!=='0x'&&!code.startsWith('0xef0100')){transactionCache.set(hash,{sender:null});continue;}
-          const receipt=await io.rpc('eth_getTransactionReceipt',[hash]);transactionCache.set(hash,{sender,receipt,to:address(tx.to)});
-        }catch(e){errors.push(`Transaction attribution unavailable: ${e.message}`);break;}
-      }
+      const priorEvents=new Map(state.events.map(e=>[e.id,e]));
       const events=[],candidateVolumes=new Map();
       for(const log of selected) {
         const n=Number(BigInt(log.blockNumber)),timestamp=state.blocks[n]?.time;if(!timestamp)continue;
-        const base={id:keyOf(log),hash:log.transactionHash,chainId:1,block:n,transactionIndex:Number(BigInt(log.transactionIndex||0)),logIndex:Number(BigInt(log.logIndex)),time:timestamp,transactionUrl:`https://etherscan.io/tx/${log.transactionHash}`,wallet:null,amountUsd:null};
+        const base={id:keyOf(log),hash:log.transactionHash,chainId:1,block:n,blockHash:state.blocks[n].hash,transactionIndex:Number(BigInt(log.transactionIndex||0)),logIndex:Number(BigInt(log.logIndex)),time:timestamp,transactionUrl:`https://etherscan.io/tx/${log.transactionHash}`,wallet:null,amountUsd:null};
         try {
           if(address(log.address)===POOL_MANAGER) {
             const pool=poolById.get(log.topics[1]?.toLowerCase());if(!pool)continue;const detail=classifyPoolLog(log,pool);
-            const tx=transactionCache.get(log.transactionHash);let wallet=null;
             const routeSwaps=selected.filter(l=>l.transactionHash===log.transactionHash&&l.topics[0]===TOPICS.swap&&poolById.get(l.topics[1]?.toLowerCase())?.address===pool.address).length;
             const ambiguousRouting=routeSwaps!==1;
-            if(detail.type!=='liquidity'&&tx?.sender&&tx.receipt&&!ambiguousRouting) {
-              const net=receiptNet(tx.receipt,pool.address,tx.sender);
-              if((detail.type==='buy'&&net>0n)||(detail.type==='sell'&&net<0n))wallet=tx.sender;
+            let priceUsd=null,amountUsd=null;
+            if(detail.type!=='liquidity'&&quoteUsdAt){
+              try{
+                const refs=await quoteUsdAt(n,timestamp),q=refs[detail.quoteCurrency.toLowerCase()];
+                if(q>0&&detail.priceQuote>0){priceUsd=detail.priceQuote*q;amountUsd=Number(detail.quoteAmount)*q;}
+              }catch{/* archive/valuation gaps remain unavailable */}
             }
-            let priceUsd=null,amountUsd=null,costBasisUsd=null,costBasisSupported=false;
-            if(detail.type!=='liquidity'&&quoteUsdAt){try{const refs=await quoteUsdAt(n,timestamp);const q=refs[detail.quoteCurrency.toLowerCase()];if(q>0&&detail.priceQuote>0){priceUsd=detail.priceQuote*q;amountUsd=Number(detail.quoteAmount)*q;
-                if(wallet&&tx?.to==='0x66a9893cc07d91d95644aedd05d03f95e1dba8af'&&tx.receipt.logs.filter(l=>address(l.address)===POOL_MANAGER&&l.topics[0]===TOPICS.swap).length===1){const net=receiptNet(tx.receipt,detail.quoteCurrency.toLowerCase(),wallet);const tokenNet=receiptNet(tx.receipt,pool.address,wallet);if(tokenNet.toString()===detail.tokenDelta&&((detail.type==='buy'&&net<0n)||(detail.type==='sell'&&net>0n))){costBasisUsd=Math.abs(Number(amountString(net)))*q;costBasisSupported=true;}}}}catch{/* archive/valuation gaps remain unavailable */}}
-            events.push({...base,...detail,decimals:pool.decimals,priceUsd,amountUsd,costBasisUsd,costBasisSupported,logIndex:Number(BigInt(log.logIndex)),ambiguousRouting,token:pool.address,symbol:pool.symbol,poolId:pool.poolId,wallet,from:null,to:null,attribution:wallet?'Transaction sender reconciled with token transfers; recipient identity is unknown':detail.attribution});
+            const event={...base,...detail,decimals:pool.decimals,priceUsd,amountUsd,costBasisUsd:null,costBasisSupported:false,ambiguousRouting,token:pool.address,symbol:pool.symbol,poolId:pool.poolId,from:null,to:null};
+            if(isSwap(event))event.attributionState={version:1,status:'pending',queuedRound:(state.attributionRound||0)+1,reason:'Awaiting bounded transaction/receipt attribution'};
+            // Preserve completed work on canonical overlap replay. Legacy rows without a
+            // versioned proof are retried rather than inheriting an uncertified wallet.
+            const old=priorEvents.get(event.id);
+            if(isSwap(event)&&old?.blockHash===event.blockHash&&old.attributionState?.version===1){
+              for(const field of ['wallet','attributionState','attribution','costBasisUsd','costBasisSupported'])event[field]=old[field];
+              if(old.attributionState.status==='reconciled'&&!old.costBasisSupported&&!(old.priceUsd>0)&&priceUsd>0)event.attributionState={...old.attributionState,status:'pending',reason:'Historical USD reference recovered; retry cost-basis reconciliation'};
+            }
+            events.push(event);
           } else {
             const transfer=decodeTransfer(log),token=address(log.address),symbol=token===IMD?'IMD':token===UNLK?'UNLK':safePools.find(p=>p.address===token)?.symbol||'Unknown';
             const relatedActivity=liqHashes.has(log.transactionHash)?'liquidity':swapHashes.has(log.transactionHash)?'swap':'transfer';
@@ -129,6 +137,52 @@ export function createIndexer({store,io,now=()=>Date.now(),historyStartBlock=nul
       if(retained.length+events.length>quota.maxEvents)state.omitted=true;
       const merged=[...new Map([...retained,...events.filter(e=>{if(e.time<cutoff){omitEvent(e);return false;}return true;})].map(e=>[e.id,e])).values()].sort((a,b)=>b.block-a.block||b.id.localeCompare(a.id));
       merged.slice(quota.maxEvents).forEach(omitEvent);const combined=merged.slice(0,quota.maxEvents);
+      // Attribution has its own durable backlog, independent of raw log coverage and
+      // the 12-block scan overlap. Unattempted/least-recently attempted transactions
+      // go first, so new traffic or one failing receipt cannot starve older gaps.
+      const attributionRound=(state.attributionRound||0)+1;
+      const pending=combined.filter(e=>isSwap(e)&&safePools.some(p=>matchesEvent(p,e))&&(e.attributionState?.version!==1||e.attributionState.status==='pending'))
+        .sort((a,b)=>(a.attributionState?.attempt||a.attributionState?.queuedRound||0)-(b.attributionState?.attempt||b.attributionState?.queuedRound||0)||b.block-a.block);
+      const attributionHashes=[...new Set(pending.map(e=>e.hash))].slice(0,24);
+      for(const hash of attributionHashes) {
+        const rows=combined.filter(e=>isSwap(e)&&e.hash===hash);
+        let tx=null,reason=null,status='unresolved';
+        try {
+          tx=await io.rpc('eth_getTransactionByHash',[hash]);const sender=address(tx?.from);
+          if(!sender)throw Error('Transaction sender unavailable');
+          if(EXCLUDED.has(sender))reason='Transaction sender is infrastructure; wallet settlement is unresolved';
+          else {
+            const code=await io.rpc('eth_getCode',[sender,hex(rows[0].block)]);
+            if(code!=='0x'&&!code.startsWith('0xef0100'))reason='Contract sender; wallet settlement is unresolved';
+            else {
+              const receipt=await io.rpc('eth_getTransactionReceipt',[hash]);
+              if(!Array.isArray(receipt?.logs))throw Error('Transaction receipt unavailable');
+              if((receipt.transactionHash&&receipt.transactionHash!==hash)||(receipt.status&&BigInt(receipt.status)!==1n))throw Error('Receipt does not match the indexed successful transaction');
+              if((receipt.blockHash&&receipt.blockHash!==rows[0].blockHash)||(receipt.blockNumber&&Number(BigInt(receipt.blockNumber))!==rows[0].block))throw Error('Receipt does not match the indexed canonical block');
+              tx={sender,receipt,to:address(tx.to)};
+            }
+          }
+        }catch(e){status='pending';reason=`Transaction attribution unavailable: ${e.message}`;errors.push(reason);}
+        for(const e of rows) {
+          e.wallet=null;e.costBasisUsd=null;e.costBasisSupported=false;
+          const net=tx?.receipt?receiptNet(tx.receipt,e.token,tx.sender):0n;
+          if(!reason&&!e.ambiguousRouting&&((e.type==='buy'&&net>0n)||(e.type==='sell'&&net<0n))){
+            e.wallet=tx.sender;
+            e.attributionState={version:1,status:'reconciled',attempt:attributionRound};
+            e.attribution='Transaction sender reconciled with token transfers; recipient identity is unknown';
+            // Event-block USD valuation is independent of attribution. Never use a
+            // current quote when reconciling an older transaction from the backlog.
+            const q=e.priceUsd/e.priceQuote;
+            if(tx.to==='0x66a9893cc07d91d95644aedd05d03f95e1dba8af'&&tx.receipt.logs.filter(l=>address(l.address)===POOL_MANAGER&&l.topics[0]===TOPICS.swap).length===1&&Number.isFinite(q)&&q>0){
+              const quoteNet=receiptNet(tx.receipt,e.quoteCurrency.toLowerCase(),e.wallet);
+              if(net.toString()===e.tokenDelta&&((e.type==='buy'&&quoteNet<0n)||(e.type==='sell'&&quoteNet>0n))){e.costBasisUsd=Math.abs(Number(amountString(quoteNet)))*q;e.costBasisSupported=true;}
+            }
+          }else{
+            e.attributionState={version:1,status,attempt:attributionRound,queuedRound:e.attributionState?.queuedRound??attributionRound,reason:reason||(e.ambiguousRouting?'Multiple same-token swaps; wallet settlement is unresolved':'Wallet token settlement does not reconcile')};
+            e.attribution=e.attributionState.reason;
+          }
+        }
+      }
       for(const p of safePools){
         const key=assetCoverageKey(p.address,p.poolId),c=assetCoverage[key];
         // A different asset's earlier backfill cannot invalidate already covered history.
@@ -138,6 +192,7 @@ export function createIndexer({store,io,now=()=>Date.now(),historyStartBlock=nul
         }
         c.fromTime=state.blocks[c.fromBlock]?.time??c.fromTime??null;c.toTime=state.blocks[c.toBlock]?.time??c.toTime??null;
         c.hasOmissions ||= omittedAssets.has(key);c.completeHistory=c.deploymentBlock!==null&&c.fromBlock!==null&&c.fromBlock<=c.deploymentBlock&&c.toBlock===Number(block)&&!c.hasOmissions;
+        c.attribution=attributionCoverage(combined.filter(e=>matchesEvent(p,e)));
       }
       const priorWallets=(store.get('radar.snapshot')?.wallets||[]).map(w=>w.address);
       const candidates=[...new Set([TREASURY,...[...candidateVolumes].sort((a,b)=>a[1]>b[1]?-1:1).map(([w])=>w),...priorWallets])].slice(0,quota.candidateWallets);
@@ -157,7 +212,7 @@ export function createIndexer({store,io,now=()=>Date.now(),historyStartBlock=nul
       const retainedBlocks=Object.fromEntries(Object.entries(state.blocks).filter(([,b])=>b.time>=cutoff));
       const startBlock=Math.max(Math.min(state.startBlock??Number(from),Number(from)),Math.min(...Object.keys(retainedBlocks).map(Number)));
       const lastBlock=Math.max(state.lastBlock??Number(to),Number(to)),lastHash=state.blocks[lastBlock]?.hash||state.lastHash;
-      state={...state,assetCoverage,events:combined,startBlock,lastBlock,lastHash,blocks:retainedBlocks};store.set('radar.index',state);
+      state={...state,attributionRound,assetCoverage,events:combined,startBlock,lastBlock,lastHash,blocks:retainedBlocks};store.set('radar.index',state);
       const snapshot={version:1,mode:'cached',chainId:1,updatedAt:new Date(now()).toISOString(),period:'24h',coverage:{fromBlock:state.startBlock,toBlock:state.lastBlock,headBlock:Number(block),fromTime:state.blocks[state.startBlock]?.time||null,toTime:state.blocks[state.lastBlock]?.time||null,missingHistory:true,hasOmissions:state.omitted===true,backlogBlocks:Number(block)-state.lastBlock,rpcSource:PUBLIC_RPC,notes:['Only configured Ethereum v4 PoolIds and their token transfers plus IMD/UNLK are indexed. Other pools/chains are outside coverage.','Startup begins with at most 1,800 confirmed blocks. Selectable periods are clipped to indexed history; absent rows are not proof of no activity.','Swaps, plain transfers and liquidity operations are separate. Router/PoolManager balances are never assigned to traders.','Wallet attribution requires a transaction sender and matching token transfer direction. Aggregators and unknown executors remain unattributed.','Watchlist: up to 10 larger IMD balances among at most 24 observed EOA counterparties, plus the declared treasury candidate; contract custody and global holder rankings are outside coverage.','No wallet identities or investment quality are inferred. Transaction routes with multiple token swaps remain unattributed; missing historical USD prices stay unavailable.',...notes]},assetCoverage:Object.values(assetCoverage),pools:safePools.map(p=>({chainId:1,poolId:p.poolId,address:p.address,symbol:p.symbol,decimals:p.decimals,key:p.key})),events:combined,wallets:watchlist,nextCursor:null,quotas:quota,errors:[...new Set(errors)].slice(0,6)};store.set('radar.snapshot',snapshot);return snapshot;
     })().finally(()=>{active=null;});return active;
   }

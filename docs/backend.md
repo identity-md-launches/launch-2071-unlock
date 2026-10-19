@@ -72,6 +72,8 @@ node services/labs/reindex.mjs --public-history-only /absolute/persistent/labs.s
 
 This utility clears only public market/history cache keys, preserving audit/profile orders, verified payments, moderation, settings and sessions. Restart the API to backfill. During warming, old listings stay withheld.
 
+The attribution revision requires no database migration or paid-order reset. Retained swaps now carry versioned pending/reconciled/unresolved attribution states, with a separate summary under each `radar.index.assetCoverage` entry. Each refresh retries up to 24 pending transactions, including older retained swaps outside the log overlap. Failed reads remain pending; older gaps precede fresh traffic. Legacy rows are reconciled again before P&L can be supported. Inspect token `coverage.attribution` counts alongside raw `completeHistory`: incomplete attribution withholds P&L totals but preserves real swap charts. Permanently unsupported routes remain unresolved; more refreshes do not make those routes supported. Raw-log omissions and retention still need the documented reindex/operator coverage work.
+
 ## Authentication and project rights
 
 `POST /api/auth/nonce` binds a random one-use nonce to address, Ethereum, exact origin, issue time and five-minute expiry. `/auth/verify` verifies the signature and returns a hashed-at-rest one-hour bearer session. Logout, expiry and origin changes invalidate it. Current UNLK balance is rechecked for holder endpoints; zero-balance authenticated customers can still order audits and verified representatives can submit profiles. Deployed ERC-1271 login is supported; unsupported counterfactual login is refused.

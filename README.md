@@ -37,13 +37,15 @@ See [service setup and connection](docs/backend.md), [eligibility, identities an
 
 ## Checks recorded for this upgrade
 
-This revision reproduced and fixed all four reported defects: owner-read outages, per-token history certification, Radar decimal/identity handling and chart pan recovery. Production typecheck/build, 60 retained frontend tests and 52 backend/data/security tests passed. Chromium passed 14 interaction/reflow groups under `/preview/` at 320, 390, 768 and 1440 widths, including shorter chart series and separate same-symbol flows. Four axe scans found no violations in scanned states. Fixtures never enter `dist/` and do not establish a live service. See `.imd-responses.json` and `artifacts/validation.md` for finding outcomes and limitations.
+This revision reproduced and fixed the trader attribution-quota defect. Raw log coverage and wallet attribution now have separate persisted proofs; skipped/failed transactions retry beyond the scan overlap, and incomplete attribution withholds numerical P&L without removing real candles. The reported fixture returns partial/null totals, then two buys/two sells and realized 14 after reconciliation. Production typecheck/build, 60 frontend tests and 62 backend/browser cases passed. Chromium also passed the retained 14 interaction/reflow groups and four axe scans. The frontend rebuild is byte-identical to `dist/`. Fixtures never enter the export or establish a live service. See `.imd-responses.json` and `artifacts/validation.md`.
 
 Reproduce service checks from the repository root after frontend dependencies are installed:
 
 ```sh
 node --test services/labs/tests.mjs services/labs/data.test.mjs services/labs/upgrade.test.mjs services/labs/revision.test.mjs
 ```
+
+The suite includes 61 service cases and an opt-in production-export attribution test. Set `IMD_PLAYWRIGHT` to an externally installed Playwright `index.mjs` (and `PLAYWRIGHT_BROWSERS_PATH` if needed) to run the latter at 390 and 1440px. Without Playwright it is explicitly skipped. It renders production API fixture responses before/after reconciliation and stores fixture screenshots only in `/tmp`.
 
 Browser checks use externally installed Playwright and `@axe-core/playwright`:
 
