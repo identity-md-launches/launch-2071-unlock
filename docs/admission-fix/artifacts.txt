@@ -1,1 +1,2 @@
-Creation commitments, link references, EIP-170/EIP-3860 sizes verified; artifacts exported.
+Historical evidence retained byte-for-byte in docs/labs-historical-evidence/archive.tar.xz.
+Catalog/restore: docs/labs-historical-evidence/README.md

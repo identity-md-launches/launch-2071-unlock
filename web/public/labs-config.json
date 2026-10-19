@@ -1,0 +1,4 @@
+{
+  "apiBase": "",
+  "status": "Backend not deployed. Markets and Radar show dated public observations; audit signing and holder tools require the service described in docs/backend.md."
+}

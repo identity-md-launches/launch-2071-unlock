@@ -23,6 +23,7 @@ import { verifyMainnetBindings } from "./mainnetReader";
 import { number, short } from "./math";
 import { storage } from "./storage";
 import { HOOK } from "./mainnet";
+import { assertLabsNativeFunding, type NativeFunding } from "./labs/conversion";
 export type Provider = EIP1193Provider & {
   on?: (event: string, fn: (value: any) => void) => void;
   removeListener?: (event: string, fn: (value: any) => void) => void;
@@ -39,6 +40,7 @@ export interface Action {
   functionName: string;
   args?: readonly unknown[];
   value?: bigint;
+  labsFunding?: NativeFunding;
   details?: [string, string][];
   validate?: () => Promise<void>;
   onSuccess?: () => void;
@@ -422,7 +424,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
       await verifyMainnetBindings(true);
       await action.validate?.();
       if ((action.value ?? 0n) !== 0n)
-        throw Error("This interface never sends ETH as swap funding.");
+        assertLabsNativeFunding(action, address);
       const ctx = connectedRef.current;
       if (
         ctx.address !== address ||
@@ -478,6 +480,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
     try {
       await verifyMainnetBindings(true);
       await action.validate?.();
+      if ((action.value ?? 0n) !== 0n) assertLabsNativeFunding(action, account);
       const freshAccounts = (await ctx.provider.request({
         method: "eth_accounts",
       })) as Address[];
@@ -513,6 +516,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
       // Simulation, gas estimation and wallet reads may outlive the quote.
       // Validate last, then check the connection synchronously before requesting a signature.
       await action.validate?.();
+      if ((action.value ?? 0n) !== 0n) assertLabsNativeFunding(action, account);
       if (
         connectedRef.current.address !== account ||
         connectedRef.current.network !== chain.id ||

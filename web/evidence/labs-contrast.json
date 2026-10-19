@@ -1,0 +1,20 @@
+[
+  {
+    "foreground": "#f4f4f5",
+    "background": "#09090b",
+    "ratio": 18.1,
+    "method": "WCAG sRGB luminance from browser-computed solid foreground/background pair on Labs audit screen"
+  },
+  {
+    "foreground": "#a1a1aa",
+    "background": "#09090b",
+    "ratio": 7.763,
+    "method": "WCAG sRGB luminance from browser-computed solid foreground/background pair on Labs audit screen"
+  },
+  {
+    "foreground": "#09090b",
+    "background": "#34d399",
+    "ratio": 10.349,
+    "method": "WCAG sRGB luminance from browser-computed solid foreground/background pair on Labs audit screen"
+  }
+]

@@ -1,0 +1,22 @@
+{
+  "recordedAt": "2026-10-19T07:55:00.869359+00:00",
+  "protectedPathsUnchanged": true,
+  "buildConfigurationAndLockfilesUnchanged": true,
+  "ignoreFileUnchanged": true,
+  "contractSourcesUnchanged": true,
+  "submodules": 0,
+  "exportFiles": 34,
+  "exportBytes": 1996343,
+  "exportDigest": "a3de5c7fae5a045311f9023c9f563abd260f3e642a934a3e034ba722a458de65",
+  "relativeAssetUrls": true,
+  "requiredRuntimeAssetsComplete": true,
+  "snapshotSourceExportMatch": true,
+  "backendConfigured": false,
+  "tests": {
+    "frontend": 60,
+    "backend": 10,
+    "indexer": 11
+  },
+  "browser": "Production Chromium checks passed; payment simulated, mainnet reads separate. WebKit unavailable.",
+  "publication": "Not performed; current name/HTTPS retained for delivery service."
+}

@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-19T07:56:53.887Z",
+  "export": "dist/ served under /preview/",
+  "mode": "Simulated upstream/RPC/payment; actual production UI, Node API, SQLite and signatures",
+  "passed": true,
+  "checks": [
+    "390px production audit form: safe import, pinned commit, missing scope rejection, verified scope, signed domain login and mandatory disclosure before quoting.",
+    "Actual EIP-712 Permit2 and quote signatures verified by the mocked upstream; retry reads existing pending settlement with no new signature/payment.",
+    "Reload restores wallet session and durable owned order mapping; a saved signature with upstream status still quoted offers recovery without another signing action, quote or payment.",
+    "Admitted job retrieves only accepted judge findings, sanitizes report content as text, displays matching immutable metadata, and downloads a PDF with the exact accepted Markdown attached.",
+    "Network/account changes clear payable order state; a newly signed zero-UNLK wallet remains able to access audit ordering; an expired persisted session is rejected on reload.",
+    "Blocked job stays incomplete, admission refusal exposes limitations, expired quote cannot be signed, and input-check blockers hide quote controls. These are isolated fixture states with no additional payment."
+  ],
+  "pageErrors": [],
+  "resourceFailures": [],
+  "limitations": [
+    "No mainnet transactions, token approvals, conversion executions, live paid audits or public backend hosting were tested.",
+    "ETH/USDC conversion routes and real wallet extension UI are outside this fixture test.",
+    "PDF attachment/source fidelity was checked programmatically; printed page appearance was not visually inspected."
+  ],
+  "walletCalls": {
+    "login": 3,
+    "typed": [
+      "PermitWitnessTransferFrom",
+      "QuoteApproval"
+    ],
+    "broadcasts": 0
+  },
+  "mockSettlements": 1,
+  "mockQuotes": 4
+}

@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-19T07:33:12.806Z",
+  "source": "https://ethereum-rpc.publicnode.com",
+  "chainId": 1,
+  "block": 26225152,
+  "account": "0xFe44fC8F6C32f681a0ce443902a0b08bB5B3C736",
+  "accountEthBalance": "0",
+  "amountImd": "0.5",
+  "expectedEth": "0.001124593609062243",
+  "maximumEth": "0.001130216577107555",
+  "slippageBps": 50,
+  "quoterGasEstimate": "42258",
+  "pins": {
+    "router": true,
+    "quoter": true,
+    "manager": true,
+    "imd": true
+  },
+  "poolId": "0xb07d640fd9e2eb9dc81b953c8e4fd006bdfeaf276010fb5418eb763ca15abfb3",
+  "lpFee": 10000,
+  "commands": "0x1004",
+  "simulation": {
+    "passed": true,
+    "mode": "eth_call with simulated 1 ETH account balance override; no state changes or funds spent"
+  },
+  "sourceReferences": [
+    "https://github.com/Uniswap/universal-router/blob/2.0.0/deploy-addresses/mainnet.json",
+    "https://github.com/Uniswap/universal-router/blob/2.0.0/contracts/libraries/Commands.sol",
+    "https://github.com/Uniswap/v4-periphery/blob/444c526b77d804590f0d7bc5a481af5a3277c952/src/interfaces/IV4Router.sol",
+    "https://github.com/Uniswap/v4-periphery/blob/444c526b77d804590f0d7bc5a481af5a3277c952/src/V4Router.sol",
+    "https://github.com/Uniswap/universal-router/blob/2.0.0/contracts/modules/Payments.sol"
+  ]
+}

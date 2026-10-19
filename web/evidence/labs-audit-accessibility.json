@@ -1,0 +1,31 @@
+{
+  "recordedAt": "2026-10-19T07:48:10.864Z",
+  "route": "#labs-audit",
+  "viewport": [
+    390,
+    844
+  ],
+  "violations": [],
+  "fonts": [
+    {
+      "family": "JetBrains Mono",
+      "weight": "400",
+      "status": "loaded"
+    },
+    {
+      "family": "JetBrains Mono",
+      "weight": "600",
+      "status": "loaded"
+    }
+  ],
+  "primaryAction": {
+    "x": 33,
+    "y": 523.796875,
+    "width": 324,
+    "height": 44
+  },
+  "overflow": false,
+  "limitations": [
+    "Automated axe scan only; no screen-reader or physical device test."
+  ]
+}

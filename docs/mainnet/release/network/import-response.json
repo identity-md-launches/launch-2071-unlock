@@ -1,17 +1,2 @@
-{
-  "url": "https://api.imd.fun/requests/import",
-  "observedAt": "2026-10-17T07:53:35.804265+00:00",
-  "httpStatus": 200,
-  "response": {
-    "ok": true,
-    "source": {
-      "kind": "contracts",
-      "repoUrl": "https://github.com/identity-md-launches/launch-1838-uniswap-v4-hook-code.git",
-      "baseCommit": "3b29fd1d044fb16bbe1595ddacf7ec4efbfdd8fa",
-      "owner": "identity-md-launches",
-      "repo": "launch-1838-uniswap-v4-hook-code",
-      "ref": "3b29fd1d044fb16bbe1595ddacf7ec4efbfdd8fa",
-      "sizeKb": 9150
-    }
-  }
-}
+Historical evidence retained byte-for-byte in docs/labs-historical-evidence/archive.tar.xz.
+Catalog/restore: docs/labs-historical-evidence/README.md

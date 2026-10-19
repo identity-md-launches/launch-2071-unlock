@@ -1,10 +1,2 @@
-...
-----------------------------------------------------------------------
-Ran 3 tests in 0.009s
-
-OK
-.....
-----------------------------------------------------------------------
-Ran 5 tests in 8.944s
-
-OK
+Historical evidence retained byte-for-byte in docs/labs-historical-evidence/archive.tar.xz.
+Catalog/restore: docs/labs-historical-evidence/README.md

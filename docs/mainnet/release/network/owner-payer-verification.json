@@ -1,23 +1,2 @@
-{
-  "chainId": 1,
-  "paymentTransaction": "0x9c403a85865a886e97cf63fd96f9e1c266ac9d75782d673e2c1a08c084b32ca6",
-  "blockNumber": 26210851,
-  "blockHash": "0x8ba3d13ad1aacf22ee0787155c53fb47108c413b4f4fdc3e2b2f13bfaf7a822d",
-  "receiptStatus": 1,
-  "from": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9",
-  "to": "0xa43e6f75ee006411f79ac1c84120606c2330de82",
-  "calldataSelector": "0x380c2cda",
-  "bodyBytes": 4637,
-  "bodyKeccak": "0x1033898e118987a74ef4615ab589ae8ecebea231f7d989faa31fbbc5277a2b4a",
-  "matchesActualAdmittedBody": true,
-  "repoUrl": "https://github.com/identity-md-launches/launch-1838-uniswap-v4-hook-code",
-  "baseCommit": "3b29fd1d044fb16bbe1595ddacf7ec4efbfdd8fa",
-  "owner": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9",
-  "payer": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9",
-  "remainderTo": "0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9",
-  "ownerCodeObservation": {
-    "block": 26210931,
-    "designation": "0xef010063c0c19a282a1b52b07dd5a65b58948a07dae32b",
-    "meaning": "EIP-7702 delegated account; successful direct owner-originated payment proves an outgoing transaction path, not delegated batch behavior."
-  }
-}
+Historical evidence retained byte-for-byte in docs/labs-historical-evidence/archive.tar.xz.
+Catalog/restore: docs/labs-historical-evidence/README.md

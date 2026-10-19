@@ -1,15 +1,2 @@
-{
-  "status": 200,
-  "body": {
-    "ok": true,
-    "source": {
-      "kind": "contracts",
-      "repoUrl": "https://github.com/identity-md-launches/launch-2064-unlock-symbol-unlk-review-adapt-and-depl.git",
-      "baseCommit": "b957a835f1cca9eef51a121851e2026fc17ff435",
-      "owner": "identity-md-launches",
-      "repo": "launch-2064-unlock-symbol-unlk-review-adapt-and-depl",
-      "ref": "b957a835f1cca9eef51a121851e2026fc17ff435",
-      "sizeKb": 8597
-    }
-  }
-}
+Historical evidence retained byte-for-byte in docs/labs-historical-evidence/archive.tar.xz.
+Catalog/restore: docs/labs-historical-evidence/README.md

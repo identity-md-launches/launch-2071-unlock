@@ -1,0 +1,63 @@
+.labs-root { padding-block: 20px 32px; }
+.labs-intro, .labs-auth, .labs-heading, .labs-actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.labs-intro p { font-size: var(--small); margin-block-start: 6px; }
+.labs-auth { justify-content: end; }
+.labs-tabs { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 24px; margin-block: 20px 16px; border-block-end: 1px solid var(--line); }
+.labs-tabs a { display: flex; align-items: center; min-height: 44px; text-decoration: none; border-block-end: 2px solid transparent; }
+.labs-tabs a[aria-current] { color: var(--accent); border-color: var(--accent); }
+.labs-tabs > span { margin-inline-start: auto; }
+.labs-section { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; min-width: 0; }
+.labs-section h2 { margin-block-end: 8px; }
+.labs-heading { align-items: start; margin-block-end: 20px; }
+.labs-heading p { font-size: var(--small); }
+.labs-section p, .labs-service-details p { overflow-wrap: anywhere; }
+.labs-form { display: grid; gap: 8px; }
+.labs-root label { display: block; margin-block: 12px 6px; }
+.labs-root input:not([type=checkbox]), .labs-root textarea, .labs-root select { width: 100%; min-width: 0; color: var(--text); background: var(--ink); border: 1px solid var(--control); border-radius: var(--radius); padding: 10px 12px; font-size: var(--input); min-height: 44px; }
+.labs-root textarea { resize: vertical; }
+.labs-root summary { cursor: pointer; min-height: 44px; padding-block: 10px; }
+.labs-root details { min-width: 0; }
+.labs-root pre { font: inherit; font-size: var(--small); white-space: pre-wrap; overflow-wrap: anywhere; max-width: 100%; }
+.labs-input-action { display: flex; align-items: stretch; gap: 8px; }
+.labs-input-action .button { flex-shrink: 0; }
+.labs-note { margin-block: 12px; }
+.labs-status:empty, .labs-login-message:empty { display: none; }
+.labs-status, .labs-login-message { overflow-wrap: anywhere; margin-block: 12px; }
+.labs-service-notice { border-inline-start: 2px solid var(--warning); padding-inline-start: 12px; margin-block: 20px; font-size: var(--small); }
+.labs-service-details { margin-block-start: 24px; color: var(--muted); font-size: var(--small); border-block-start: 1px solid var(--line); }
+.labs-service-details p { margin-block: 12px; }
+.audit-layout { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(280px, 1fr); gap: 16px; align-items: start; }
+.audit-stage { margin-block-start: 24px; padding-block-start: 20px; border-block-start: 1px solid var(--line); }
+.audit-stage h3 { margin-block-end: 16px; }
+.labs-ledger { display: grid; grid-template-columns: minmax(100px, 1fr) minmax(0, 3fr); gap: 8px 16px; font-size: var(--small); margin-block: 16px; }
+.labs-ledger > div { display: contents; }
+.labs-ledger dt { color: var(--muted); }
+.labs-ledger dd { margin: 0; overflow-wrap: anywhere; }
+.labs-checkbox { display: flex !important; align-items: start; gap: 10px; font-size: var(--small); line-height: 1.6; }
+.labs-checkbox input { width: 22px; height: 22px; flex: 0 0 auto; accent-color: var(--accent); }
+.labs-actions { justify-content: start; margin-block: 12px; }
+.audit-side > .labs-form { margin-block: 24px 16px; }
+.audit-orders { list-style: none; padding: 0; margin-block: 20px; display: grid; gap: 8px; }
+.audit-orders button { width: 100%; overflow-wrap: anywhere; text-align: start; }
+.audit-finding { margin-block-start: 20px; padding-block-start: 20px; border-block-start: 1px solid var(--line); }
+.audit-finding h3 { margin-block: 12px 8px; }
+.audit-finding p { margin-block: 8px; font-size: var(--small); }
+.audit-report { margin-block-start: 8px; grid-column: 1 / -1; }
+.audit-report > .button { margin-block: 12px; }
+.audit-markdown { max-height: none; }
+@media (max-width: 1100px) { .site-header { flex-wrap: wrap; gap: 8px 20px; } .site-header nav { order: 3; flex-basis: 100%; justify-content: space-between; } .site-header > .button { margin-inline-start: auto; } }
+@media (max-width: 850px) { .audit-layout { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 600px) {
+  .labs-root { padding-block-start: 12px; }
+  .labs-intro { gap: 10px; }
+  .labs-intro h1 { font-size: var(--heading); }
+  .labs-auth { width: 100%; justify-content: space-between; }
+  .labs-auth .button { font-size: var(--small); }
+  .labs-tabs { margin-block: 12px; gap: 0 24px; }
+  .labs-tabs > span { width: 100%; margin: 0 0 8px; }
+  .labs-section { padding: 16px; }
+  .labs-input-action { flex-direction: column; }
+  .labs-ledger { grid-template-columns: minmax(0, 1fr); gap: 3px; }
+  .labs-ledger dd { margin-block-end: 10px; }
+  .labs-heading { gap: 8px; margin-block-end: 16px; }
+}

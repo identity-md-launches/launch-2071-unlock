@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ConnectButton } from "./wallet";
 import { NextRelease } from "./NextRelease";
+import { Labs } from "./labs/Labs";
 export function App() {
   const [section, setSection] = useState(location.hash.slice(1) || "trade");
   useEffect(() => {
@@ -14,7 +15,7 @@ export function App() {
         Skip to content
       </a>
       <header className="site-header">
-        <a className="brand" href="#main" aria-label="UNLOCK home">
+        <a className="brand" href="#trade" aria-label="UNLOCK home">
           <svg
             width="28"
             height="32"
@@ -35,6 +36,7 @@ export function App() {
         <nav aria-label="Primary navigation">
           {[
             ["trade", "Trade"],
+            ["labs", "Labs"],
             ["rights", "My Unlock"],
             ["milestones", "Milestones"],
             ["activity", "Activity"],
@@ -45,7 +47,7 @@ export function App() {
               key={id}
               href={`#${id}`}
               aria-current={
-                section === id || (id === "trade" && section === "main")
+                section === id || (id === "labs" && section.startsWith("labs")) || (id === "trade" && section === "main")
                   ? "location"
                   : undefined
               }
@@ -58,7 +60,7 @@ export function App() {
         <ConnectButton />
       </header>
       <main id="main" tabIndex={-1}>
-        <NextRelease />
+        {section.startsWith("labs") ? <Labs section={section} /> : <NextRelease />}
       </main>
       <footer className="site-footer">
         <span>UNLOCK · Launch 2071 · Ethereum</span>

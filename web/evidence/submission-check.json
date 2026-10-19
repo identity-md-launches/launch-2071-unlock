@@ -34,16 +34,16 @@
     "quote-expiry-after.json",
     "revision-responses.json"
   ],
-  "exportFiles": 31,
-  "exportBytes": 1590267,
-  "exportDigest": "90b6d87d8c684b349e3667623c945795d49ff7883f165741655751b85b6d6d93",
+  "exportFiles": 34,
+  "exportBytes": 1996343,
+  "exportDigest": "a3de5c7fae5a045311f9023c9f563abd260f3e642a934a3e034ba722a458de65",
   "compressedTreeBytes": null,
   "byteBudget": 8388608,
-  "snapshotBundleBytes": 8367873,
+  "snapshotBundleBytes": 8337214,
   "reportUpdateReserveBytes": 16384,
-  "bundleBudgetUpperBoundBytes": 8384257,
+  "bundleBudgetUpperBoundBytes": 8353598,
   "bundleWithinBudget": true,
-  "submissionFiles": 2849,
+  "submissionFiles": 2894,
   "measurementCommand": "python3 web/scripts/check-bundle.py",
   "measurementScope": "Standalone Git bundle of all current submitted files, including source, dependencies already tracked in lib, runtime assets and evidence; temporary metadata in /tmp only. No build/install caches or source history in this snapshot bundle."
 }

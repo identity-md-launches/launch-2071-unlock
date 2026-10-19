@@ -1,0 +1,87 @@
+{
+  "scope": "Production export under /preview/. Public snapshots are actual observations; service/auth responses are simulated. No wallet signing, token approvals, payments or paid jobs.",
+  "checks": [
+    "390\u00d7844 Markets shows product, Refresh action and actual featured IMD on the first screen",
+    "Actual snapshot search, empty-state recovery, liquidity/age filters, token details and missing chart disclosure work; holder export stays locked offline",
+    "Markets: no page overflow at 320, 390, 768 and 1440 CSS pixels",
+    "Radar real snapshot: 122 plain transfers and 149 swap/liquidity settlements remain distinct; local pagination, periods and partial-history/unsupported-period flow messages work",
+    "Radar: no page overflow at 320, 390, 768 and 1440 CSS pixels",
+    "Radar automated axe WCAG A/AA scan reports no violations in the Labs surface",
+    "Simulated protected service: Bearer-authenticated advanced ranking, two-token comparison, saved addresses, wallet filter, market/Radar CSV downloads, expired401, balance403, stale/missing metrics and public service-outage snapshot fallback",
+    "Healthy warming responses with null timestamps stay distinct from backend outages; neither Markets nor Radar fabricates initial readings, and missing-history warnings remain visible inside the nominal1h interval"
+  ],
+  "consoleErrors": [],
+  "resourceFailures": [],
+  "screenshots": [
+    "test/scratch/labs-browser/markets-390.png",
+    "test/scratch/labs-browser/radar-390.png"
+  ],
+  "axe": [],
+  "limitations": [
+    "Service responses and wallet/session restoration in this test are simulated. No hosted backend, real wallet signature or onchain balance verification is established by this browser check.",
+    "Axe is an automated scan, not a screen-reader session. Physical phones and browser-native 200% zoom were not tested here."
+  ],
+  "protectedRequests": [
+    {
+      "path": "/test-api/holder/watchlist",
+      "method": "GET",
+      "authorized": true
+    },
+    {
+      "path": "/test-api/holder/markets",
+      "method": "GET",
+      "authorized": true
+    },
+    {
+      "path": "/test-api/holder/markets",
+      "method": "GET",
+      "authorized": true
+    },
+    {
+      "path": "/test-api/holder/watchlist",
+      "method": "PUT",
+      "authorized": true
+    },
+    {
+      "path": "/test-api/holder/export",
+      "method": "GET",
+      "authorized": true
+    },
+    {
+      "path": "/test-api/holder/markets",
+      "method": "GET",
+      "authorized": true
+    },
+    {
+      "path": "/test-api/holder/markets",
+      "method": "GET",
+      "authorized": true
+    },
+    {
+      "path": "/test-api/holder/watchlist",
+      "method": "GET",
+      "authorized": true
+    },
+    {
+      "path": "/test-api/holder/watchlist",
+      "method": "GET",
+      "authorized": true
+    },
+    {
+      "path": "/test-api/holder/export",
+      "method": "GET",
+      "authorized": true
+    },
+    {
+      "path": "/test-api/holder/watchlist",
+      "method": "GET",
+      "authorized": true
+    },
+    {
+      "path": "/test-api/holder/watchlist",
+      "method": "GET",
+      "authorized": true
+    }
+  ],
+  "recordedAt": "2026-10-19T07:55:00.874967+00:00"
+}

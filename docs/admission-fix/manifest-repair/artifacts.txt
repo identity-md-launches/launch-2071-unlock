@@ -1,4 +1,2 @@
-Creation commitments, link references, EIP-170/EIP-3860 sizes verified by scripts/mainnet/artifacts.py --check.
-All 8 contract creation hashes, runtime template hashes, sizes and immutable byte offsets match the prior release artifacts.
-Only compiler AST identifiers indexing immutableReferences changed on export; commitments and bytes did not.
-Artifact metadata and its release commitments refreshed. The initial overly strict whole-JSON comparison is preserved in artifacts-initial-comparison.txt.
+Historical evidence retained byte-for-byte in docs/labs-historical-evidence/archive.tar.xz.
+Catalog/restore: docs/labs-historical-evidence/README.md

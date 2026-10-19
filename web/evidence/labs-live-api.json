@@ -1,0 +1,47 @@
+{
+  "date": "2026-10-19T07:30:17.562Z",
+  "checks": [
+    {
+      "path": "/api/health",
+      "status": 200
+    },
+    {
+      "path": "/api/capabilities",
+      "status": 200
+    },
+    {
+      "path": "/api/audits/import",
+      "status": 200
+    },
+    {
+      "path": "/api/audits/check",
+      "status": 200
+    },
+    {
+      "path": "/api/audits/reports/7db42bb7-5204-4805-894f-db1a2c11cd8e",
+      "status": 200
+    },
+    {
+      "path": "public PDF",
+      "status": 200,
+      "bytes": 25933
+    }
+  ],
+  "auditPrice": {
+    "network": "eip155:1",
+    "asset": "0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7",
+    "amount": "500000000000000000",
+    "payTo": "0x4e0fa57bde726079356537e2f34d671e9f41adbc",
+    "decimals": 18
+  },
+  "pinnedCommit": "c69ef33c084c608dea1a84b6ed050b43cd073336",
+  "blockers": [],
+  "auditStages": 5,
+  "acceptedReport": {
+    "jobId": "7db42bb7-5204-4805-894f-db1a2c11cd8e",
+    "commit": "357201be804e18ab48567172fb6c8b07acb30a2c",
+    "findings": 6,
+    "complete": true,
+    "hash": "d3dc835e4caf9086f60a3d96954adf626c7e61cf45012df0060eb05094cf9a8f"
+  }
+}

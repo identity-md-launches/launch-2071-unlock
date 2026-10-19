@@ -1,3 +1,2 @@
-Verified byte-exact historical text archive: 141 files, SHA256/Git blob/modes
-Verified byte-exact archived JSON: docs/network/factory-reference.json
-Verified byte-exact archived JSON: docs/network/factory-artifacts.json
+Historical evidence retained byte-for-byte in docs/labs-historical-evidence/archive.tar.xz.
+Catalog/restore: docs/labs-historical-evidence/README.md

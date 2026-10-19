@@ -1,3 +1,85 @@
+# UNLOCK Labs validation · 19 October 2026
+
+This is worker-side evidence, not independent certification. The local implementation and static export are ready; **public backend deployment and publication of this revision remain operationally incomplete**. The existing HTTPS site returned 200 with its prior title. No new public backend is claimed. The shipped `labs-config.json` keeps `apiBase` empty, labels public market/Radar data as dated snapshots and disables paid/protected service actions. Exact deployment requirements are in `docs/backend.md`.
+
+## Scope and preservation
+
+Continued GitHub's latest accepted head `c69ef33c084c608dea1a84b6ed050b43cd073336`. Existing treasury, chart and whitepaper source remains unchanged. Ethereum chain 1, UNLK, IMD, hook, pool, supply, all 16 gates, beneficiary authority and NFT identity were verified read-only. Treasury/NFT inventory stays `0xFe44fC8F6C32f681a0ce443902a0b08bB5B3C736`; immutable vault beneficiary remains `0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9`. Contracts and economics were not changed.
+
+Integrated source: `web/src/labs/`, existing `App.tsx`/wallet review; services: `services/labs/`. The native-funding guard has one narrowly validated exception for the Labs exact-output ETH/IMD route; retained UNLK swap modes still reject ETH. Runtime assets, native proofs, recovery page, fonts, ABIs and standalone whitepaper are included in `dist/`. Existing manifests, lockfiles, dependency paths, build configuration and ignore file were preserved.
+
+## Actual checks
+
+| Check | Actual result |
+| --- | --- |
+| Node 24 / unchanged Vite project | TypeScript passed; Vite 7.1.7 production build passed with relative asset base `./` |
+| Frontend unit/interaction logic | 60/60 tests passed, including retained 45 and 15 Labs cases |
+| Backend ownership/auth/payment/store | 10/10 tests passed; actual SQLite restart and cryptographic verification, mocked upstream settlement |
+| Markets/Radar indexer | 11/11 tests passed; quotas/retries, exact PoolIds/deltas, receipt attribution, period flow, missing data, persistent overlap and complete invalidation after changed confirmed checkpoint |
+| Production Labs Markets/Radar browser | Eight groups passed at `/preview/`; real included observations, mocked service/holder responses; no uncaught page errors or failed resources |
+| Production Labs Audit browser | Six groups passed; three fixture login signatures, Permit2 and QuoteApproval signatures, one mocked settlement, four mocked quotes, zero broadcasts |
+| Existing terminal/chart/whitepaper | Fifteen browser groups passed with fresh read-only mainnet RPC and controlled failures; no write method sent |
+| Responsive inspection | Labs 320/390/768/1440; retained terminal also 1000; an additional manual 1120px check found no overflow |
+| Automated accessibility | Zero violations in scanned Audit, Radar, terminal, price chart and whitepaper states; this is not a screen-reader test |
+| Pinned taste@1 | 14/16 passed; no layout/contrast/type-scale/share/motion failures. Exceptions explained below |
+| Report/PDF | Existing accepted public audit: six findings; generated PDF nine pages, 26,312 extracted characters and exact UTF-8 Markdown attachment. Pages 1, 2, 9 rendered and visually inspected |
+| Delivery/size | Required assets and forbidden-path checks recorded in `web/evidence/labs-delivery.json`; complete current-tree bundle measured below 8 MiB, final count in `web/evidence/submission-check.json` |
+
+Commands actually executed include `npm run typecheck`, `npm test` and `npm run build` in the external copy of the unchanged frontend project; `LABS_TEST_ACCOUNTS_MODULE=... node --test services/labs/tests.mjs services/labs/data.test.mjs`; `node web/scripts/check-labs-markets.mjs`; `node web/scripts/check-labs-audit.mjs`; `node web/scripts/check-update.mjs` with a read-only RPC transport; the pinned `node .imd/reads/skills/design-critic/scripts/taste.mjs --out test/scratch/taste`; and `python3 scripts/labs/evidence-archive.py` / `python3 web/scripts/check-bundle.py`. External browser/module paths and rerun instructions are in README/backend docs. No install/cache directory is submitted.
+
+### Live reads versus simulated paths
+
+Live free IMD capabilities, documented import and check APIs passed through the local Node server. The check pinned the accepted UNLOCK commit and returned four specialist stages plus the judge, with no blockers. No paid quote or job was submitted for this validation. The current price observation was 0.5 IMD; production reads capabilities/quote rather than embedding that amount or recipient.
+
+The production browser also pinned the same commit directly through public GitHub and checked `src`; it explicitly said IMD validation was pending without the backend. IMD's paid-request API rejects browser cross-origin calls, so the static fallback does not masquerade as an IMD check.
+
+Live registry/DEX/Ethereum reads produced 11 verified launch rows plus featured IMD. The bounded Radar snapshot contains 325 actual rows: 38 buys, 16 sells and 271 transfers, of which 122 are plain transfers and 149 are swap/liquidity settlements. Twenty swap senders were reconciled to token receipts; unknown executors stay unattributed. No liquidity operation occurred in that scan; ABI-encoded fixtures tested that classification. Coverage starts with a bounded 1,800 confirmed-block scan; timestamp quotas omitted earlier rows, explicitly disclosed. It is not complete 24h/7d history, a global holder ranking, cost basis or profit.
+
+At block 26,225,152 the ETH→exact 0.5 IMD quote was 0.001124593609062243 ETH, with a 0.5% input cap of 0.001130216577107555 ETH. Router execution was tested with `eth_call` and a temporary one-ETH account-balance override; no chain state changed. Pool/manager/router/quoter/IMD identities and runtime pins matched. USDC remains disabled because a supported exact-output route was not verified. A failed conversion cannot submit a job, and holder access never makes paid jobs free.
+
+Paid settlement, pending/retry/admitted/failure/refusal, stale/expired quotes, nonce expiry, zero balance, ownership and wallet/network changes were simulated using the actual production UI/server/store and generated test accounts. The fixture forbids `eth_sendTransaction`; no mainnet funds, approval or paid audit was used. Live report/PDF retrieval used an already accepted public audit (`7db42bb7-5204-4805-894f-db1a2c11cd8e`), not a new audit of UNLOCK. AI review is not a security guarantee.
+
+## Better Interface review
+
+Applied the pinned workflow and core principles across all six domains while implementing, then reviewed the actual export and corrected applicable findings.
+
+| Domain | Coverage and evidence | Limits |
+| --- | --- | --- |
+| Accessibility | Native links/buttons/forms/details, labels, invalid-field focus, status/alerts, disabled reasons; keyboard wallet dialog/focus return; axe and viewport checks | Screen readers, physical devices and every possible focus/background pair were not tested |
+| Layout | 390 screenshots inspected; product/action and actual market/event visible; Audit import at y=524 with a 44px target; responsive grids, wrapping addresses, report-wide reading area | Native 200% zoom and RTL variants were not tested; English is the requested language |
+| Writing | Consistent verbs, public-code/payment limits, exact quote/commit/scope, unsupported-route reasons, explicit unhosted/snapshot/partial/stale/warming/unavailable states | Provider wording can change; upstream errors remain bounded text |
+| Typography | Local JetBrains Mono 400/600 loaded; six-step scale; 16px fields; tabular numbers, full address/code wrapping; PDF text fidelity | Unsupported PDF glyphs display explicit Unicode escapes, with exact original attached |
+| Colors | Existing dark/emerald tokens preserved; measured computed text/ink 18.100:1, muted/ink 7.763:1 and ink/primary emerald 10.349:1; text accompanies status color | These three solid pairs and probe-resolved text are not every SVG/image/state |
+| UI | Existing flat terminal panels/buttons; native disclosures; checked loading/empty/error/retry/expired/refused/download states; no new autoplay/motion | No WebKit/physical Safari validation |
+
+### Findings fixed and rechecked
+
+- **High — conversion blocked by inherited guard.** `web/src/wallet.tsx:427` rejected every nonzero native value. `web/src/labs/conversion.ts:14` now validates the sole native exception by exact calldata, verified key/recipient, amount/cap/slippage, account, freshness and deadline. Prepare and final-sign checks both enforce it; foreign pool/refund/value/command/expiry tests pass. Existing UNLK modes keep zero-value tests.
+- **High — login/account binding.** `web/src/labs/Labs.tsx:64` now compares the normalized address while requiring current domain and chain; account/network/session changes clear protected state. Actual fixture personal signatures, expired sessions, nonce/domain replay and zero balance pass.
+- **High — payment recovery and scope binding.** `services/labs/audits.mjs:103` validates the pinned template input; `web/src/labs/Audit.tsx:163` signs the upstream quote ID while using the owned local ID for API routing. Write-ahead signed bytes, recovered request keys and authoritative unpaid expiry prevent duplicate payment across lost responses/restarts. Current recipient/amount, commit/scope and expiry appear before signing.
+- **Medium — plain transfers mistaken for settlements.** `web/src/labs/Radar.tsx:23` now tests explicit swap/liquidity annotations rather than truthiness. Actual 122/149 row groups remain separate; flow is labeled indexed transfer flow, with no PnL claim.
+- **Medium — shared form CSS harmed compact controls.** `web/src/labs/market-radar.css:54` restores field/check specificity and spacing. Two-column phone filters and short native options fit; screenshots and 320/390 checks pass.
+- **Medium — missing history and warming ambiguity.** `web/src/labs/Radar.tsx:115` always exposes incomplete indexed coverage; `web/src/labs/data.ts:306` accepts healthy warming/null timestamps and nullable unavailable token symbols. One failed symbol read no longer discards the entire partial catalog; null metrics remain Unavailable.
+- **High — deep reorg retention.** `services/labs/indexer.mjs:44` now discards all retained rows after a changed confirmed checkpoint and rebuilds only the bounded recent window. No orphaned prefix is retained; replay/failure/reorg tests pass.
+- **Medium — incomplete report error lost.** `services/labs/upstream.mjs:36` parses non-success report responses as provider JSON, preserving `report_not_ready` instead of a generic Markdown error. Blocked work stays incomplete in browser tests.
+- **Medium — ephemeral cache growth.** `services/labs/store.mjs` now expires/count-bounds trees/imports/reports/job caches during writes, reads and minute pruning. Paid credentials and fixed market/index checkpoints are preserved; startup/restart/eviction tests pass.
+
+The probe's two retained findings are not new defects: the assignment explicitly requires monospace throughout, and its eyebrow heuristic flags functional terminal status fields/tabs/ledger labels. Removing those would hide required data or navigation. The probe measured no horizontal scroll, text overlap or clipped critical text; it found five/six type sizes, two weights, no endless motion and all sharing metadata.
+
+## Evidence and remaining work
+
+Compact delivered evidence: `web/evidence/labs-mainnet-verification.json`, `labs-live-api.json`, `labs-eth-route.json`, `labs-public-github.json`, `labs-audit-browser.json`, `labs-markets-browser.json`, `labs-audit-accessibility.json`, `labs-contrast.json`; retained terminal checks in `update-browser.json`. Generated screenshots/PDFs/probe output are under `test/scratch/` and are removed by submission. Historical screenshots below remain prior-run evidence, not new Labs images.
+
+Unperformed: public backend provisioning/HTTPS deployment, real customer wallet extensions, real token approvals, actual ETH conversion/paid IMD settlement/admission and job completion, real contract-wallet/EIP-7702 payment, multi-day index retention/production uptime, physical printing/devices, screen readers and native 200% zoom. WebKit launch failed because host runtime libraries are missing. No guarantee of findings, refund, safety, circulating supply, dollar peg or complete history is made.
+
+Required next operational steps: provision an authorized free persistent Node 24 host and HTTPS API hostname; deploy the included service with the actual origin/database/RPC settings; set `labs-config.json` to its real `/api` URL, rebuild and publish the export under the existing site name; verify production origin/session/data behavior. No requester key, recipient guess or paid test is needed to deliver this implementation. The current public backend remains unhosted, and the site says so.
+
+To fit the complete Git bundle, 348 historical documentation/delivery evidence files were archived losslessly with SHA-256/Git-blob/path/mode metadata, verified without writes and restored in an isolated test with all hashes matching. Existing archives, runtime assets, required tests/fixtures, dependencies, source and lockfiles remain complete. No ignore file was changed.
+
+---
+
+# Earlier accepted validation records (historical)
+
 # UNLOCK update validation · 18 October 2026
 
 ## Chart RPC error revision · 18 October 2026

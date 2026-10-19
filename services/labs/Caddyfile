@@ -1,0 +1,6 @@
+# Set LABS_API_HOST to the operator's actual API hostname. This leaves the
+# existing static-site hostname and its HTTPS hosting unchanged.
+{$LABS_API_HOST} {
+    encode zstd gzip
+    reverse_proxy 127.0.0.1:8787
+}

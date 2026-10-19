@@ -1,1 +1,2 @@
-Mainnet manifest, ten permissions (0x3fcc), pair, token and factory constructors match.
+Historical evidence retained byte-for-byte in docs/labs-historical-evidence/archive.tar.xz.
+Catalog/restore: docs/labs-historical-evidence/README.md

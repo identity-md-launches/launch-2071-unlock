@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-19T07:42:28Z",
+  "mode": "Live read-only production-browser GitHub integration without backend",
+  "repository": "https://github.com/identity-md-launches/launch-2071-unlock",
+  "pinnedCommit": "c69ef33c084c608dea1a84b6ed050b43cd073336",
+  "scope": [
+    "src"
+  ],
+  "pathsExist": true,
+  "imdValidationPerformedByBrowser": false,
+  "paymentOrPaidJob": false,
+  "overflow390": false,
+  "limitation": "Static browser pins and checks GitHub paths only. Documented IMD import/check were separately exercised through the local Node API."
+}

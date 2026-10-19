@@ -1,3 +1,2 @@
-Historical record archived byte-for-byte: docs/unlock-gates/historical-checks.tar.xz
-Original member: docs/IMD_LAUNCH_CHECK_RESULTS.txt
-Hashes and recovery: docs/unlock-gates/ARCHIVES.md and historical-checks.json
+Historical evidence retained byte-for-byte in docs/labs-historical-evidence/archive.tar.xz.
+Catalog/restore: docs/labs-historical-evidence/README.md
