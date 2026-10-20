@@ -1,11 +1,19 @@
 import { useEffect, useState } from "react";
 import { ConnectButton } from "./wallet";
 import { NextRelease } from "./NextRelease";
-import { Labs } from "./labs/Labs";
+// Retired research routes resolve here without mounting the archived Labs runtime.
+function currentSection() {
+  const hash = location.hash.slice(1);
+  if (hash.toLowerCase().startsWith("labs")) {
+    history.replaceState(null, "", `${location.pathname}${location.search}#trade`);
+    return "trade";
+  }
+  return hash && hash !== "main" ? hash : "trade";
+}
 export function App() {
-  const [section, setSection] = useState(location.hash.slice(1) && location.hash !== "#main" ? location.hash.slice(1) : "labs-markets");
+  const [section, setSection] = useState(currentSection);
   useEffect(() => {
-    const update = () => { if (location.hash === "#main") { document.getElementById("main")?.focus(); return; } setSection(location.hash.slice(1) || "labs-markets"); };
+    const update = () => { if (location.hash === "#main") { document.getElementById("main")?.focus(); return; } setSection(currentSection()); };
     addEventListener("hashchange", update);
     return () => removeEventListener("hashchange", update);
   }, []);
@@ -35,7 +43,6 @@ export function App() {
         </a>
         <nav aria-label="Primary navigation">
           {[
-            ["labs", "Labs"],
             ["trade", "Trade"],
             ["rights", "My Unlock"],
             ["milestones", "Milestones"],
@@ -47,7 +54,7 @@ export function App() {
               key={id}
               href={`#${id}`}
               aria-current={
-                section === id || (id === "labs" && section.startsWith("labs")) || (id === "trade" && section === "main")
+                section === id || (id === "trade" && section === "main")
                   ? "location"
                   : undefined
               }
@@ -60,7 +67,7 @@ export function App() {
         <ConnectButton />
       </header>
       <main id="main" tabIndex={-1}>
-        {section.startsWith("labs") ? <Labs section={section} /> : <NextRelease />}
+        <NextRelease />
       </main>
       <footer className="site-footer">
         <span>UNLOCK · Launch 2071 · Ethereum</span>

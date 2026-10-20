@@ -1,0 +1,126 @@
+{
+  "chartTransport": "Fresh public API responses relayed through host network; no fields altered.",
+  "startedAt": "2026-10-20T06:51:31.665Z",
+  "browser": "154.0.8037.57",
+  "productionSubpath": "/preview/",
+  "live": [
+    {
+      "name": "Production initial chart",
+      "poolId": "0x860a127e8f4b069ce93e280efda34db2b3cb21e7d73f164248f38f4220ec8d32",
+      "source": "geckoterminal",
+      "candles": 22,
+      "status": "GeckoTerminal · Source checked · 2026-10-20 06:51:33 UTC\nRefresh chart"
+    },
+    {
+      "name": "Drag-to-pan, zoom and time-range retention across interval/currency",
+      "panned": {
+        "from": 1792303200,
+        "to": 1792404000
+      },
+      "afterInterval": {
+        "from": 1792303200,
+        "to": 1792404000
+      },
+      "afterCurrency": {
+        "from": 1792303200,
+        "to": 1792404000
+      }
+    },
+    {
+      "name": "Live USD 1m",
+      "candles": 112,
+      "status": "GeckoTerminal · Source checked · 2026-10-20 06:52:05 UTC\nRefresh chart"
+    },
+    {
+      "name": "Live USD 5m",
+      "candles": 56,
+      "status": "GeckoTerminal · Source checked · 2026-10-20 06:52:35 UTC\nRefresh chart"
+    },
+    {
+      "name": "Live USD 15m",
+      "candles": 37,
+      "status": "GeckoTerminal · Source checked · 2026-10-20 06:52:35 UTC\nRefresh chart"
+    },
+    {
+      "name": "Live USD 1h",
+      "candles": 22,
+      "status": "GeckoTerminal · Source checked · 2026-10-20 06:52:36 UTC\nRefresh chart"
+    },
+    {
+      "name": "Live USD 4h",
+      "candles": 10,
+      "status": "GeckoTerminal · Source checked · 2026-10-20 06:53:06 UTC\nRefresh chart"
+    },
+    {
+      "name": "Live USD 1D",
+      "candles": 4,
+      "status": "GeckoTerminal · Source checked · 2026-10-20 06:53:07 UTC\nRefresh chart"
+    },
+    "Candle/line, wheel zoom, accessible crosshair inspector/OHLCV table, fullscreen/exit and reset exercised on live candles.",
+    "Retained Activity reads genuine recent official-pool swaps, UTC timestamps, executed legs and transaction links.",
+    "All old Labs hashes safely become #trade; no Labs links or requests. Swap buy/sell/amount/slippage, unsigned wallet sheet, claims guards, 17 ladder levels through $50M, treasury identity and whitepaper retained.",
+    "390px emulated touch: native canvas pinch zoom changed the visible time range.",
+    {
+      "name": "Live mainnet-log replay",
+      "poolId": "0x860a127e8f4b069ce93e280efda34db2b3cb21e7d73f164248f38f4220ec8d32",
+      "from": "26211921",
+      "to": "26232127",
+      "trades": 318,
+      "readAt": 1792479204064,
+      "headTimestamp": 1792479191
+    },
+    "Page reload restores saved source/index data and resumes an incremental mainnet replay."
+  ],
+  "faultInjection": [
+    "Injected unsupported fullscreen API: expanded chart contains focus, makes background inert, and Escape restores the page.",
+    "Injected GeckoTerminal HTTP 429 preserves timestamped cached candles; explicit retry recovers to live data.",
+    "Injected valid pool-identity metadata and empty OHLCV show an honest empty chart with no generated candles or volume.",
+    "Injected HTTP 503 on both RPCs shows a recoverable chart error; restoring live RPC and retry recovers real candles and mainnet state."
+  ],
+  "limitations": [
+    "No wallet transaction, signature, approval or paid service was used. Physical devices, native iOS/Safari and screen readers were not tested. Fault-injected states are synthetic and are not live-data evidence."
+  ],
+  "consoleErrors": [],
+  "failedResources": [],
+  "rpcMethods": [
+    "eth_call",
+    "eth_chainId",
+    "eth_getBlockByNumber",
+    "eth_getCode",
+    "eth_getLogs"
+  ],
+  "screenshots": [
+    "artifacts/chart/after-desktop.jpg",
+    "artifacts/chart/after-chart.jpg",
+    "artifacts/chart/after-fullscreen.jpg",
+    "artifacts/chart/after-mobile.jpg",
+    "artifacts/chart/after-mobile-chart.jpg",
+    "artifacts/chart/after-rpc-chart.jpg"
+  ],
+  "networkHosts": [
+    "api.geckoterminal.com",
+    "eth.blockscout.com",
+    "eth.drpc.org",
+    "ethereum-rpc.publicnode.com"
+  ],
+  "chartSources": [
+    "geckoterminal"
+  ],
+  "passed": true,
+  "renderedStyles": {
+    "fontLoaded": true,
+    "family": "\"JetBrains Mono\", ui-monospace, SFMono-Regular, Consolas, monospace",
+    "bodySize": "14px",
+    "foreground": "rgb(244, 244, 245)",
+    "background": "rgb(9, 9, 11)",
+    "primaryForeground": "rgb(9, 9, 11)",
+    "primaryBackground": "rgb(52, 211, 153)",
+    "muted": "#a1a1aa",
+    "surface": "#111114"
+  },
+  "nftGallery": {
+    "cards": 0,
+    "text": "Treasury NFT collection\nEthereum mainnet · read only\n\nCurrent holdings of the treasury wallet ↗. Holdings do not prove fee-funded purchases. NFT buying is manual after a beneficiary withdrawal and a separate transfer to the treasury.\n\n0 verified here / 0 held · read 8:51:32 AM\nRefresh ownership\n\nStale snapshot. Ownership may have changed; refresh before relying on it.\n\nNo verified IMD tokens on the loaded page.\n\n←\nSwipe · arrow keys\n→\n\nOfficial collection: identity.md ↗, verified against its onchain code. Discovery: paginated Blockscout inventory. Verification: ownerOf and tokenURI at the displayed Ethereum block. Indexing may lag; the balance count can exceed the loaded cards. Public services can rate-limit or lag. No signature is requested."
+  },
+  "finishedAt": "2026-10-20T06:54:04.846Z"
+}

@@ -1,12 +1,14 @@
-# UNLOCK · Trade & Labs
+# UNLOCK · UNLK / IMD
 
-Upgrade of the latest accepted source, `cd95d08507d635239da996518ed0a7df4dc78338`, for **https://unlk-b35c.sites.imd.fun/**. The static delivery is `dist/`. It uses relative assets and hash navigation for IPFS/gateway subpaths. This job prepares that export; the IMD publisher retains the existing website name. No contracts, deployments, pools or economics are changed.
+Update of the latest accepted source, `090436c1b4881eb1f980c826a2fe0127ea30d696`, for **https://unlk-b35c.sites.imd.fun/**. The committed static export is `dist/`; the publisher keeps the existing HTTPS/ENS site name. This repository update does not itself publish or deploy anything.
 
-The existing Ethereum swap, quota ladder, claims, treasury/NFT inventory, wallet connectors and standalone English whitepaper remain. Labs is the default entry; Trade remains in the primary navigation.
+Trade is the default screen. Labs navigation, screens, badges, login/payment controls, runtime imports and published snapshots/config are removed. Old `#labs-*` links safely resolve to Trade. The archived frontend, backend, documentation and snapshots are indexed in [archive/labs/README.md](archive/labs/README.md); no stored orders, payment records, reports or browser storage were erased.
 
-## Use and rebuild
+The existing Universal Router/Permit2 swap, quotes, slippage, approvals, quota checks, native claims, milestone ladder through $50M, treasury/NFT gallery and English whitepaper remain. Contract/transaction modules, chain parameters, treasury identities and economics are unchanged.
 
-Node 24 is required by the separate SQLite service; Node 24 also builds the frontend. The existing `web/package.json` and lockfile are unchanged.
+## Install, preview and rebuild
+
+Use Node 24 and the existing locked toolchain:
 
 ```sh
 cd web
@@ -17,57 +19,43 @@ npm run build
 npm run preview -- --host 127.0.0.1 --port 4173
 ```
 
-Vite writes root `dist/`. Deliver its entire contents. `npm run dev` serves source. The inherited package name mentions Sepolia; this application uses Ethereum **chain ID 1**. Canonical local fonts are in `web/public/fonts/`, shared by the app and whitepaper. Duplicate source/built font copies were removed; fonts, licenses and required runtime assets remain complete.
+Vite writes **root `dist/`**, including all required assets. Its base is `./`, and hash navigation works at IPFS/gateway subpaths. Preview the production export, not just `npm run dev`. Commit the complete export after rebuilding. Dependencies and caches are not committed. Existing manifests, lockfiles and build configuration have not been changed.
 
-## What ships
+TradingView Lightweight Charts 5.2.1 is an unmodified local standalone renderer with upstream types, Apache-2.0 license, NOTICE text and public attribution. Its version, original files and SHA-256 hashes are in [the chart vendor record](web/src/chart/vendor/README.md). No CDN or additional package install is required for the chart.
 
-- **Markets:** compact sortable table, market-cap default with unknown caps last, separate FDV, organic gainers ticker, seven ranking views, search, liquidity/editorial filters, device watchlists and excluded-token URLs. Every market, badge and sponsored placement passes the same current eligibility gate.
-- **Token details:** pool/timeframe/unit controls, real-swap OHLCV candlesticks, volume, crosshair, zoom/pan buttons, accessible value table, separated swaps/transfers/liquidity, paginated holders/traders, infrastructure exclusions and partial/unavailable P&L.
-- **Profiles:** local image/content preview, deployment-based edit rights, immutable moderated submissions, owner-set price/duration/refund terms, exact order-bound UNLK transfer and durable duplicate-payment protection. Sponsored placements are separate from organic ranks.
-- **Radar:** separate IMD/NFT/public-wallet views, balances and evidenced NFT ownership, transfer/trade distinction, device/server watchlists, bounded history, and configurable coincident-flow windows. Coincidence is not proven coordination.
-- **Audit:** repository → immutable commit → file tree → public scope/cost confirmation → customer-funded payment → saved progress → HTML/PDF report. Existing nonce login, IMD x402/Permit2 integration and recovery remain. IMD payment and verified ETH→IMD funding are supported; unsupported USDC funding stays disabled.
+## Chart data and controls
 
-## Connect your separately operated backend
+Only Ethereum **chainId 1**, UNLK `0x99fa82b022be4575891a43b757bc770691e18fda`, IMD `0xd34a99bc0f67ae1bbd63c660e6d0b0dd03e263b7` and official v4 PoolId `0x860a127e8f4b069ce93e280efda34db2b3cb21e7d73f164248f38f4220ec8d32` are admitted. The PoolManager address is never substituted for that PoolId. Provider symbols are not trusted for identity.
 
-**Only the static frontend is submitted for IMD/IPFS hosting.** Backend/indexer source, Docker, SQLite migration, health check, doctor CLI and evidenced production seeds/configuration are in `services/labs/`. No external service, bot, account or persistent server was deployed by this job.
+The default 1h view fits the available history. Select 1m/5m/15m/1h/4h/1D, candles/line and IMD/USD. Drag to pan, wheel/pinch to zoom, or use the keyboard-accessible navigation buttons. Reset fits the loaded range; fullscreen expands the chart. Crosshair OHLCV, a keyboard candle inspector and a recent-candle table provide exact values. No candles or volume are generated for empty intervals; line segments stop across inactive gaps.
 
-The shipped `web/public/labs-config.json` has an empty `apiBase`. A successful health check is required before enabling backend features. Static mode provides local browsing, previews, GitHub file selection and labeled historical Radar observations. **No stale market listings are published.** Current charts, persistent sessions/orders, moderation, checkout, server exports and live indexing await your operated API.
+GeckoTerminal's free exact-pool API supplies historical IMD and USD OHLCV directly to the browser. USD is its historical series, never a conversion of all past prices at today's IMD rate. Address/DEX identity and every OHLCV response are checked. The API calls IMD “VIBE”; both addresses match the official pool. First/older requests fetch at most 1,000 active bars, incremental refresh reconciles the recent 100, and the device cache holds up to 3,000 bars per series across six series. Older pagination resumes from saved timestamps. Coverage is partial and provider-limited; its OHLC opens follow its previous-close convention.
 
-See [service setup and connection](docs/backend.md), [eligibility, identities and data coverage](docs/labs-data.md), [implemented design](DESIGN.md), and [current validation and limitations](artifacts/repair/validation.md).
+If the initial IMD source fails, the chart switches visibly to bounded mainnet Swap-log history. You can also select **Ethereum logs · IMD**. It scans only this PoolId at the official PoolManager, in pages of 2,000 blocks, up to 12 pages/96 log requests per read, with PublicNode/dRPC fallback. Each completed page persists, reload resumes, recent 12 blocks are reconciled and deep reorgs invalidate the cache. Cache is bounded to 6,000 trades; partial coverage and provider errors are explicit. RPC candles use actual post-swap `sqrtPriceX96`, while GeckoTerminal uses execution-average trade prices; the source/method is disclosed. RPC history supports IMD only: selecting USD requests the provider's historical series. These logs alone cannot supply historical USD.
 
-## Repair and operator verification
+Both sources refresh about every 30 seconds while visible, cancel obsolete reads and retain timestamped cached data on failure. Storage refusal falls back to memory. A provider outage can still prevent new history; retry/source controls explain recovery. Chart prices are informational. **Only actual contract state grants selling rights.**
 
-Markets now retains a paginated catalog independently of per-cycle work, resumes fair queues, discovers representative sellers from successful swap receipts, checks actual allowances/quota and reports per-asset exclusions/recovery. Market cap is explicitly provider-reported and sourced, never FDV. Required editorial identities and INFER/OG ambiguities are documented. Official IMD SVG logos are supported securely.
+## Checks and evidence
 
-NFT Radar replaces the 32-ID sample with durable deployment-to-head ownership reconstruction, canonical checkpoints and rotating owner/balance verification. IMD balances/flows have an independent queue and recent lane. Coverage stays visibly partial until reconstruction is complete; custody accounts are separated from individual whales. Immutable-token profile authority has an explicit source/runtime/registry policy; owner() failures never grant rights. The Audit file wizard retains selections across searchable file pages and keeps paid actions/order recovery guarded.
+See [current validation](artifacts/chart/validation.md), [source trade/receipt checks](artifacts/chart/source-verification.json), [Chromium interaction results](artifacts/chart/browser-results.json), before/after screenshots in `artifacts/chart/`, and [DESIGN.md](DESIGN.md). Live mainnet/API checks are distinguished from injected empty/error responses. Earlier reports remain historical evidence.
 
-Reproduce bounded read-only mainnet diagnostics from the repository root:
+To repeat the production browser checks with an external Playwright install:
 
 ```sh
-node services/labs/doctor.mjs --db /tmp/unlock-labs/labs.sqlite --cycles 3 --output /tmp/unlock-labs/doctor.json
-node web/scripts/serve-repair.mjs /tmp/unlock-labs/labs.sqlite
-# Open http://127.0.0.1:4173/preview/#labs-markets, then stop the temporary preview.
+npm install --prefix /tmp/unlk-browser-check playwright
+IMD_PLAYWRIGHT=/tmp/unlk-browser-check/node_modules/playwright/index.mjs node web/scripts/check-chart.mjs
 ```
 
-This preview connects the REAL backend to the production export without changing the shipped empty API URL. See [operator setup](docs/backend.md) for persistence, HTTPS, provider configuration, migration/recovery and Docker commands. Source completion is not external hosting or ongoing indexing.
+The script serves `dist/` under `/preview/` for its own lifetime and closes its browser/server. It requires Chromium (Chrome channel) and network access. It does not connect a wallet or submit a transaction. `--before` also captures the currently hosted site; use it only before publication when recreating a before/after comparison. The current screenshots were captured before this update was published. Physical devices, Safari/WebKit and screen readers remain outside the performed checks.
 
-The fresh default database reproduced zero listings. Read-only repair diagnostics discovered 292 catalog assets and real recent IMD trades/candles/flows, but **zero tokens were admitted**: historical position-log access and representative seller allowances remain blocking. NFT evidence is **10 discovered / 2000 total**, with 0 IDs reconstructed from deployment history and archive backfill pending; it is not a global ranking. The supplied providers returned explicit archive/plan refusals, preserved in [doctor evidence](artifacts/repair/doctor.json). More code cannot grant provider access or create somebody else's approvals. No paid job, approval or mainnet write occurred.
+## Prepared commit
 
-Production Vite build, TypeScript check, existing frontend/service regressions, new repair tests and actual local API/browser interactions were run. Exact commands, results, screenshots, six-domain design review and limitations are in [repair validation](artifacts/repair/validation.md). The browser regression uses explicit isolated fixtures for partial/recovered P&L; real-mainnet diagnostics and integration checks are recorded separately. Report/PDF equivalence and simulated order/payment recovery pass without opening paid jobs.
+`artifacts/chart/change.bundle` carries the complete update commit, with accepted commit `090436c1b4881eb1f980c826a2fe0127ea30d696` as its parent/prerequisite. It was prepared in an isolated Git directory so the protected workspace `.git/` was not edited. Source, the unchanged dependency lockfile and the finished `dist/` are in that commit. The transport bundle itself is a delivery attachment and cannot recursively contain itself.
 
-After frontend dependencies are installed:
+From an existing clone that contains the accepted base:
 
 ```sh
-node --test services/labs/tests.mjs services/labs/*.test.mjs
-IMD_PLAYWRIGHT=/absolute/path/to/playwright/index.mjs node web/scripts/check-repair.mjs
+git bundle verify artifacts/chart/change.bundle
+git fetch artifacts/chart/change.bundle HEAD
+# Inspect FETCH_HEAD before applying the update to your branch.
 ```
-
-The service suite defaults to `web/node_modules/viem` for test-only signing; `LABS_TEST_ACCOUNTS_MODULE` can point to an external viem accounts module when installs must remain outside the repository. `IMD_PLAYWRIGHT` enables the retained production-export attribution regression. The integration script expects the temporary real preview above. WebKit and physical wallets/devices were not validated: this worker lacks WebKit system libraries; Chromium was exercised at 320, 390, 768 and 1440 widths.
-
-Packaging retains source, required runtime assets, fonts, ABIs, claims, static export and lockfile. Only the optional 2.3 MB esbuild WASM compiler archive was removed; normal locked Vite builds and an externally installed native esbuild are supported. The backend still verifies offline without npm. Historical evidence archives are preserved. See [vendor inventory](web/vendor/README.md).
-
-Older reports under `web/evidence/` and `artifacts/validation.md` are retained history. The current run is `artifacts/repair/validation.md`.
-
-## Treasury authority
-
-Inventory and profile-payment treasury: `0xFe44fC8F6C32f681a0ce443902a0b08bB5B3C736`. The vault's immutable beneficiary remains `0x48e4e74fe1d0c14404ceb57b9fec5b21329c6ec9`. Inventory, original payer attribution and beneficiary withdrawal authority remain separate. Profile fees transfer only UNLK `0x99fa82b022be4575891a43b757bc770691e18fda`; they create no contract, approval, badge, organic rank or eligibility entitlement.

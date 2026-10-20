@@ -50,7 +50,7 @@ export function priceFromSqrt(
   return price;
 }
 export function buildCandles(trades: PoolTrade[], interval: number): Candle[] {
-  if (![60, 300, 900, 3600].includes(interval))
+  if (![60, 300, 900, 3600, 14400, 86400].includes(interval))
     throw Error("Unsupported candle interval");
   const candles = new Map<number, Candle>();
   const ordered = [...trades].sort(

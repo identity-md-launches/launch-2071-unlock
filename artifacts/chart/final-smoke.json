@@ -1,0 +1,44 @@
+{
+  "at": "2026-10-20T07:00:22.151Z",
+  "passed": true,
+  "browser": "154.0.8037.57",
+  "source": "Ethereum logs · Source checked · 2026-10-20 07:00:21 UTCRefresh chart",
+  "from": "26211921",
+  "to": "26232161",
+  "trades": 318,
+  "uiCandlesVerified": 23,
+  "method": "All rendered 1h OHLCV table rows independently recomputed from the production browser replay cache (canonical mainnet Swap legs); three raw receipts verified separately.",
+  "sampleRows": [
+    [
+      "2026-10-20 06:00",
+      "0.0000151938",
+      "0.0000151944",
+      "0.0000151938",
+      "0.0000151944",
+      "0.1341106"
+    ],
+    [
+      "2026-10-19 13:00",
+      "0.0000151938",
+      "0.0000151938",
+      "0.0000151938",
+      "0.0000151938",
+      "7.882722"
+    ],
+    [
+      "2026-10-19 07:00",
+      "0.0000152384",
+      "0.0000152384",
+      "0.0000152384",
+      "0.0000152384",
+      "42.82247"
+    ]
+  ],
+  "desktopCanvasHeight": 450,
+  "mobileSourceSelectFont": "16px",
+  "mobileActionBottom": 785.796875,
+  "uncaughtScriptErrors": [],
+  "consoleDiagnostics": [],
+  "localAssetErrors": [],
+  "limitations": "Public mainnet RPC transport relayed through contributor endpoint without altered data. Chart API request cancelled when the source was switched to live RPC. This check ran after the final coverage-copy correction."
+}

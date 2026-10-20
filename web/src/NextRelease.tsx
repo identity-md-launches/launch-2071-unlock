@@ -42,6 +42,7 @@ import { evidenceAbi, distributorAbi } from "./mainnetAbis";
 import { verifyProof, type Leaf } from "./rewards";
 import { NftGallery } from "./NftGallery";
 import { MarketTerminal } from "./MarketTerminal";
+import { PoolActivity } from "./PoolActivity";
 const usd = (value: bigint | null | undefined) =>
   value === null || value === undefined ? "Unavailable" : `$${fmt(value, 2)}`;
 const money = (value: number) =>
@@ -952,6 +953,7 @@ export function NextRelease() {
           {data.oracleError}
         </p>
       )}
+      <PoolActivity />
       <Rights snapshot={stale ? null : snapshot} refresh={refresh} />
       <section className="section" id="treasury">
         <div className="section-heading">

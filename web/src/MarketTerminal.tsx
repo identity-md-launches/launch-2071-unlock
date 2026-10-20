@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { HOOK, NEXT_RATES, NEXT_THRESHOLDS } from "./mainnet";
 import { readMainnetCandidate, type CandidateSnapshot } from "./mainnetReader";
 import { hookAbi } from "./mainnetAbis";
 import { useWallet } from "./wallet";
 import { fmt } from "./trading";
-import { PriceChart } from "./PriceChart";
+const PriceChart = lazy(() => import("./PriceChart").then(m => ({ default: m.PriceChart })));
 
 const targets = [0, ...NEXT_THRESHOLDS];
 export const gateLabel = (i: number) =>
@@ -33,7 +33,7 @@ export function MarketTerminal({
 }: {
   snapshot: CandidateSnapshot | null;
 }) {
-  const [tab, setTab] = useState("ladder");
+  const [tab, setTab] = useState(location.hash === "#milestones" ? "ladder" : "history");
   const [selected, setSelected] = useState(0);
   const [touched, setTouched] = useState(false);
   const wallet = useWallet();
@@ -43,7 +43,7 @@ export function MarketTerminal({
   }, [snapshot?.tier, touched]);
   useEffect(() => {
     const onHash = () => {
-      if (location.hash === "#activity") setTab("history");
+      if (location.hash === "#activity" || location.hash === "#trade") setTab("history");
       if (location.hash === "#milestones") setTab("ladder");
     };
     onHash();
@@ -83,7 +83,6 @@ export function MarketTerminal({
     >
       <div
         className="chart-tabs"
-        id="activity"
         role="tablist"
         aria-label="Market view"
       >
@@ -330,7 +329,7 @@ export function MarketTerminal({
         aria-labelledby="history-tab"
         hidden={tab !== "history"}
       >
-        {tab === "history" && <PriceChart />}
+        {tab === "history" && <Suspense fallback={<p className="chart-loading small muted">Loading chart tools…</p>}><PriceChart /></Suspense>}
       </div>
     </section>
   );

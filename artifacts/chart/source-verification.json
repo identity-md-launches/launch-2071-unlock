@@ -1,0 +1,152 @@
+{
+  "chainId": 1,
+  "poolId": "0x860a127e8f4b069ce93e280efda34db2b3cb21e7d73f164248f38f4220ec8d32",
+  "poolManager": "0x000000000004444c5dc75cb358380d2e3de08a90",
+  "checkedAt": "2026-10-20T06:18:23.629055+00:00",
+  "source": "https://ethereum-rpc.publicnode.com (contributor read-only RPC transport)",
+  "ohlcvSource": "https://api.geckoterminal.com/api/v2/networks/eth/pools/0x860a127e8f4b069ce93e280efda34db2b3cb21e7d73f164248f38f4220ec8d32",
+  "samples": [
+    {
+      "transactionHash": "0x08588daae5ebbed8bd0dd09d60116b877105975c0361d9b64af0f6629ee0e4c1",
+      "block": 26231918,
+      "logIndex": 1492,
+      "blockTimestamp": "2026-10-20T06:11:11Z",
+      "amount0": "645097387847546258401",
+      "amount1": "-9925558312655087",
+      "sqrtPriceX96": "308825648876924254090159774",
+      "executionPriceIMD": "0.000015386139363814571071828907899927235162381213145368",
+      "executedVolumeIMD": "0.009925558312655087",
+      "provider5mIMD": [
+        1792476600,
+        1.50258555735457e-05,
+        1.53861393638146e-05,
+        1.50258555735457e-05,
+        1.53861393638146e-05,
+        0.00992555831265509
+      ],
+      "provider5mUSD": [
+        1792476600,
+        8.09433973353857e-05,
+        8.09433973353857e-05,
+        7.61990539718804e-05,
+        7.61990539718804e-05,
+        0.0491558106737142
+      ],
+      "providerTradeHistoricalUSDPrice": "0.0000761990539718804",
+      "checks": "Receipt matches exact PoolId; IMD close = abs(amount1/amount0); IMD volume = abs(amount1)/1e18; USD close matches historical provider trade price. Relative tolerance 1e-9."
+    },
+    {
+      "transactionHash": "0x8812dfb441bbffd71606ed319150d208b144a30a1d36e0fbe528217bc86ecf30",
+      "block": 26226846,
+      "logIndex": 547,
+      "blockTimestamp": "2026-10-19T13:13:35Z",
+      "amount0": "-524610543895391491166993",
+      "amount1": "7882722264931421714",
+      "sqrtPriceX96": "308825086005864319130796936",
+      "executionPriceIMD": "0.000015025855573545723586311954278786103329122169565662",
+      "executedVolumeIMD": "7.882722264931421714",
+      "provider5mIMD": [
+        1792415400,
+        1.51675314694001e-05,
+        1.51675314694001e-05,
+        1.50258555735457e-05,
+        1.50258555735457e-05,
+        7.88272226493142
+      ],
+      "provider5mUSD": [
+        1792415400,
+        8.47411146917672e-05,
+        8.47411146917672e-05,
+        8.09433973353857e-05,
+        8.09433973353857e-05,
+        42.4637597008575
+      ],
+      "providerTradeHistoricalUSDPrice": "0.0000809433973353857",
+      "checks": "Receipt matches exact PoolId; IMD close = abs(amount1/amount0); IMD volume = abs(amount1)/1e18; USD close matches historical provider trade price. Relative tolerance 1e-9."
+    },
+    {
+      "transactionHash": "0x2e1d6e4b54a11d33f5fa2cd86f657c8ff43cd802b39e040e25ab9d115a8333b9",
+      "block": 26225048,
+      "logIndex": 527,
+      "blockTimestamp": "2026-10-19T07:12:11Z",
+      "amount0": "-2823298761542774845707053",
+      "amount1": "42822472813218444038",
+      "sqrtPriceX96": "309277767869986659830097219",
+      "executionPriceIMD": "0.000015167531469400127535755141751279400856669739603113",
+      "executedVolumeIMD": "42.822472813218444038",
+      "provider5mIMD": [
+        1792393800,
+        1.5677483001484e-05,
+        1.5677483001484e-05,
+        1.51675314694001e-05,
+        1.51675314694001e-05,
+        42.8224728132184
+      ],
+      "provider5mUSD": [
+        1792393800,
+        8.466328752371e-05,
+        8.47411146917672e-05,
+        8.466328752371e-05,
+        8.47411146917672e-05,
+        239.24948416102
+      ],
+      "providerTradeHistoricalUSDPrice": "0.0000847411146917672",
+      "checks": "Receipt matches exact PoolId; IMD close = abs(amount1/amount0); IMD volume = abs(amount1)/1e18; USD close matches historical provider trade price. Relative tolerance 1e-9."
+    }
+  ],
+  "browserAccess": {
+    "method": "Direct Chromium page-context fetch from existing HTTPS site, no data interception",
+    "httpStatus": 200,
+    "rows": 53,
+    "cors": "access-control-allow-origin: * (also verified by HTTP request)",
+    "unit": "IMD",
+    "interval": "5m",
+    "addressesVerified": true,
+    "note": "Observed before implementation. Subsequent direct production Chromium checks loaded all six USD intervals; the free endpoint later returned HTTP 429 during repeated validation. Provider rate limits are handled visibly and do not disable the swap or mainnet IMD fallback."
+  },
+  "rpcReplay": {
+    "from": "26211921",
+    "to": "26232103",
+    "trades": 318,
+    "headTime": 1792478903,
+    "samples5m": [
+      {
+        "time": 1792476600,
+        "open": 1.5193840314327507e-05,
+        "high": 1.5193840314327507e-05,
+        "low": 1.5193755532279018e-05,
+        "close": 1.5193755532279018e-05,
+        "volumeIMD": "0.024929433761858662",
+        "swaps": 2,
+        "transactionHash": "0x08588daae5ebbed8bd0dd09d60116b877105975c0361d9b64af0f6629ee0e4c1",
+        "sqrtPriceX96Check": true,
+        "signedVolumeCheck": true
+      },
+      {
+        "time": 1792415400,
+        "open": 1.519378492925674e-05,
+        "high": 1.519378492925674e-05,
+        "low": 1.519378492925674e-05,
+        "close": 1.519378492925674e-05,
+        "volumeIMD": "7.882722264931421714",
+        "swaps": 1,
+        "transactionHash": "0x8812dfb441bbffd71606ed319150d208b144a30a1d36e0fbe528217bc86ecf30",
+        "sqrtPriceX96Check": true,
+        "signedVolumeCheck": true
+      },
+      {
+        "time": 1792393800,
+        "open": 1.5238360270537972e-05,
+        "high": 1.5238360270537972e-05,
+        "low": 1.5238360270537972e-05,
+        "close": 1.5238360270537972e-05,
+        "volumeIMD": "42.822472813218444038",
+        "swaps": 1,
+        "transactionHash": "0x2e1d6e4b54a11d33f5fa2cd86f657c8ff43cd802b39e040e25ab9d115a8333b9",
+        "sqrtPriceX96Check": true,
+        "signedVolumeCheck": true
+      }
+    ],
+    "method": "Browser production export indexed mainnet Swap events. Sampled raw sqrtPriceX96 and signed legs were independently decoded from mainnet receipts; observed OHLC and summed volume agree."
+  }
+}

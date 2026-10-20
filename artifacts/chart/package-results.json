@@ -1,0 +1,23 @@
+{
+  "commit": "dc7d9cf082685be961e84fb30efdbae1db40102f",
+  "parent": "090436c1b4881eb1f980c826a2fe0127ea30d696",
+  "updateBundle": {
+    "path": "artifacts/chart/change.bundle",
+    "bytes": 795993,
+    "sha256": "23b0f3a1c8f7a06f6cc55b5a94a6842408d41bdfaba2325f051f7aab784b078f",
+    "verified": true,
+    "prerequisite": "090436c1b4881eb1f980c826a2fe0127ea30d696"
+  },
+  "completeCurrentTreeAudit": {
+    "bytes": 7915524,
+    "limit": 8388608,
+    "passed": true,
+    "note": "A standalone current-tree Git bundle (including the update transport attachment), not old-history rewriting. This small result JSON is attached after the audit; its size leaves the submission well below the limit."
+  },
+  "evidenceBytesBeforeThisReport": 1376678,
+  "evidenceLimit": 1572864,
+  "distBytes": 1604534,
+  "protectedFilesUnchanged": true,
+  "archivesIntact": true,
+  "noDependencyCachesOrSubmodules": true
+}

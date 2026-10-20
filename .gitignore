@@ -25,3 +25,8 @@ __pycache__/
 # Validation reports, read-only chain evidence, compressed screenshots, and one incremental Git commit bundle.
 !/artifacts/repair/
 !/artifacts/repair/**
+
+# Explicit chart evidence path budget: artifacts/chart/ <= 1.5 MiB total.
+# Before/after compressed screenshots, source checks and validation only.
+!/artifacts/chart/
+!/artifacts/chart/**

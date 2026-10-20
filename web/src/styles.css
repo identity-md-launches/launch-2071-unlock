@@ -1666,3 +1666,10 @@ details p {
     min-height: 136px;
   }
 }
+/* Ordinary trading activity stays separate from the informational chart. */
+.pool-activity > p { margin-block: 10px; overflow-wrap: anywhere; }
+.activity-table-wrap { overflow: auto; max-width: 100%; max-height: 420px; margin-top: 12px; overscroll-behavior: contain; }
+.activity-table { width: 100%; border-collapse: collapse; white-space: nowrap; font-size: var(--small); }
+.activity-table caption { text-align: start; color: var(--muted); margin-bottom: 8px; white-space: normal; }
+.activity-table th, .activity-table td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: end; }
+.activity-table th:first-child, .activity-table td:first-child { text-align: start; }
