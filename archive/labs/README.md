@@ -5,6 +5,7 @@ Labs is retired from the public static site in this revision. It is not imported
 Preserved for possible later work:
 
 - `web/src/labs/`: original frontend, styles, provider/domain/payment code. Unreferenced by the production entry; retained in its original location to preserve existing test imports and operator references.
+- The former `labsFunding` action metadata and native-conversion validator remain only inside this archive's frontend directory. The ordinary trading wallet has no Labs import or payment exception and rejects nonzero native value at preparation and both signing checks. The archived native-payment flow would require deliberate wallet integration before any future reactivation.
 - `services/labs/`: backend/indexer source, migrations, payment/order/report persistence and operator tools. No service is started by the site or this task.
 - `docs/backend.md`, `docs/labs-data.md` and prior validation under `artifacts/repair/`: historical documentation/evidence; not the current public-product description.
 - `archive/labs/snapshots/`: intact Markets and Radar JSON previously copied to `dist/labs/`. They are now outside Vite's public directory and are not published.

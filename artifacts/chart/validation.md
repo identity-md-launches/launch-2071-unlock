@@ -1,6 +1,6 @@
 # UNLOCK chart and Labs removal validation
 
-Worker observations for the update based on accepted commit `090436c1b4881eb1f980c826a2fe0127ea30d696`. This is a local static-export delivery for the existing HTTPS site. Nothing was published externally, deployed on chain, signed or transacted. These checks are worker evidence, not independent certification.
+Worker observations for the update based on accepted commit `090436c1b4881eb1f980c826a2fe0127ea30d696`. This is a historical report. The subsequent independent review found a remaining wallet → Labs conversion import, contrary to the runtime-removal claim below, and raw RPC diagnostics in the chart error panel. Both are reproduced and corrected in [the revision validation](../chart-revision/validation.md). The current export manifest has been refreshed; other original results remain historical. Nothing was published externally, deployed on chain, signed or transacted. These checks are worker evidence, not independent certification.
 
 ## Result and scope
 

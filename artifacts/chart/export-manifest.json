@@ -1,5 +1,5 @@
 {
-  "bytes": 1604534,
+  "bytes": 1602781,
   "files": [
     {
       "path": "dist/abi/ERC20.json",
@@ -57,19 +57,14 @@
       "sha256": "e52695e61043701992824861c29fd0379719b981ee27da6bf55f2714b85411bc"
     },
     {
-      "path": "dist/assets/PriceChart-tzLQyH4o.js",
-      "bytes": 194898,
-      "sha256": "9111bd2722fb991fbaf91ce244b3bf466aa5d1115bb6bc9e89d538b5ad398035"
+      "path": "dist/assets/PriceChart-ZwLudgni.js",
+      "bytes": 194882,
+      "sha256": "64f479641a4a60a626c84540f04d01e42b54316b78e225e6c9af47c2db2b2654"
     },
     {
-      "path": "dist/assets/ccip-DJv6SlU2.js",
+      "path": "dist/assets/ccip-DqrDDq9G.js",
       "bytes": 2610,
-      "sha256": "652ef5a973e63412888f227967304e58c2071733e473b27a81c0c74d57d7366b"
-    },
-    {
-      "path": "dist/assets/index-BvBT1bLn.js",
-      "bytes": 113087,
-      "sha256": "66e992ad0a462874a0d2d7ba3089e1c82d6c7c4fbafe611ebca669a2c34ff412"
+      "sha256": "edece2cbf5879ac5c1ca79b6eb10fbc07ae1bf8c1030d2a8f1ac7d8b9d5f7684"
     },
     {
       "path": "dist/assets/index-DUrHLGgY.css",
@@ -77,9 +72,14 @@
       "sha256": "090c7fdf601fa6c0a0b918de4bc724fa6d079b1fb0ccac0c66c791e91c39c5c2"
     },
     {
-      "path": "dist/assets/index-j5uvLgFg.js",
-      "bytes": 571133,
-      "sha256": "97283fd8373e4ce4b873df644a7c9c021dc1dbf80d484931293c96b7fa523ff5"
+      "path": "dist/assets/index-DeRhvf01.js",
+      "bytes": 113087,
+      "sha256": "3c81cd758ed4639e8587f6df35ee7c20252a87e30194bc5a37748088427c3983"
+    },
+    {
+      "path": "dist/assets/index-DzgeCYfl.js",
+      "bytes": 569396,
+      "sha256": "bd2f1a3c7f17507c4f0d77a6370ca537740a428f8b626273665662816902a6c1"
     },
     {
       "path": "dist/chart-NOTICE.txt",
@@ -114,7 +114,7 @@
     {
       "path": "dist/index.html",
       "bytes": 1626,
-      "sha256": "0bc908f4bb4754332ae7911ef0f328f9a2a0f2cf806cef6113c0d59303c122bd"
+      "sha256": "100e041e0414937dc02bbe8bacf083b1e80a5a7718698351aed3b7c93ba22607"
     },
     {
       "path": "dist/recovery.html",

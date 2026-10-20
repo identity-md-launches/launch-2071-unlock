@@ -4,7 +4,7 @@ Update of the latest accepted source, `090436c1b4881eb1f980c826a2fe0127ea30d696`
 
 Trade is the default screen. Labs navigation, screens, badges, login/payment controls, runtime imports and published snapshots/config are removed. Old `#labs-*` links safely resolve to Trade. The archived frontend, backend, documentation and snapshots are indexed in [archive/labs/README.md](archive/labs/README.md); no stored orders, payment records, reports or browser storage were erased.
 
-The existing Universal Router/Permit2 swap, quotes, slippage, approvals, quota checks, native claims, milestone ladder through $50M, treasury/NFT gallery and English whitepaper remain. Contract/transaction modules, chain parameters, treasury identities and economics are unchanged.
+The existing Universal Router/Permit2 swap, quotes, slippage, approvals, quota checks, native claims, milestone ladder through $50M, treasury/NFT gallery and English whitepaper remain. Deployment identities, chain parameters, treasury identities and economics are unchanged. The shared trading wallet rejects nonzero native value at preparation and both signing validations; its retired Labs conversion exception and action metadata are no longer part of the public runtime.
 
 ## Install, preview and rebuild
 
@@ -37,7 +37,7 @@ Both sources refresh about every 30 seconds while visible, cancel obsolete reads
 
 ## Checks and evidence
 
-See [current validation](artifacts/chart/validation.md), [source trade/receipt checks](artifacts/chart/source-verification.json), [Chromium interaction results](artifacts/chart/browser-results.json), before/after screenshots in `artifacts/chart/`, and [DESIGN.md](DESIGN.md). Live mainnet/API checks are distinguished from injected empty/error responses. Earlier reports remain historical evidence.
+See [revision validation](artifacts/chart-revision/validation.md) for the two reviewed fixes, fresh production Chromium/mainnet checks, before/after error screenshots and wallet-guard regressions. The [original chart validation](artifacts/chart/validation.md), [source trade/receipt checks](artifacts/chart/source-verification.json), [original Chromium results](artifacts/chart/browser-results.json) and screenshots in `artifacts/chart/` remain historical evidence. [DESIGN.md](DESIGN.md) documents the final interface. Live mainnet/API checks are distinguished from injected empty/error responses.
 
 To repeat the production browser checks with an external Playwright install:
 
@@ -50,7 +50,7 @@ The script serves `dist/` under `/preview/` for its own lifetime and closes its 
 
 ## Prepared commit
 
-`artifacts/chart/change.bundle` carries the complete update commit, with accepted commit `090436c1b4881eb1f980c826a2fe0127ea30d696` as its parent/prerequisite. It was prepared in an isolated Git directory so the protected workspace `.git/` was not edited. Source, the unchanged dependency lockfile and the finished `dist/` are in that commit. The transport bundle itself is a delivery attachment and cannot recursively contain itself.
+`artifacts/chart/change.bundle` carries the current revision commit, with accepted commit `faeca565632f6e9f7fafbc1878cd4b9dd734c3f9` as its parent/prerequisite. It replaces the previous round's transport bundle, whose source remains in history. It was prepared in an isolated Git directory so the protected workspace `.git/` was not edited. Source, the unchanged dependency lockfile, finished `dist/`, finding responses and revision evidence are in that commit. The transport bundle and its final packaging report are delivery attachments and cannot recursively contain themselves. See `artifacts/chart-revision/package-results.json` for the commit and size audit.
 
 From an existing clone that contains the accepted base:
 

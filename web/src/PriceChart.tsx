@@ -159,7 +159,7 @@ export function PriceChart() {
         failures++;
         delay = e instanceof ChartProviderError ? e.retryAfter * 1000 : Math.min(300000, 30000 * 2 ** (failures - 1));
         const message = e instanceof Error ? e.message : "Chart provider unreachable. Check your connection and retry the chart.";
-        setError(source === "rpc" ? `Mainnet history failed. Retry the chart; both public RPC providers were tried. ${message.slice(0,220)}` : message);
+        setError(source === "rpc" ? "Mainnet history is unavailable. Retry chart or choose GeckoTerminal under Source." : message);
         setConfirmed(false);
         if (source === "gecko" && currency === "IMD" && !currentData.current?.candles.length) {
           setFallbackReason(`${message} Switched to official-pool mainnet history in IMD.`);

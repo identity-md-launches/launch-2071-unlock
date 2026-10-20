@@ -3,7 +3,7 @@ import { formatEther, type Address } from "viem";
 import { api, githubRepository, safeExternal, scopePaths, type LabsSession } from "./api";
 import { signAuditPayment } from "./payment";
 import { describeConversion, quoteEthToImd, type ConversionQuote } from "./conversion";
-import { useWallet, errorMessage } from "../wallet";
+import { useWallet, errorMessage, type Action } from "../wallet";
 import { client } from "../config";
 import { IMD, PERMIT2, UNIVERSAL_ROUTER } from "../mainnet";
 import { erc20Abi, executeAbi } from "../mainnetAbis";
@@ -189,7 +189,9 @@ export function Audit({ apiBase, session, login }: Props) {
   async function convert() {
     if (!conversion || !wallet.address || conversion.account.toLowerCase() !== wallet.address.toLowerCase()) throw Error("Request an ETH conversion quote for your current wallet.");
     const value = conversion;
-    await wallet.review({ title: "Get exact IMD with ETH", description: "This swap sends IMD to your own wallet and refunds unused ETH. You pay pool fees, bounded slippage and network gas. It does not submit or pay for an audit.", address: UNIVERSAL_ROUTER, abi: executeAbi, functionName: "execute", args: value.args, value: value.maximum, labsFunding: value, details: describeConversion(value), validate: async () => { if (Date.now() > value.quotedAt + 60000 || BigInt(Math.floor(Date.now() / 1000) + 15) >= value.deadline) throw Error("Conversion quote expired. Get a fresh route quote."); if (q?.expiresAt * 1000 <= Date.now() + 60000) throw Error("The audit quote expires too soon. Resolve it before converting."); }, onSuccess: () => { setConversion(null); void refreshFunds().catch(() => {}); } });
+    // Archived metadata only; the public trading wallet now rejects all native funding.
+    const action: Action & { labsFunding: ConversionQuote } = { title: "Get exact IMD with ETH", description: "This swap sends IMD to your own wallet and refunds unused ETH. You pay pool fees, bounded slippage and network gas. It does not submit or pay for an audit.", address: UNIVERSAL_ROUTER, abi: executeAbi, functionName: "execute", args: value.args, value: value.maximum, labsFunding: value, details: describeConversion(value), validate: async () => { if (Date.now() > value.quotedAt + 60000 || BigInt(Math.floor(Date.now() / 1000) + 15) >= value.deadline) throw Error("Conversion quote expired. Get a fresh route quote."); if (q?.expiresAt * 1000 <= Date.now() + 60000) throw Error("The audit quote expires too soon. Resolve it before converting."); }, onSuccess: () => { setConversion(null); void refreshFunds().catch(() => {}); } };
+    await wallet.review(action);
   }
   async function loadReport(id = jobId || reportId) {
     if (!/^[a-f0-9-]{36}$/i.test(id || "")) throw Error("Enter a valid public IMD audit job ID.");
